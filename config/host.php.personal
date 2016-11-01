@@ -1,0 +1,4 @@
+<?
+use Cake\Core\Configure;
+Configure::write('Belongsto.host', 'personal');
+putenv('CAKEPHP_DEBUG=1');

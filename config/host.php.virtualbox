@@ -1,0 +1,4 @@
+<?
+use Cake\Core\Configure;
+Configure::write('Belongsto.host', 'virtualbox');
+putenv('CAKEPHP_DEBUG=1');
