@@ -30,7 +30,7 @@
             <tr>
                 <td><?= h($relation->id) ?></td>
                 <td><?= $relation->has('subject') ? $this->Html->link($relation->subject->name, ['controller' => 'Subjects', 'action' => 'view', $relation->subject->id]) : '' ?></td>
-                <td><?= h($relation->object_id) ?></td>
+                <td><?= $relation->has('object') ? $this->Html->link($relation->object->name, ['controller' => 'Subjects', 'action' => 'view', $relation->subject->id]) : '' ?></td>
                 <td><?= h($relation->relation) ?></td>
                 <td><?= h($relation->start) ?></td>
                 <td><?= h($relation->end) ?></td>
