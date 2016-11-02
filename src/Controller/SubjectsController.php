@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use U\U;
 
 /**
  * Subjects Controller
@@ -50,7 +51,7 @@ class SubjectsController extends AppController
     {
         $subject = $this->Subjects->newEntity();
         if ($this->request->is('post')) {
-            $subject = $this->Subjects->patchEntity($subject, $this->request->data);
+            $subject = $this->Subjects->formToSaving($this->request->data);
             if ($this->Subjects->save($subject)) {
                 $this->Flash->success(__('The subject has been saved.'));
 
@@ -100,6 +101,7 @@ class SubjectsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $subject = $this->Subjects->get($id);
+	$this->Subjects->buildSubjectSearch(); // cascade deleting
         if ($this->Subjects->delete($subject)) {
             $this->Flash->success(__('The subject has been deleted.'));
         } else {

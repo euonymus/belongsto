@@ -65,6 +65,8 @@ use Cake\Mailer\Email;
 use Cake\Network\Request;
 use Cake\Utility\Inflector;
 use Cake\Utility\Security;
+// Added by euonymus
+require_once(ROOT .DS. "vendor" . DS . "project" . DS . "U" . DS . "U.php");
 
 /*
  * Read configuration file and inject configuration into various

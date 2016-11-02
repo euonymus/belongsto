@@ -74,6 +74,35 @@ class Initial extends AbstractMigration
             )
             ->create();
 
+        $this->table('subject_searches', ['id' => false, 'primary_key' => ['id']])
+            ->addColumn('id', 'string', [
+                'default' => '',
+                'limit' => 36,
+                'null' => false,
+            ])
+            ->addColumn('search_words', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addIndex(
+                [
+                    'search_words',
+                ],
+                ['type' => 'fulltext']
+            )
+            ->create();
+
         $this->table('subjects', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'string', [
                 'default' => '',
@@ -145,6 +174,7 @@ class Initial extends AbstractMigration
     public function down()
     {
         $this->dropTable('relations');
+        $this->dropTable('subject_searches');
         $this->dropTable('subjects');
     }
 }

@@ -5,6 +5,8 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use U\U;
+use NgramConverter\NgramConverter;
 
 /**
  * Subjects Model
@@ -43,6 +45,55 @@ class SubjectsTable extends Table
         $this->hasMany('Relations', [
             'foreignKey' => 'subject_id'
         ]);
+    }
+
+    public function buildSubjectSearch()
+    {
+	$searchAssociation = [
+          'hasOne' => [
+              'SubjectSearches' => [
+                  'className'  => 'SubjectSearches',
+		  'foreignKey' => 'id',
+		  'dependent' => true,
+               ]
+          ],
+        ];
+	$this->addAssociations($searchAssociation);
+    }
+
+    public function formToEntity($arr)
+    {
+      $ret = $this->newEntity($arr);
+      $ret->id = U::buildGuid(); // varchar 36 フィールドのinsertには必要。
+      return $ret;
+    }
+    public function patchSearchOnData($data)
+    {
+      $arr = $data->toArray();
+      $arr['subject_search'] = self::composeSearchArr($data);
+      $this->buildSubjectSearch();
+      $ret = $this->newEntity($arr, ['associated' => ['SubjectSearches']]);
+      $ret->id = $data->id;
+      return $ret;
+    }
+    public static function composeSearchArr($data)
+    {
+      if (!is_object($data)) return false;
+      $search_words = self::bigramize($data->name . $data->description);
+      if (!$search_words) return false;
+      $ret = ['id' => $data->id, 'search_words' => $search_words];
+      return $ret;
+    }
+    public static function bigramize($str)
+    {
+      require_once(ROOT .DS. "vendor" . DS . "project" . DS . "NgramConverter" . DS . "ngram_converter.php");
+      return NgramConverter::to_query($str, 2);
+    }
+    public function formToSaving($form)
+    {
+      if (!is_array($form)) return false;
+      $data = $this->formToEntity($form);
+      return $this->patchSearchOnData($data);
     }
 
     /**

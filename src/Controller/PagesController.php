@@ -17,6 +17,8 @@ namespace App\Controller;
 use Cake\Core\Configure;
 use Cake\Network\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\ORM\TableRegistry;
+use U\U;
 
 /**
  * Static content controller
@@ -37,6 +39,7 @@ class PagesController extends AppController
      */
     public function display()
     {
+/*
         $path = func_get_args();
 
         $count = count($path);
@@ -61,5 +64,13 @@ class PagesController extends AppController
             }
             throw new NotFoundException();
         }
+*/
+        $this->Subjects = TableRegistry::get('Subjects');
+        $subjects = $this->paginate($this->Subjects);
+
+	
+
+        $this->set(compact('subjects'));
+        $this->set('_serialize', ['subjects']);
     }
 }
