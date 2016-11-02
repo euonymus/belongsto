@@ -51,6 +51,19 @@ class SubjectsTable extends Table
         ]);
     }
 
+    public function buildActiveRelation()
+    {
+	$association = [
+          'belongsToMany' => [
+              'Objects' => [
+                  'joinTable' => 'subjects',
+                  'through' => 'Relations',
+               ]
+          ],
+        ];
+	$this->addAssociations($association);
+    }
+
     public function bindSubjectSearch()
     {
 	$association = [

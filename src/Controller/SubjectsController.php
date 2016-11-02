@@ -42,6 +42,18 @@ class SubjectsController extends AppController
         $this->set('_serialize', ['subject']);
     }
 
+    public function relations($id = null)
+    {
+        $this->Subjects->buildActiveRelation();
+        $subject = $this->Subjects->get($id, [
+           'contain' => ['Objects']
+        ]);
+debug($subject);
+
+        /* $this->set('subject', $subject); */
+        /* $this->set('_serialize', ['subject']); */
+    }
+
     /**
      * Add method
      *
