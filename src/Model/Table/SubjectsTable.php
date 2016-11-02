@@ -5,6 +5,10 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+
+use Cake\ORM\TableRegistry;
+use App\Model\Table\SubjectSearchesTable;
+
 use U\U;
 use NgramConverter\NgramConverter;
 
@@ -47,7 +51,7 @@ class SubjectsTable extends Table
         ]);
     }
 
-    public function buildSubjectSearch()
+    public function bindSubjectSearch()
     {
 	$searchAssociation = [
           'hasOne' => [
@@ -71,7 +75,7 @@ class SubjectsTable extends Table
     {
       $arr = $data->toArray();
       $arr['subject_search'] = self::composeSearchArr($data);
-      $this->buildSubjectSearch();
+      $this->bindSubjectSearch();
       $ret = $this->newEntity($arr, ['associated' => ['SubjectSearches']]);
       $ret->id = $data->id;
       return $ret;
@@ -137,5 +141,20 @@ class SubjectsTable extends Table
             ->notEmpty('is_momentary');
 
         return $validator;
+    }
+
+    /****************************************************************************/
+    /* Conditions                                                               */
+    /****************************************************************************/
+    public function search($search_words)
+    {
+      $this->bindSubjectSearch();
+      $expr = self::bigramize($search_words);
+      $query = $this
+	->find('all')
+	->contain(['SubjectSearches'])
+	->matching('SubjectSearches')
+	->where(["MATCH(SubjectSearches.search_words) AGAINST(:search)"])->bind(":search", $expr);
+      return $query;
     }
 }

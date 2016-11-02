@@ -49,8 +49,27 @@ class SubjectsController extends AppController
      */
     public function add()
     {
-        $subject = $this->Subjects->newEntity();
+        // Session check
+        $this->Session->delete('ExistingSubjects');
+        $session = unserialize($this->Session->read('SavingSubjects'));
+	if ($session) {
+	  $this->Session->delete('SavingSubjects');
+	  $this->request->data = $session;
+	}
+
+        // Existence check
         if ($this->request->is('post')) {
+	  $query = $this->Subjects->search($this->request->data['name']);
+	  if (iterator_count($query)) {
+	    $this->Session->write('ExistingSubjects', serialize($query->toArray()));
+	    $this->Session->write('SavingSubjects', serialize($this->request->data));
+	    return $this->redirect(['action' => 'confirm']);
+	  }
+	}
+
+        // Saving
+        $subject = $this->Subjects->newEntity();
+        if ($this->request->is('post') || $session) {
             $subject = $this->Subjects->formToSaving($this->request->data);
             if ($this->Subjects->save($subject)) {
                 $this->Flash->success(__('The subject has been saved.'));
@@ -62,6 +81,13 @@ class SubjectsController extends AppController
         }
         $this->set(compact('subject'));
         $this->set('_serialize', ['subject']);
+    }
+
+    public function confirm()
+    {
+      $subjects = unserialize($this->Session->read('ExistingSubjects'));
+      $this->set(compact('subjects'));
+      $this->set('_serialize', ['subjects']);
     }
 
     /**
@@ -101,7 +127,7 @@ class SubjectsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $subject = $this->Subjects->get($id);
-	$this->Subjects->buildSubjectSearch(); // cascade deleting
+	$this->Subjects->bindSubjectSearch(); // cascade deleting
         if ($this->Subjects->delete($subject)) {
             $this->Flash->success(__('The subject has been deleted.'));
         } else {

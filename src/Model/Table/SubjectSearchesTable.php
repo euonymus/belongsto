@@ -6,6 +6,8 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
+use NgramConverter\NgramConverter;
+
 /**
  * SubjectSearches Model
  *
@@ -56,4 +58,8 @@ class SubjectSearchesTable extends Table
 
         return $validator;
     }
+
+    /****************************************************************************/
+    /* Conditions                                                               */
+    /****************************************************************************/
 }
