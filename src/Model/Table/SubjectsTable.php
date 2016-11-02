@@ -53,7 +53,7 @@ class SubjectsTable extends Table
 
     public function bindSubjectSearch()
     {
-	$searchAssociation = [
+	$association = [
           'hasOne' => [
               'SubjectSearches' => [
                   'className'  => 'SubjectSearches',
@@ -62,7 +62,7 @@ class SubjectsTable extends Table
                ]
           ],
         ];
-	$this->addAssociations($searchAssociation);
+	$this->addAssociations($association);
     }
 
     public function formToEntity($arr)

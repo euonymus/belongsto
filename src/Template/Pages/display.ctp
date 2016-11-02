@@ -41,7 +41,7 @@
                 <td><?= h($subject->created) ?></td>
                 <td><?= h($subject->modified) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $subject->id]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'subjects', 'action' => 'relations', $subject->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $subject->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $subject->id], ['confirm' => __('Are you sure you want to delete # {0}?', $subject->id)]) ?>
                 </td>
