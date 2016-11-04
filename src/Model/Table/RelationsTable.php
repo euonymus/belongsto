@@ -6,6 +6,8 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
+use App\Utils\U;
+
 /**
  * Relations Model
  *
@@ -50,6 +52,25 @@ class RelationsTable extends Table
             'joinType' => 'INNER'
         ]);
     }
+
+
+
+
+
+    public function formToEntity($arr)
+    {
+      $ret = $this->newEntity($arr);
+      $ret->id = U::buildGuid(); // varchar 36 フィールドのinsertには必要。
+      return $ret;
+    }
+
+    public function formToSaving($form)
+    {
+      if (!is_array($form)) return false;
+      return $this->formToEntity($form);
+    }
+
+
 
     /**
      * Default validation rules.

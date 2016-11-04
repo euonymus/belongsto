@@ -175,7 +175,7 @@ class SubjectsTable extends Table
       $expr = self::bigramize($search_words);
       $query = $this
 	->find('all')
-	->contain(['SubjectSearches'])
+	->contain(['SubjectSearches', 'Actives'])
 	->matching('SubjectSearches')
 	->where(["MATCH(SubjectSearches.search_words) AGAINST(:search)"])->bind(":search", $expr);
       return $query;

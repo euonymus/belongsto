@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
+use Cake\ORM\TableRegistry;
+
 /**
  * Relations Controller
  *
@@ -19,7 +21,7 @@ class RelationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Subjects', 'Objects']
+            'contain' => ['Actives', 'Passives']
         ];
         $relations = $this->paginate($this->Relations);
 
@@ -37,7 +39,7 @@ class RelationsController extends AppController
     public function view($id = null)
     {
         $relation = $this->Relations->get($id, [
-            'contain' => ['Subjects', 'Objects']
+            'contain' => ['Actives', 'Passives']
         ]);
 
         $this->set('relation', $relation);
@@ -49,11 +51,81 @@ class RelationsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($active_id = null)
     {
-        $relation = $this->Relations->newEntity();
+        $ready_for_save = false;
+
+        $Subjects = TableRegistry::get('Subjects');
+
+        // Session check
+        $this->Session->delete('ExistingSubjectsForRelation');
+        $session_relation = unserialize($this->Session->read('SavingRelation'));
+	if ($session_relation) {
+	  $this->Session->delete('SavingRelation');
+	  $active_id = $session_relation['active_id'];
+	  $this->request->data = $session_relation;
+	}
+        $session_passive_id = unserialize($this->Session->read('SavingPassiveId'));
+	if ($session_passive_id !== false) {
+	  $this->Session->delete('SavingPassiveId');
+	}
+
+        // Existence check
         if ($this->request->is('post')) {
-            $relation = $this->Relations->patchEntity($relation, $this->request->data);
+	  $this->request->data['active_id'] = $active_id;
+
+	  $query = $Subjects->search($this->request->data['passive']);
+	  if (iterator_count($query)) {
+	    $this->Session->write('ExistingSubjectsForRelation', serialize($query->toArray()));
+	    $this->Session->write('SavingRelation', serialize($this->request->data));
+	    return $this->redirect(['action' => 'confirm']);
+	  }
+	}
+
+	// Save New Subject for the passive_id
+        if ($this->request->is('post') || 
+	    (($session_passive_id !== false) && ($session_passive_id == 0))
+	    ) {
+	    $saving_subject = [
+			       'image_path' => '',
+			       'description' => '',
+			       'start' => [
+					   'year' => '',
+					   'month' => '',
+					   'day' => '',
+					   'hour' => '',
+					   'minute' => ''
+					   ],
+			       'end' => [
+					 'year' => '',
+					 'month' => '',
+					 'day' => '',
+					 'hour' => '',
+					 'minute' => ''
+					 ],
+			       'start_accuracy' => '',
+			       'end_accuracy' => '',
+			       'is_momentary' => '0'
+			       ];
+	    $saving_subject['name'] = $this->request->data['passive'];
+
+            $subject = $Subjects->formToSaving($saving_subject);
+            if ($savedSubject = $Subjects->save($subject)) {
+                $this->Flash->success(__('The subject has been saved.'));
+		$session_passive_id = $savedSubject->id;
+            } else {
+                $this->Flash->error(__('The subject could not be saved. Please, try again.'));
+            }
+	    $ready_for_save = true;
+	}
+
+
+        $relation = $this->Relations->newEntity();
+        if ($ready_for_save) {
+
+            $this->request->data['passive_id'] = $session_passive_id;
+            /* $relation = $this->Relations->patchEntity($relation, $this->request->data); */
+            $relation = $this->Relations->formToSaving($this->request->data);
             if ($this->Relations->save($relation)) {
                 $this->Flash->success(__('The relation has been saved.'));
 
@@ -62,10 +134,21 @@ class RelationsController extends AppController
                 $this->Flash->error(__('The relation could not be saved. Please, try again.'));
             }
         }
-        $subjects = $this->Relations->Subjects->find('list', ['limit' => 200]);
-        $objects = $this->Relations->Objects->find('list', ['limit' => 200]);
-        $this->set(compact('relation', 'subjects', 'objects'));
+	$active = $Subjects->get($active_id, ['contain' => 'Actives']);
+        $passives = $this->Relations->Passives->find('list', ['limit' => 200]);
+        $this->set(compact('relation', 'active', 'passives'));
         $this->set('_serialize', ['relation']);
+    }
+
+    public function confirm()
+    {
+        $subjects = unserialize($this->Session->read('ExistingSubjectsForRelation'));
+        if ($this->request->is('post')) {
+	  $this->Session->write('SavingPassiveId', serialize($this->request->data['passive_id']));
+	  return $this->redirect(['action' => 'add']);
+        }
+      $this->set(compact('subjects'));
+      $this->set('_serialize', ['subjects']);
     }
 
     /**
@@ -90,9 +173,9 @@ class RelationsController extends AppController
                 $this->Flash->error(__('The relation could not be saved. Please, try again.'));
             }
         }
-        $subjects = $this->Relations->Subjects->find('list', ['limit' => 200]);
-        $objects = $this->Relations->Objects->find('list', ['limit' => 200]);
-        $this->set(compact('relation', 'subjects', 'objects'));
+        $actives = $this->Relations->Actives->find('list', ['limit' => 200]);
+        $passives = $this->Relations->Passives->find('list', ['limit' => 200]);
+        $this->set(compact('relation', 'actives', 'passives'));
         $this->set('_serialize', ['relation']);
     }
 

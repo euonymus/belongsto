@@ -11,6 +11,7 @@
 </nav>
 <div class="subjects view large-9 medium-8 columns content">
     <h3><?= h($subject->name) ?></h3>
+    <?= $this->Html->link(__('Add relation'), ['controller' => 'relations', 'action' => 'add', $subject->id]) ?>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Id') ?></th>

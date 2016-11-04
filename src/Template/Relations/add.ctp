@@ -2,17 +2,16 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List Relations'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Subjects'), ['controller' => 'Subjects', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Subject'), ['controller' => 'Subjects', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Actives'), ['controller' => 'Actives', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Active'), ['controller' => 'Actives', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="relations form large-9 medium-8 columns content">
     <?= $this->Form->create($relation) ?>
     <fieldset>
-        <legend><?= __('Add Relation') ?></legend>
+        <legend><?= $active->name ?>: <?= __('Add Relation') ?></legend>
         <?php
-            echo $this->Form->input('active_id', ['options' => $subjects]);
-            echo $this->Form->input('passive_id');
+            echo $this->Form->input('passive', ['type' => 'text']);
             echo $this->Form->input('relation');
             echo $this->Form->input('start', ['empty' => true]);
             echo $this->Form->input('end', ['empty' => true]);
