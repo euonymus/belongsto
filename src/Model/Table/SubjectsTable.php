@@ -9,8 +9,8 @@ use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
 use App\Model\Table\SubjectSearchesTable;
 
-use U\U;
-use NgramConverter\NgramConverter;
+use App\Utils\U;
+use App\Utils\NgramConverter;
 
 /**
  * Subjects Model
@@ -103,7 +103,6 @@ class SubjectsTable extends Table
     }
     public static function bigramize($str)
     {
-      require_once(ROOT .DS. "vendor" . DS . "project" . DS . "NgramConverter" . DS . "ngram_converter.php");
       return NgramConverter::to_query($str, 2);
     }
     public function formToSaving($form)

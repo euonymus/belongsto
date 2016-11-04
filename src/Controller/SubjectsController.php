@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use U\U;
+use App\Utils\U;
 
 /**
  * Subjects Controller
