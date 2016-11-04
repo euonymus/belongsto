@@ -7,21 +7,21 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Objects Model
+ * Passives Model
  *
  * @property \Cake\ORM\Association\HasMany $Relations
  *
- * @method \App\Model\Entity\Object get($primaryKey, $options = [])
- * @method \App\Model\Entity\Object newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Object[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Object|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Object patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Object[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Object findOrCreate($search, callable $callback = null)
+ * @method \App\Model\Entity\Passive get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Passive newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Passive[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Passive|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Passive patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Passive[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Passive findOrCreate($search, callable $callback = null)
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class ObjectsTable extends Table
+class PassivesTable extends Table
 {
 
     /**
@@ -41,7 +41,7 @@ class ObjectsTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->hasMany('Relations', [
-            'foreignKey' => 'object_id'
+            'foreignKey' => 'passive_id'
         ]);
     }
 

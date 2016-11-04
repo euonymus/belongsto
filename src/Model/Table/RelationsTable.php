@@ -9,8 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Relations Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Subjects
- * @property \Cake\ORM\Association\BelongsTo $Objects
+ * @property \Cake\ORM\Association\BelongsTo $Actives
+ * @property \Cake\ORM\Association\BelongsTo $Passives
  *
  * @method \App\Model\Entity\Relation get($primaryKey, $options = [])
  * @method \App\Model\Entity\Relation newEntity($data = null, array $options = [])
@@ -41,12 +41,12 @@ class RelationsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Subjects', [
-            'foreignKey' => 'subject_id',
+        $this->belongsTo('Actives', [
+            'foreignKey' => 'active_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Objects', [
-            'foreignKey' => 'object_id',
+        $this->belongsTo('Passives', [
+            'foreignKey' => 'passive_id',
             'joinType' => 'INNER'
         ]);
     }
@@ -97,8 +97,8 @@ class RelationsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['subject_id'], 'Subjects'));
-        $rules->add($rules->existsIn(['object_id'], 'Objects'));
+        $rules->add($rules->existsIn(['active_id'], 'Actives'));
+        $rules->add($rules->existsIn(['passive_id'], 'Passives'));
 
         return $rules;
     }

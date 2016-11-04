@@ -4,7 +4,7 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Object Entity
+ * Active Entity
  *
  * @property string $id
  * @property string $name
@@ -20,7 +20,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Relation[] $relations
  */
-class Object extends Entity
+class Active extends Entity
 {
 
     /**

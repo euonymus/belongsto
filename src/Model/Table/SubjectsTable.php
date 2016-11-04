@@ -47,7 +47,18 @@ class SubjectsTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->hasMany('Relations', [
-            'foreignKey' => 'subject_id'
+            'foreignKey' => 'active_id'
+        ]);
+
+
+
+        $this->belongsToMany('Passives', [
+            'through' => 'Relations',
+            'foreignKey' => 'active_id'
+        ]);
+        $this->belongsToMany('Actives', [
+            'through' => 'Relations',
+            'foreignKey' => 'passive_id'
         ]);
     }
 
@@ -55,7 +66,7 @@ class SubjectsTable extends Table
     {
 	$association = [
           'belongsToMany' => [
-              'Objects' => [
+              'Passives' => [
                   'joinTable' => 'subjects',
                   'through' => 'Relations',
                ]

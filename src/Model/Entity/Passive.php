@@ -4,12 +4,12 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Relation Entity
+ * Passive Entity
  *
  * @property string $id
- * @property string $active_id
- * @property string $passive_id
- * @property string $relation
+ * @property string $name
+ * @property string $image_path
+ * @property string $description
  * @property \Cake\I18n\Time $start
  * @property \Cake\I18n\Time $end
  * @property string $start_accuracy
@@ -18,10 +18,9 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  *
- * @property \App\Model\Entity\Active $active
- * @property \App\Model\Entity\Passive $passive
+ * @property \App\Model\Entity\Relation[] $relations
  */
-class Relation extends Entity
+class Passive extends Entity
 {
 
     /**

@@ -12,8 +12,8 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('subject_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('object_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('active_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('passive_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('relation') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('start') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('end') ?></th>
@@ -29,8 +29,8 @@
             <?php foreach ($relations as $relation): ?>
             <tr>
                 <td><?= h($relation->id) ?></td>
-                <td><?= $relation->has('subject') ? $this->Html->link($relation->subject->name, ['controller' => 'Subjects', 'action' => 'view', $relation->subject->id]) : '' ?></td>
-                <td><?= $relation->has('object') ? $this->Html->link($relation->object->name, ['controller' => 'Subjects', 'action' => 'view', $relation->subject->id]) : '' ?></td>
+                <td><?= $relation->has('active') ? $this->Html->link($relation->active->name, ['controller' => 'Subjects', 'action' => 'view', $relation->subject->id]) : '' ?></td>
+                <td><?= $relation->has('passive') ? $this->Html->link($relation->passive->name, ['controller' => 'Subjects', 'action' => 'view', $relation->subject->id]) : '' ?></td>
                 <td><?= h($relation->relation) ?></td>
                 <td><?= h($relation->start) ?></td>
                 <td><?= h($relation->end) ?></td>

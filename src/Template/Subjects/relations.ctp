@@ -63,8 +63,8 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Subject Id') ?></th>
-                <th scope="col"><?= __('Object Id') ?></th>
+                <th scope="col"><?= __('Active Id') ?></th>
+                <th scope="col"><?= __('Passive Id') ?></th>
                 <th scope="col"><?= __('Relation') ?></th>
                 <th scope="col"><?= __('Start') ?></th>
                 <th scope="col"><?= __('End') ?></th>
@@ -78,8 +78,8 @@
             <?php foreach ($subject->relations as $relations): ?>
             <tr>
                 <td><?= h($relations->id) ?></td>
-                <td><?= h($relations->subject_id) ?></td>
-                <td><?= h($relations->object_id) ?></td>
+                <td><?= h($relations->active_id) ?></td>
+                <td><?= h($relations->passive_id) ?></td>
                 <td><?= h($relations->relation) ?></td>
                 <td><?= h($relations->start) ?></td>
                 <td><?= h($relations->end) ?></td>
