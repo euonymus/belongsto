@@ -58,14 +58,14 @@
         </tr>
     </table>
     <div class="related">
-        <h4><?= __('Related Relations') ?></h4>
-        <?php if (!empty($subject->relations)): ?>
+        <h4><?= __('Active Relations') ?></h4>
+        <?php if (!empty($subject->actives)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Active Id') ?></th>
-                <th scope="col"><?= __('Passive Id') ?></th>
-                <th scope="col"><?= __('Relation') ?></th>
+                <th scope="col"><?= __('Name') ?></th>
+                <th scope="col"><?= __('ImagePath') ?></th>
+                <th scope="col"><?= __('Description') ?></th>
                 <th scope="col"><?= __('Start') ?></th>
                 <th scope="col"><?= __('End') ?></th>
                 <th scope="col"><?= __('Start Accuracy') ?></th>
@@ -75,12 +75,54 @@
                 <th scope="col"><?= __('Modified') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($subject->relations as $relations): ?>
+            <?php foreach ($subject->actives as $relations): ?>
             <tr>
                 <td><?= h($relations->id) ?></td>
-                <td><?= h($relations->active_id) ?></td>
-                <td><?= h($relations->passive_id) ?></td>
-                <td><?= h($relations->relation) ?></td>
+                <td><?= h($relations->name) ?></td>
+                <td><?= h($relations->image_path) ?></td>
+                <td><?= h($relations->description) ?></td>
+                <td><?= h($relations->start) ?></td>
+                <td><?= h($relations->end) ?></td>
+                <td><?= h($relations->start_accuracy) ?></td>
+                <td><?= h($relations->end_accuracy) ?></td>
+                <td><?= h($relations->is_momentary) ?></td>
+                <td><?= h($relations->created) ?></td>
+                <td><?= h($relations->modified) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Relations', 'action' => 'view', $relations->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Relations', 'action' => 'edit', $relations->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Relations', 'action' => 'delete', $relations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $relations->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+
+    <div class="related">
+        <h4><?= __('Passive Relations') ?></h4>
+        <?php if (!empty($subject->passives)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Name') ?></th>
+                <th scope="col"><?= __('ImagePath') ?></th>
+                <th scope="col"><?= __('Description') ?></th>
+                <th scope="col"><?= __('Start') ?></th>
+                <th scope="col"><?= __('End') ?></th>
+                <th scope="col"><?= __('Start Accuracy') ?></th>
+                <th scope="col"><?= __('End Accuracy') ?></th>
+                <th scope="col"><?= __('Is Momentary') ?></th>
+                <th scope="col"><?= __('Created') ?></th>
+                <th scope="col"><?= __('Modified') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($subject->passives as $relations): ?>
+            <tr>
+                <td><?= h($relations->id) ?></td>
+                <td><?= h($relations->name) ?></td>
+                <td><?= h($relations->image_path) ?></td>
+                <td><?= h($relations->description) ?></td>
                 <td><?= h($relations->start) ?></td>
                 <td><?= h($relations->end) ?></td>
                 <td><?= h($relations->start_accuracy) ?></td>
