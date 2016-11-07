@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+
+use Cake\ORM\TableRegistry;
 use App\Utils\U;
 
 /**
@@ -49,7 +51,19 @@ class SubjectsController extends AppController
           'contain' => ['Actives', 'Passives']
         ]);
 
-        $this->set('subject', $subject);
+	// 2nd level relations
+	for($i = 0; count($subject->actives) > $i; $i++) {
+	  $Relations = TableRegistry::get('Relations');
+	  $subject->actives[$i]->relation
+	    = $Relations->find('all', ['contain' => 'Actives'])->where(['passive_id' => $subject->actives[$i]->id]);
+	}
+	for($i = 0; count($subject->passives) > $i; $i++) {
+	  $Relations = TableRegistry::get('Relations');
+	  $subject->passives[$i]->relation
+	    = $Relations->find('all', ['contain' => 'Actives'])->where(['passive_id' => $subject->passives[$i]->id]);
+	}
+
+        $this->set(compact('subject'));
         $this->set('_serialize', ['subject']);
     }
 
