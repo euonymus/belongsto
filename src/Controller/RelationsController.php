@@ -68,6 +68,8 @@ class RelationsController extends AppController
         $session_passive_id = unserialize($this->Session->read('SavingPassiveId'));
 	if ($session_passive_id !== false) {
 	  $this->Session->delete('SavingPassiveId');
+
+	  if ($session_passive_id != '0') $ready_for_save = true;
 	}
 
         // Existence check
@@ -84,8 +86,9 @@ class RelationsController extends AppController
 
 	// Save New Subject for the passive_id
         if ($this->request->is('post') || 
-	    (($session_passive_id !== false) && ($session_passive_id == 0))
+	    (($session_passive_id !== false) && ($session_passive_id == '0'))
 	    ) {
+
 	    $saving_subject = [
 			       'image_path' => '',
 			       'description' => '',
