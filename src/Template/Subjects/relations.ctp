@@ -11,53 +11,15 @@
 </nav>
 <div class="subjects view large-9 medium-8 columns content">
     <h3><?= h($subject->name) ?></h3>
-    <?= $this->Html->link(__('Add relation'), ['controller' => 'relations', 'action' => 'add', $subject->id]) ?>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= h($subject->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Name') ?></th>
-            <td><?= h($subject->name) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Image Path') ?></th>
-            <td><?= h($subject->image_path) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Description') ?></th>
-            <td><?= h($subject->description) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Start Accuracy') ?></th>
-            <td><?= h($subject->start_accuracy) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('End Accuracy') ?></th>
-            <td><?= h($subject->end_accuracy) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Start') ?></th>
-            <td><?= h($subject->start) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('End') ?></th>
-            <td><?= h($subject->end) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Created') ?></th>
-            <td><?= h($subject->created) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Modified') ?></th>
-            <td><?= h($subject->modified) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Is Momentary') ?></th>
-            <td><?= $subject->is_momentary ? __('Yes') : __('No'); ?></td>
-        </tr>
-    </table>
+
+    <? if (!empty($subject->image_path)): $image_path = $subject->image_path; ?>
+       <?= $this->Html->link($this->Html->image($image_path, ['width' => '100px', 'height' => '100px']),
+			     ['controller' => 'subjects', 'action' => 'relations', $subject->id],
+			     ['escape' => false]) ?>
+    <? endif; ?>
+
+    <p><?= h($subject->description) ?></p>
+    <p><?= $this->Html->link(__('Add relation'), ['controller' => 'relations', 'action' => 'add', $subject->id]) ?></p>
     <div class="related">
         <h4><?= __('Active Relations') ?></h4>
         <?php if (!empty($subject->actives)): ?>

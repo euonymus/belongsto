@@ -67,6 +67,15 @@ class SubjectsController extends AppController
         $this->set('_serialize', ['subject']);
     }
 
+    public function search()
+    {
+      if (!array_key_exists('keywords', $this->request->query)) $this->redirect('/');
+
+      $subjects = $this->Subjects->search($this->request->query['keywords']);
+      $this->set(compact('subjects'));
+      $this->set('_serialize', ['subjects']);
+    }
+
     /**
      * Add method
      *
