@@ -116,7 +116,7 @@ class RelationsController extends AppController
             if ($this->Relations->save($relation)) {
                 $this->Flash->success(__('The relation has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'subjects', 'action' => 'relations', $active_id]);
             } else {
                 $this->Flash->error(__('The relation could not be saved. Please, try again.'));
             }
