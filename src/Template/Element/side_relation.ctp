@@ -1,4 +1,5 @@
 <? if ($this->Page->isRelation()): ?>
+    <li><?= $this->Html->link(__('Edit Relation'), ['controller' => 'Relations', 'action' => 'edit', $relation->id]) ?></li>
     <li><?= $this->Form->postLink(
 				  __('Delete Relation'),
 				  ['action' => 'delete', $relation->id],
