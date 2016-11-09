@@ -67,60 +67,22 @@ class SubjectsTable extends Table
             'foreignKey' => 'passive_id'
         ]);
 
-
-
-$keywords = '安倍晋三';
-$response = self::cachedSearchImage($keywords);
-debug($response);
-
     }
 
-    public static $retrieveCacheConfig = 'default';
-    public static function buildCacheKey($keywords)
-    {
-      return 'image_search_api_'.$keywords;
-    }
-    public static function cachedSearchImage($keywords)
-    {
-      $cached = Cache::read(self::buildCacheKey($keywords), self::$retrieveCacheConfig);
-      if ($cached) return $cached;
-
-      $images = self::searchImage($keywords);
-      if (!$images) return false;
-      Cache::write(self::buildCacheKey($keywords), $images, self::$retrieveCacheConfig);
-
-      return $images;
-    }
-    public static function searchImage($keywords)
-    {
-      $response = self::callSearchImage($keywords);
-      if (!$response) return false;
-
-      $json = $response->body();
-      return json_decode($json);
-    }
-    public static function callSearchImage($keywords)
-    {
-	require_once(ROOT . DS . 'config' . DS . 'secrets.php');
-        $ms_key = getenv('MS_KEY');
-	$endpoint = 'https://api.cognitive.microsoft.com/bing/v5.0/images/search';
-
-	// Settings
-	$headers = ['Content-Type' => 'multipart/form-data',
-		    'Ocp-Apim-Subscription-Key' => $ms_key];
-
-	// Preparation of Http Client
-	$http = new Client();
-	$response = $http->get($endpoint, ['q' => $keywords], ['headers' => $headers]);
-	if (!$response->isOk()) return false;
-	return $response;
-    }
 
     public function formToEntity($arr)
     {
       $ret = $this->newEntity($arr);
       $ret->id = U::buildGuid(); // varchar 36 フィールドのinsertには必要。
       return $ret;
+    }
+    public static function addImageBySearch($data)
+    {
+      if (!empty($data->image_path)) return $data;
+      if (empty($data->name)) return $data;
+
+      $data->image_path = self::simpleGetImageUrl($data->name);
+      return $data;
     }
     public function patchSearchOnData($data)
     {
@@ -142,6 +104,7 @@ debug($response);
     {
       if (!is_array($form)) return false;
       $data = $this->formToEntity($form);
+      $data = self::addImageBySearch($data);
       return $this->patchSearchOnData($data);
     }
 
@@ -167,7 +130,8 @@ debug($response);
             ->allowEmpty('description');
 
         $validator
-            ->dateTime('start')
+	  // なぜか validation errorが起きるので停止。
+	  // ->dateTime('start')
             ->allowEmpty('start');
 
         $validator
@@ -240,4 +204,58 @@ debug($response);
     {
       return NgramConverter::to_query($str, 2);
     }
+
+    /****************************************************************************/
+    /* API call                                                                 */
+    /****************************************************************************/
+    public static $retrieveCacheConfig = 'default';
+    public static function buildCacheKey($keywords)
+    {
+      return 'image_search_api_'.$keywords;
+    }
+    public static function simpleGetImageUrl($keywords)
+    {
+      $response = self::cachedSearchImage($keywords);
+      foreach($response->value as $value) {
+	return $value->thumbnailUrl;
+      }
+      return false;
+    }
+    public static function cachedSearchImage($keywords)
+    {
+      $cached = Cache::read(self::buildCacheKey($keywords), self::$retrieveCacheConfig);
+      if ($cached) return $cached;
+
+      $images = self::searchImage($keywords);
+      if (!$images) return false;
+      Cache::write(self::buildCacheKey($keywords), $images, self::$retrieveCacheConfig);
+
+      return $images;
+    }
+    public static function searchImage($keywords)
+    {
+      $response = self::callSearchImage($keywords);
+      if (!$response) return false;
+
+      $json = $response->body();
+      return json_decode($json);
+    }
+    public static function callSearchImage($keywords)
+    {
+	require_once(ROOT . DS . 'config' . DS . 'secrets.php');
+        $ms_key = getenv('MS_KEY');
+	$endpoint = 'https://api.cognitive.microsoft.com/bing/v5.0/images/search';
+
+	// Settings
+	$headers = ['Content-Type' => 'multipart/form-data',
+		    'Ocp-Apim-Subscription-Key' => $ms_key];
+	$datas = ['q' => $keywords, 'license' => 'Share'];
+
+	// Preparation of Http Client
+	$http = new Client();
+	$response = $http->get($endpoint, $datas, ['headers' => $headers]);
+	if (!$response->isOk()) return false;
+	return $response;
+    }
+
 }

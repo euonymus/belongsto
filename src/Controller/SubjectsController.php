@@ -99,6 +99,7 @@ class SubjectsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $subject = $this->Subjects->patchEntity($subject, $this->request->data);
+	    $subject = $this->Subjects->addImageBySearch($subject);
             if ($savedSubject = $this->Subjects->save($subject)) {
                 $this->Flash->success(__('The subject has been saved.'));
                 return $this->redirect(['action' => 'relations', $savedSubject->id]);
