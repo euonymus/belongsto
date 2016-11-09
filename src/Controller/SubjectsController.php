@@ -28,40 +28,16 @@ class SubjectsController extends AppController
     }
 
     /**
-     * View method
+     * Relations method
      *
      * @param string|null $id Subject id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
-        $subject = $this->Subjects->get($id, [
-            'contain' => ['Relations']
-        ]);
-
-        $this->set('subject', $subject);
-        $this->set('_serialize', ['subject']);
-    }
-
     public function relations($id = null)
     {
-        /* $this->Subjects->buildActiveRelation(); */
-        $subject = $this->Subjects->get($id, [
-          'contain' => ['Actives', 'Passives']
-        ]);
-
-	// 2nd level relations
-	for($i = 0; count($subject->actives) > $i; $i++) {
-	  $Relations = TableRegistry::get('Relations');
-	  $subject->actives[$i]->relation
-	    = $Relations->find('all', ['contain' => 'Actives'])->where(['passive_id' => $subject->actives[$i]->id]);
-	}
-	for($i = 0; count($subject->passives) > $i; $i++) {
-	  $Relations = TableRegistry::get('Relations');
-	  $subject->passives[$i]->relation
-	    = $Relations->find('all', ['contain' => 'Actives'])->where(['passive_id' => $subject->passives[$i]->id]);
-	}
+	$subject = $this->Subjects->getRelations($id, ['Actives', 'Passives'], 2);
+	if (!$subject) $this->redirect('/');
 
         $this->set(compact('subject'));
         $this->set('_serialize', ['subject']);
@@ -161,7 +137,7 @@ class SubjectsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $subject = $this->Subjects->get($id);
-	$this->Subjects->bindSubjectSearch(); // cascade deleting
+
         if ($this->Subjects->delete($subject)) {
             $this->Flash->success(__('The subject has been deleted.'));
         } else {

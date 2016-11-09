@@ -50,8 +50,11 @@ class SubjectsTable extends Table
             'foreignKey' => 'active_id'
         ]);
 
-
-
+        $this->hasOne('SubjectSearches', [
+            'className'  => 'SubjectSearches',
+	    'foreignKey' => 'id',
+	    'dependent' => true,
+        ]);
         $this->belongsToMany('Passives', [
             'through' => 'Relations',
             'foreignKey' => 'active_id'
@@ -60,33 +63,6 @@ class SubjectsTable extends Table
             'through' => 'Relations',
             'foreignKey' => 'passive_id'
         ]);
-    }
-
-    public function buildActiveRelation()
-    {
-	$association = [
-          'belongsToMany' => [
-              'Passives' => [
-                  'joinTable' => 'subjects',
-                  'through' => 'Relations',
-               ]
-          ],
-        ];
-	$this->addAssociations($association);
-    }
-
-    public function bindSubjectSearch()
-    {
-	$association = [
-          'hasOne' => [
-              'SubjectSearches' => [
-                  'className'  => 'SubjectSearches',
-		  'foreignKey' => 'id',
-		  'dependent' => true,
-               ]
-          ],
-        ];
-	$this->addAssociations($association);
     }
 
     public function formToEntity($arr)
@@ -99,7 +75,6 @@ class SubjectsTable extends Table
     {
       $arr = $data->toArray();
       $arr['subject_search'] = self::composeSearchArr($data);
-      $this->bindSubjectSearch();
       $ret = $this->newEntity($arr, ['associated' => ['SubjectSearches']]);
       $ret->id = $data->id;
       return $ret;
@@ -111,10 +86,6 @@ class SubjectsTable extends Table
       if (!$search_words) return false;
       $ret = ['id' => $data->id, 'search_words' => $search_words];
       return $ret;
-    }
-    public static function bigramize($str)
-    {
-      return NgramConverter::to_query($str, 2);
     }
     public function formToSaving($form)
     {
@@ -167,11 +138,40 @@ class SubjectsTable extends Table
     }
 
     /****************************************************************************/
-    /* Conditions                                                               */
+    /* Edit Data                                                                */
     /****************************************************************************/
+
+    /****************************************************************************/
+    /* Get Data                                                                 */
+    /****************************************************************************/
+    public function getRelations($id, $contain = NULL, $level = 1)
+    {
+      if (!is_numeric($level) || ($level > 2)) return false;
+
+      $options = [];
+      if (($level != 0) && !is_null($contain)) {
+	$options = ['contain' => $contain];
+      }
+      $subject = $this->get($id, $options);
+
+      // 2nd level relations
+      if (($level == 2) && !is_null($contain)) {
+	for($i = 0; count($subject->actives) > $i; $i++) {
+	  $Relations = TableRegistry::get('Relations');
+	  $subject->actives[$i]->relation
+	    = $Relations->find('all', ['contain' => 'Actives'])->where(['passive_id' => $subject->actives[$i]->id]);
+	}
+	for($i = 0; count($subject->passives) > $i; $i++) {
+	  $Relations = TableRegistry::get('Relations');
+	  $subject->passives[$i]->relation
+	    = $Relations->find('all', ['contain' => 'Actives'])->where(['passive_id' => $subject->passives[$i]->id]);
+	}
+      }
+      return $subject;
+    }
+
     public function search($search_words)
     {
-      $this->bindSubjectSearch();
       $expr = self::bigramize($search_words);
       $query = $this
 	->find('all')
@@ -179,5 +179,14 @@ class SubjectsTable extends Table
 	->matching('SubjectSearches')
 	->where(["MATCH(SubjectSearches.search_words) AGAINST(:search)"])->bind(":search", $expr);
       return $query;
+    }
+
+
+    /****************************************************************************/
+    /* Tools                                                                    */
+    /****************************************************************************/
+    public static function bigramize($str)
+    {
+      return NgramConverter::to_query($str, 2);
     }
 }
