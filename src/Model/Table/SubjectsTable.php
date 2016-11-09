@@ -7,6 +7,9 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 use Cake\ORM\TableRegistry;
+use Cake\Network\Http\Client;
+use Cake\Cache\Cache;
+
 use App\Model\Table\SubjectSearchesTable;
 
 use App\Utils\U;
@@ -63,6 +66,54 @@ class SubjectsTable extends Table
             'through' => 'Relations',
             'foreignKey' => 'passive_id'
         ]);
+
+
+
+$keywords = '安倍晋三';
+$response = self::cachedSearchImage($keywords);
+debug($response);
+
+    }
+
+    public static $retrieveCacheConfig = 'default';
+    public static function buildCacheKey($keywords)
+    {
+      return 'image_search_api_'.$keywords;
+    }
+    public static function cachedSearchImage($keywords)
+    {
+      $cached = Cache::read(self::buildCacheKey($keywords), self::$retrieveCacheConfig);
+      if ($cached) return $cached;
+
+      $images = self::searchImage($keywords);
+      if (!$images) return false;
+      Cache::write(self::buildCacheKey($keywords), $images, self::$retrieveCacheConfig);
+
+      return $images;
+    }
+    public static function searchImage($keywords)
+    {
+      $response = self::callSearchImage($keywords);
+      if (!$response) return false;
+
+      $json = $response->body();
+      return json_decode($json);
+    }
+    public static function callSearchImage($keywords)
+    {
+	require_once(ROOT . DS . 'config' . DS . 'secrets.php');
+        $ms_key = getenv('MS_KEY');
+	$endpoint = 'https://api.cognitive.microsoft.com/bing/v5.0/images/search';
+
+	// Settings
+	$headers = ['Content-Type' => 'multipart/form-data',
+		    'Ocp-Apim-Subscription-Key' => $ms_key];
+
+	// Preparation of Http Client
+	$http = new Client();
+	$response = $http->get($endpoint, ['q' => $keywords], ['headers' => $headers]);
+	if (!$response->isOk()) return false;
+	return $response;
     }
 
     public function formToEntity($arr)

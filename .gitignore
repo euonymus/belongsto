@@ -1,6 +1,7 @@
 # CakePHP 3
 /vendor/*
 /config/app.php
+/config/secrets.php
 /tmp/*
 !/tmp/cache/models/empty
 !/tmp/cache/persistent/empty
