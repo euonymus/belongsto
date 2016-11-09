@@ -13,20 +13,6 @@ use App\Utils\U;
  */
 class SubjectsController extends AppController
 {
-
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
-    public function index()
-    {
-        $subjects = $this->paginate($this->Subjects);
-
-        $this->set(compact('subjects'));
-        $this->set('_serialize', ['subjects']);
-    }
-
     /**
      * Relations method
      *
@@ -81,10 +67,9 @@ class SubjectsController extends AppController
         $subject = $this->Subjects->newEntity();
         if ($this->request->is('post') || $session) {
             $subject = $this->Subjects->formToSaving($this->request->data);
-            if ($this->Subjects->save($subject)) {
+            if ($savedSubject = $this->Subjects->save($subject)) {
                 $this->Flash->success(__('The subject has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'relations', $savedSubject->id]);
             } else {
                 $this->Flash->error(__('The subject could not be saved. Please, try again.'));
             }
@@ -114,10 +99,9 @@ class SubjectsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $subject = $this->Subjects->patchEntity($subject, $this->request->data);
-            if ($this->Subjects->save($subject)) {
+            if ($savedSubject = $this->Subjects->save($subject)) {
                 $this->Flash->success(__('The subject has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'relations', $savedSubject->id]);
             } else {
                 $this->Flash->error(__('The subject could not be saved. Please, try again.'));
             }
@@ -144,6 +128,6 @@ class SubjectsController extends AppController
             $this->Flash->error(__('The subject could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller' => 'Pages', 'action' => 'display']);
     }
 }
