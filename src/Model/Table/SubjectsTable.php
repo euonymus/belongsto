@@ -81,7 +81,9 @@ class SubjectsTable extends Table
       if (!empty($data->image_path)) return $data;
       if (empty($data->name)) return $data;
 
-      $data->image_path = self::simpleGetImageUrl($data->name);
+      $image_path = self::simpleGetImageUrl($data->name);
+      if (!$image_path) return $data;
+      $data->image_path = $image_path;
       return $data;
     }
     public function patchSearchOnData($data)
@@ -216,6 +218,8 @@ class SubjectsTable extends Table
     public static function simpleGetImageUrl($keywords)
     {
       $response = self::cachedSearchImage($keywords);
+      if (!$response) return false;
+
       foreach($response->value as $value) {
 	return $value->thumbnailUrl;
       }
