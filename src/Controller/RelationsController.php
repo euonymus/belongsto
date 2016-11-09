@@ -14,22 +14,6 @@ class RelationsController extends AppController
 {
 
     /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
-    public function index()
-    {
-        $this->paginate = [
-            'contain' => ['Actives', 'Passives']
-        ];
-        $relations = $this->paginate($this->Relations);
-
-        $this->set(compact('relations'));
-        $this->set('_serialize', ['relations']);
-    }
-
-    /**
      * View method
      *
      * @param string|null $id Relation id.
