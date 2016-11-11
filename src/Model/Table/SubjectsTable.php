@@ -97,15 +97,26 @@ class SubjectsTable extends Table
     public static function composeSearchArr($data)
     {
       if (!is_object($data)) return false;
-      $search_words = self::bigramize($data->name . $data->description);
+      $search_words = self::bigramize($data->name . ' ' . $data->description);
       if (!$search_words) return false;
       $ret = ['id' => $data->id, 'search_words' => $search_words];
       return $ret;
     }
+
     public function formToSaving($form)
     {
       if (!is_array($form)) return false;
       $data = $this->formToEntity($form);
+      return $this->prepareForSave($data);
+    }
+    public function formToEditing($data, $form)
+    {
+      if (!is_array($form)) return false;
+      $data = $this->patchEntity($data, $form);
+      return $this->prepareForSave($data);
+    }
+    public function prepareForSave($data)
+    {
       $data = self::addImageBySearch($data);
       return $this->patchSearchOnData($data);
     }
