@@ -21,7 +21,8 @@ $gluonsDescription = 'gluons: All the connections among everything in the univer
     <?= $this->Html->css('bootstrap.min.css') ?>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <?= $this->Html->css('ie10-viewport-bug-workaround.css') ?>
-    <?= $this->Html->css('navbar-static-top.css') ?>
+
+    <?= $this->Html->css('sticky-footer.css') ?>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -45,7 +46,10 @@ $gluonsDescription = 'gluons: All the connections among everything in the univer
         <?= $this->fetch('content') ?>
     </div>
 
-    <footer>
+    <footer class="footer">
+      <div class="container">
+        <?= $this->element('footer') ?>
+      </div>
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
