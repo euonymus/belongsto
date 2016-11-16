@@ -1,30 +1,14 @@
-<div class="subjects index large-9 medium-8 columns content">
-    <h3><?= __('Subjects') ?></h3>
-    <?= $this->Html->link(__('New Subject'), ['controller' => 'subjects', 'action' => 'add']) ?>
+<div class="jumbotron">
+  <h1>gluons</h1>
+  <p>'gluons' is a database of relations among anything in the universe. Start searching from the form.</p>
+</div>
+<div>
+    <?= $this->Form->create(NULL, ['url' => '/subjects/search', 'method' => 'get', 'class' => 'search_top text-center']) ?>
 
+        <div class="form-group center-block" style="max-width:500px;">
+            <?= $this->Form->input('keywords', ['label' => false, 'class' => 'form-control']) ?>
+        </div>
+        <?= $this->Form->button(__('Gluons Search'), ['class' => 'btn btn-primary']) ?>
 
-
-
-
-    <?php foreach ($subjects as $subject): ?>
-    <div class="small-offset-1 panel">
-    <? if (!empty($subject->image_path)): $image_path = $subject->image_path; ?>
-    <? else: $image_path = '/img/no_image.jpg'; ?>
-    <? endif; ?>
-       <?= $this->Html->link($this->Html->image($image_path, ['width' => '100px', 'height' => '100px']),
-			     ['controller' => 'subjects', 'action' => 'relations', $subject->id],
-			     ['escape' => false]) ?>
-       <?= $this->Html->link($subject->name, ['controller' => 'subjects', 'action' => 'relations', $subject->id]) ?>
-    </div>
-
-    <? endforeach; ?>
-
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-        </ul>
-        <p><?= $this->Paginator->counter() ?></p>
-    </div>
+    <?= $this->Form->end() ?>
 </div>

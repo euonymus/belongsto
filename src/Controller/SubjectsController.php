@@ -13,6 +13,13 @@ use App\Utils\U;
  */
 class SubjectsController extends AppController
 {
+    public function index()
+    {
+        $subjects = $this->paginate($this->Subjects);
+        $this->set(compact('subjects'));
+        $this->set('_serialize', ['subjects']);
+    }
+
     /**
      * Relations method
      *
@@ -130,6 +137,6 @@ class SubjectsController extends AppController
             $this->Flash->error(__('The subject could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['controller' => 'Pages', 'action' => 'display']);
+        return $this->redirect(['controller' => 'Subjects', 'action' => 'index']);
     }
 }
