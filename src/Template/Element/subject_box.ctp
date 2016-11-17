@@ -31,7 +31,7 @@
     <div class="row">
     <?php foreach ($relation->relation as $passive2): ?>
         <? if ($subject->id == $passive2->active_id) continue; ?>
-        <div class="col-xs-3">
+        <div class="col-xs-3" style="height:250px;">
             <?= $this->element('subject_unit', ['object_name' => $relation->name,
 				      'relation_object' => $passive2->active,
 				      'relation_text' => $passive2->relation]) ?>
