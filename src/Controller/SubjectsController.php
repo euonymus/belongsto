@@ -15,12 +15,23 @@ class SubjectsController extends AppController
 {
     public function index()
     {
-        $subjects = $this->paginate($this->Subjects);
+        $subjects = $this->paginate($this->Subjects, ['contain' => 'Actives']);
 	$title = 'quarks that gluons hold';
 
         $this->set(compact('subjects', 'title'));
         $this->set('_serialize', ['subjects']);
-	$this->render('search');
+    }
+
+    public function search()
+    {
+      if (!array_key_exists('keywords', $this->request->query)) $this->redirect('/');
+
+      $subjects = $this->Subjects->search($this->request->query['keywords']);
+
+      $title = $this->request->query['keywords'] . 'の関係図検索結果';
+      $this->set(compact('subjects', 'title'));
+      $this->set('_serialize', ['subjects']);
+      $this->render('index');
     }
 
     /**
@@ -38,17 +49,6 @@ class SubjectsController extends AppController
 	$title = $subject->name . 'と関連組織、人間関係、繋がり';
         $this->set(compact('subject', 'title'));
         $this->set('_serialize', ['subject']);
-    }
-
-    public function search()
-    {
-      if (!array_key_exists('keywords', $this->request->query)) $this->redirect('/');
-
-      $subjects = $this->Subjects->search($this->request->query['keywords']);
-
-      $title = $this->request->query['keywords'] . 'の関係図検索結果';
-      $this->set(compact('subjects', 'title'));
-      $this->set('_serialize', ['subjects']);
     }
 
     /**
