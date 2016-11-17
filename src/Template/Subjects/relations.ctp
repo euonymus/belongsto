@@ -10,7 +10,8 @@
     <? endif; ?>
 
     <p><?= h($subject->description) ?></p>
-    <p><?= $this->Html->link(__('Add relation'), ['controller' => 'relations', 'action' => 'add', $subject->id]) ?></p>
+    <p><?= $this->Html->link('Add relation', ['controller' => 'relations', 'action' => 'add', $subject->id],
+			     ['class' => 'btn btn-primary']); ?></p>
   </div>
 
   <div class="col-md-9">

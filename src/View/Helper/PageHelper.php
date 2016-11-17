@@ -14,8 +14,7 @@ class PageHelper extends Helper
   {
     if (($this->request->params['controller'] == 'Pages') && ($this->request->params['action'] == 'display') ) {
       return self::PAGETYPE_TOP;
-    } elseif (($this->request->params['controller'] == 'Subjects') && 
-	(($this->request->params['action'] == 'relations') || ($this->request->params['action'] == 'edit'))) {
+    } elseif (($this->request->params['controller'] == 'Subjects') && ($this->request->params['action'] == 'relations')) {
       return self::PAGETYPE_SUBJECT;
     } elseif (($this->request->params['controller'] == 'Relations') && 
 	($this->request->params['action'] == 'view')) {
