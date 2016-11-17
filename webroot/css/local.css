@@ -1,14 +1,12 @@
-.second-relation {
-    height:250px;
-}
 .input-container-top {
     max-width:500px;
 }
 .subject-list {
-    padding:0px 0px 0px 0px;
+    padding:0px;
 }
-.subject-list-main .media-body, .subject-list-sub {
-    padding:20px 20px 20px 20px;
+.subject-list-main .media-body, .subject-list-sub,
+.subject-relation-main .media-body, .subject-list-sub {
+    padding:20px;
 }
 .subject-list-sub {
     background-color:#fcfcfc;
@@ -18,9 +16,21 @@
     padding:5px;
 }
 .subject-main {
-    padding:20px 20px 20px 20px;
+    padding:20px;
 }
 .subject-main img {
     border: solid 1px #888;
+}
+.subject-relation {
+    padding:0px;
+}
+.subject-relation-main {
+    padding:20px;
+}
+.second-relation {
+    height:250px;
+}
+.second-relation .card-block {
+    padding:5px;
 }
 
