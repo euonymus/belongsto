@@ -1,6 +1,6 @@
 <div class="row">
 
-  <div class="col-md-3">
+  <div class="col-md-3 subject-main">
     <h1><?= h($subject->name) ?></h1>
 
     <? if (!empty($subject->image_path)): $image_path = $subject->image_path; ?>
@@ -14,7 +14,7 @@
 			     ['class' => 'btn btn-primary']); ?></p>
   </div>
 
-  <div class="col-md-9">
+  <div class="col-md-9 subject-relation-list">
     <div class="related">
         <h4><?= __('Active Relations') ?></h4>
         <?= $this->element('subject_boxes', ['subject' => $subject, 'relations' => $subject->passives]) ?>

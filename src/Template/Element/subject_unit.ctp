@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card subject-card">
   <?= $this->SubjectTool->imageLink($relation_object, ['width' => '100%', 'height' => '120px', 'class' => 'card-img-top']) ?>
   <div class="card-block">
     <h4 class="card-title">

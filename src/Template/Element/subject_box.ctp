@@ -1,4 +1,4 @@
-<div class="well">
+<div class="well subject-relation">
 
 <?
    if (!isset($isPassive)) $isPassive = false;
@@ -13,7 +13,7 @@
   $relation_object = $relation;
   $relation_text = $relation->_joinData->relation;
 ?>
-    <div class="panel no-border">
+    <div class="panel subject-relation-main">
       <h3>
         <?= $this->SubjectTool->imageLink($relation_object) ?>
 
@@ -28,7 +28,7 @@
     </div>
 
 
-    <div class="row">
+    <div class="row subject-relation-sub">
     <?php foreach ($relation->relation as $passive2): ?>
         <? if ($subject->id == $passive2->active_id) continue; ?>
         <div class="col-xs-3 second-relation">
