@@ -5,7 +5,7 @@
 <div>
     <?= $this->Form->create(NULL, ['url' => '/subjects/search', 'method' => 'get', 'class' => 'search_top text-center']) ?>
 
-        <div class="form-group center-block" style="max-width:500px;">
+        <div class="form-group center-block input-container-top">
             <?= $this->Form->input('keywords', ['label' => false, 'class' => 'form-control']) ?>
         </div>
         <?= $this->Form->button(__('Gluons Search'), ['class' => 'btn btn-primary']) ?>
