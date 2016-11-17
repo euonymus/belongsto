@@ -30,4 +30,15 @@ class SubjectToolHelper extends Helper
   {
     return $this->Html->link($text, self::buildViewArray($id));
   }
+
+  public function buildRelationText($relation_object, $name, $relation_text, $type)
+  {
+    if ($type == 1) {
+      $res = $name . 'は ' . $this->link($relation_object->name, $relation_object->id);
+    } elseif ($type == 2) {
+      $res = $this->link($relation_object->name, $relation_object->id) . ' は' . $name;
+    }
+    $res .= $relation_text;
+    return $res;
+  }
 }

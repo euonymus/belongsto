@@ -15,10 +15,11 @@
 
         <? if (!empty($subject->actives)): ?>
         <div class="subject-list-sub">
-          <h4>relations</h4>
+          <h4>secondary relations</h4>
           <ul>
               <? foreach($subject->actives as $active): ?>
-              <li class="subject-list-relation"><?= $this->SubjectTool->link($active->name, $active->id) ?></li>
+              <li class="subject-list-relation"><?= $this->SubjectTool->buildRelationText($active,
+						    $subject->name, $active->_joinData->relation, 2) ?></li>
               <? endforeach; ?>
           </ul>
         </div>
