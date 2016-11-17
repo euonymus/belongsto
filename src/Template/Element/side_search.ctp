@@ -1,6 +1,12 @@
-<?= $this->Form->create(NULL, ['url' => '/subjects/search', 'method' => 'get']) ?>
-<fieldset>
-    <?= $this->Form->input('keywords', ['label' => false, 'placeholder'=>'Search']) ?>
-</fieldset>
-<?= $this->Form->button(__('Submit')) ?>
-<?= $this->Form->end() ?>
+<? if (!$this->Page->isTop()): ?>
+      <?= $this->Form->create(NULL, ['url' => '/subjects/search', 'method' => 'get',
+				     'class' => 'navbar-form navbar-left', 'role'=>'search']) ?>
+        <div class="input-group">
+          <?= $this->Form->input('keywords', ['templates' => ['inputContainer' => '{{content}}'], 'label' => false,
+					      'placeholder'=>'Search', 'class' => 'form-control']) ?>
+          <span class="input-group-btn">
+            <?= $this->Form->button(__('Go'), ['class' => 'btn btn-default']) ?>
+          </span>
+        </div>
+      <?= $this->Form->end() ?>
+<? endif; ?>

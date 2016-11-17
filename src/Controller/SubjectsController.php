@@ -32,7 +32,8 @@ class SubjectsController extends AppController
 	$subject = $this->Subjects->getRelations($id, ['Actives', 'Passives'], 2);
 	if (!$subject) $this->redirect('/');
 
-        $this->set(compact('subject'));
+	$title = $subject->name . 'と関連組織、人間関係、繋がり';
+        $this->set(compact('subject', 'title'));
         $this->set('_serialize', ['subject']);
     }
 

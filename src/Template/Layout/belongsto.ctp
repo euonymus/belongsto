@@ -13,8 +13,8 @@ $gluonsDescription = 'gluons: All the connections among everything in the univer
     <?= $this->Html->meta('icon') ?>
 
     <title>
-        <?= $gluonsDescription ?>:
-        <?= $title ?>
+        <?= $title ?>:
+        <?= $gluonsDescription ?>
     </title>
 
     <!-- Bootstrap -->
@@ -38,12 +38,12 @@ $gluonsDescription = 'gluons: All the connections among everything in the univer
     <?= $this->element('header') ?>
     <?= $this->Flash->render() ?>
 
+    <? /* <div class="container clearfix"> */ ?>
     <div class="container">
-    <? /*    <div class="container clearfix"> */ ?>
+        <?= $this->fetch('content') ?>
 <? if (!$this->Page->isTop()): ?>
         <?= $this->element('sidebar') ?>
 <? endif; ?>
-        <?= $this->fetch('content') ?>
     </div>
 
     <footer class="footer">
