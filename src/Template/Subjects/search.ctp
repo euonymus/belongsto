@@ -1,7 +1,7 @@
 <div class="subject-list-box">
     <h1><?= h($title) ?></h1>
     <? foreach ($subjects as $subject): ?>
-    <div class="panel subject-list">
+    <div class="well subject-list">
 
         <div class="media subject-list-main">
           <div class="media-left">

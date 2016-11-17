@@ -4,3 +4,11 @@
 .input-container-top {
     max-width:500px;
 }
+.subject-list {
+    padding:0px 0px 0px 0px;
+}
+.subject-list-sub {
+    background-color:#eee;
+    margin:0px 0px 0px 0px;
+    padding:10px 10px 10px 10px;
+}
