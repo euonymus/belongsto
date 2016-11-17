@@ -1,26 +1,29 @@
-<div class="subjects index large-9 medium-8 columns content">
-    <h3><?= __('Subjects') ?></h3>
-    <?php foreach ($subjects as $subject): ?>
+<div class="subject-list-box">
+    <h1><?= h($title) ?></h1>
+    <? foreach ($subjects as $subject): ?>
+    <div class="panel subject-list">
 
-    <div class="small-offset-1 panel">
+        <div class="media subject-list-main">
+          <div class="media-left">
+            <?= $this->SubjectTool->imageLink($subject) ?>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading"><?= $this->SubjectTool->link($subject->name, $subject->id) ?></h4>
+            <?= $subject->description ?>
+          </div>
+        </div>
 
-       <div class="left">
-         <?= $this->SubjectTool->imageLink($subject) ?>
-         <?= $this->SubjectTool->link($subject->name, $subject->id) ?>
-       </div>
-       <div class="left panel">
-         Active Relations
-       </div>
-       <? foreach($subject->actives as $active): ?>
-       <div class="left panel">
-           <?= $this->SubjectTool->imageLink($active) ?>
-           <?= $this->SubjectTool->link($active->name, $active->id) ?>
-       </div>
-       <? endforeach; ?>
-       <div style="clear:both"></div>
+        <? if (!empty($subject->actives)): ?>
+        <div class="subject-list-sub">
+          <h4>relations</h4>
+          <ul>
+              <? foreach($subject->actives as $active): ?>
+              <li class="subject-list-relation"><?= $this->SubjectTool->link($active->name, $active->id) ?></li>
+              <? endforeach; ?>
+          </ul>
+        </div>
+        <? endif; ?>
 
     </div>
-
-    <?php endforeach; ?>
-
+    <? endforeach; ?>
 </div>

@@ -42,7 +42,9 @@ class SubjectsController extends AppController
       if (!array_key_exists('keywords', $this->request->query)) $this->redirect('/');
 
       $subjects = $this->Subjects->search($this->request->query['keywords']);
-      $this->set(compact('subjects'));
+
+      $title = $this->request->query['keywords'] . 'の関係図検索結果';
+      $this->set(compact('subjects', 'title'));
       $this->set('_serialize', ['subjects']);
     }
 
