@@ -16,8 +16,11 @@ class SubjectsController extends AppController
     public function index()
     {
         $subjects = $this->paginate($this->Subjects);
-        $this->set(compact('subjects'));
+	$title = 'quarks that gluons hold';
+
+        $this->set(compact('subjects', 'title'));
         $this->set('_serialize', ['subjects']);
+	$this->render('search');
     }
 
     /**
