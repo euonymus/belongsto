@@ -7,11 +7,9 @@
 .subject-list {
     padding:0px 0px 0px 0px;
 }
-.subject-list-main .media-body {
+.subject-list-main .media-body, .subject-list-sub {
     padding:20px 20px 20px 20px;
 }
 .subject-list-sub {
     background-color:#fcfcfc;
-    margin:0px 0px 0px 0px;
-    padding:20px 20px 20px 20px;
 }
