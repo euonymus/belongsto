@@ -8,14 +8,30 @@
      $unit_key = 'subject_name';
    }
 ?>
-    <?= $this->element('subject_unit', [$unit_key => $subject->name,
-                                       'relation_object' => $relation,
-                                       'relation_text' => $relation->_joinData->relation]) ?>
+<?
+  ${$unit_key} = $subject->name;
+  $relation_object = $relation;
+  $relation_text = $relation->_joinData->relation;
+?>
+    <div class="panel no-border">
+      <h3>
+        <?= $this->SubjectTool->imageLink($relation_object) ?>
+
+        <? if (isset($subject_name)): ?>
+          <?= $subject_name ?>は <?= $this->SubjectTool->link($relation_object->name, $relation_object->id) ?>
+        <? elseif (isset($object_name)): ?>
+          <?= $this->SubjectTool->link($relation_object->name, $relation_object->id) ?> は<?= $object_name ?>
+        <? endif; ?>
+
+        <?= $relation_text ?>
+      </h3>
+    </div>
+
 
     <div class="row">
     <?php foreach ($relation->relation as $passive2): ?>
         <? if ($subject->id == $passive2->active_id) continue; ?>
-        <div class="col-xs-2">
+        <div class="col-xs-3">
             <?= $this->element('subject_unit', ['object_name' => $relation->name,
 				      'relation_object' => $passive2->active,
 				      'relation_text' => $passive2->relation]) ?>
