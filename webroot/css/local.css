@@ -13,3 +13,14 @@
 .subject-list-sub {
     background-color:#fcfcfc;
 }
+.subject-main h1 {
+    font-size: 2em;
+    padding:5px;
+}
+.subject-main {
+    padding:20px 20px 20px 20px;
+}
+.subject-main img {
+    border: solid 1px #888;
+}
+

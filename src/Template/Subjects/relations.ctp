@@ -1,14 +1,10 @@
 <div class="row">
 
-  <div class="col-md-3 subject-main">
-    <h1><?= h($subject->name) ?></h1>
-
-    <? if (!empty($subject->image_path)): $image_path = $subject->image_path; ?>
-       <?= $this->Html->link($this->Html->image($image_path, ['width' => '100px', 'height' => '100px']),
-			     ['controller' => 'subjects', 'action' => 'relations', $subject->id],
-			     ['escape' => false]) ?>
-    <? endif; ?>
-
+  <div class="col-md-3 card subject-main">
+    <?= $this->SubjectTool->imageLink($subject, ['width' => '100%', 'height' => '120px', 'class' => 'card-img-top']) ?>
+    <div class="card-block">
+      <h1 class="card-title"><?= h($subject->name) ?></h1>
+    </div>
     <p><?= h($subject->description) ?></p>
     <p><?= $this->Html->link('Add relation', ['controller' => 'relations', 'action' => 'add', $subject->id],
 			     ['class' => 'btn btn-primary']); ?></p>
