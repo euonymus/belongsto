@@ -12,12 +12,12 @@ class Initial extends AbstractMigration
                 'limit' => 36,
                 'null' => false,
             ])
-            ->addColumn('subject_id', 'string', [
+            ->addColumn('active_id', 'string', [
                 'default' => '',
                 'limit' => 36,
                 'null' => false,
             ])
-            ->addColumn('object_id', 'string', [
+            ->addColumn('passive_id', 'string', [
                 'default' => '',
                 'limit' => 36,
                 'null' => false,
@@ -67,8 +67,8 @@ class Initial extends AbstractMigration
             ])
             ->addIndex(
                 [
-                    'subject_id',
-                    'object_id',
+                    'active_id',
+                    'passive_id',
                 ],
                 ['unique' => true]
             )
@@ -152,6 +152,16 @@ class Initial extends AbstractMigration
                 'default' => false,
                 'limit' => null,
                 'null' => false,
+            ])
+            ->addColumn('url', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('affiliate', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
             ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
