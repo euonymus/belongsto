@@ -28,7 +28,7 @@
     <div class="row subject-relation-sub">
     <? foreach ($relation->relation as $passive2): ?>
         <? if ($subject->id == $passive2->active_id) continue; ?>
-        <div class="col-xs-3 second-relation">
+        <div class="col-xs-6 col-md-4 col-lg-3 second-relation">
             <?= $this->element('subject_unit', ['object_name' => $relation->name,
 				      'relation_object' => $passive2->active,
 				      'relation_text' => $passive2->relation]) ?>
