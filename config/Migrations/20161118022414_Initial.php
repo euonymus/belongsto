@@ -84,6 +84,8 @@ class Initial extends AbstractMigration
                 'default' => null,
                 'limit' => null,
                 'null' => false,
+                'collate' => 'utf8_unicode_ci',
+                'charset' => 'utf8',
             ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
