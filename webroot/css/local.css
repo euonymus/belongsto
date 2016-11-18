@@ -1,3 +1,7 @@
+.navbar-header form {
+    margin:0px;
+    padding:8px;
+}
 .input-container-top {
     max-width:500px;
 }
@@ -22,15 +26,24 @@
     border: solid 1px #888;
 }
 .subject-relation {
-    padding:0px;
+    /* padding:0px; */
+    /* background-color:#000; */
 }
 .subject-relation-main {
     padding:20px;
 }
 .second-relation {
     height:250px;
+    margin-bottom:10px;
+}
+.subject-card {
+    height:100%;
+    background-color:#fff;
 }
 .second-relation .card-block {
     padding:5px;
+}
+.second-relation .card-block h4 {
+    font-size: 1em;
 }
 
