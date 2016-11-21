@@ -60,11 +60,13 @@ class SubjectsTable extends Table
         ]);
         $this->belongsToMany('Passives', [
             'through' => 'Relations',
-            'foreignKey' => 'active_id'
+            'foreignKey' => 'active_id',
+            'sort' => ['Relations.order_level' => 'ASC'],
         ]);
         $this->belongsToMany('Actives', [
             'through' => 'Relations',
-            'foreignKey' => 'passive_id'
+            'foreignKey' => 'passive_id',
+            'sort' => ['Relations.order_level' => 'ASC'],
         ]);
 
     }
