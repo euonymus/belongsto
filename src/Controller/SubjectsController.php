@@ -81,10 +81,10 @@ class SubjectsController extends AppController
         if ($this->request->is('post') || $session) {
             $subject = $this->Subjects->formToSaving($this->request->data);
             if ($savedSubject = $this->Subjects->save($subject)) {
-                $this->_setFlash(__('The subject has been saved.')); 
+                $this->_setFlash(__('The quark has been saved.')); 
                 return $this->redirect(['action' => 'relations', $savedSubject->id]);
             } else {
-                $this->_setFlash(__('The subject could not be saved. Please, try again.'), true); 
+                $this->_setFlash(__('The quark could not be saved. Please, try again.'), true); 
             }
         }
 
@@ -119,10 +119,10 @@ class SubjectsController extends AppController
 
             $subject = $this->Subjects->formToEditing($subject, $this->request->data);
             if ($savedSubject = $this->Subjects->save($subject)) {
-                $this->Flash->success(__('The subject has been saved.'));
+                $this->_setFlash(__('The quark has been saved.')); 
                 return $this->redirect(['action' => 'relations', $savedSubject->id]);
             } else {
-                $this->Flash->error(__('The subject could not be saved. Please, try again.'));
+                $this->_setFlash(__('The quark could not be saved. Please, try again.'), true); 
             }
         }
         $this->set(compact('subject'));
@@ -142,9 +142,9 @@ class SubjectsController extends AppController
         $subject = $this->Subjects->get($id);
 
         if ($this->Subjects->delete($subject)) {
-            $this->Flash->success(__('The subject has been deleted.'));
+            $this->Flash->success(__('The quark has been deleted.'));
         } else {
-            $this->Flash->error(__('The subject could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The quark could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['controller' => 'Subjects', 'action' => 'index']);

@@ -98,10 +98,10 @@ class RelationsController extends AppController
 
             $subject = $Subjects->formToSaving($saving_subject);
             if ($savedSubject = $Subjects->save($subject)) {
-                $this->Flash->success(__('The subject has been saved.'));
+                $this->_setFlash(__('The quark has been saved.')); 
 		$session_passive_id = $savedSubject->id;
             } else {
-                $this->Flash->error(__('The subject could not be saved. Please, try again.'));
+                $this->_setFlash(__('The quark could not be saved. Please, try again.'), true); 
             }
 	    $ready_for_save = true;
 	}
@@ -114,16 +114,19 @@ class RelationsController extends AppController
             /* $relation = $this->Relations->patchEntity($relation, $this->request->data); */
             $relation = $this->Relations->formToSaving($this->request->data);
             if ($this->Relations->save($relation)) {
-                $this->Flash->success(__('The relation has been saved.'));
+                $this->_setFlash(__('The gluon has been saved.')); 
 
                 return $this->redirect(['controller' => 'subjects', 'action' => 'relations', $active_id]);
             } else {
-                $this->Flash->error(__('The relation could not be saved. Please, try again.'));
+                $this->_setFlash(__('The gluon could not be saved. Please, try again.'), true); 
             }
         }
 	$active = $Subjects->get($active_id, ['contain' => 'Actives']);
         $passives = $this->Relations->Passives->find('list', ['limit' => 200]);
-        $this->set(compact('relation', 'active', 'passives'));
+
+
+	$title = 'Add new gluon';
+        $this->set(compact('relation', 'active', 'passives', 'title'));
         $this->set('_serialize', ['relation']);
     }
 
@@ -153,11 +156,11 @@ class RelationsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $relation = $this->Relations->patchEntity($relation, $this->request->data);
             if ($this->Relations->save($relation)) {
-                $this->Flash->success(__('The relation has been saved.'));
+                $this->_setFlash(__('The gluon has been saved.')); 
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The relation could not be saved. Please, try again.'));
+                $this->_setFlash(__('The gluon could not be saved. Please, try again.'), true); 
             }
         }
         $actives = $this->Relations->Actives->find('list', ['limit' => 200]);
@@ -178,9 +181,9 @@ class RelationsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $relation = $this->Relations->get($id);
         if ($this->Relations->delete($relation)) {
-            $this->Flash->success(__('The relation has been deleted.'));
+            $this->_setFlash(__('The gluon has been deleted.')); 
         } else {
-            $this->Flash->error(__('The relation could not be deleted. Please, try again.'));
+            $this->_setFlash(__('The gluon could not be deleted. Please, try again.'), true); 
         }
 
         return $this->redirect(['action' => 'index']);

@@ -31,7 +31,7 @@
 */ ?>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><?= $this->Html->link(__('New Subject'), ['controller' => 'subjects', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New Quark'), ['controller' => 'subjects', 'action' => 'add']) ?></li>
         <?= $this->element('side_subject') ?>
         <?= $this->element('side_relation') ?>
       </ul>
