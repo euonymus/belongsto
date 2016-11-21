@@ -15,6 +15,8 @@ use Cake\ORM\Entity;
  * @property string $start_accuracy
  * @property string $end_accuracy
  * @property bool $is_momentary
+ * @property string $url
+ * @property string $affiliate
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  *

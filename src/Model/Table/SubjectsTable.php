@@ -164,6 +164,12 @@ class SubjectsTable extends Table
             ->requirePresence('is_momentary', 'create')
             ->notEmpty('is_momentary');
 
+        $validator
+            ->allowEmpty('url');
+
+        $validator
+            ->allowEmpty('affiliate');
+
         return $validator;
     }
 

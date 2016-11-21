@@ -11,6 +11,8 @@
             echo $this->Form->input('start_accuracy');
             echo $this->Form->input('end_accuracy');
             echo $this->Form->input('is_momentary');
+            echo $this->Form->input('url');
+            echo $this->Form->input('affiliate');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
