@@ -81,10 +81,10 @@ class SubjectsController extends AppController
         if ($this->request->is('post') || $session) {
             $subject = $this->Subjects->formToSaving($this->request->data);
             if ($savedSubject = $this->Subjects->save($subject)) {
-                $this->Flash->success(__('The subject has been saved.'));
+                $this->_setFlash(__('The subject has been saved.')); 
                 return $this->redirect(['action' => 'relations', $savedSubject->id]);
             } else {
-                $this->Flash->error(__('The subject could not be saved. Please, try again.'));
+                $this->_setFlash(__('The subject could not be saved. Please, try again.'), true); 
             }
         }
 
@@ -95,8 +95,10 @@ class SubjectsController extends AppController
 
     public function confirm()
     {
+      $saving = unserialize($this->Session->read('SavingSubjects'));
       $subjects = unserialize($this->Session->read('ExistingSubjects'));
-      $this->set(compact('subjects'));
+      $title = 'Check if the quark already exists, before adding';
+      $this->set(compact('saving', 'subjects', 'title'));
       $this->set('_serialize', ['subjects']);
     }
 

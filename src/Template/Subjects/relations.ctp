@@ -1,5 +1,4 @@
 <div class="row">
-
   <div class="col-md-3 card subject-main">
     <?= $this->SubjectTool->imageLink($subject, ['width' => '100%', 'height' => '120px', 'class' => 'card-img-top']) ?>
     <div class="card-block">

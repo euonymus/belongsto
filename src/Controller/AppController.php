@@ -60,4 +60,9 @@ class AppController extends Controller
             $this->set('_serialize', true);
         }
     }
+
+    public function _setFlash($string, $error = false)
+    {
+	$this->Flash->set($string, ['params' => ['class' => 'alert alert-'. ($error ? 'danger' : 'success')]]); 
+    }
 }

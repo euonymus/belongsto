@@ -1,28 +1,36 @@
-<div class="subjects index large-9 medium-8 columns content">
-    <h3><?= __('Subjects') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <tbody>
-            <?php foreach ($subjects as $subject): ?>
-            <tr>
-                <td><?= h($subject->id) ?></td>
-                <td><?= h($subject->name) ?></td>
-                <td><?= h($subject->image_path) ?></td>
-                <td><?= h($subject->description) ?></td>
-                <td><?= h($subject->start) ?></td>
-                <td><?= h($subject->end) ?></td>
-                <td><?= h($subject->start_accuracy) ?></td>
-                <td><?= h($subject->end_accuracy) ?></td>
-                <td><?= h($subject->is_momentary) ?></td>
-                <td><?= h($subject->created) ?></td>
-                <td><?= h($subject->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $subject->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $subject->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $subject->id], ['confirm' => __('Are you sure you want to delete # {0}?', $subject->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <?= $this->Html->link(__('新規作成'), ['action' => 'add']) ?>
+<div class="">
+    <h2>Add new quark</h2>
+    <p><b><?= $saving['name'] ?></b>を新規追加しようとしています。</p>
+    <p><?= $this->Html->link('確認して追加', ['action' => 'add'], ['class' => 'btn btn-primary']) ?></p>
+</div>
+<div class="subject-list-box">
+    <h1><?= h($title) ?></h1>
+
+    <? foreach ($subjects as $subject): ?>
+    <div class="well subject-list">
+
+        <div class="media subject-list-main">
+          <div class="media-left">
+            <?= $this->SubjectTool->imageLink($subject) ?>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading"><?= $this->SubjectTool->link($subject->name, $subject->id) ?></h4>
+            <?= $subject->description ?>
+          </div>
+        </div>
+
+        <? if (!empty($subject->actives)): ?>
+        <div class="subject-list-sub">
+          <h4>secondary relations</h4>
+          <ul>
+              <? foreach($subject->actives as $active): ?>
+              <li class="subject-list-relation"><?= $this->SubjectTool->buildRelationText($active,
+						    $subject->name, $active->_joinData->relation, 2) ?></li>
+              <? endforeach; ?>
+          </ul>
+        </div>
+        <? endif; ?>
+
+    </div>
+    <? endforeach; ?>
 </div>
