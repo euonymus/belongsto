@@ -125,7 +125,8 @@ class SubjectsController extends AppController
                 $this->_setFlash(__('The quark could not be saved. Please, try again.'), true); 
             }
         }
-        $this->set(compact('subject'));
+	$title = 'Editing quark';
+        $this->set(compact('subject', 'title'));
         $this->set('_serialize', ['subject']);
     }
 
