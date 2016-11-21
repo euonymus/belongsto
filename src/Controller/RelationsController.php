@@ -133,12 +133,19 @@ class RelationsController extends AppController
     public function confirm()
     {
         $subjects = unserialize($this->Session->read('ExistingSubjectsForRelation'));
+        $saving = unserialize($this->Session->read('SavingRelation'));
+
         if ($this->request->is('post')) {
 	  $this->Session->write('SavingPassiveId', serialize($this->request->data['passive_id']));
 	  return $this->redirect(['action' => 'add']);
         }
-      $this->set(compact('subjects'));
-      $this->set('_serialize', ['subjects']);
+
+	$Actives = TableRegistry::get('Subjects');
+	$active = $Actives->get($saving['active_id']);
+	$title = 'Adding new gluon on '. $active->name;
+
+        $this->set(compact('subjects', 'title'));
+        $this->set('_serialize', ['subjects']);
     }
 
     /**
