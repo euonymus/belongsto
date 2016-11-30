@@ -6,6 +6,7 @@
 .logo-top img {
     width:100%;
 }
+
 .navbar-header img {
     height:25px;
 }
@@ -26,6 +27,13 @@
 .subject-list-sub {
     background-color:#fcfcfc;
 }
+.subject-image {
+    overflow:hidden;
+    border: solid 1px #888;
+}
+.subject-main img {
+     width:100%;
+}
 .subject-main h1 {
     font-size: 2em;
     padding:5px;
@@ -34,7 +42,6 @@
     padding:20px;
 }
 .subject-main img {
-    border: solid 1px #888;
 }
 .subject-relation {
     /* padding:0px; */

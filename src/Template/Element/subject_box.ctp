@@ -13,7 +13,7 @@
 
     <div class="panel subject-relation-main">
         <div class="media">
-          <div class="media-left">
+          <div class="media-left subject-image">
             <?= $this->SubjectTool->imageLink($relation_object) ?>
           </div>
           <div class="media-body">

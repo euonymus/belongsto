@@ -1,6 +1,8 @@
 <div class="row">
   <div class="col-md-3 card subject-main">
-    <?= $this->SubjectTool->imageLink($subject, ['width' => '100%', 'height' => '120px', 'class' => 'card-img-top']) ?>
+    <div class="subject-image">
+        <?= $this->SubjectTool->imageLink($subject, ['class' => 'card-img-top']) ?>
+    </div>
     <div class="card-block">
       <h1 class="card-title"><?= h($subject->name) ?></h1>
     </div>
