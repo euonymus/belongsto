@@ -19,7 +19,7 @@ use Cake\Validation\Validator;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class SubjectSearchesTable extends Table
+class SubjectSearchesTable extends AppTable
 {
 
     /**
@@ -32,7 +32,7 @@ class SubjectSearchesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('subject_searches');
+        $this->table(self::$subject_searches);
         $this->displayField('id');
         $this->primaryKey('id');
 

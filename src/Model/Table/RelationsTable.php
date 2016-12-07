@@ -24,7 +24,7 @@ use App\Utils\U;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class RelationsTable extends Table
+class RelationsTable extends AppTable
 {
 
     /**
@@ -37,7 +37,7 @@ class RelationsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('relations');
+        $this->table(self::$relations);
         $this->displayField('id');
         $this->primaryKey('id');
 

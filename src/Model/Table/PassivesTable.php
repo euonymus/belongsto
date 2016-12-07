@@ -21,7 +21,7 @@ use Cake\Validation\Validator;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class PassivesTable extends Table
+class PassivesTable extends AppTable
 {
 
     /**
@@ -34,7 +34,7 @@ class PassivesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('subjects');
+        $this->table(self::$subjects);
         $this->displayField('name');
         $this->primaryKey('id');
 

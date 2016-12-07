@@ -30,9 +30,8 @@ use App\Utils\NgramConverter;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class SubjectsTable extends Table
+class SubjectsTable extends AppTable
 {
-
     /**
      * Initialize method
      *
@@ -43,7 +42,7 @@ class SubjectsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('subjects');
+        $this->table(self::$subjects);
         $this->displayField('name');
         $this->primaryKey('id');
 
