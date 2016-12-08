@@ -1,25 +1,42 @@
-# CakePHP Application Skeleton
+# gluons
+gluons is a database searvice to hold the all relations among everything in the universe.
 
-[![Build Status](https://img.shields.io/travis/cakephp/app/master.svg?style=flat-square)](https://travis-ci.org/cakephp/app)
-[![License](https://img.shields.io/packagist/l/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
+# Service URL
+http://gluons.link
 
-A skeleton for creating applications with [CakePHP](http://cakephp.org) 3.x.
+# Requirement
 
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
+* Linux
+* Apache
+* MySQL
+* PHP
+* composer
 
-## Installation
+# Prepare the application source
 
-1. Download [Composer](http://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
+    $ cd /{source_dir_path}
+    $ git checkout master
+    $ rm -fr vendor/j7mbo
+    $ composer install
 
-If Composer is installed globally, run
-```bash
-composer create-project --prefer-dist cakephp/app [app_name]
-```
+※vendor/j7mbo/twitter-api-php が上手くgit管理できないため
 
-You should now be able to visit the path to where you installed the app and see the default home page.
+# Prepare Databae
 
-## Configuration
+    Build MySQL database named 'belongsto'
+    Build MySQL user named 'belongsto' (password is in config/app.php)
 
-Read and edit `config/app.php` and setup the 'Datasources' and any other
-configuration relevant for your application.
+# Prepare Tables
+
+    $ cd /{source_dir_path}
+    $ bin/cake migrations migrate
+
+# Prepare Table Datas
+
+    $ mysql -utwinavitopics -p{password} belongsto < /{source_dir_path}
+
+
+# Run local server
+
+    $ cd /{source_dir_path}
+    $ bin/cake server
