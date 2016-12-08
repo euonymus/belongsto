@@ -6,7 +6,7 @@ class Initial extends AbstractMigration
     public function up()
     {
 
-        $this->table('jpy_relations', ['id' => false, 'primary_key' => ['id']])
+        $this->table('jp_relations', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'string', [
                 'default' => '',
                 'limit' => 36,
@@ -80,7 +80,7 @@ class Initial extends AbstractMigration
             )
             ->create();
 
-        $this->table('jpy_subject_searches', ['id' => false, 'primary_key' => ['id']])
+        $this->table('jp_subject_searches', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'string', [
                 'default' => '',
                 'limit' => 36,
@@ -109,7 +109,7 @@ class Initial extends AbstractMigration
             )
             ->create();
 
-        $this->table('jpy_subjects', ['id' => false, 'primary_key' => ['id']])
+        $this->table('jp_subjects', ['id' => false, 'primary_key' => ['id']])
             ->addColumn('id', 'string', [
                 'default' => '',
                 'limit' => 36,
@@ -369,9 +369,9 @@ class Initial extends AbstractMigration
 
     public function down()
     {
-        $this->dropTable('jpy_relations');
-        $this->dropTable('jpy_subject_searches');
-        $this->dropTable('jpy_subjects');
+        $this->dropTable('jp_relations');
+        $this->dropTable('jp_subject_searches');
+        $this->dropTable('jp_subjects');
         $this->dropTable('relations');
         $this->dropTable('subject_searches');
         $this->dropTable('subjects');
