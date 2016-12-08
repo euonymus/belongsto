@@ -743,14 +743,16 @@ class U
 
   public static function getSubdomain()
   {
-    $domain = 'gluons.link';
-    $domain_local = 'localhost:8765';
+    $domain            = 'gluons.link';
+    $domain_local      = 'localhost:8765';
+    $domain_virtualbox = 'local.gluons';
 
     $original = $_SERVER["HTTP_HOST"];
     $tmp = str_replace('.' . $domain, '', $original);
-    $ret = str_replace('.' . $domain_local, '', $tmp);
+    $tmp = str_replace('.' . $domain_local, '', $tmp);
+    $ret = str_replace('.' . $domain_virtualbox, '', $tmp);
 
-    if (($tmp == $domain) || ($tmp == $domain_local)) {
+    if (($tmp == $domain) || ($tmp == $domain_local) || ($tmp == $domain_virtualbox)) {
       $ret = '';
     }
     return $ret;

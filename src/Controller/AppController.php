@@ -17,6 +17,10 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 
+use Cake\Core\Configure;
+
+use App\Utils\U;
+
 /**
  * Application Controller
  *
@@ -27,6 +31,14 @@ use Cake\Event\Event;
  */
 class AppController extends Controller
 {
+    const LANG_ENG = 'en';
+    const LANG_JPY = 'jp';
+    static $langs = [
+      self::LANG_ENG,
+      self::LANG_JPY,
+    ];
+    static $lang = self::LANG_ENG;
+
     /**
      * Initialization hook method.
      *
@@ -44,6 +56,13 @@ class AppController extends Controller
         $this->loadComponent('Flash');
         $this->viewBuilder()->layout('belongsto');
 	$this->Session = $this->request->session();
+
+	$subdomain = U::getSubdomain();
+	if (in_array($subdomain, self::$langs)) {
+	  self::$lang = $subdomain;
+	}
+	Configure::write('Belongsto.lang', self::$lang);
+	Configure::write('Belongsto.lang_eng', self::LANG_ENG);
     }
 
     /**

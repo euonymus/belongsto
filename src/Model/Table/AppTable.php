@@ -6,19 +6,10 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-use App\Utils\U;
+use Cake\Core\Configure;
 
 class AppTable extends Table
 {
-    const LANG_ENG = 'en';
-    const LANG_JPY = 'jp';
-    static $langs = [
-      self::LANG_ENG,
-      self::LANG_JPY,
-    ];
-
-    static $lang = self::LANG_ENG;
-
     const TABLE_SUBJECT        = 'subjects';
     const TABLE_SUBJECT_SEARCH = 'subject_searches';
     const TABLE_RELATION       = 'relations';
@@ -38,13 +29,10 @@ class AppTable extends Table
         parent::initialize($config);
 	$prefix = '';
 
-	$subdomain = U::getSubdomain();
-	if (in_array($subdomain, self::$langs)) {
-	  self::$lang = $subdomain;
-	}
-
-	if (self::$lang != self::LANG_ENG) {
-	  $prefix = self::$lang . '_';
+        $lang = Configure::read('Belongsto.lang');
+        $lang_eng = Configure::read('Belongsto.lang_eng');
+	if ($lang != $lang_eng) {
+	  $prefix = $lang . '_';
 	}
 
 	self::$subjects         = $prefix . self::TABLE_SUBJECT;
