@@ -6,10 +6,16 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
+use App\Utils\U;
+
 class AppTable extends Table
 {
-    const LANG_ENG = 'eng';
-    const LANG_JPY = 'jpy';
+    const LANG_ENG = 'en';
+    const LANG_JPY = 'jp';
+    static $langs = [
+      self::LANG_ENG,
+      self::LANG_JPY,
+    ];
 
     static $lang = self::LANG_ENG;
 
@@ -32,15 +38,18 @@ class AppTable extends Table
         parent::initialize($config);
 	$prefix = '';
 
-// if you want to change the language depending on the environments, config here.
-self::$lang = self::LANG_JPY;
+	$subdomain = U::getSubdomain();
+	if (in_array($subdomain, self::$langs)) {
+	  self::$lang = $subdomain;
+	}
 
 	if (self::$lang != self::LANG_ENG) {
-	  $prefix = self::LANG_JPY . '_';
+	  $prefix = self::$lang . '_';
 	}
 
 	self::$subjects         = $prefix . self::TABLE_SUBJECT;
 	self::$subject_searches = $prefix . self::TABLE_SUBJECT_SEARCH;
 	self::$relations        = $prefix . self::TABLE_RELATION;
     }
+
 }

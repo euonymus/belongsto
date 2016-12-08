@@ -740,4 +740,20 @@ class U
     self::$retrieveCacheConfig = $cacheOrigin;
     return $ret;
   }
+
+  public static function getSubdomain()
+  {
+    $domain = 'gluons.link';
+    $domain_local = 'localhost:8765';
+
+    $original = $_SERVER["HTTP_HOST"];
+    $tmp = str_replace('.' . $domain, '', $original);
+    $ret = str_replace('.' . $domain_local, '', $tmp);
+
+    if (($tmp == $domain) || ($tmp == $domain_local)) {
+      $ret = '';
+    }
+    return $ret;
+  }
+
 }
