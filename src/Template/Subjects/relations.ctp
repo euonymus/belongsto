@@ -18,7 +18,6 @@
 
   <div class="col-md-9 subject-relation-list">
     <div class="related">
-        <h4><?= __('Active Relations') ?></h4>
         <?= $this->element('subject_boxes', ['subject' => $subject, 'relations' => $subject->passives]) ?>
     </div>
 

@@ -9,8 +9,7 @@
   $relation_object = $relation;
   $relation_text = $relation->_joinData->relation;
 ?>
-<div class="well subject-relation">
-
+<div class="well subject-relation <? if ($type == 1) echo 'white'; ?>">
     <div class="panel subject-relation-main">
         <div class="media">
           <div class="media-left subject-image">
@@ -26,14 +25,23 @@
 
     <? if ($relation->relation->count() > 0): ?>
     <div class="row subject-relation-sub">
+<ul>
     <? foreach ($relation->relation as $passive2): ?>
-        <? if ($subject->id == $passive2->active_id) continue; ?>
+        <? if ($subject->id == $passive2->passive_id) continue; ?>
+
+<li>
+  <?= $this->SubjectTool->imageLink($passive2->passife, ['width' => '40px', 'height' => '40px', 'class' => 'card-img-top']) ?>
+  <?= $this->SubjectTool->buildRelationText($passive2->passife, $relation->name, $passive2->relation, 1) ?>
+</li>
+<? /*
         <div class="col-xs-6 col-md-4 col-lg-3 second-relation">
-            <?= $this->element('subject_unit', ['object_name' => $relation->name,
-				      'relation_object' => $passive2->active,
+            <?= $this->element('subject_unit', ['subject_name' => $relation->name,
+				      'relation_object' => $passive2->passife,
 				      'relation_text' => $passive2->relation]) ?>
         </div>
+   */ ?>
     <? endforeach; ?>
+</ul>
     </div>
     <? endif; ?>
 

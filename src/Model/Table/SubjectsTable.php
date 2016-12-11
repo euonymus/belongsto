@@ -194,13 +194,17 @@ class SubjectsTable extends AppTable
 	for($i = 0; count($subject->actives) > $i; $i++) {
 	  $Relations = TableRegistry::get('Relations');
 	  $subject->actives[$i]->relation
-	    = $Relations->find('all', ['contain' => 'Actives'])->where(['passive_id' => $subject->actives[$i]->id]);
+	    /* = $Relations->find('all', ['contain' => 'Actives'])->where(['passive_id' => $subject->actives[$i]->id]); */
+	    = $Relations->find('all', ['contain' => 'Passives'])->where(['active_id' => $subject->actives[$i]->id]);
 	}
 	for($i = 0; count($subject->passives) > $i; $i++) {
 	  $Relations = TableRegistry::get('Relations');
 	  $subject->passives[$i]->relation
-	    = $Relations->find('all', ['contain' => 'Actives'])->where(['passive_id' => $subject->passives[$i]->id]);
+	    /* = $Relations->find('all', ['contain' => 'Actives'])->where(['passive_id' => $subject->passives[$i]->id]); */
+	    = $Relations->find('all', ['contain' => 'Passives'])->where(['active_id' => $subject->passives[$i]->id]);
 	}
+	// Note: I don't know why, but somehow, the result of contain part became 'passife' not 'passive'.
+	//       This might be a bug in cakephp3
       }
       return $subject;
     }
