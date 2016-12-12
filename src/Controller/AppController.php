@@ -61,8 +61,12 @@ class AppController extends Controller
 	if (in_array($subdomain, self::$langs)) {
 	  self::$lang = $subdomain;
 	}
-	Configure::write('Belongsto.lang', self::$lang);
-	Configure::write('Belongsto.lang_eng', self::LANG_ENG);
+
+	$lang_now = self::$lang;
+	$lang_eng = self::LANG_ENG;
+
+	Configure::write('Belongsto.lang', $lang_now);
+	Configure::write('Belongsto.lang_eng', $lang_eng);
     }
 
     /**

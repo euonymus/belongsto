@@ -3,6 +3,8 @@ namespace App\View\Helper;
 
 use Cake\View\Helper;
 
+use Cake\Core\Configure;
+
 class SubjectToolHelper extends Helper
 {
   public $helpers = ['Html'];
@@ -33,13 +35,23 @@ class SubjectToolHelper extends Helper
 
   public function buildRelationText($relation_object, $name, $relation_text, $type)
   {
-    if ($type == 1) {
-      //$res = $name . 'は ' . $this->link($relation_object->name, $relation_object->id);
-      $res = $this->link($relation_object->name, $relation_object->id);
-    } elseif ($type == 2) {
-      $res = $this->link($relation_object->name, $relation_object->id) . ' は' . $name;
+    $lang = Configure::read('Belongsto.lang');
+    $lang_eng = Configure::read('Belongsto.lang_eng');
+    if ($lang == $lang_eng) {
+      if ($type == 2) {
+	$res = $this->link($relation_object->name, $relation_object->id) . ' ' . $relation_text . ' ' . $name;
+      } elseif($type == 1) {
+	$res = $name . ' ' . $relation_text . ' ' . $this->link($relation_object->name, $relation_object->id);
+      }
+    } else {
+      if ($type == 1) {
+	//$res = $name . 'は ' . $this->link($relation_object->name, $relation_object->id);
+	$res = $this->link($relation_object->name, $relation_object->id);
+      } elseif ($type == 2) {
+	$res = $this->link($relation_object->name, $relation_object->id) . ' は' . $name;
+      }
+      $res .= $relation_text;
     }
-    $res .= $relation_text;
     return $res;
   }
 }
