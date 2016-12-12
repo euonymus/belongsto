@@ -18,7 +18,7 @@
             //echo $this->Form->input('end', ['empty' => true]);
         ?>
         <div class="input text">
-        <? if (is_string($subject->start)): ?>
+        <? if (is_string($subject->start) || is_null($subject->start)): ?>
             <label for="url">Start</label>
             <input type='date' class="form-control date" name="start"<? if (array_key_exists('start', $this->request->data)) {
 		echo ' value="' . $this->request->data['start'] . '"'; } ?>>
