@@ -1,7 +1,7 @@
 <div class="">
     <h2>Add new quark</h2>
     <p><b><?= $saving['name'] ?></b>を新規追加しようとしています。</p>
-    <p><?= $this->Html->link('確認して追加', ['action' => 'add'], ['class' => 'btn btn-primary']) ?></p>
+    <p><?= $this->Html->link('確認して追加', ['action' => 'add', 'confirm'], ['class' => 'btn btn-primary']) ?></p>
 </div>
 <div class="subject-list-box">
     <h1><?= h($title) ?></h1>

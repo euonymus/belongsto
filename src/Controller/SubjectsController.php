@@ -66,8 +66,12 @@ class SubjectsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($confirm = null)
     {
+        if (is_null($confirm) || ($confirm != 'confirm')) {
+	  $this->Session->delete('SavingSubjects');
+	}
+
         // Session check
         $this->Session->delete('ExistingSubjects');
         $session = unserialize($this->Session->read('SavingSubjects'));
@@ -153,9 +157,9 @@ class SubjectsController extends AppController
         $subject = $this->Subjects->get($id);
 
         if ($this->Subjects->delete($subject)) {
-            $this->Flash->success(__('The quark has been deleted.'));
+	    $this->_setFlash(__('The quark has been deleted.'));
         } else {
-            $this->Flash->error(__('The quark could not be deleted. Please, try again.'));
+	    $this->_setFlash(__('The quark could not be deleted. Please, try again.'), true);
         }
 
         return $this->redirect(['controller' => 'Subjects', 'action' => 'index']);
