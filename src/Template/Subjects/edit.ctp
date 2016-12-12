@@ -18,17 +18,20 @@
             //echo $this->Form->input('end', ['empty' => true]);
         ?>
         <div class="input text">
-        <? if (is_string($subject->start) || is_null($subject->start)): ?>
             <label for="url">Start</label>
+        <? if (is_string($subject->start) || is_null($subject->start)): ?>
             <input type='date' class="form-control date" name="start"<? if (array_key_exists('start', $this->request->data)) {
 		echo ' value="' . $this->request->data['start'] . '"'; } ?>>
+        <? else: ?>
+            <input type='date' class="form-control date" name="start" value="<?= $subject->start->format('Y-m-d') ?>">
+        <? endif; ?>
+
+
             <label for="url">End</label>
+        <? if (is_string($subject->end) || is_null($subject->end)): ?>
             <input type='date' class="form-control date" name="end"<? if (array_key_exists('end', $this->request->data)) {
 	        echo ' value="' . $this->request->data['end'] . '"'; } ?>>
         <? else: ?>
-            <label for="url">Start</label>
-            <input type='date' class="form-control date" name="start" value="<?= $subject->start->format('Y-m-d') ?>">
-            <label for="url">End</label>
             <input type='date' class="form-control date" name="end" value="<?= $subject->end->format('Y-m-d') ?>">
         <? endif; ?>
         </div>
