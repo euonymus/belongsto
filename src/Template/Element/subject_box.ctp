@@ -23,16 +23,26 @@
         </div>
     </div>
 
+
+<? if ($relation->relation): ?>
     <? if ($relation->relation->count() > 0): ?>
     <div class="row subject-relation-sub">
 <ul>
     <? foreach ($relation->relation as $passive2): ?>
         <? if ($subject->id == $passive2->passive_id) continue; ?>
 
+
+
 <li>
+    <? if ($second_type == 'active'): ?>
   <?= $this->SubjectTool->imageLink($passive2->passife, ['width' => '40px', 'height' => '40px', 'class' => 'card-img-top']) ?>
   <?= $this->SubjectTool->buildRelationText($passive2->passife, $relation->name, $passive2->relation, 1) ?>
+    <? elseif ($second_type == 'passive'): ?>
+  <?= $this->SubjectTool->imageLink($passive2->active, ['width' => '40px', 'height' => '40px', 'class' => 'card-img-top']) ?>
+  <?= $this->SubjectTool->buildRelationText($passive2->active, $relation->name, $passive2->relation, 2) ?>
+    <? endif; ?>
 </li>
+
 <? /*
         <div class="col-xs-6 col-md-4 col-lg-3 second-relation">
             <?= $this->element('subject_unit', ['subject_name' => $relation->name,
@@ -44,5 +54,6 @@
 </ul>
     </div>
     <? endif; ?>
+<? endif; ?>
 
 </div>

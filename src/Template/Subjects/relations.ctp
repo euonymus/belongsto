@@ -17,12 +17,24 @@
   </div>
 
   <div class="col-md-9 subject-relation-list">
+
+    <ul class="nav nav-pills">
+      <li role="presentation"<? if ($second_type == 'active') { echo ' class="active"'; } ?>>
+          <?= $this->Html->link('Active', ['controller' => 'subjects', 'action' => 'relations', $subject->id, 'active']); ?>
+      </li>
+      <li role="presentation"<? if ($second_type == 'passive') { echo ' class="active"'; } ?>>
+          <?= $this->Html->link('Passive', ['controller' => 'subjects', 'action' => 'relations', $subject->id, 'passive']); ?>
+      </li>
+      <li role="presentation"<? if ($second_type == 'none') { echo ' class="active"'; } ?>>
+          <?= $this->Html->link('None', ['controller' => 'subjects', 'action' => 'relations', $subject->id, 'none']); ?>
+      </li>
+    </ul>
+
     <div class="related">
         <?= $this->element('subject_boxes', ['subject' => $subject, 'relations' => $subject->passives]) ?>
     </div>
-
+    <hr>
     <div class="related">
-        <h4><?= __('Passive Relations') ?></h4>
         <?= $this->element('subject_boxes', ['subject' => $subject, 'relations' => $subject->actives, 'isPassive' => true]) ?>
     </div>
   </div>

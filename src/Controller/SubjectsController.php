@@ -41,13 +41,17 @@ class SubjectsController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function relations($id = null)
+    public function relations($id = null, $second_type = null)
     {
-	$subject = $this->Subjects->getRelations($id, ['Actives', 'Passives'], 2);
+        if ( ($second_type != 'none') && ($second_type != 'passive') ) {
+	  $second_type = 'active';
+        }
+
+        $subject = $this->Subjects->getRelations($id, ['Actives', 'Passives'], 2, $second_type);
 	if (!$subject) $this->redirect('/');
 
 	$title = $subject->name . 'と関連組織、人間関係、繋がり';
-        $this->set(compact('subject', 'title'));
+        $this->set(compact('subject', 'second_type', 'title'));
         $this->set('_serialize', ['subject']);
     }
 
