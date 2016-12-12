@@ -28,7 +28,7 @@ class SubjectsController extends AppController
 
       $subjects = $this->Subjects->search($this->request->query['keywords']);
 
-      $title = $this->request->query['keywords'] . 'の関係図検索結果';
+      $title = 'Search results of ' . $this->request->query['keywords'];
       $this->set(compact('subjects', 'title'));
       $this->set('_serialize', ['subjects']);
       $this->render('index');
@@ -50,7 +50,13 @@ class SubjectsController extends AppController
         $subject = $this->Subjects->getRelations($id, ['Actives', 'Passives'], 2, $second_type);
 	if (!$subject) $this->redirect('/');
 
-	$title = $subject->name . 'と関連組織、人間関係、繋がり';
+	if ($second_type == 'none') {
+	  $title_second_level = '(no second level)';
+	} else {
+	  $title_second_level = '(second level: ' . $second_type . ')';
+	}
+
+	$title = 'Relations among ' . $subject->name . $title_second_level;
         $this->set(compact('subject', 'second_type', 'title'));
         $this->set('_serialize', ['subject']);
     }
