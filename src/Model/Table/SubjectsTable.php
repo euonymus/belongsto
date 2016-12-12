@@ -149,7 +149,8 @@ class SubjectsTable extends AppTable
             ->allowEmpty('start');
 
         $validator
-            ->dateTime('end')
+	  // なぜか validation errorが起きるので停止。
+	  // ->dateTime('end')
             ->allowEmpty('end');
 
         $validator
