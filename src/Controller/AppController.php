@@ -32,7 +32,7 @@ use App\Utils\U;
 class AppController extends Controller
 {
     const LANG_ENG = 'en';
-    const LANG_JPY = 'jp';
+    const LANG_JPY = 'ja';
     static $langs = [
       self::LANG_ENG,
       self::LANG_JPY,
