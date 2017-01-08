@@ -5,6 +5,7 @@
     </div>
     <div class="card-block">
       <h1 class="card-title"><?= h($subject->name) ?></h1>
+      <p><?= $this->SubjectTool->period($subject) ?></p>
     </div>
     <p><?= h($subject->description) ?></p>
 

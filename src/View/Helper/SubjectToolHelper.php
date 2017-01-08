@@ -54,4 +54,33 @@ class SubjectToolHelper extends Helper
     }
     return $res;
   }
+
+  public function period($obj)
+  {
+    $start = $this->date($obj->start, $obj->start_accuracy);
+    if ($obj->is_momentary) {
+      $ret = 'Occurred at: ' . $start;
+    } else {
+      $ret = 'Period: ' . $start;
+      $ret .= ' ~ ';
+      $ret .= $this->date($obj->end, $obj->end_accuracy);
+    }
+    if (empty($obj->start)) return '';
+    return $ret;
+  }
+
+  public function date($obj, $accuracy)
+  {
+    if ($accuracy == 'year') {
+      $format = 'Y';
+    } elseif ($accuracy == 'month') {
+      $format = 'Y-m';
+    } elseif ($accuracy == 'day') {
+      $format = 'Y-m-d';
+    } else {
+      $format = 'Y-m-d';
+    }
+    if (empty($obj)) return '';
+    return $obj->format($format);
+  }
 }
