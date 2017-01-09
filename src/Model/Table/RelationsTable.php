@@ -88,11 +88,13 @@ class RelationsTable extends AppTable
             ->notEmpty('relation');
 
         $validator
-            ->dateTime('start')
+	  // なぜか validation errorが起きるので停止。
+	  // ->dateTime('start')
             ->allowEmpty('start');
 
         $validator
-            ->dateTime('end')
+	  // なぜか validation errorが起きるので停止。
+	  // ->dateTime('end')
             ->allowEmpty('end');
 
         $validator

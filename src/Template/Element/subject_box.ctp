@@ -18,6 +18,7 @@
           <div class="media-body">
             <h4 class="media-heading"><?= $this->SubjectTool->buildRelationText($relation_object,
 										$name, $relation_text, $type) ?></h4>
+            <p><?= $this->SubjectTool->period($relation_object->_joinData) ?></p>
             <?= $relation_object->description ?>
           </div>
         </div>

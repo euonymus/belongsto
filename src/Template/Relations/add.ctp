@@ -9,8 +9,22 @@
         <?
             echo $this->Form->input('passive', ['type' => 'text', 'class' => 'form-control']);
             echo $this->Form->input('relation', ['class' => 'form-control']);
-            echo $this->Form->input('start', ['empty' => true]);
-            echo $this->Form->input('end', ['empty' => true]);
+
+            // This is ugly, I know. START ======================================
+            //echo $this->Form->input('start', ['empty' => true]);
+            //echo $this->Form->input('end', ['empty' => true]);
+        ?>
+        <div class="input text">
+            <label for="url">Start</label>
+            <input type='date' class="form-control date" name="start"<? if (array_key_exists('start', $this->request->data)) {
+		  echo ' value="' . $this->request->data['start'] . '"'; } ?>>
+            <label for="url">End</label>
+            <input type='date' class="form-control date" name="end"<? if (array_key_exists('end', $this->request->data)) {
+	          echo ' value="' . $this->request->data['end'] . '"'; } ?>>
+        </div>
+        <?
+            // This is ugly, I know. END ======================================
+
             echo $this->Form->input('start_accuracy', ['class' => 'form-control']);
             echo $this->Form->input('end_accuracy', ['class' => 'form-control']);
             echo $this->Form->input('is_momentary');
