@@ -1,4 +1,4 @@
-<? if (!$this->Page->isTop()): ?>
+<? if (!$this->Page->isTop() && !$this->Page->isSignup()): ?>
       <?= $this->Form->create(NULL, ['url' => '/subjects/search', 'method' => 'get',
 				     'class' => 'navbar-form navbar-left', 'role'=>'search']) ?>
         <div class="input-group">

@@ -26,6 +26,9 @@ ul.subject-list-relation {
 .input-container-top {
     max-width:500px;
 }
+.input-container-signup {
+    max-width:200px;
+}
 .subject-list {
     padding:0px;
 }

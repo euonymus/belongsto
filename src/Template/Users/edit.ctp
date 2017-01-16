@@ -1,25 +1,20 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $user->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="users form large-9 medium-8 columns content">
-    <?= $this->Form->create($user) ?>
-    <fieldset>
-        <legend><?= __('Edit User') ?></legend>
-        <?php
-            echo $this->Form->input('username');
-            echo $this->Form->input('password');
-            echo $this->Form->input('role');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+<div class="logo-top">
+  <h1>Edit user data</h1>
+</div>
+<div>
+    <?= $this->Form->create($user, ['class' => 'search_top text-centerh']) ?>
+        <div class="form-group center-block input-container-signup">
+            <?= $this->Form->input('username', ['class' => 'form-control']) ?>
+            <?= $this->Form->input('password', ['class' => 'form-control']) ?>
+<? /*
+            <?= $this->Form->input('role', [
+					    'options' => ['admin' => 'Admin', 'author' => 'Author'],
+					    'class' => 'form-control'
+                ]) ?>
+*/ ?>
+            <br>
+            <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
+        </div>
+
     <?= $this->Form->end() ?>
 </div>

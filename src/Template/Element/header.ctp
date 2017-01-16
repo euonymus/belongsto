@@ -34,9 +34,29 @@
 */ ?>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+
+   <? if ($auth->user('id')): ?>
+
         <li><?= $this->Html->link(__('New Quark'), ['controller' => 'subjects', 'action' => 'add']) ?></li>
         <?= $this->element('side_subject') ?>
         <?= $this->element('side_relation') ?>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= $auth->user('username') ?> <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><?= $this->Html->link(__('Edit'), ['controller' => 'users', 'action' => 'edit', $auth->user('id')]) ?></li>
+            <li role="separator" class="divider"></li>
+            <li><?= $this->Html->link(__('Logout'), ['controller' => 'users', 'action' => 'logout']) ?></li>
+          </ul>
+        </li>
+
+   <? else: ?>
+
+        <li><?= $this->Html->link(__('Login'), ['controller' => 'users', 'action' => 'login']) ?></li>
+        <li><?= $this->Html->link(__('Signup'), ['controller' => 'users', 'action' => 'add']) ?></li>
+
+   <? endif; ?>
+
       </ul>
     </div><!--/.nav-collapse -->
   </div>

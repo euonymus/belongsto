@@ -11,6 +11,7 @@ class PageHelper extends Helper
   const PAGETYPE_SUBJECT  = 2;
   const PAGETYPE_RELATION = 3;
   const PAGETYPE_SEARCH   = 4;
+  const PAGETYPE_SIGNUP   = 5;
   public function sideType()
   {
     if (($this->request->params['controller'] == 'Pages') && ($this->request->params['action'] == 'display') ) {
@@ -21,6 +22,8 @@ class PageHelper extends Helper
       return self::PAGETYPE_RELATION;
     } elseif (($this->request->params['controller'] == 'Subjects') && ($this->request->params['action'] == 'search')) {
       return self::PAGETYPE_SEARCH;
+    } elseif (($this->request->params['controller'] == 'Users') && ($this->request->params['action'] == 'add')) {
+      return self::PAGETYPE_SIGNUP;
     }
     return self::PAGETYPE_DEFAULT;
   }
@@ -40,5 +43,9 @@ class PageHelper extends Helper
   public function isSearch()
   {
     return ($this->sideType() == self::PAGETYPE_SEARCH);
+  }
+  public function isSignup()
+  {
+    return ($this->sideType() == self::PAGETYPE_SIGNUP);
   }
 }
