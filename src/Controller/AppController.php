@@ -54,6 +54,19 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+
+        $this->loadComponent('Auth', [
+            'loginRedirect' => [
+                'controller' => 'Pages',
+                'action' => 'display'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Pages',
+                'action' => 'display',
+                'home'
+            ]
+        ]);
+
         $this->viewBuilder()->layout('belongsto');
 	$this->Session = $this->request->session();
 
@@ -67,6 +80,11 @@ class AppController extends Controller
 
 	Configure::write('Belongsto.lang', $lang_now);
 	Configure::write('Belongsto.lang_eng', $lang_eng);
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['index', 'view', 'display', 'relations']);
     }
 
     /**
