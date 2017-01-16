@@ -60,12 +60,12 @@ class SubjectsTable extends AppTable
         $this->belongsToMany('Passives', [
             'through' => 'Relations',
             'foreignKey' => 'active_id',
-            'sort' => ['Relations.order_level' => 'ASC'],
+            'sort' => ['Relations.order_level' => 'ASC', 'Relations.start' => 'DESC', 'Relations.end' => 'DESC'],
         ]);
         $this->belongsToMany('Actives', [
             'through' => 'Relations',
             'foreignKey' => 'passive_id',
-            'sort' => ['Relations.order_level' => 'ASC'],
+            'sort' => ['Relations.order_level' => 'ASC', 'Relations.start' => 'DESC', 'Relations.end' => 'DESC'],
         ]);
 
     }
