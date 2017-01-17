@@ -8,6 +8,7 @@
       <p><?= $this->SubjectTool->period($subject) ?></p>
     </div>
     <p><?= h($subject->description) ?></p>
+    <p>edited by <?= $subject->last_modified_user['username'] ?></p>
 
 <? if (!empty($subject->url)): ?>
     <p><?= $this->Html->link('<img src="/img/url_button.png" style="width:50px;border:0px;" >', $subject->url,

@@ -67,6 +67,15 @@ class SubjectsTable extends AppTable
             'foreignKey' => 'passive_id',
             'sort' => ['Relations.order_level' => 'ASC', 'Relations.start' => 'DESC', 'Relations.end' => 'DESC'],
         ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('LastModifiedUsers', [
+            'propertyName' => 'last_modified_user',
+            'foreignKey' => 'last_modified_user',
+            'joinType' => 'INNER'
+        ]);
 
     }
 
@@ -184,6 +193,10 @@ class SubjectsTable extends AppTable
       if (!is_numeric($level) || ($level > 2)) return false;
 
       $options = [];
+
+      if (is_array($contain)) $contain[] = 'LastModifiedUsers';
+      else $contain = ['LastModifiedUsers'];
+
       if (($level != 0) && !is_null($contain)) {
 	$options = ['contain' => $contain];
       }

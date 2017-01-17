@@ -16,12 +16,12 @@ class SubjectsController extends AppController
 
     public function isAuthorized($user)
     {
-        if (in_array($this->request->action, ['add', 'confirm','search'])) {
+        if (in_array($this->request->action, ['add', 'edit', 'confirm'])) {
             return true;
         }
 
-        // The owner of a subject can edit and delete it
-        if (in_array($this->request->action, ['edit', 'delete'])) {
+        // The owner of a subject can delete it
+        if (in_array($this->request->action, ['delete'])) {
             $subjectId = $this->request->params['pass'][0];
             if ($this->Subjects->isOwnedBy($subjectId, $user['id'])) {
                 return true;
