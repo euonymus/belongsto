@@ -70,7 +70,6 @@ class SubjectsTable extends AppTable
 
     }
 
-
     public function formToEntity($arr)
     {
       $ret = $this->newEntity($arr);

@@ -39,6 +39,11 @@ class UsersTable extends Table
         $this->addBehavior('Timestamp');
     }
 
+    public function isOwnedBy($id, $userId)
+    {
+        return ($id == $userId);
+    }
+
     /**
      * Default validation rules.
      *

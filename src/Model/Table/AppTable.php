@@ -40,4 +40,8 @@ class AppTable extends Table
 	self::$relations        = $prefix . self::TABLE_RELATION;
     }
 
+    public function isOwnedBy($id, $userId)
+    {
+        return $this->exists(['id' => $id, 'user_id' => $userId]);
+    }
 }

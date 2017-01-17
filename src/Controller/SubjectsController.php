@@ -13,6 +13,23 @@ use App\Utils\U;
  */
 class SubjectsController extends AppController
 {
+
+    public function isAuthorized($user)
+    {
+        if (in_array($this->request->action, ['add', 'confirm','search'])) {
+            return true;
+        }
+
+        // The owner of a subject can edit and delete it
+        if (in_array($this->request->action, ['edit', 'delete'])) {
+            $subjectId = $this->request->params['pass'][0];
+            if ($this->Subjects->isOwnedBy($subjectId, $user['id'])) {
+                return true;
+            }
+        }
+        return parent::isAuthorized($user);
+    }
+
     public function index()
     {
         $subjects = $this->paginate($this->Subjects, ['contain' => 'Actives']);
@@ -94,6 +111,10 @@ class SubjectsController extends AppController
         $subject = $this->Subjects->newEntity();
         if ($this->request->is('post') || $session) {
             $subject = $this->Subjects->formToSaving($this->request->data);
+
+            $subject->user_id = $this->Auth->user('id');
+            $subject->last_modified_user = $this->Auth->user('id');
+
             if ($savedSubject = $this->Subjects->save($subject)) {
                 $this->_setFlash(__('The quark has been saved.')); 
                 return $this->redirect(['action' => 'relations', $savedSubject->id]);
@@ -129,9 +150,10 @@ class SubjectsController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-
-
             $subject = $this->Subjects->formToEditing($subject, $this->request->data);
+
+            $subject->last_modified_user = $this->Auth->user('id');
+
             if ($savedSubject = $this->Subjects->save($subject)) {
                 $this->_setFlash(__('The quark has been saved.')); 
                 return $this->redirect(['action' => 'relations', $savedSubject->id]);

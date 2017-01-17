@@ -12,6 +12,21 @@ use Cake\ORM\TableRegistry;
  */
 class RelationsController extends AppController
 {
+    public function isAuthorized($user)
+    {
+        if (in_array($this->request->action, ['add', 'confirm'])) {
+            return true;
+        }
+
+        // The owner of an relation can edit and delete it
+        if (in_array($this->request->action, ['edit', 'delete'])) {
+            $relationId = $this->request->params['pass'][0];
+            if ($this->Relations->isOwnedBy($relationId, $user['id'])) {
+                return true;
+            }
+        }
+        return parent::isAuthorized($user);
+    }
 
     /**
      * View method
@@ -97,6 +112,10 @@ class RelationsController extends AppController
 	    $saving_subject['name'] = $this->request->data['passive'];
 
             $subject = $Subjects->formToSaving($saving_subject);
+
+            $subject->user_id = $this->Auth->user('id');
+            $subject->last_modified_user = $this->Auth->user('id');
+
             if ($savedSubject = $Subjects->save($subject)) {
                 $this->_setFlash(__('The quark has been saved.')); 
 		$session_passive_id = $savedSubject->id;
@@ -113,6 +132,10 @@ class RelationsController extends AppController
             $this->request->data['passive_id'] = $session_passive_id;
             /* $relation = $this->Relations->patchEntity($relation, $this->request->data); */
             $relation = $this->Relations->formToSaving($this->request->data);
+
+            $relation->user_id = $this->Auth->user('id');
+            $relation->last_modified_user = $this->Auth->user('id');
+
             if ($this->Relations->save($relation)) {
                 $this->_setFlash(__('The gluon has been saved.')); 
 

@@ -11,6 +11,22 @@ use Cake\Event\Event;
  */
 class UsersController extends AppController
 {
+    public function isAuthorized($user)
+    {
+        if (in_array($this->request->action, ['logout'])) {
+            return true;
+        }
+
+        // The owner of an user can edit and delete it
+        if (in_array($this->request->action, ['edit', 'delete'])) {
+            $userId = $this->request->params['pass'][0];
+            if ($this->Users->isOwnedBy($userId, $user['id'])) {
+                return true;
+            }
+        }
+        return parent::isAuthorized($user);
+    }
+
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);

@@ -56,6 +56,7 @@ class AppController extends Controller
         $this->loadComponent('Flash');
 
         $this->loadComponent('Auth', [
+            'authorize' => ['Controller'],
             'loginRedirect' => [
                 'controller' => null,
                 'action' => 'index'
@@ -79,6 +80,16 @@ class AppController extends Controller
 
 	Configure::write('Belongsto.lang', $lang_now);
 	Configure::write('Belongsto.lang_eng', $lang_eng);
+    }
+
+    public function isAuthorized($user)
+    {
+        // Admin can access every action
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+        // Default deny
+        return false;
     }
 
     public function beforeFilter(Event $event)
