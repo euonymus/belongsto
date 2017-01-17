@@ -11,7 +11,7 @@ use Cake\Network\Http\Client;
 use Cake\Cache\Cache;
 
 use App\Model\Table\SubjectSearchesTable;
-use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Network\Exception\NotFoundException;
 
 use App\Utils\U;
 use App\Utils\NgramConverter;
@@ -236,7 +236,7 @@ class SubjectsTable extends AppTable
       $query = $query->where($where);
       $subject = $query->first();
       if (empty($subject)) {
-	throw new RecordNotFoundException('Record not found in table "subjects"');
+	throw new NotFoundException('Record not found in table "subjects"');
       }
 
       // 2nd level type
@@ -331,7 +331,7 @@ class SubjectsTable extends AppTable
 
     public static function whereAllRecord()
     {
-      return [true];
+      return ['1' => '1'];
     }
     public static function whereNoRecord()
     {

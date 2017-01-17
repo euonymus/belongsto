@@ -32,6 +32,9 @@ class SubjectsController extends AppController
 
     public function index()
     {
+        $this->paginate = [
+            'conditions' => [$this->Subjects->wherePrivacy()]
+        ];
         $subjects = $this->paginate($this->Subjects, ['contain' => 'Actives']);
 	$title = 'quarks that gluons hold';
 

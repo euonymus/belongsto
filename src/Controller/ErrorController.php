@@ -31,6 +31,17 @@ class ErrorController extends AppController
     public function initialize()
     {
         $this->loadComponent('RequestHandler');
+        $this->loadComponent('Auth', [
+            'authorize' => ['Controller'],
+            'loginRedirect' => [
+                'controller' => null,
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => null,
+                'action' => 'index'
+            ]
+        ]);
     }
 
     /**
@@ -41,6 +52,10 @@ class ErrorController extends AppController
      */
     public function beforeFilter(Event $event)
     {
+        $title = '404: Not Found';
+	$auth = $this->Auth;
+
+        $this->set(compact(['auth']));
     }
 
     /**

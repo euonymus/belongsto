@@ -1,4 +1,18 @@
+<?
+$this->layout = 'error';
+$this->assign('title', 'Page not found');
+?>
+    <div style="text-align:center; margin-top: 30px;">
+        <p>
+            <h2>404: Page not found</h2>
+        </p>
+        <p><a href="/">TOPへ</a></p>
+    </div>
+
+
+
 <?php
+/*
 use Cake\Core\Configure;
 use Cake\Error\Debugger;
 
@@ -36,3 +50,4 @@ endif;
     <strong><?= __d('cake', 'Error') ?>: </strong>
     <?= __d('cake', 'The requested address {0} was not found on this server.', "<strong>'{$url}'</strong>") ?>
 </p>
+*/

@@ -35,7 +35,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
 
-   <? if ($auth->user('id')): ?>
+   <? if (!empty($auth) && $auth->user('id')): ?>
 
         <li><?= $this->Html->link(__('New Quark'), ['controller' => 'subjects', 'action' => 'add']) ?></li>
         <?= $this->element('side_subject') ?>

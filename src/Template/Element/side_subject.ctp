@@ -1,4 +1,4 @@
-<? if ($this->Page->isSubject()): ?>
+<? if ($this->Page->isSubject() && isset($subject)): ?>
     <li><?= $this->Html->link(__('Add relation'), ['controller' => 'relations', 'action' => 'add', $subject->id]) ?></li>
     <li><?= $this->Html->link(__('Edit Quark'), ['controller' => 'Subjects', 'action' => 'edit', $subject->id]) ?></li>
     <li><?= $this->Form->postLink(

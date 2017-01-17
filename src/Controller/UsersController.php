@@ -67,6 +67,7 @@ class UsersController extends AppController
 
     public function logout()
     {
+        $this->Session->write('PrivacyMode', \App\Controller\AppController::PRIVACY_ALL);
         return $this->redirect($this->Auth->logout());
     }
 
