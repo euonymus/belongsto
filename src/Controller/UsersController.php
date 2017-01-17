@@ -13,7 +13,7 @@ class UsersController extends AppController
 {
     public function isAuthorized($user)
     {
-        if (in_array($this->request->action, ['logout'])) {
+        if (in_array($this->request->action, ['logout', 'privacy'])) {
             return true;
         }
 
@@ -33,6 +33,24 @@ class UsersController extends AppController
         $this->Auth->allow('add', 'logout');
     }
 
+    public function privacy($mode = 1)
+    {
+      if (!in_array($mode,
+		    [\App\Controller\AppController::PRIVACY_PUBLIC,
+		     \App\Controller\AppController::PRIVACY_PRIVATE,
+		     \App\Controller\AppController::PRIVACY_ALL,
+		     \App\Controller\AppController::PRIVACY_ADMIN])) {
+	$mode = \App\Controller\AppController::PRIVACY_PUBLIC;
+      }
+
+      if (($this->Auth->user('role') != 'admin') && ($mode == \App\Controller\AppController::PRIVACY_ADMIN)) {
+	$mode = \App\Controller\AppController::PRIVACY_ALL;
+      }
+
+      $this->Session->write('PrivacyMode', $mode);
+      $url = $this->referer(null, true);
+      return $this->redirect($url);
+    }
     public function login()
     {
         if ($this->request->is('post')) {

@@ -44,7 +44,17 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= $auth->user('username') ?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><?= $this->Html->link(__('Edit'), ['controller' => 'users', 'action' => 'edit', $auth->user('id')]) ?></li>
+            <li><?= $this->Html->link(__('Edit User'), ['controller' => 'users', 'action' => 'edit', $auth->user('id')]) ?></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">Privacy Modes</li>
+
+       <? if ($auth->user('role') == 'admin'): ?>
+            <li><?= $this->Html->link(__('Admin'), ['controller' => 'users', 'action' => 'privacy', 4]) ?></li>
+       <? endif; ?>
+
+            <li><?= $this->Html->link(__('Public'), ['controller' => 'users', 'action' => 'privacy', 1]) ?></li>
+            <li><?= $this->Html->link(__('Private'), ['controller' => 'users', 'action' => 'privacy', 2]) ?></li>
+            <li><?= $this->Html->link(__('All'), ['controller' => 'users', 'action' => 'privacy', 3]) ?></li>
             <li role="separator" class="divider"></li>
             <li><?= $this->Html->link(__('Logout'), ['controller' => 'users', 'action' => 'logout']) ?></li>
           </ul>

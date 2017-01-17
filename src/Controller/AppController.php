@@ -39,6 +39,11 @@ class AppController extends Controller
     ];
     static $lang = self::LANG_ENG;
 
+    const PRIVACY_PUBLIC  = 1;
+    const PRIVACY_PRIVATE = 2;
+    const PRIVACY_ALL     = 3;
+    const PRIVACY_ADMIN   = 4;
+
     /**
      * Initialization hook method.
      *
@@ -80,8 +85,12 @@ class AppController extends Controller
 
 	Configure::write('Belongsto.lang', $lang_now);
 	Configure::write('Belongsto.lang_eng', $lang_eng);
-    }
 
+	Configure::write('Belongsto.auth', $this->Auth);
+
+	$privacy_mode = $this->Session->read('PrivacyMode');
+	Configure::write('Belongsto.privacyMode', $privacy_mode);
+    }
     public function isAuthorized($user)
     {
         // Admin can access every action

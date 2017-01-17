@@ -6,6 +6,9 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
+use Cake\ORM\TableRegistry;
+use Cake\Core\Configure;
+
 use App\Utils\U;
 
 /**
@@ -26,6 +29,7 @@ use App\Utils\U;
  */
 class RelationsTable extends AppTable
 {
+    public $privacyMode = \App\Controller\AppController::PRIVACY_PUBLIC;
 
     /**
      * Initialize method
@@ -43,17 +47,37 @@ class RelationsTable extends AppTable
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Actives', [
-            'foreignKey' => 'active_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->belongsTo('Passives', [
-            'foreignKey' => 'passive_id',
-            'joinType' => 'INNER'
-        ]);
+        $this->privacyMode = Configure::read('Belongsto.privacyMode');
+	$this->belongsToActives();
+	$this->belongsToPassives();
     }
 
+    public function belongsToActives()
+    {
+        $options = [
+            'foreignKey' => 'active_id',
+            'joinType' => 'INNER'
+        ];
 
+	$Actives = TableRegistry::get('Actives');
+	$conditions = $Actives->wherePrivacy();
+	$options['conditions'] = $conditions;
+
+        $this->belongsTo('Actives', $options);
+    }
+    public function belongsToPassives()
+    {
+        $options = [
+            'foreignKey' => 'passive_id',
+            'joinType' => 'INNER'
+        ];
+
+	$Passives = TableRegistry::get('Passives');
+	$conditions = $Passives->wherePrivacy();
+	$options['conditions'] = $conditions;
+
+        $this->belongsTo('Passives', $options);
+    }
 
     public function formToEntity($arr)
     {

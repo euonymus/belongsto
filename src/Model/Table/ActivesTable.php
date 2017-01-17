@@ -23,7 +23,6 @@ use Cake\Validation\Validator;
  */
 class ActivesTable extends AppTable
 {
-
     /**
      * Initialize method
      *
@@ -92,5 +91,53 @@ class ActivesTable extends AppTable
             ->allowEmpty('affiliate');
 
         return $validator;
+    }
+    /*******************************************************/
+    /* where                                               */
+    /*******************************************************/
+    public function wherePrivacyId($id)
+    {
+      return [self::whereId($id), self::wherePrivacy()];
+    }
+    public function wherePrivacy()
+    {
+      if ($this->privacyMode == \App\Controller\AppController::PRIVACY_PUBLIC) {
+	return self::wherePublic();
+      } elseif ($this->privacyMode == \App\Controller\AppController::PRIVACY_PRIVATE) {
+	return self::wherePrivate($this->auth->user('id'));
+      } elseif ($this->privacyMode == \App\Controller\AppController::PRIVACY_ALL) {
+	return self::whereAllPrivacy($this->auth->user('id'));
+      } elseif ($this->privacyMode == \App\Controller\AppController::PRIVACY_ADMIN) {
+	return self::whereAllRecord();
+      }
+      return self::whereNoRecord();
+    }
+
+    public static function whereId($id)
+    {
+      return ['Actives.id' => $id];
+    }
+
+    public static function wherePublic()
+    {
+      return ['Actives.is_private' => false];
+    }
+    public static function wherePrivate($user_id)
+    {
+      return ['Actives.is_private' => true, 'Actives.user_id' => $user_id];
+    }
+    public static function whereAllPrivacy($user_id)
+    {
+      return ['or' => [self::wherePrivate($user_id), self::wherePublic()]];
+    }
+
+
+    public static function whereAllRecord()
+    {
+      return [true];
+    }
+    public static function whereNoRecord()
+    {
+      return ['Actives.id' => false];
     }
 }

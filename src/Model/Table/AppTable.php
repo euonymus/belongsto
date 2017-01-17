@@ -18,6 +18,8 @@ class AppTable extends Table
     static $subject_searches;
     static $relations;
 
+    public $privacyMode = \App\Controller\AppController::PRIVACY_PUBLIC;
+
     /**
      * Initialize method
      *
@@ -38,6 +40,9 @@ class AppTable extends Table
 	self::$subjects         = $prefix . self::TABLE_SUBJECT;
 	self::$subject_searches = $prefix . self::TABLE_SUBJECT_SEARCH;
 	self::$relations        = $prefix . self::TABLE_RELATION;
+
+        $this->privacyMode = Configure::read('Belongsto.privacyMode');
+        $this->auth = Configure::read('Belongsto.auth');
     }
 
     public function isOwnedBy($id, $userId)

@@ -33,6 +33,7 @@ use App\Utils\NgramConverter;
  */
 class SubjectsTable extends AppTable
 {
+
     /**
      * Initialize method
      *
@@ -58,17 +59,6 @@ class SubjectsTable extends AppTable
 	    'foreignKey' => 'id',
 	    'dependent' => true,
         ]);
-        $this->belongsToMany('Passives', [
-            'through' => 'Relations',
-            'foreignKey' => 'active_id',
-            'sort' => ['Relations.order_level' => 'ASC', 'Relations.start' => 'DESC', 'Relations.end' => 'DESC'],
-        ]);
-        $this->belongsToMany('Actives', [
-            'through' => 'Relations',
-            'foreignKey' => 'passive_id',
-            'sort' => ['Relations.order_level' => 'ASC', 'Relations.start' => 'DESC', 'Relations.end' => 'DESC'],
-        ]);
-
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
@@ -79,7 +69,41 @@ class SubjectsTable extends AppTable
             'joinType' => 'INNER'
         ]);
 
+	$this->belongsToManyPassives();
+	$this->belongsToManyActives();
     }
+
+    public function belongsToManyPassives()
+    {
+        $options = [
+            'through' => 'Relations',
+            'foreignKey' => 'active_id',
+            'sort' => ['Relations.order_level' => 'ASC', 'Relations.start' => 'DESC', 'Relations.end' => 'DESC'],
+        ];
+
+	$Passives = TableRegistry::get('Passives');
+	$conditions = $Passives->wherePrivacy();
+	$options['conditions'] = $conditions;
+
+        $this->belongsToMany('Passives', $options);
+    }
+    public function belongsToManyActives()
+    {
+        $options = [
+            'through' => 'Relations',
+            'foreignKey' => 'passive_id',
+            'sort' => ['Relations.order_level' => 'ASC', 'Relations.start' => 'DESC', 'Relations.end' => 'DESC'],
+        ];
+
+	$Actives = TableRegistry::get('Actives');
+	$conditions = $Actives->wherePrivacy();
+	$options['conditions'] = $conditions;
+
+        $this->belongsToMany('Actives', $options);
+    }
+
+
+
 
     public function formToEntity($arr)
     {
@@ -202,16 +226,15 @@ class SubjectsTable extends AppTable
       if (($level != 0) && !is_null($contain)) {
 	$options = ['contain' => $contain];
       }
-      //$subject = $this->get($id, $options);
-      $query = $this->find()->contain($contain)->where(self::whereIdPubic($id));
-      //$query = $this->find()->contain($contain)->where(self::whereIdPrivate($id));
 
+      //$subject = $this->get($id, $options);
+      $query = $this->find()->contain($contain);
+
+
+      $where = $this->wherePrivacyId($id);
+
+      $query = $query->where($where);
       $subject = $query->first();
-      /* $subject = $query->matching('Actives', function ($q) { */
-      /*                return $q->where(['Actives.is_private' => false]); */
-      /* })->matching('Passives', function ($q) { */
-      /*                return $q->where(['Passives.is_private' => false]); */
-      /* })->first(); */
       if (empty($subject)) {
 	throw new RecordNotFoundException('Record not found in table "subjects"');
       }
@@ -222,7 +245,7 @@ class SubjectsTable extends AppTable
 	  $level = 1;
 	} elseif ($second_type == 'passive') {
 	  $relationKey = 'passive_id';
-	  $secondModel = 'Actives';
+ 	  $secondModel = 'Actives';
 	} else {
 	  $relationKey = 'active_id';
 	  $secondModel = 'Passives';
@@ -248,11 +271,15 @@ class SubjectsTable extends AppTable
     public function search($search_words, $limit = 20)
     {
       $expr = self::bigramize($search_words);
+
+      $whereSearch = "MATCH(SubjectSearches.search_words) AGAINST(:search)";
+      $where = [$this->wherePrivacy(), $whereSearch];
       $query = $this
 	->find('all')
 	->contain(['SubjectSearches', 'Actives'])
 	->matching('SubjectSearches')
-	->where([self::wherePublic(), "MATCH(SubjectSearches.search_words) AGAINST(:search)"])->bind(":search", $expr);
+        ->where($where)
+	->bind(":search", $expr);
 
       if (is_numeric($limit)) {
 	$query = $query->limit($limit);
@@ -265,26 +292,50 @@ class SubjectsTable extends AppTable
     /*******************************************************/
     /* where                                               */
     /*******************************************************/
-    public static function whereIdPubic($id)
+    public function wherePrivacyId($id)
     {
-      return [self::whereId($id), self::wherePublic()];
+      return [self::whereId($id), self::wherePrivacy()];
     }
-    public static function whereIdPrivate($id)
+    public function wherePrivacy()
     {
-      return [self::whereId($id), self::wherePrivate()];
+      if ($this->privacyMode == \App\Controller\AppController::PRIVACY_PUBLIC) {
+	return self::wherePublic();
+      } elseif ($this->privacyMode == \App\Controller\AppController::PRIVACY_PRIVATE) {
+	return self::wherePrivate($this->auth->user('id'));
+      } elseif ($this->privacyMode == \App\Controller\AppController::PRIVACY_ALL) {
+	return self::whereAllPrivacy($this->auth->user('id'));
+      } elseif ($this->privacyMode == \App\Controller\AppController::PRIVACY_ADMIN) {
+	return self::whereAllRecord();
+      }
+      return self::whereNoRecord();
     }
 
     public static function whereId($id)
     {
       return ['Subjects.id' => $id];
     }
-    public static function wherePrivate()
-    {
-      return ['Subjects.is_private' => true];
-    }
+
     public static function wherePublic()
     {
       return ['Subjects.is_private' => false];
+    }
+    public static function wherePrivate($user_id)
+    {
+      return ['Subjects.is_private' => true, 'Subjects.user_id' => $user_id];
+    }
+    public static function whereAllPrivacy($user_id)
+    {
+      return ['or' => [self::wherePrivate($user_id), self::wherePublic()]];
+    }
+
+
+    public static function whereAllRecord()
+    {
+      return [true];
+    }
+    public static function whereNoRecord()
+    {
+      return ['Subjects.id' => false];
     }
 
     /****************************************************************************/
