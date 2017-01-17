@@ -89,6 +89,7 @@ class AppController extends Controller
 	Configure::write('Belongsto.auth', $this->Auth);
 
 	$privacy_mode = $this->Session->read('PrivacyMode');
+	if (empty($privacy_mode)) $privacy_mode = self::PRIVACY_ALL;
 	Configure::write('Belongsto.privacyMode', $privacy_mode);
     }
     public function isAuthorized($user)
