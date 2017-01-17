@@ -205,6 +205,7 @@ class SubjectsTable extends AppTable
       //$subject = $this->get($id, $options);
       $query = $this->find()->contain($contain)->where(self::whereIdPubic($id));
       //$query = $this->find()->contain($contain)->where(self::whereIdPrivate($id));
+
       $subject = $query->first();
       /* $subject = $query->matching('Actives', function ($q) { */
       /*                return $q->where(['Actives.is_private' => false]); */
@@ -244,14 +245,19 @@ class SubjectsTable extends AppTable
       return $subject;
     }
 
-    public function search($search_words)
+    public function search($search_words, $limit = 20)
     {
       $expr = self::bigramize($search_words);
       $query = $this
 	->find('all')
 	->contain(['SubjectSearches', 'Actives'])
 	->matching('SubjectSearches')
-	->where(["MATCH(SubjectSearches.search_words) AGAINST(:search)"])->bind(":search", $expr);
+	->where([self::wherePublic(), "MATCH(SubjectSearches.search_words) AGAINST(:search)"])->bind(":search", $expr);
+
+      if (is_numeric($limit)) {
+	$query = $query->limit($limit);
+      }
+
       return $query;
     }
 
