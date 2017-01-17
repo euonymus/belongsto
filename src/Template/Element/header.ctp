@@ -12,7 +12,7 @@
 <? /*
       <?= $this->Html->link(__('gluons'), ['controller' => 'Pages', 'action' => 'display'], ['class'=>'navbar-brand']) ?>
 */ ?>
-      <?= $this->Html->link(__('<img src="/img/logo.gif">'), ['controller' => 'Pages', 'action' => 'display'], ['class'=>'navbar-brand', 'escape' => false]) ?>
+      <?= $this->Html->link(__('<img src="/img/logo.gif">'), ['controller' => null, 'action' => 'index'], ['class'=>'navbar-brand', 'escape' => false]) ?>
       <?= $this->element('side_search') ?>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
