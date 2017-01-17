@@ -11,6 +11,7 @@ use Cake\Network\Http\Client;
 use Cake\Cache\Cache;
 
 use App\Model\Table\SubjectSearchesTable;
+use Cake\Datasource\Exception\RecordNotFoundException;
 
 use App\Utils\U;
 use App\Utils\NgramConverter;
@@ -67,6 +68,7 @@ class SubjectsTable extends AppTable
             'foreignKey' => 'passive_id',
             'sort' => ['Relations.order_level' => 'ASC', 'Relations.start' => 'DESC', 'Relations.end' => 'DESC'],
         ]);
+
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
@@ -200,7 +202,18 @@ class SubjectsTable extends AppTable
       if (($level != 0) && !is_null($contain)) {
 	$options = ['contain' => $contain];
       }
-      $subject = $this->get($id, $options);
+      //$subject = $this->get($id, $options);
+      $query = $this->find()->contain($contain)->where(self::whereIdPubic($id));
+      //$query = $this->find()->contain($contain)->where(self::whereIdPrivate($id));
+      $subject = $query->first();
+      /* $subject = $query->matching('Actives', function ($q) { */
+      /*                return $q->where(['Actives.is_private' => false]); */
+      /* })->matching('Passives', function ($q) { */
+      /*                return $q->where(['Passives.is_private' => false]); */
+      /* })->first(); */
+      if (empty($subject)) {
+	throw new RecordNotFoundException('Record not found in table "subjects"');
+      }
 
       // 2nd level type
       if (($level == 2) && !is_null($contain)) {
@@ -227,8 +240,6 @@ class SubjectsTable extends AppTable
 	  $subject->passives[$i]->relation
 	    = $Relations->find('all', ['contain' => $secondModel])->where([$relationKey => $subject->passives[$i]->id]);
 	}
-	// Note: I don't know why, but somehow, the result of contain part became 'passife' not 'passive'.
-	//       This might be a bug in cakephp3
       }
       return $subject;
     }
@@ -244,6 +255,31 @@ class SubjectsTable extends AppTable
       return $query;
     }
 
+
+    /*******************************************************/
+    /* where                                               */
+    /*******************************************************/
+    public static function whereIdPubic($id)
+    {
+      return [self::whereId($id), self::wherePublic()];
+    }
+    public static function whereIdPrivate($id)
+    {
+      return [self::whereId($id), self::wherePrivate()];
+    }
+
+    public static function whereId($id)
+    {
+      return ['Subjects.id' => $id];
+    }
+    public static function wherePrivate()
+    {
+      return ['Subjects.is_private' => true];
+    }
+    public static function wherePublic()
+    {
+      return ['Subjects.is_private' => false];
+    }
 
     /****************************************************************************/
     /* Tools                                                                    */

@@ -34,8 +34,8 @@
       <li>
         <? if ($second_type == 'active'): ?>
            <? if ($subject->id == $passive2->passive_id) continue; ?>
-           <?= $this->SubjectTool->imageLink($passive2->passife, ['width' => '40px', 'height' => '40px']) ?>
-           <?= $this->SubjectTool->buildRelationText($passive2->passife, $relation->name, $passive2->relation, 1) ?>
+           <?= $this->SubjectTool->imageLink($passive2->passive, ['width' => '40px', 'height' => '40px']) ?>
+           <?= $this->SubjectTool->buildRelationText($passive2->passive, $relation->name, $passive2->relation, 1) ?>
         <? elseif ($second_type == 'passive'): ?>
            <? if ($subject->id == $passive2->active_id) continue; ?>
            <?= $this->SubjectTool->imageLink($passive2->active, ['width' => '40px', 'height' => '40px']) ?>
@@ -46,7 +46,7 @@
 <? /*
         <div class="col-xs-6 col-md-4 col-lg-3 second-relation">
             <?= $this->element('subject_unit', ['subject_name' => $relation->name,
-				      'relation_object' => $passive2->passife,
+				      'relation_object' => $passive2->passive,
 				      'relation_text' => $passive2->relation]) ?>
         </div>
    */ ?>
