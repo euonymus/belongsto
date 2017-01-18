@@ -43,7 +43,7 @@
             echo $this->Form->input('is_momentary');
             echo $this->Form->input('url', ['class' => 'form-control']);
             echo $this->Form->input('affiliate', ['class' => 'form-control']);
-            echo $this->Form->input('is_private');
+            echo $this->Form->input('is_private', ['type' => 'checkbox']);
         ?>
         </div>
     </fieldset>
