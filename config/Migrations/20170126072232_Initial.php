@@ -31,6 +31,11 @@ class Initial extends AbstractMigration
                 'limit' => 255,
                 'null' => false,
             ])
+            ->addColumn('suffix', 'string', [
+                'default' => '',
+                'limit' => 255,
+                'null' => false,
+            ])
             ->addColumn('start', 'datetime', [
                 'default' => null,
                 'limit' => null,
@@ -239,6 +244,11 @@ class Initial extends AbstractMigration
                 'null' => false,
             ])
             ->addColumn('relation', 'string', [
+                'default' => '',
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('suffix', 'string', [
                 'default' => '',
                 'limit' => 255,
                 'null' => false,
