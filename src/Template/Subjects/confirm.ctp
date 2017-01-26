@@ -25,7 +25,7 @@
           <ul>
               <? foreach($subject->actives as $active): ?>
               <li class="subject-list-relation"><?= $this->SubjectTool->buildRelationText($active,
-						    $subject->name, $active->_joinData->relation, 2) ?></li>
+				    $subject->name, $active->_joinData->relation, $active->_joinData->suffix, 2) ?></li>
               <? endforeach; ?>
           </ul>
         </div>

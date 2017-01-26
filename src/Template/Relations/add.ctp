@@ -9,6 +9,7 @@
         <?
             echo $this->Form->input('passive', ['type' => 'text', 'class' => 'form-control']);
             echo $this->Form->input('relation', ['class' => 'form-control']);
+            echo $this->Form->input('suffix', ['class' => 'form-control']);
 
             // This is ugly, I know. START ======================================
             //echo $this->Form->input('start', ['empty' => true]);

@@ -33,7 +33,7 @@ class SubjectToolHelper extends Helper
     return $this->Html->link($text, self::buildViewArray($id));
   }
 
-  public function buildRelationText($relation_object, $name, $relation_text, $type)
+  public function buildRelationText($relation_object, $name, $relation_text, $suffix, $type)
   {
     $lang = Configure::read('Belongsto.lang');
     $lang_eng = Configure::read('Belongsto.lang_eng');
@@ -43,6 +43,7 @@ class SubjectToolHelper extends Helper
       } elseif($type == 1) {
 	$res = $name . ' ' . $relation_text . ' ' . $this->link($relation_object->name, $relation_object->id);
       }
+      $res .= ' ' . $suffix;
     } else {
       if ($type == 1) {
 	//$res = $name . 'は ' . $this->link($relation_object->name, $relation_object->id);
@@ -50,7 +51,7 @@ class SubjectToolHelper extends Helper
       } elseif ($type == 2) {
 	$res = $this->link($relation_object->name, $relation_object->id) . ' は' . $name;
       }
-      $res .= $relation_text;
+      $res .= $relation_text . $suffix;
     }
     return $res;
   }

@@ -20,7 +20,8 @@
               <? foreach($subject->actives as $active): ?>
               <li>
                 <?= $this->SubjectTool->imageLink($active, ['width' => '40px', 'height' => '40px']) ?>
-                <?= $this->SubjectTool->buildRelationText($active, $subject->name, $active->_joinData->relation, 2) ?>
+                <?= $this->SubjectTool->buildRelationText($active, $subject->name,
+							  $active->_joinData->relation, $active->_joinData->suffix, 2) ?>
               </li>
               <? endforeach; ?>
           </ul>
