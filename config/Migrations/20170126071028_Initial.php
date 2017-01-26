@@ -3,15 +3,19 @@ use Migrations\AbstractMigration;
 
 class Initial extends AbstractMigration
 {
+
+    public $autoId = false;
+
     public function up()
     {
 
-        $this->table('ja_relations', ['id' => false, 'primary_key' => ['id']])
+        $this->table('ja_relations')
             ->addColumn('id', 'string', [
                 'default' => '',
                 'limit' => 36,
                 'null' => false,
             ])
+            ->addPrimaryKey(['id'])
             ->addColumn('active_id', 'string', [
                 'default' => '',
                 'limit' => 36,
@@ -92,12 +96,13 @@ class Initial extends AbstractMigration
             )
             ->create();
 
-        $this->table('ja_subject_searches', ['id' => false, 'primary_key' => ['id']])
+        $this->table('ja_subject_searches')
             ->addColumn('id', 'string', [
                 'default' => '',
                 'limit' => 36,
                 'null' => false,
             ])
+            ->addPrimaryKey(['id'])
             ->addColumn('search_words', 'text', [
                 'default' => null,
                 'limit' => null,
@@ -121,12 +126,13 @@ class Initial extends AbstractMigration
             )
             ->create();
 
-        $this->table('ja_subjects', ['id' => false, 'primary_key' => ['id']])
+        $this->table('ja_subjects')
             ->addColumn('id', 'string', [
                 'default' => '',
                 'limit' => 36,
                 'null' => false,
             ])
+            ->addPrimaryKey(['id'])
             ->addColumn('name', 'string', [
                 'default' => '',
                 'limit' => 255,
@@ -215,12 +221,13 @@ class Initial extends AbstractMigration
             )
             ->create();
 
-        $this->table('relations', ['id' => false, 'primary_key' => ['id']])
+        $this->table('relations')
             ->addColumn('id', 'string', [
                 'default' => '',
                 'limit' => 36,
                 'null' => false,
             ])
+            ->addPrimaryKey(['id'])
             ->addColumn('active_id', 'string', [
                 'default' => '',
                 'limit' => 36,
@@ -301,12 +308,13 @@ class Initial extends AbstractMigration
             )
             ->create();
 
-        $this->table('subject_searches', ['id' => false, 'primary_key' => ['id']])
+        $this->table('subject_searches')
             ->addColumn('id', 'string', [
                 'default' => '',
                 'limit' => 36,
                 'null' => false,
             ])
+            ->addPrimaryKey(['id'])
             ->addColumn('search_words', 'text', [
                 'default' => null,
                 'limit' => null,
@@ -330,12 +338,13 @@ class Initial extends AbstractMigration
             )
             ->create();
 
-        $this->table('subjects', ['id' => false, 'primary_key' => ['id']])
+        $this->table('subjects')
             ->addColumn('id', 'string', [
                 'default' => '',
                 'limit' => 36,
                 'null' => false,
             ])
+            ->addPrimaryKey(['id'])
             ->addColumn('name', 'string', [
                 'default' => '',
                 'limit' => 255,
