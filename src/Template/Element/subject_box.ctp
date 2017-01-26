@@ -25,10 +25,11 @@
         </div>
     </div>
 
-
 <? if ($relation->relation): ?>
-    <? if ($relation->relation->count() > 0): ?>
-    <div class="row subject-relation-sub">
+    <? /* $relation->relation->count() は常に1つ以上存在する。(subject-relation パートと同じ関係があるため) */ ?>
+    <? if ($relation->relation->count() > 1): ?>
+    <div class="subject-relation-sub">
+    <h4><?= $relation_object->name ?></h4>
 
     <ul class="subject-list-relation">
     <? foreach ($relation->relation as $passive2): ?>

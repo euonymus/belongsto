@@ -14,7 +14,7 @@
         </div>
 
         <? if (!empty($subject->actives)): ?>
-        <div class="subject-list-sub">
+        <div class="subject-relation-sub">
           <h4>secondary relations</h4>
           <ul class="subject-list-relation">
               <? foreach($subject->actives as $active): ?>
