@@ -34,6 +34,7 @@ $gluonsDescription = 'gluons: All the connections among everything in the univer
     <?= $this->fetch('script') ?>
 </head>
 <body>
+    <?= $this->element('google_analytics') ?>
     <?= $this->element('header') ?>
     <?= $this->Flash->render() ?>
 
