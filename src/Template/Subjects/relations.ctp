@@ -1,13 +1,17 @@
 <div class="row">
   <div class="col-md-3 card subject-main">
 
+
+<? if (!empty($subject->image_path)): ?>
     <div class="subject-image">
-        <img src="<?= $subject->image_path ?>" class="card-img-top">
+        <img src="<?= $this->SubjectTool->imagePath($subject->image_path) ?>" class="card-img-top">
+   
 <? /*
         <?= $this->SubjectTool->imageLink($subject, ['class' => 'card-img-top']) ?>
         <div class="main-image" style="background-image:url(<?= $subject->image_path ?>);"></div>
 */ ?>
     </div>
+<? endif; ?>
 
 
     <div class="card-block">
