@@ -1,8 +1,16 @@
 <div class="row">
   <div class="col-md-3 card subject-main">
+
+<? /*
     <div class="subject-image">
         <?= $this->SubjectTool->imageLink($subject, ['class' => 'card-img-top']) ?>
     </div>
+*/ ?>
+    <div class="subject-image">
+        <div class="" style="height:100px;transition:border 0.2s ease;position:relative; background:url(<?= $subject->image_path ?>);background-repeat:no-repeat;-moz-background-size:contain;background-size:contain;"></div>
+    </div>
+
+
     <div class="card-block">
       <h1 class="card-title"><?= h($subject->name) ?></h1>
       <p><?= $this->SubjectTool->period($subject) ?></p>
