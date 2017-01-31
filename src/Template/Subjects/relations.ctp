@@ -1,14 +1,20 @@
 <div class="row">
   <div class="col-md-3 card subject-main">
+
     <div class="subject-image">
+        <img src="<?= $subject->image_path ?>" class="card-img-top">
+<? /*
         <?= $this->SubjectTool->imageLink($subject, ['class' => 'card-img-top']) ?>
+        <div class="main-image" style="background-image:url(<?= $subject->image_path ?>);"></div>
+*/ ?>
     </div>
+
+
     <div class="card-block">
       <h1 class="card-title"><?= h($subject->name) ?></h1>
       <p><?= $this->SubjectTool->period($subject) ?></p>
-    </div>
-    <p><?= h($subject->description) ?></p>
-    <p>edited by <?= $subject->last_modified_user['username'] ?></p>
+      <p><?= h($subject->description) ?></p>
+      <p>edited by <?= $subject->last_modified_user['username'] ?></p>
 
 <? if (!empty($subject->url)): ?>
     <p><?= $this->Html->link('<img src="/img/url_button.png" style="width:50px;border:0px;" >', $subject->url,
@@ -16,6 +22,7 @@
 <? endif; ?>
     <p><?= $this->Html->link('Add relation', ['controller' => 'relations', 'action' => 'add', $subject->id],
 			     ['class' => 'btn btn-primary']); ?></p>
+    </div>
   </div>
 
   <div class="col-md-9 subject-relation-list">
