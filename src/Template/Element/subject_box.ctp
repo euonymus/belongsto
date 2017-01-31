@@ -11,7 +11,7 @@
   $suffix = $relation->_joinData->suffix;
 ?>
 <div class="well subject-relation <? if ($type == 1) echo 'white'; ?>">
-    <div class="panel subject-relation-main">
+    <div class="subject-relation-main">
         <div class="media">
           <div class="media-left subject-image">
             <?= $this->SubjectTool->imageLink($relation_object) ?>
