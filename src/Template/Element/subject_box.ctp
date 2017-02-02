@@ -24,15 +24,25 @@
           </div>
         </div>
     </div>
-
 <? if ($relation->relation): ?>
-    <? /* $relation->relation->count() は常に1つ以上存在する。(subject-relation パートと同じ関係があるため) */ ?>
-    <? if ($relation->relation->count() > 1): ?>
+<?
+  /* $relation->relation には主題のIDと同一の関係が存在することがあるので除外する */
+  $secRelations = [];
+  foreach ($relation->relation as $secRelation) {
+    if ($second_type == 'active') {
+      if ($subject->id == $secRelation->passive_id) continue;
+    } elseif ($second_type == 'passive') {
+      if ($subject->id == $secRelation->active_id) continue;
+    }
+    $secRelations[] = $secRelation;
+  }
+?>
+    <? if (!empty($secRelations)): ?>
     <div class="subject-relation-sub">
     <h4><?= $relation_object->name ?></h4>
 
     <ul class="subject-list-relation">
-    <? foreach ($relation->relation as $passive2): ?>
+    <? foreach ($secRelations as $passive2): ?>
       <li>
         <? if ($second_type == 'active'): ?>
            <? if ($subject->id == $passive2->passive_id) continue; ?>
