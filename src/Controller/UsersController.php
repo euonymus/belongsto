@@ -57,10 +57,15 @@ class UsersController extends AppController
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
+                //return $this->redirect($this->Auth->redirectUrl());
+		$referer = unserialize($this->Session->read('LoginReferer'));
+		$this->Session->delete('LoginReferer');
+                return $this->redirect($referer);
             }
             $this->_setFlash(__('Invalid username or password, try again'), true);
-        }
+        } else {
+	  $this->Session->write('LoginReferer', serialize($this->referer()));
+	}
 	$title = 'Login to gluons';
         $this->set(compact('title'));
     }
@@ -68,7 +73,9 @@ class UsersController extends AppController
     public function logout()
     {
         $this->Session->write('PrivacyMode', \App\Controller\AppController::PRIVACY_ALL);
-        return $this->redirect($this->Auth->logout());
+        //return $this->redirect($this->Auth->logout());
+	$this->Auth->logout();
+	return $this->redirect($this->referer());
     }
 
     /**
