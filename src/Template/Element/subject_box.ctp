@@ -13,13 +13,16 @@
 <div class="well subject-relation <? if ($type == 1) echo 'white'; ?>">
     <div class="subject-relation-main">
         <div class="media">
+
+          <h4 class="media-heading"><?= $this->SubjectTool->buildRelationText($relation_object,
+						$name, $relation_text, $suffix, $type) ?></h4>
+          <p><?= $this->SubjectTool->period($relation_object->_joinData) ?></p>
+          <hr>
           <div class="media-left subject-image">
             <?= $this->SubjectTool->imageLink($relation_object) ?>
           </div>
           <div class="media-body">
-            <h4 class="media-heading"><?= $this->SubjectTool->buildRelationText($relation_object,
-										$name, $relation_text, $suffix, $type) ?></h4>
-            <p><?= $this->SubjectTool->period($relation_object->_joinData) ?></p>
+            <h4><?= $relation_object->name ?></h4>
             <?= $relation_object->description ?>
           </div>
         </div>
@@ -39,7 +42,6 @@
 ?>
     <? if (!empty($secRelations)): ?>
     <div class="subject-relation-sub">
-    <h4><?= $relation_object->name ?></h4>
 
     <ul class="subject-list-relation">
     <? foreach ($secRelations as $passive2): ?>

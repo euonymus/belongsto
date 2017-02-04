@@ -38,16 +38,16 @@ class SubjectToolHelper extends Helper
     $lang = Configure::read('Belongsto.lang');
     $lang_eng = Configure::read('Belongsto.lang_eng');
     if ($lang == $lang_eng) {
-      if ($type == 2) {
-	$res = $this->link($relation_object->name, $relation_object->id) . ' ' . $relation_text . ' ' . $name;
-      } elseif($type == 1) {
+      if ($type == 1) {
 	$res = $name . ' ' . $relation_text . ' ' . $this->link($relation_object->name, $relation_object->id);
+      } elseif($type == 2) {
+	$res = $this->link($relation_object->name, $relation_object->id) . ' ' . $relation_text . ' ' . $name;
       }
       $res .= ' ' . $suffix;
     } else {
       if ($type == 1) {
-	//$res = $name . 'は ' . $this->link($relation_object->name, $relation_object->id);
-	$res = $this->link($relation_object->name, $relation_object->id);
+	//$res = $this->link($relation_object->name, $relation_object->id);
+	$res = $name . 'は ' . $this->link($relation_object->name, $relation_object->id);
       } elseif ($type == 2) {
 	$res = $this->link($relation_object->name, $relation_object->id) . ' は' . $name;
       }

@@ -6,10 +6,10 @@
 }
 ul.subject-list-relation {
     list-style-type: none;
-    padding-left:20px;
+    padding-left:0px;
 }
 ul.subject-list-relation > li {
-    padding-bottom:5px;
+    padding-top:5px;
 }
 .logo-top {
     max-width:500px;
@@ -55,7 +55,6 @@ ul.subject-list-relation > li {
 }
 .subject-image {
     overflow:hidden;
-    border: solid 1px #888;
 }
 .subject-image > .main-image {
     height:200px;
@@ -88,6 +87,9 @@ ul.subject-list-relation > li {
 }
 .subject-relation-sub h4 {
     color:#439a88;
+}
+.subject-relation-sub {
+    margin-top:10px;
 }
 .second-relation {
     height:250px;
