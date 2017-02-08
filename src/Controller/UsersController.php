@@ -60,6 +60,7 @@ class UsersController extends AppController
                 //return $this->redirect($this->Auth->redirectUrl());
 		$referer = unserialize($this->Session->read('LoginReferer'));
 		$this->Session->delete('LoginReferer');
+		$this->Session->delete('PrivacyMode');
                 return $this->redirect($referer);
             }
             $this->_setFlash(__('Invalid username or password, try again'), true);
@@ -117,6 +118,7 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
+                $this->Auth->setUser($user);
                 $this->Flash->success(__('The user has been saved.'));
 
                 return $this->redirect(['controller' => 'Users', 'action' => 'login']);

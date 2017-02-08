@@ -113,6 +113,7 @@ class RelationsController extends AppController
 
             $subject = $Subjects->formToSaving($saving_subject);
 
+            $subject->is_private = $this->Auth->user('default_saving_privacy');
             $subject->user_id = $this->Auth->user('id');
             $subject->last_modified_user = $this->Auth->user('id');
 
