@@ -4,6 +4,8 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 use Cake\ORM\TableRegistry;
+use Cake\Core\Configure;
+
 use App\Utils\U;
 
 /**
@@ -71,12 +73,21 @@ class SubjectsController extends AppController
 	if (!$subject) $this->redirect('/');
 
 	if ($second_type == 'none') {
-	  $title_second_level = '(no second level)';
+	  $title_second_level = '';
 	} else {
-	  $title_second_level = '(second level: ' . $second_type . ')';
+	  $title_second_level = '(' . $second_type . ')';
 	}
 
-	$title = 'Relations among ' . $subject->name . $title_second_level;
+	$lang_now = Configure::read('Belongsto.lang');
+	$lang_eng = Configure::read('Belongsto.lang_eng');
+
+	if ($lang_now == $lang_eng) {
+	  $expression = ' - Relations';
+	} else {
+	  $expression = 'との関係事項';
+	}
+
+	$title = $subject->name . $expression . $title_second_level;
         $this->set(compact('subject', 'second_type', 'title'));
         $this->set('_serialize', ['subject']);
     }
