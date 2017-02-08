@@ -18,7 +18,10 @@
       <h1 class="card-title"><?= h($subject->name) ?></h1>
       <p><?= $this->SubjectTool->period($subject) ?></p>
       <p><?= h($subject->description) ?></p>
+
+   <? if ($subject->last_modified_user['role'] != 'admin'): ?>
       <p>edited by <?= $subject->last_modified_user['username'] ?></p>
+   <? endif; ?>
 
 <? if (!empty($subject->url)): ?>
     <p><?= $this->Html->link('<img src="/img/url_button.png" style="width:50px;border:0px;" >', $subject->url,
