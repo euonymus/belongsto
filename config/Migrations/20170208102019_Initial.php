@@ -467,6 +467,17 @@ class Initial extends AbstractMigration
                 'limit' => 20,
                 'null' => false,
             ])
+            ->addColumn('default_saving_privacy', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('default_showing_privacy', 'integer', [
+                'default' => 3,
+                'limit' => 3,
+                'null' => false,
+                'signed' => false,
+            ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
                 'limit' => null,
