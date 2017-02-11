@@ -22,7 +22,8 @@
             <?= $this->SubjectTool->imageLink($relation_object) ?>
           </div>
           <div class="media-body">
-            <h4><?= $relation_object->name ?></h4>
+            <h3><?= $this->Html->link($relation_object->name,
+				      \App\View\Helper\SubjectToolHelper::buildViewArray($relation_object->id)) ?></h3>
             <?= $relation_object->description ?>
           </div>
         </div>
@@ -49,8 +50,8 @@
         <? if ($second_type == 'active'): ?>
            <? if ($subject->id == $passive2->passive_id) continue; ?>
            <?= $this->SubjectTool->imageLink($passive2->passive, ['width' => '40px', 'height' => '40px']) ?>
-           <?= $this->SubjectTool->buildRelationText($passive2->passive, $relation->name,
-						     $passive2->relation, $passive2->suffix, 1) ?>
+           <?= $this->SubjectTool->buildRelationShortText($passive2->passive, $relation->name,
+						     $passive2->relation, $passive2->suffix) ?>
         <? elseif ($second_type == 'passive'): ?>
            <? if ($subject->id == $passive2->active_id) continue; ?>
            <?= $this->SubjectTool->imageLink($passive2->active, ['width' => '40px', 'height' => '40px']) ?>

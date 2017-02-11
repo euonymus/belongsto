@@ -55,6 +55,19 @@ class SubjectToolHelper extends Helper
     }
     return $res;
   }
+  public function buildRelationShortText($relation_object, $name, $relation_text, $suffix)
+  {
+    $lang = Configure::read('Belongsto.lang');
+    $lang_eng = Configure::read('Belongsto.lang_eng');
+    if ($lang == $lang_eng) {
+      $res = '..' . $relation_text . ' ' . $this->link($relation_object->name, $relation_object->id);
+      $res .= ' ' . $suffix;
+    } else {
+      $res = $this->link($relation_object->name, $relation_object->id);
+      $res .= $relation_text . $suffix;
+    }
+    return $res;
+  }
 
   public function period($obj)
   {
