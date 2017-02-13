@@ -257,12 +257,16 @@ class SubjectsTable extends AppTable
 	for($i = 0; count($subject->actives) > $i; $i++) {
 	  $Relations = TableRegistry::get('Relations');
 	  $subject->actives[$i]->relation
-	    = $Relations->find('all', ['contain' => $secondModel])->where([$relationKey => $subject->actives[$i]->id]);
+	    = $Relations->find('all', ['contain' => $secondModel])
+	                ->where([$relationKey => $subject->actives[$i]->id])
+	                ->order(['Relations.start' =>'DESC']);
 	}
 	for($i = 0; count($subject->passives) > $i; $i++) {
 	  $Relations = TableRegistry::get('Relations');
 	  $subject->passives[$i]->relation
-	    = $Relations->find('all', ['contain' => $secondModel])->where([$relationKey => $subject->passives[$i]->id]);
+	    = $Relations->find('all', ['contain' => $secondModel])
+                        ->where([$relationKey => $subject->passives[$i]->id])
+                        ->order(['Relations.start' =>'DESC']);
 	}
       }
       return $subject;
