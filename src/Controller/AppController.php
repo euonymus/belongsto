@@ -91,9 +91,9 @@ class AppController extends Controller
 	$privacy_mode = $this->Session->read('PrivacyMode');
 	if (empty($privacy_mode)) {
 	  if ($this->Auth->user()) {
-	    $privacy_mode = self::PRIVACY_ALL;
-	  } else {
 	    $privacy_mode = $this->Auth->user('default_showing_privacy');
+	  } else {
+	    $privacy_mode = self::PRIVACY_ALL;
 	  }
 	}
 	Configure::write('Belongsto.privacyMode', $privacy_mode);

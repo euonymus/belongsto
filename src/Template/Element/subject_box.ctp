@@ -13,7 +13,6 @@
 <div class="well subject-relation <? if ($type == 1) echo 'white'; ?>">
     <div class="subject-relation-main">
         <div class="media">
-
           <h4 class="media-heading"><?= $this->SubjectTool->buildRelationText($relation_object,
 						$name, $relation_text, $suffix, $type) ?></h4>
           <p><?= $this->SubjectTool->period($relation_object->_joinData) ?></p>

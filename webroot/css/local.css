@@ -47,6 +47,9 @@ ul.subject-list-relation > li {
 .subject-relation-main .media-body, .subject-list-sub {
     padding:10px;
 }
+.media-body h3 {
+    margin:0px;
+}
 .subject-relation-main {
     padding:0px;
 }
