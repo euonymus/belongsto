@@ -27,6 +27,9 @@
     <p><?= $this->Html->link('<img src="/img/url_button.png" style="width:50px;border:0px;" >', $subject->url,
 			     ['target' => '_blank', 'escape' => false]); ?></p>
 <? endif; ?>
+<? if (!empty($subject->affiliate)): ?>
+    <p><?= $this->Html->link('購入する', $subject->affiliate, ['target' => '_blank']); ?></p>
+<? endif; ?>
     <p><?= $this->Html->link('Add relation', ['controller' => 'relations', 'action' => 'add', $subject->id],
 			     ['class' => 'btn btn-primary']); ?></p>
     </div>
