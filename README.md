@@ -2,8 +2,9 @@
 gluons is a database searvice to hold the all relations among everything in the universe.
 
 # Service URL
-    http://gluons.link (English)
-    http://ja.gluons.link (日本語)
+http://gluons.link (English)
+
+http://ja.gluons.link (日本語)
 
 # Requirement
 
