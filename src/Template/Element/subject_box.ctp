@@ -14,7 +14,14 @@
     <div class="subject-relation-main">
         <div class="media">
           <h4 class="media-heading"><?= $this->SubjectTool->buildRelationText($relation_object,
-						$name, $relation_text, $suffix, $type) ?></h4>
+						$name, $relation_text, $suffix, $type) ?>
+    <? if (!empty($auth) && $auth->user('id')): ?>
+                 <?= $this->Html->link('',
+		      ['controller' => 'relations', 'action' => 'edit', $relation_object->_joinData->id],
+		      ['class'=> "glyphicon glyphicon glyphicon-pencil"]) ?>
+    <? endif; ?>
+          </h4>
+
           <p><?= $this->SubjectTool->period($relation_object->_joinData) ?></p>
           <hr>
           <div class="media-left subject-image">
