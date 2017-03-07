@@ -182,14 +182,14 @@ class RelationsController extends AppController
     public function edit($id = null)
     {
         $relation = $this->Relations->get($id, [
-            'contain' => []
+            'contain' => ['Actives', 'Passives']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $relation = $this->Relations->patchEntity($relation, $this->request->data);
             if ($this->Relations->save($relation)) {
                 $this->_setFlash(__('The gluon has been saved.')); 
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'subjects', 'action' => 'relations', $relation->active_id]);
             } else {
                 $this->_setFlash(__('The gluon could not be saved. Please, try again.'), true); 
             }
