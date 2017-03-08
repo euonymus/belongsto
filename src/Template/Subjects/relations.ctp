@@ -28,7 +28,7 @@
 			     ['target' => '_blank', 'escape' => false]); ?></p>
 <? endif; ?>
 <? if (!empty($subject->affiliate)): ?>
-    <p><?= $this->Html->link('購入する', $subject->affiliate, ['target' => '_blank']); ?></p>
+    <p><?= $this->Html->link($this->SubjectTool->buynow(), $subject->affiliate, ['target' => '_blank']); ?></p>
 <? endif; ?>
     <p><?= $this->Html->link('Add relation', ['controller' => 'relations', 'action' => 'add', $subject->id],
 			     ['class' => 'btn btn-primary']); ?></p>

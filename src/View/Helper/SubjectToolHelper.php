@@ -33,6 +33,15 @@ class SubjectToolHelper extends Helper
     return $this->Html->link($text, self::buildViewArray($id));
   }
 
+  public function buynow()
+  {
+    $lang = Configure::read('Belongsto.lang');
+    $lang_eng = Configure::read('Belongsto.lang_eng');
+    if ($lang == $lang_eng) {
+      return 'buy now';
+    }
+    return '購入する';
+  }
   public function buildRelationText($relation_object, $name, $relation_text, $suffix, $type)
   {
     $lang = Configure::read('Belongsto.lang');
