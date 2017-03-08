@@ -16,6 +16,7 @@ $gluonsDescription = 'gluons: All the connections among everything in the univer
         <?= $title ?>:
         <?= $gluonsDescription ?>
     </title>
+    <link rel="apple-touch-icon-precomposed" href="/webclip.png" />
 
     <!-- Bootstrap -->
     <?= $this->Html->css('bootstrap.min.css') ?>
