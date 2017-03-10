@@ -15,7 +15,13 @@
         <div class="media">
           <h4 class="media-heading"><?= $this->SubjectTool->buildRelationText($relation_object,
 						$name, $relation_text, $suffix, $type) ?>
-    <? if (!empty($auth) && $auth->user('id')): ?>
+    <? if (
+	   !empty($auth) && $auth->user('id') &&
+	   (
+	      !$relation->_joinData->is_exclusive ||
+	      ($auth->user('id') == $relation->_joinData->user_id)
+	   )
+    ): ?>
                  <?= $this->Html->link('',
 		      ['controller' => 'relations', 'action' => 'edit', $relation_object->_joinData->id],
 		      ['class'=> "glyphicon glyphicon glyphicon-pencil"]) ?>

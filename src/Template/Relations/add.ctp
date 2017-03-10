@@ -30,6 +30,9 @@
             echo $this->Form->input('end_accuracy', ['class' => 'form-control']);
             echo $this->Form->input('is_momentary');
 
+            if ($auth->user('role') == 'admin') {
+	      echo $this->Form->input('is_exclusive', ['type' => 'checkbox', 'checked' => true]);
+	    }
         ?>
         </div>
     </fieldset>

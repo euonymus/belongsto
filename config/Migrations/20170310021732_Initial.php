@@ -70,6 +70,11 @@ class Initial extends AbstractMigration
                 'limit' => 3,
                 'null' => false,
             ])
+            ->addColumn('is_exclusive', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
             ->addColumn('user_id', 'integer', [
                 'default' => null,
                 'limit' => 11,
@@ -194,6 +199,11 @@ class Initial extends AbstractMigration
             ])
             ->addColumn('is_private', 'boolean', [
                 'default' => true,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('is_exclusive', 'boolean', [
+                'default' => false,
                 'limit' => null,
                 'null' => false,
             ])

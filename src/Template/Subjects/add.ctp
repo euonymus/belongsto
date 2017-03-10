@@ -35,6 +35,10 @@
             echo $this->Form->input('affiliate', ['class' => 'form-control']);
             $checked = $auth->user('default_saving_privacy')?  true : false;
             echo $this->Form->input('is_private', ['type' => 'checkbox', 'checked' => $checked]);
+
+            if ($auth->user('role') == 'admin') {
+	      echo $this->Form->input('is_exclusive', ['type' => 'checkbox', 'checked' => true]);
+	    }
         ?>
         </div>
     </fieldset>
