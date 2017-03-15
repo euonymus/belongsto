@@ -30,6 +30,6 @@ class PagesController extends AppController
 {
     public function display()
     {
-      $this->set('title', 'Search relations');
+      $this->set('title', 'Start searching gluons among quarks');
     }
 }

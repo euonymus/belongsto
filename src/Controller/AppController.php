@@ -75,6 +75,7 @@ class AppController extends Controller
         $this->viewBuilder()->layout('belongsto');
 	$this->Session = $this->request->session();
 
+	// Setting Language
 	$subdomain = U::getSubdomain();
 	if (in_array($subdomain, self::$langs)) {
 	  self::$lang = $subdomain;
@@ -86,8 +87,10 @@ class AppController extends Controller
 	Configure::write('Belongsto.lang', $lang_now);
 	Configure::write('Belongsto.lang_eng', $lang_eng);
 
+	// Setting User info
 	Configure::write('Belongsto.auth', $this->Auth);
 
+	// Setting privacy mode
 	$privacy_mode = $this->Session->read('PrivacyMode');
 	if (empty($privacy_mode)) {
 	  if ($this->Auth->user()) {
@@ -97,6 +100,14 @@ class AppController extends Controller
 	  }
 	}
 	Configure::write('Belongsto.privacyMode', $privacy_mode);
+
+	// Setting title description
+	if ($lang_now == $lang_eng) {
+	  $gluonsDescription = 'gluons | Find hidden relations behind person and things';
+	} else {
+	  $gluonsDescription = 'gluons | 人と物のつながりを発見するサービス';
+	}
+        $this->set(compact('lang_now', 'gluonsDescription'));
     }
     public function isAuthorized($user)
     {

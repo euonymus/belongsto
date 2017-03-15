@@ -1,8 +1,5 @@
-<?
-$gluonsDescription = 'gluons: All the connections among everything in the universe';
-?>
 <!DOCTYPE html>
-<html>
+<html lang="<?= $lang_now ?>">
   <head>
     <?= $this->Html->charset() ?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

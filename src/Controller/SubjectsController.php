@@ -50,7 +50,14 @@ class SubjectsController extends AppController
 
       $subjects = $this->Subjects->search($this->request->query['keywords']);
 
-      $title = 'Search results of ' . $this->request->query['keywords'];
+      $lang_now = AppController::$lang;
+      $lang_eng = AppController::LANG_ENG;
+
+      if ($lang_now == $lang_eng) {
+	$title = 'Search results of ' . $this->request->query['keywords'];
+      } else {
+	$title = $this->request->query['keywords'] . 'の検索結果';
+      }
       $this->set(compact('subjects', 'title'));
       $this->set('_serialize', ['subjects']);
       $this->render('index');
@@ -72,22 +79,21 @@ class SubjectsController extends AppController
         $subject = $this->Subjects->getRelations($id, ['Actives', 'Passives'], 2, $second_type);
 	if (!$subject) $this->redirect('/');
 
-	if ($second_type == 'none') {
-	  $title_second_level = '';
-	} else {
-	  $title_second_level = '(' . $second_type . ')';
+	$title_second_level = '';
+	if ($second_type != 'none') {
+	  $title_second_level = '[' . $second_type . ' relation]';
 	}
 
-	$lang_now = Configure::read('Belongsto.lang');
-	$lang_eng = Configure::read('Belongsto.lang_eng');
+	$lang_now = AppController::$lang;
+	$lang_eng = AppController::LANG_ENG;
 
 	if ($lang_now == $lang_eng) {
-	  $expression = ' - Relations';
+	  $expression = 'Relations';
 	} else {
-	  $expression = 'との関係事項';
+	  $expression = '関連図';
 	}
 
-	$title = $subject->name . $expression . $title_second_level;
+	$title = $subject->name . ' - ' . $expression . $title_second_level;
         $this->set(compact('subject', 'second_type', 'title'));
         $this->set('_serialize', ['subject']);
     }
