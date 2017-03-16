@@ -6,15 +6,27 @@
     <fieldset>
         <legend><?= __('Edit Gluon') ?></legend>
         <div class="form-group">
-        <h3><?= $relation->active->name . ' は ' . $relation->passive->name . ' ...' ?></h3>
+
+   <? if ($lang_now == $lang_eng): ?>
+        <h3>Relation between "<?= $relation->active->name ?>" and "<?= $relation->passive->name ?>" ...</h3>
+        <hr>
+        <?= $relation->active->name ?>
+        <?= $this->Form->input('relation', ['class' => 'form-control', 'label' => false]) ?>
+        <?= $relation->passive->name ?>
+   <? else: ?>
+        <h3>"<?= $relation->active->name ?>" と "<?= $relation->passive->name ?>" の関係</h3>
+        <hr>
+        <?= $relation->active->name . ' は ' . $relation->passive->name . ' ...' ?>
+        <?= $this->Form->input('relation', ['class' => 'form-control', 'label' => false]) ?>
+   <? endif; ?>
         <?
-            echo $this->Form->input('relation', ['class' => 'form-control']);
-            echo $this->Form->input('suffix', ['class' => 'form-control']);
+            echo $this->Form->input('suffix', ['class' => 'form-control', 'label' => false]);
 
             // This is ugly, I know. START ======================================
             //echo $this->Form->input('start', ['empty' => true]);
             //echo $this->Form->input('end', ['empty' => true]);
         ?>
+        <hr>
         <div class="input text">
             <label for="url">Start</label>
         <? if (is_string($relation->start) || is_null($relation->start)): ?>

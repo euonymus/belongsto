@@ -198,7 +198,10 @@ class RelationsController extends AppController
         }
         $actives = $this->Relations->Actives->find('list', ['limit' => 200]);
         $passives = $this->Relations->Passives->find('list', ['limit' => 200]);
-        $this->set(compact('relation', 'actives', 'passives'));
+
+	$title = 'Edit gluon';
+
+        $this->set(compact('relation', 'actives', 'passives', 'title'));
         $this->set('_serialize', ['relation']);
     }
 

@@ -107,7 +107,7 @@ class AppController extends Controller
 	} else {
 	  $gluonsDescription = 'gluons | 人と物のつながりを発見するサービス';
 	}
-        $this->set(compact('lang_now', 'gluonsDescription'));
+        $this->set(compact('lang_now', 'lang_eng', 'gluonsDescription'));
     }
     public function isAuthorized($user)
     {
