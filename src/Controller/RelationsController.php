@@ -14,12 +14,14 @@ class RelationsController extends AppController
 {
     public function isAuthorized($user)
     {
-        if (in_array($this->request->action, ['add', 'confirm'])) {
+        //if (in_array($this->request->action, ['add', 'confirm'])) {
+        if (in_array($this->request->action, ['add', 'confirm', 'edit'])) {
             return true;
         }
 
         // The owner of an relation can edit and delete it
-        if (in_array($this->request->action, ['edit', 'delete'])) {
+        //if (in_array($this->request->action, ['edit', 'delete'])) {
+        if (in_array($this->request->action, ['delete'])) {
             $relationId = $this->request->params['pass'][0];
             if ($this->Relations->isOwnedBy($relationId, $user['id'])) {
                 return true;
@@ -212,11 +214,10 @@ class RelationsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $relation = $this->Relations->get($id);
         if ($this->Relations->delete($relation)) {
-            $this->_setFlash(__('The gluon has been deleted.')); 
+            $this->_setFlash(__('The gluon has been deleted.'));
         } else {
-            $this->_setFlash(__('The gluon could not be deleted. Please, try again.'), true); 
+            $this->_setFlash(__('The gluon could not be deleted. Please, try again.'), true);
         }
-
-        return $this->redirect(['action' => 'index']);
+	return $this->redirect(['controller' => 'subjects', 'action' => 'relations', $relation->active_id]);
     }
 }

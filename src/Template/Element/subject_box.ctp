@@ -25,6 +25,13 @@
                  <?= $this->Html->link('',
 		      ['controller' => 'relations', 'action' => 'edit', $relation_object->_joinData->id],
 		      ['class'=> "glyphicon glyphicon glyphicon-pencil"]) ?>
+        <? if ($auth->user('id') == $relation->_joinData->user_id): ?>
+                 <?= $this->Form->postLink('',
+                      ['controller' => 'relations', 'action' => 'delete', $relation_object->_joinData->id],
+	              ['confirm' => __('Are you sure you want to delete?'), 'class'=> "glyphicon glyphicon-remove-sign"]
+                     )
+                 ?>
+        <? endif; ?>
     <? endif; ?>
           </h4>
 
