@@ -118,6 +118,9 @@ class RelationsController extends AppController
             $subject->is_private = $this->Auth->user('default_saving_privacy');
             $subject->user_id = $this->Auth->user('id');
             $subject->last_modified_user = $this->Auth->user('id');
+	    if ($this->Auth->user('role') == 'admin') {
+	      $subject->is_exclusive = true;
+	    }
 
             if ($savedSubject = $Subjects->save($subject)) {
                 $this->_setFlash(__('The quark has been saved.')); 
