@@ -18,6 +18,7 @@ use Cake\Controller\Controller;
 use Cake\Event\Event;
 
 use Cake\Core\Configure;
+use Cake\Routing\Router;
 
 use App\Utils\U;
 
@@ -55,6 +56,30 @@ class AppController extends Controller
      */
     public function initialize()
     {
+	// Setting Language
+	$subdomain = U::getSubdomain();
+	if (in_array($subdomain, self::$langs)) {
+	  self::$lang = $subdomain;
+	}
+
+	$lang_now = self::$lang;
+	$lang_eng = self::LANG_ENG;
+
+	Configure::write('Belongsto.lang', $lang_now);
+	Configure::write('Belongsto.lang_eng', $lang_eng);
+
+        // Sanitize none gluons.link domain
+        $host = Configure::read('Belongsto.host');
+	if ($host == 'production') {
+	  $subDomain = '';
+	  if ($lang_now != $lang_eng) {
+	    $subDomain = $lang_now . '.';
+	  }
+	  $sanitizeRedirect = 'https://' . $subDomain . 'gluons.link' . Router::url();
+	  $this->redirect($sanitizeRedirect);
+	}
+
+	// Start ====================================================
         parent::initialize();
 
         $this->loadComponent('RequestHandler');
@@ -74,18 +99,6 @@ class AppController extends Controller
 
         $this->viewBuilder()->layout('belongsto');
 	$this->Session = $this->request->session();
-
-	// Setting Language
-	$subdomain = U::getSubdomain();
-	if (in_array($subdomain, self::$langs)) {
-	  self::$lang = $subdomain;
-	}
-
-	$lang_now = self::$lang;
-	$lang_eng = self::LANG_ENG;
-
-	Configure::write('Belongsto.lang', $lang_now);
-	Configure::write('Belongsto.lang_eng', $lang_eng);
 
 	// Setting User info
 	Configure::write('Belongsto.auth', $this->Auth);
