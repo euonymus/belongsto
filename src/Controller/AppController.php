@@ -32,6 +32,7 @@ use App\Utils\U;
  */
 class AppController extends Controller
 {
+    const DOMAIN_PROD = 'gluons.link';
     const LANG_ENG = 'en';
     const LANG_JPY = 'ja';
     static $langs = [
@@ -70,12 +71,12 @@ class AppController extends Controller
 
         // Sanitize none gluons.link domain
         $host = Configure::read('Belongsto.host');
-	if ($host == 'production') {
+	if (($host == 'production') && ($this->request->domain() != self::DOMAIN_PROD)) {
 	  $subDomain = '';
 	  if ($lang_now != $lang_eng) {
 	    $subDomain = $lang_now . '.';
 	  }
-	  $sanitizeRedirect = 'https://' . $subDomain . 'gluons.link' . Router::url();
+	  $sanitizeRedirect = 'https://' . $subDomain . self::DOMAIN_PROD . Router::url();
 	  $this->redirect($sanitizeRedirect);
 	}
 
