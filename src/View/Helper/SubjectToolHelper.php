@@ -69,7 +69,9 @@ class SubjectToolHelper extends Helper
     $lang = Configure::read('Belongsto.lang');
     $lang_eng = Configure::read('Belongsto.lang_eng');
     if ($lang == $lang_eng) {
-      $res = '..' . $relation_text . ' ' . $this->link($relation_object->name, $relation_object->id);
+      // Stop shortening English text
+      //$res = '..' . $relation_text . ' ' . $this->link($relation_object->name, $relation_object->id);
+      $res = $name . ' ' . $relation_text . ' ' . $this->link($relation_object->name, $relation_object->id);
       $res .= ' ' . $suffix;
     } else {
       $res = $this->link($relation_object->name, $relation_object->id);
