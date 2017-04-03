@@ -101,8 +101,7 @@ class Initial extends AbstractMigration
                 [
                     'active_id',
                     'passive_id',
-                ],
-                ['unique' => true]
+                ]
             )
             ->create();
 
@@ -323,8 +322,7 @@ class Initial extends AbstractMigration
                 [
                     'active_id',
                     'passive_id',
-                ],
-                ['unique' => true]
+                ]
             )
             ->create();
 
