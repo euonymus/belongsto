@@ -19,6 +19,9 @@ ul.subject-list-relation > li {
 .logo-top img {
     width:100%;
 }
+.contact-us > img {
+    width:300px;
+}
 @media screen and (max-width: 991px) {
     .navbar {
 	margin-bottom:0;
