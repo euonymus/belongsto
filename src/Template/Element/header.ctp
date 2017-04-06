@@ -17,7 +17,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><?= $this->Html->link(__('List'), ['controller' => 'subjects', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link($this->LangMngr->txt('List', '一覧'),['controller' => 'subjects', 'action' => 'index']) ?></li>
 <? /*
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>

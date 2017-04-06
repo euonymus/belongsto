@@ -62,6 +62,7 @@
 ?>
     <? if (!empty($secRelations)): ?>
     <div class="subject-relation-sub">
+      <h4><?= $this->LangMngr->txt('secondary relations', '間接的リレーション') ?></h4>
 
     <ul class="subject-list-relation">
     <? foreach ($secRelations as $passive2): ?>
