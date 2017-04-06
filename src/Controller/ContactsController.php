@@ -16,7 +16,8 @@ class ContactsController extends AppController
                 $this->_setFlash(__('Validation error.'), true); 
             }
         }
- 	$title = 'Contact us';
+	$title = $this->LangMngr->txt('Contact us', 'お問い合わせ');
+
         $this->set(compact('contact', 'title'));
         $this->set('_serialize', ['subject']);
    }

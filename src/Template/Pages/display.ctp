@@ -1,6 +1,5 @@
 <div class="logo-top">
   <img src="/img/logo.gif">
-  <p class="text-center">Start searching gluons among quarks.</p>
 </div>
 <? /*
 <div class="jumbotron">
@@ -8,7 +7,9 @@
   <p>'gluons' is a database of relations among anything in the universe. Start searching from the form.</p>
 </div>
 */ ?>
-<div>
+<div class="home">
+    <p class="text-center"><?= $this->LangMngr->txt('Search hidden relations on your favorite things, people, company...',
+						    '気になる人、物、会社などの隠れた関係を見つけよう') ?></p>
     <?= $this->Form->create(NULL, ['url' => '/subjects/search', 'method' => 'get', 'class' => 'search_top text-center']) ?>
 
         <div class="form-group center-block input-container-top">

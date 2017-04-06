@@ -32,6 +32,8 @@ use App\Utils\U;
  */
 class AppController extends Controller
 {
+    public $helpers = ['LangMngr'];
+
     const DOMAIN_PROD = 'gluons.link';
     const LANG_ENG = 'en';
     const LANG_JPY = 'ja';
@@ -98,6 +100,8 @@ class AppController extends Controller
             ]
         ]);
 
+        $this->loadComponent('LangMngr');
+
         $this->viewBuilder()->layout('belongsto');
 	$this->Session = $this->request->session();
 
@@ -117,9 +121,9 @@ class AppController extends Controller
 
 	// Setting title description
 	if ($lang_now == $lang_eng) {
-	  $gluonsDescription = 'gluons | Find hidden relations behind person and things';
+	  $gluonsDescription = 'gluons - Find hidden relations behind person and things';
 	} else {
-	  $gluonsDescription = 'gluons | 人と物のつながりを発見するサービス';
+	  $gluonsDescription = 'gluons - 人と物のつながりを発見するサービス';
 	}
         $this->set(compact('lang_now', 'lang_eng', 'gluonsDescription'));
     }

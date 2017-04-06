@@ -4,7 +4,6 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 use Cake\ORM\TableRegistry;
-use Cake\Core\Configure;
 
 use App\Utils\U;
 
@@ -50,14 +49,9 @@ class SubjectsController extends AppController
 
       $subjects = $this->Subjects->search($this->request->query['keywords']);
 
-      $lang_now = AppController::$lang;
-      $lang_eng = AppController::LANG_ENG;
+      $title = $this->LangMngr->txt('Search results of ' . $this->request->query['keywords'],
+				    $this->request->query['keywords'] . 'の検索結果');
 
-      if ($lang_now == $lang_eng) {
-	$title = 'Search results of ' . $this->request->query['keywords'];
-      } else {
-	$title = $this->request->query['keywords'] . 'の検索結果';
-      }
       $this->set(compact('subjects', 'title'));
       $this->set('_serialize', ['subjects']);
       $this->render('index');
@@ -83,17 +77,9 @@ class SubjectsController extends AppController
 	if ($second_type != 'none') {
 	  $title_second_level = '[' . $second_type . ' relation]';
 	}
-
-	$lang_now = AppController::$lang;
-	$lang_eng = AppController::LANG_ENG;
-
-	if ($lang_now == $lang_eng) {
-	  $expression = 'Relations';
-	} else {
-	  $expression = '関連図';
-	}
-
+	$expression = $this->LangMngr->txt('Relations', '関連図');
 	$title = $subject->name . ' - ' . $expression . $title_second_level;
+
         $this->set(compact('subject', 'second_type', 'title'));
         $this->set('_serialize', ['subject']);
     }

@@ -31,23 +31,6 @@ class RelationsController extends AppController
     }
 
     /**
-     * View method
-     *
-     * @param string|null $id Relation id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $relation = $this->Relations->get($id, [
-            'contain' => ['Actives', 'Passives']
-        ]);
-
-        $this->set('relation', $relation);
-        $this->set('_serialize', ['relation']);
-    }
-
-    /**
      * Add method
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
