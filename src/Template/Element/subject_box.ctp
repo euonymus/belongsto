@@ -62,7 +62,12 @@
 ?>
     <? if (!empty($secRelations)): ?>
     <div class="subject-relation-sub">
-      <h4><?= $this->LangMngr->txt('secondary relations', '間接的リレーション') ?></h4>
+      <h4><?
+   $en = 'Quarks Related to ' . $relation_object->name;
+   $ja = $relation_object->name . 'と関係する事柄';
+   echo $this->LangMngr->txt($en, $ja);
+?>
+</h4>
 
     <ul class="subject-list-relation">
     <? foreach ($secRelations as $passive2): ?>

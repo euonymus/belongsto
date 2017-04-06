@@ -38,7 +38,7 @@
   <div class="col-md-9 subject-relation-list">
     <h2><?
    $en = 'Quarks Related to ' . $subject->name;
-   $ja = $subject->name . 'が関係する事柄';
+   $ja = $subject->name . 'と関係する事柄';
    echo $this->LangMngr->txt($en, $ja);
 ?></h2>
 
