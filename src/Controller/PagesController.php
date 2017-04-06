@@ -35,7 +35,7 @@ class PagesController extends AppController
       if ($lang_now == $lang_eng) {
 	$title = 'Search hidden relations on your favorite things, people, company...';
       } else {
-	$title = '気になる人、物、会社などの隠れた関係を見つけよう';
+	$title = '気になる人、物、会社の隠れた関係を見つけよう';
       }
       $this->set(compact('title'));
     }
