@@ -10,10 +10,14 @@
   $relation_text = $relation->_joinData->relation;
   $suffix = $relation->_joinData->suffix;
 ?>
-<div class="well subject-relation <? if ($type == 1) echo 'white'; ?>">
+<div class="subject-relation <? if ($type == 1) echo 'white'; ?>">
     <div class="subject-relation-main">
         <div class="media">
-          <h4 class="media-heading"><?= $this->SubjectTool->buildRelationText($relation_object,
+          <div class="media-left subject-image">
+            <?= $this->SubjectTool->imageLink($relation_object) ?>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading"><?= $this->SubjectTool->buildRelationText($relation_object,
 						$name, $relation_text, $suffix, $type) ?>
     <? if (
 	   !empty($auth) && $auth->user('id') &&
@@ -33,10 +37,10 @@
                  ?>
         <? endif; ?>
     <? endif; ?>
-          </h4>
-
-          <p><?= $this->SubjectTool->period($relation_object->_joinData) ?></p>
-          <hr>
+            </h4>
+            <p><?= $this->SubjectTool->period($relation_object->_joinData) ?></p>
+          </div>
+<? /*
           <div class="media-left subject-image">
             <?= $this->SubjectTool->imageLink($relation_object) ?>
           </div>
@@ -45,6 +49,7 @@
 				      \App\View\Helper\SubjectToolHelper::buildViewArray($relation_object->id)) ?></h3>
             <?= $relation_object->description ?>
           </div>
+*/ ?>
         </div>
     </div>
 <? if ($relation->relation): ?>
@@ -62,14 +67,14 @@
 ?>
     <? if (!empty($secRelations)): ?>
     <div class="subject-relation-sub">
-      <h4><?
+      <div class="well <? if ($type == 2) echo 'white'; ?>">
+        <h4><?
    $en = 'Quarks Related to ' . $relation_object->name;
    $ja = $relation_object->name . 'と関係する事柄';
    echo $this->LangMngr->txt($en, $ja);
-?>
-</h4>
-
-    <ul class="subject-list-relation">
+?></h4>
+        <?= $relation_object->description ?>
+        <ul class="subject-list-relation">
     <? foreach ($secRelations as $passive2): ?>
       <li>
         <? if ($second_type == 'active'): ?>
@@ -93,7 +98,8 @@
         </div>
    */ ?>
     <? endforeach; ?>
-    </ul>
+        </ul>
+      </div>
 
     </div>
     <? endif; ?>
