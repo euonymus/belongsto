@@ -37,6 +37,22 @@ class PagesController extends AppController
       } else {
 	$title = '気になる人、物、会社の隠れた関係を見つけよう';
       }
-      $this->set(compact('title'));
+
+
+      // Pickup contents
+      $pickup_ids = [
+		     'ed2826db-028b-48eb-9db1-919dafcc33aa', // 籠池 町浪: 話題の人
+		     '006f7220-a171-41f6-ab7d-13019f42375c', // 明治維新:  歴史
+		     '25e6d34b-38b1-4586-97f5-f130fff1b9a0', // iPhone:   ガジェット
+		     '1818e992-3d0d-4958-8fcd-dd703930a3ba', // SMBC:     投資会社
+		     '493009cd-9c63-400c-8c15-9ac7b7995879', // Google:   大企業
+		     'faea45fc-ee7c-442e-88ef-031f35c92440', // ハーバード: 学校
+		     '624ce77c-d825-4ae2-9778-15673374f478', // マンジーニ: ドラマー
+		     '0886067b-6b82-4ffe-8d5b-5c216f84ad00', // 大統領
+		     ];
+      $Subjects = TableRegistry::get('Subjects');
+      $pickups = $Subjects->find('all', ['conditions' => ['Subjects.id in' => $pickup_ids]])->limit(8);
+
+      $this->set(compact('title', 'pickups'));
     }
 }

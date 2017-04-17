@@ -43,6 +43,18 @@ ul.subject-list-relation > li {
 .input-container-signup {
     max-width:200px;
 }
+.top-pickup-links {
+    max-width:800px;
+}
+.pickup-link {
+    border:1px solid #888888;
+    margin-top:15px;
+    padding:0px;
+}
+.pickup-link img {
+    width:100%;
+    height:130px;
+}
 .subject-list {
     padding:0px;
 }
