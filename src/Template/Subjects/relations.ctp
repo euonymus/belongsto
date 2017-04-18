@@ -15,7 +15,13 @@
 
 
     <div class="card-block">
-      <h1 class="card-title"><?= h($subject->name) ?></h1>
+      <h1 class="card-title"><?= h($subject->name) ?>
+<? if (!empty($subject->url)): ?>
+          <sub>
+              <?= $this->Html->link('', $subject->url, ['target' => '_blank', 'class' => "glyphicon glyphicon-globe"]); ?>
+          </sub>
+<? endif; ?>
+      </h1>
       <p><?= $this->SubjectTool->period($subject) ?></p>
       <p><?= h($subject->description) ?></p>
 
@@ -23,10 +29,10 @@
       <p>edited by <?= $subject->last_modified_user['username'] ?></p>
    <? endif; ?>
 
-<? if (!empty($subject->url)): ?>
+<? /* if (!empty($subject->url)): ?>
     <p><?= $this->Html->link('<img src="/img/url_button.png" style="width:50px;border:0px;" >', $subject->url,
 			     ['target' => '_blank', 'escape' => false]); ?></p>
-<? endif; ?>
+<? endif; */ ?>
 <? if (!empty($subject->affiliate)): ?>
     <p><?= $this->Html->link($this->SubjectTool->buynow(), $subject->affiliate, ['target' => '_blank']); ?></p>
 <? endif; ?>

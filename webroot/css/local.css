@@ -132,3 +132,6 @@ ul.subject-list-relation > li {
 .second-relation .card-block h4 {
     font-size: 1em;
 }
+.card-title > sub > a {
+    color:#aa4400;
+}
