@@ -45,6 +45,7 @@ ul.subject-list-relation > li {
 }
 .top-pickup-links {
     max-width:800px;
+    margin-top:20px;
 }
 .pickup-link {
     border:1px solid #888888;

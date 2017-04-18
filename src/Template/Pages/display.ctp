@@ -30,8 +30,8 @@
             <div class="col-md-3">
                 <div class="pickup-link">
                     <?= $this->Html->link($this->Html->image($pickup->image_path, ['alt' => $pickup->name]),
-			  ['controller' => 'subjects', 'action' => 'relations', $pickup->id],
-			     ['escape' => false]) ?>
+					  ['controller' => 'subjects', 'action' => 'relations', $pickup->id, $pickup->type],
+					  ['escape' => false]) ?>
                 </div>
             </div>
    <? endforeach; ?>
