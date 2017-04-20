@@ -214,7 +214,7 @@ class SubjectsTable extends AppTable
     /****************************************************************************/
     /* Get Data                                                                 */
     /****************************************************************************/
-    public function getRelations($id, $contain = NULL, $level = 1, $second_type = null)
+    public function getRelations($id, $contain = NULL, $level = 1, $second_type = null, $baryon_id = NULL)
     {
       if (!is_numeric($level) || ($level > 2)) return false;
 
@@ -255,17 +255,35 @@ class SubjectsTable extends AppTable
       // 2nd level relations
       if (($level == 2) && !is_null($contain)) {
 	for($i = 0; count($subject->actives) > $i; $i++) {
+	  $where2 = [$relationKey => $subject->actives[$i]->id];
+	  if ($baryon_id !== false) {
+	    if (is_null($baryon_id)) {
+	      $where2[] = 'baryon_id is NULL';
+	    } else {
+	      $where2[] = ['baryon_id' => $baryon_id];
+	    }
+	  }
+
 	  $Relations = TableRegistry::get('Relations');
 	  $subject->actives[$i]->relation
 	    = $Relations->find('all', ['contain' => $secondModel])
-	                ->where([$relationKey => $subject->actives[$i]->id])
+	                ->where($where2)
 	                ->order(['Relations.start' =>'DESC']);
 	}
 	for($i = 0; count($subject->passives) > $i; $i++) {
+	  $where2 = [$relationKey => $subject->passives[$i]->id];
+	  if ($baryon_id !== false) {
+	    if (is_null($baryon_id)) {
+	      $where2[] = 'baryon_id is NULL';
+	    } else {
+	      $where2[] = ['baryon_id' => $baryon_id];
+	    }
+	  }
+
 	  $Relations = TableRegistry::get('Relations');
 	  $subject->passives[$i]->relation
 	    = $Relations->find('all', ['contain' => $secondModel])
-                        ->where([$relationKey => $subject->passives[$i]->id])
+                        ->where($where2)
                         ->order(['Relations.start' =>'DESC']);
 	}
       }

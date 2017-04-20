@@ -70,7 +70,14 @@ class SubjectsController extends AppController
 	  $second_type = 'active';
         }
 
-        $subject = $this->Subjects->getRelations($id, ['Actives', 'Passives'], 2, $second_type);
+	$contain['Actives'] = function ($q) {
+	  return $q->where(['Relations.baryon_id is NULL']);
+	};
+	$contain['Passives'] = function ($q) {
+	  return $q->where(['Relations.baryon_id is NULL']);
+	};
+
+        $subject = $this->Subjects->getRelations($id, $contain, 2, $second_type);
 	if (!$subject) $this->redirect('/');
 
 	$title_second_level = '';

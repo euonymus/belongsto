@@ -14,11 +14,26 @@
     <div class="subject-relation-main">
         <div class="media">
           <div class="media-left subject-image">
+
+    <? if (is_null($relation_object->_joinData->baryon_id)): ?>
             <?= $this->SubjectTool->imageLink($relation_object) ?>
+    <? else: ?>
+            <?= $this->BaryonTool->imageLink($baryon->id, $relation_object) ?>
+    <? endif; ?>
+
           </div>
           <div class="media-body">
-            <h4 class="media-heading"><?= $this->SubjectTool->buildRelationText($relation_object,
+            <h4 class="media-heading">
+
+    <? if (is_null($relation_object->_joinData->baryon_id)): ?>
+                <?= $this->SubjectTool->buildRelationText($relation_object,
 						$name, $relation_text, $suffix, $type) ?>
+    <? else: ?>
+                <?= $this->BaryonTool->buildRelationText($baryon->id, $relation_object,
+						$name, $relation_text, $suffix, $type) ?>
+    <? endif; ?>
+
+
     <? if (
 	   !empty($auth) && $auth->user('id') &&
 	   (
@@ -76,12 +91,26 @@
         <?= $relation_object->description ?>
         <ul class="subject-list-relation">
     <? foreach ($secRelations as $passive2): ?>
+
+
       <li>
         <? if ($second_type == 'active'): ?>
            <? if ($subject->id == $passive2->passive_id) continue; ?>
-           <?= $this->SubjectTool->imageLink($passive2->passive, ['width' => '40px', 'height' => '40px']) ?>
-           <?= $this->SubjectTool->buildRelationShortText($passive2->passive, $relation->name,
+
+    <? if (is_null($passive2->baryon_id)): ?>
+       <? if (!isset($baryon) || $baryon->is_oneway): ?>
+            <?= $this->SubjectTool->imageLink($passive2->passive, ['width' => '40px', 'height' => '40px']) ?>
+            <?= $this->SubjectTool->buildRelationShortText($passive2->passive, $relation->name,
 						     $passive2->relation, $passive2->suffix) ?>
+       <? endif; ?>
+    <? else: ?>
+            <?= $this->BaryonTool->imageLink($baryon->id, $passive2->passive, ['width' => '40px', 'height' => '40px']) ?>
+            <?= $this->BaryonTool->buildRelationShortText($baryon->id, $passive2->passive, $relation->name,
+						     $passive2->relation, $passive2->suffix) ?>
+    <? endif; ?>
+
+
+
         <? elseif ($second_type == 'passive'): ?>
            <? if ($subject->id == $passive2->active_id) continue; ?>
            <?= $this->SubjectTool->imageLink($passive2->active, ['width' => '40px', 'height' => '40px']) ?>

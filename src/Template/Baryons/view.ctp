@@ -1,48 +1,91 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Baryon'), ['action' => 'edit', $baryon->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Baryon'), ['action' => 'delete', $baryon->id], ['confirm' => __('Are you sure you want to delete # {0}?', $baryon->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Baryons'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Baryon'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="baryons view large-9 medium-8 columns content">
-    <h3><?= h($baryon->name) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('Name') ?></th>
-            <td><?= h($baryon->name) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Description') ?></th>
-            <td><?= h($baryon->description) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('User') ?></th>
-            <td><?= $baryon->has('user') ? $this->Html->link($baryon->user->id, ['controller' => 'Users', 'action' => 'view', $baryon->user->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($baryon->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Created') ?></th>
-            <td><?= h($baryon->created) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Modified') ?></th>
-            <td><?= h($baryon->modified) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Is Oneway') ?></th>
-            <td><?= $baryon->is_oneway ? __('Yes') : __('No'); ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Is Private') ?></th>
-            <td><?= $baryon->is_private ? __('Yes') : __('No'); ?></td>
-        </tr>
-    </table>
+<div class="row">
+  <div class="col-md-3 card subject-main">
+    <div class="card-block">
+      <h1 class="card-title"><?= h($baryon->name) ?></h1>
+      <p><?= h($baryon->description) ?></p>
+      <p>One way: <?= $baryon->is_oneway ? __('Yes') : __('No'); ?></p>
+      <p>Private: <?= $baryon->is_private ? __('Yes') : __('No'); ?></p>
+      <p>Created: <?= $baryon->created; ?></p>
+      <p>Modified: <?= $baryon->modified; ?></p>
+      <p><?= $this->Html->link('Edit', ['controller' => 'baryons', 'action' => 'edit', $baryon->id],
+                                       ['class' => 'btn btn-primary']); ?></p>
+      <p><?= $this->Html->link('back to list', ['action' => 'index']) ?></p>
+    </div>
+  </div>
+
+  <div class="col-md-9 subject-relation-list">
+    <h2><?
+   $en = 'Gluons in ' . $baryon->name;
+   $ja = $baryon->name . 'に付随するgluonの一覧';
+   echo $this->LangMngr->txt($en, $ja);
+?></h2>
+
+    <div class="related">
+
+
+<?php if (!empty($relations)): ?>
+<div class="well subject-relation white">
+<?php foreach ($relations as $key => $relation): ?>
+    <? if($key != 0) echo '<hr>'; ?>
+
+
+<div class="subject-relation">
+    <div class="subject-relation-main">
+        <div class="media">
+          <div class="media-left subject-image">
+
+
+     <?= $this->Html->link($this->Html->image($relation->active->image_path, ['width' => '100px', 'height' => '100px']), ['controller' => 'baryons', 'action' => 'relations', $baryon->id, $relation->active->id], ['escape' => false]) ?>
+
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">
+
+     <?= $this->Html->link($relation->active->name, ['controller' => 'baryons', 'action' => 'relations', $baryon->id, $relation->active->id]) ?> は 
+            </h4>
+          </div>
+          <div class="media-left subject-image">
+     <?= $this->Html->link($this->Html->image($relation->passive->image_path, ['width' => '100px', 'height' => '100px']), ['controller' => 'baryons', 'action' => 'relations', $baryon->id, $relation->passive->id], ['escape' => false]) ?>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">
+
+<?= $this->Html->link($relation->passive->name, ['controller' => 'baryons', 'action' => 'relations', $baryon->id, $relation->passive->id]) ?> <?= $relation->relation ?>
+
+    <? if (
+	   !empty($auth) && $auth->user('id') &&
+	   (
+	      !$relation->is_exclusive ||
+	      ($auth->user('id') == $relation->user_id)
+	   )
+    ): ?>
+                 <?= $this->Html->link('',
+		      ['controller' => 'relations', 'action' => 'edit', $relation->id],
+		      ['class'=> "glyphicon glyphicon glyphicon-pencil"]) ?>
+        <? if ($auth->user('id') == $relation->user_id): ?>
+                 <?= $this->Form->postLink('',
+                      ['controller' => 'relations', 'action' => 'delete', $relation->id],
+	              ['confirm' => __('Are you sure you want to delete?'), 'class'=> "glyphicon glyphicon-remove-sign"]
+                     )
+                 ?>
+        <? endif; ?>
+    <? endif; ?>
+
+            </h4>
+            <p><?= $this->SubjectTool->period($relation) ?></p>
+          </div>
+        </div>
+    </div>
+
+</div>
+
+<?php endforeach; ?>
+</div>
+<?php endif; ?>
+
+
+    </div>
+
+  </div>
+
 </div>

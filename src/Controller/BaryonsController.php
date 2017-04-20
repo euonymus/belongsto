@@ -65,7 +65,19 @@ class BaryonsController extends AppController
             'contain' => ['Users']
         ]);
 
-        $this->set('baryon', $baryon);
+	if ($baryon->is_private && !$this->Baryons->isOwnedBy($id, $this->Auth->user('id'))) {
+	  $this->redirect('/');
+	}
+
+	$contain = ['Actives', 'Passives'];
+
+        $RelationsModel = TableRegistry::get('Relations');
+        $relations = $RelationsModel->getByBaryon($id, $contain);
+	if (!$relations) $this->redirect('/');
+
+	$title = 'Baryon: ' . $baryon->name;
+
+        $this->set(compact('baryon', 'relations', 'title'));
         $this->set('_serialize', ['baryon']);
     }
 
@@ -79,19 +91,26 @@ class BaryonsController extends AppController
             'contain' => ['Users']
         ]);
 
+	if ($baryon->is_private && !$this->Baryons->isOwnedBy($id, $this->Auth->user('id'))) {
+	  $this->redirect('/');
+	}
 
-
-
-	/* $contain = ['Actives', 'Passives']; */
+	// * I didn't want to use the global value, but could not find alternative way...
+	global $g_id;
+	$g_id = $id;
 	$contain['Actives'] = function ($q) {
-	  return $q->where(['Relations.baryon_id' => '1']);
+	  return $q->where(['Relations.baryon_id' => $GLOBALS['g_id']]);
 	};
 	$contain['Passives'] = function ($q) {
-	  return $q->where(['Relations.baryon_id' => '1']);
+	  return $q->where(['Relations.baryon_id' => $GLOBALS['g_id']]);
 	};
 
+	$baryon_id = false;
+	if (!$baryon->is_oneway) {
+	  $baryon_id = $id;
+	}
         $Subjects = TableRegistry::get('Subjects');
-        $subject = $Subjects->getRelations($subject_id, $contain, 2, $second_type);
+        $subject = $Subjects->getRelations($subject_id, $contain, 2, $second_type, $baryon_id);
 	if (!$subject) $this->redirect('/');
 
 	$title = 'Baryon: ' . $subject->name;
