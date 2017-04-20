@@ -42,9 +42,9 @@ class BaryonsController extends AppController
      */
     public function index()
     {
-// TODO: ユーザー単位のリストを表示
         $this->paginate = [
-            'contain' => ['Users']
+			   'contain' => ['Users'],
+			   'conditions' => ['user_id' => $this->Auth->user('id')],
         ];
         $baryons = $this->paginate($this->Baryons);
 
