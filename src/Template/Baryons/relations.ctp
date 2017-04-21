@@ -36,8 +36,14 @@
 <? if (!empty($subject->affiliate)): ?>
     <p><?= $this->Html->link($this->SubjectTool->buynow(), $subject->affiliate, ['target' => '_blank']); ?></p>
 <? endif; ?>
+ <? if ($this->request->params['controller'] == 'Baryons'):?>
+    <p><?= $this->Html->link('Add relation', ['controller' => 'relations', 'action' => 'add', $subject->id, $baryon->id],
+			     ['class' => 'btn btn-primary']); ?></p>
+ <? else: ?>
     <p><?= $this->Html->link('Add relation', ['controller' => 'relations', 'action' => 'add', $subject->id],
 			     ['class' => 'btn btn-primary']); ?></p>
+ <? endif; ?>
+
     </div>
   </div>
 

@@ -35,7 +35,7 @@ class RelationsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add($active_id = null)
+    public function add($active_id = null, $baryon_id = null)
     {
         $ready_for_save = false;
 
@@ -59,6 +59,9 @@ class RelationsController extends AppController
         // Existence check
         if ($this->request->is('post')) {
 	  $this->request->data['active_id'] = $active_id;
+	  if (!is_null($baryon_id)) {
+	    $this->request->data['baryon_id'] = $baryon_id;
+	  }
 
 	  $query = $Subjects->search($this->request->data['passive']);
 	  if (iterator_count($query)) {
@@ -128,7 +131,11 @@ class RelationsController extends AppController
             if ($this->Relations->save($relation)) {
                 $this->_setFlash(__('The gluon has been saved.')); 
 
-                return $this->redirect(['controller' => 'subjects', 'action' => 'relations', $active_id]);
+		if (is_null($relation->baryon_id)) {
+		  return $this->redirect(['controller' => 'subjects', 'action' => 'relations', $active_id]);
+		} else {
+		  return $this->redirect(['controller' => 'baryons', 'action' => 'relations', $relation->baryon_id, $active_id]);
+		}
             } else {
                 $this->_setFlash(__('The gluon could not be saved. Please, try again.'), true); 
             }
