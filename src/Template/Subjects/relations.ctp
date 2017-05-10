@@ -42,11 +42,6 @@
   </div>
 
   <div class="col-md-9 subject-relation-list">
-    <h2><?
-   $en = 'Quarks Related to ' . $subject->name;
-   $ja = $subject->name . 'と関係する事柄';
-   echo $this->LangMngr->txt($en, $ja);
-?></h2>
 
     <ul class="nav nav-pills">
       <li role="presentation"<? if ($second_type == 'active') { echo ' class="active"'; } ?>>
@@ -60,13 +55,28 @@
       </li>
     </ul>
 
+<? if ($subject->passives): ?>
+    <h2><?
+   $en = 'What is ' . $subject->name . '?';
+   $ja = $subject->name . 'とは';
+   echo $this->LangMngr->txt($en, $ja);
+?></h2>
     <div class="related">
         <?= $this->element('subject_boxes', ['subject' => $subject, 'relations' => $subject->passives]) ?>
     </div>
-    <hr>
+<? endif; ?>
+
+<? if ($subject->actives): ?>
+    <h2><?
+   $en = 'Quarks Related to ' . $subject->name . '?';
+   $ja = $subject->name . 'との関連事項';
+   echo $this->LangMngr->txt($en, $ja);
+?></h2>
     <div class="related">
         <?= $this->element('subject_boxes', ['subject' => $subject, 'relations' => $subject->actives, 'isPassive' => true]) ?>
     </div>
+<? endif; ?>
+
   </div>
 
 </div>
