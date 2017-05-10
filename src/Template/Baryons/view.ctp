@@ -31,26 +31,21 @@
 
 <div class="subject-relation">
     <div class="subject-relation-main">
+
+
         <div class="media">
           <div class="media-left subject-image">
-
-
-     <?= $this->Html->link($this->Html->image($relation->active->image_path, ['width' => '100px', 'height' => '100px']), ['controller' => 'baryons', 'action' => 'relations', $baryon->id, $relation->active->id], ['escape' => false]) ?>
-
+             <?= $this->Html->link($this->Html->image($this->SubjectTool->imagePath($relation->active->image_path), ['width' => '100px', 'height' => '100px']), ['controller' => 'baryons', 'action' => 'relations', $baryon->id, $relation->active->id], ['escape' => false]) ?>
           </div>
-          <div class="media-body">
-            <h4 class="media-heading">
 
-     <?= $this->Html->link($relation->active->name, ['controller' => 'baryons', 'action' => 'relations', $baryon->id, $relation->active->id]) ?> は 
+          <div class="media-body">
+
+<? /* TODO: Treat English sentence order */ ?>
+            <h4 class="media-heading">
+              <?= $this->Html->link($relation->active->name, ['controller' => 'baryons', 'action' => 'relations', $baryon->id, $relation->active->id]) ?> は 
             </h4>
-          </div>
-          <div class="media-left subject-image">
-     <?= $this->Html->link($this->Html->image($relation->passive->image_path, ['width' => '100px', 'height' => '100px']), ['controller' => 'baryons', 'action' => 'relations', $baryon->id, $relation->passive->id], ['escape' => false]) ?>
-          </div>
-          <div class="media-body">
             <h4 class="media-heading">
-
-<?= $this->Html->link($relation->passive->name, ['controller' => 'baryons', 'action' => 'relations', $baryon->id, $relation->passive->id]) ?> <?= $relation->relation ?>
+              <?= $this->Html->link($relation->passive->name, ['controller' => 'baryons', 'action' => 'relations', $baryon->id, $relation->passive->id]) ?> <?= $relation->relation ?>
 
     <? if (
 	   !empty($auth) && $auth->user('id') &&
@@ -74,6 +69,12 @@
             </h4>
             <p><?= $this->SubjectTool->period($relation) ?></p>
           </div>
+
+          <div class="media-left subject-image">
+             <?= $this->Html->link($this->Html->image($this->SubjectTool->imagePath($relation->passive->image_path), ['width' => '100px', 'height' => '100px']), ['controller' => 'baryons', 'action' => 'relations', $baryon->id, $relation->passive->id], ['escape' => false]) ?>
+          </div>
+
+
         </div>
     </div>
 

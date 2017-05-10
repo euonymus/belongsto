@@ -10,24 +10,12 @@
     <? foreach ($baryons as $baryon): ?>
         <div class="well row">
           <div class="col-xs-3">
-            <?= $this->Html->link($baryon->name, ['action' => 'view', $baryon->id]) ?>
+            <?= $this->Html->link($baryon->name, ['action' => 'relations', $baryon->id, $subject->id]) ?>
           </div>
           <div class="col-xs-9">
             <?= h($baryon->description) ?>
           </div>
         </div>
-
-<? /*
-        <div class="media subject-list-main">
-          <div class="media-left">
-            <?= $this->SubjectTool->imageLink($subject) ?>
-          </div>
-          <div class="media-body">
-            <h4 class="media-heading"><?= $this->SubjectTool->link($baryon->name, $baryon->id) ?></h4>
-            <?= $baryon->description ?>
-          </div>
-        </div>
-*/ ?>
     <? endforeach; ?>
 
     <? if (!$this->Page->isSearch()): ?>

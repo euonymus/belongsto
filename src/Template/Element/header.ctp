@@ -39,6 +39,7 @@
 
         <li><?= $this->Html->link(__('New Quark'), ['controller' => 'subjects', 'action' => 'add']) ?></li>
         <?= $this->element('side_subject') ?>
+        <?= $this->element('head_baryon') ?>
         <?= $this->element('side_relation') ?>
 
         <li class="dropdown">

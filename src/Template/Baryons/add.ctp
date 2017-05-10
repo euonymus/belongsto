@@ -15,7 +15,6 @@
             echo $this->Form->input('description');
             echo $this->Form->input('is_oneway');
             echo $this->Form->input('is_private');
-            echo $this->Form->input('user_id', ['options' => $users]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -102,6 +102,7 @@
             <?= $this->SubjectTool->imageLink($passive2->passive, ['width' => '40px', 'height' => '40px']) ?>
             <?= $this->SubjectTool->buildRelationShortText($passive2->passive, $relation->name,
 						     $passive2->relation, $passive2->suffix) ?>
+            &nbsp;<b class="glyphicon glyphicon-log-out" ></b>
        <? endif; ?>
     <? else: ?>
             <?= $this->BaryonTool->imageLink($baryon->id, $passive2->passive, ['width' => '40px', 'height' => '40px']) ?>

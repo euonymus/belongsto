@@ -22,7 +22,7 @@ class BaryonsController extends AppController
 
     public function isAuthorized($user)
     {
-        if (in_array($this->request->action, ['add'])) {
+      if (in_array($this->request->action, ['quark', 'add'])) {
             return true;
         }
 
@@ -47,8 +47,27 @@ class BaryonsController extends AppController
 			   'conditions' => ['user_id' => $this->Auth->user('id')],
         ];
         $baryons = $this->paginate($this->Baryons);
+	$title = $this->LangMngr->txt('Your Baryons', 'Your Baryons');
 
-        $this->set(compact('baryons'));
+        $this->set(compact('baryons', 'title'));
+        $this->set('_serialize', ['baryons']);
+    }
+
+    public function quark($subject_id = null)
+    {
+        $this->paginate = [
+			   'contain' => ['Users'],
+			   'conditions' => ['user_id' => $this->Auth->user('id')],
+        ];
+        $baryons = $this->paginate($this->Baryons);
+
+
+        $Subjects = TableRegistry::get('Subjects');
+        $subject = $Subjects->getRelations($subject_id);
+	if (!$subject) $this->redirect('/');
+
+	$title = $this->LangMngr->txt('Choose a baryon', 'Choose a baryon');
+        $this->set(compact('baryons', 'subject', 'title'));
         $this->set('_serialize', ['baryons']);
     }
 
@@ -129,12 +148,12 @@ class BaryonsController extends AppController
         $baryon = $this->Baryons->newEntity();
         if ($this->request->is('post')) {
             $baryon = $this->Baryons->patchEntity($baryon, $this->request->data);
+            $baryon->user_id = $this->Auth->user('id');
             if ($this->Baryons->save($baryon)) {
-                $this->Flash->success(__('The baryon has been saved.'));
-
+                $this->_setFlash(__('The baryon has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The baryon could not be saved. Please, try again.'));
+                $this->_setFlash(__('The baryon could not be saved. Please, try again.'), true);
             }
         }
         $users = $this->Baryons->Users->find('list', ['limit' => 200]);
@@ -156,12 +175,12 @@ class BaryonsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $baryon = $this->Baryons->patchEntity($baryon, $this->request->data);
+            $baryon->user_id = $this->Auth->user('id');
             if ($this->Baryons->save($baryon)) {
-                $this->Flash->success(__('The baryon has been saved.'));
-
+                $this->_setFlash(__('The baryon has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The baryon could not be saved. Please, try again.'));
+                $this->_setFlash(__('The baryon could not be saved. Please, try again.'), true);
             }
         }
         $users = $this->Baryons->Users->find('list', ['limit' => 200]);
@@ -181,11 +200,10 @@ class BaryonsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $baryon = $this->Baryons->get($id);
         if ($this->Baryons->delete($baryon)) {
-            $this->Flash->success(__('The baryon has been deleted.'));
+	    $this->_setFlash(__('The baryon has been deleted.'));
         } else {
-            $this->Flash->error(__('The baryon could not be deleted. Please, try again.'));
+	    $this->_setFlash(__('The baryon could not be deleted. Please, try again.'), true);
         }
-
         return $this->redirect(['action' => 'index']);
     }
 }
