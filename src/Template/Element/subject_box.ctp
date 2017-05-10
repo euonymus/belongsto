@@ -84,9 +84,14 @@
     <div class="subject-relation-sub">
       <div class="well <? if ($type == 2) echo 'white'; ?>">
         <h4><?
-   $en = 'Quarks Related to ' . $relation_object->name;
-   $ja = $relation_object->name . 'とは';
-   echo $this->LangMngr->txt($en, $ja);
+    if ($second_type == 'active') {
+      $en = 'What is ' . $relation_object->name . '?';
+      $ja = $relation_object->name . 'とは';
+    } elseif ($second_type == 'passive') {
+      $en = 'Quarks Related to ' . $relation_object->name;
+      $ja = $relation_object->name . 'に関する事項';
+    }
+    echo $this->LangMngr->txt($en, $ja);
 ?></h4>
         <?= $relation_object->description ?>
         <ul class="subject-list-relation">
