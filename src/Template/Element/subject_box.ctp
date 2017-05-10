@@ -95,14 +95,19 @@
 
       <li>
         <? if ($second_type == 'active'): ?>
-           <? if ($subject->id == $passive2->passive_id) continue; ?>
 
+
+           <? if ($subject->id == $passive2->passive_id) continue; ?>
     <? if (is_null($passive2->baryon_id)): ?>
        <? if (!isset($baryon) || $baryon->is_oneway): ?>
             <?= $this->SubjectTool->imageLink($passive2->passive, ['width' => '40px', 'height' => '40px']) ?>
             <?= $this->SubjectTool->buildRelationShortText($passive2->passive, $relation->name,
 						     $passive2->relation, $passive2->suffix) ?>
-            &nbsp;<b class="glyphicon glyphicon-log-out" ></b>
+
+            <? if ($relation_object->_joinData->baryon_id): ?>
+                &nbsp;<b class="glyphicon glyphicon-log-out" ></b>
+            <? endif; ?>
+
        <? endif; ?>
     <? else: ?>
             <?= $this->BaryonTool->imageLink($baryon->id, $passive2->passive, ['width' => '40px', 'height' => '40px']) ?>
@@ -111,12 +116,28 @@
     <? endif; ?>
 
 
-
         <? elseif ($second_type == 'passive'): ?>
+
+
            <? if ($subject->id == $passive2->active_id) continue; ?>
-           <?= $this->SubjectTool->imageLink($passive2->active, ['width' => '40px', 'height' => '40px']) ?>
-           <?= $this->SubjectTool->buildRelationText($passive2->active, $relation->name,
+    <? if (is_null($passive2->baryon_id)): ?>
+       <? if (!isset($baryon) || $baryon->is_oneway): ?>
+            <?= $this->SubjectTool->imageLink($passive2->active, ['width' => '40px', 'height' => '40px']) ?>
+            <?= $this->SubjectTool->buildRelationText($passive2->active, $relation->name,
 						     $passive2->relation, $passive2->suffix, 2) ?>
+
+            <? if ($relation_object->_joinData->baryon_id): ?>
+                &nbsp;<b class="glyphicon glyphicon-log-out" ></b>
+            <? endif; ?>
+
+       <? endif; ?>
+    <? else: ?>
+            <?= $this->BaryonTool->imageLink($baryon->id, $passive2->active, ['width' => '40px', 'height' => '40px']) ?>
+            <?= $this->BaryonTool->buildRelationText($baryon->id, $passive2->active, $relation->name,
+						     $passive2->relation, $passive2->suffix, 2) ?>
+    <? endif; ?>
+
+
         <? endif; ?>
       </li>
 
