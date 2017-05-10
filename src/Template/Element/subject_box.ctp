@@ -85,7 +85,7 @@
       <div class="well <? if ($type == 2) echo 'white'; ?>">
         <h4><?
    $en = 'Quarks Related to ' . $relation_object->name;
-   $ja = $relation_object->name . 'に関する事項';
+   $ja = $relation_object->name . 'とは';
    echo $this->LangMngr->txt($en, $ja);
 ?></h4>
         <?= $relation_object->description ?>
