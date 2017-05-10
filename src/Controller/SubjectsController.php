@@ -74,11 +74,12 @@ class SubjectsController extends AppController
 	if (!$subject) $this->redirect('/');
 
 	$title_second_level = '';
-	if ($second_type != 'none') {
+	if ($second_type == 'passive') {
 	  $title_second_level = '[' . $second_type . ' relation]';
+	} elseif ($second_type == 'none') {
+	  $title_second_level = '[no second relation]';
 	}
-	$expression = $this->LangMngr->txt('Relations', '関連図');
-	$title = $subject->name . ' - ' . $expression . $title_second_level;
+	$title = $subject->name . $title_second_level;
 
         $this->set(compact('subject', 'second_type', 'title'));
         $this->set('_serialize', ['subject']);
