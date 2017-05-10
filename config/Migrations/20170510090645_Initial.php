@@ -9,6 +9,53 @@ class Initial extends AbstractMigration
     public function up()
     {
 
+        $this->table('baryons')
+            ->addColumn('id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addPrimaryKey(['id'])
+            ->addColumn('name', 'string', [
+                'default' => '',
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('description', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('is_oneway', 'boolean', [
+                'default' => true,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('is_private', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('user_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->create();
+
         $this->table('ja_relations')
             ->addColumn('id', 'string', [
                 'default' => '',
@@ -87,6 +134,12 @@ class Initial extends AbstractMigration
                 'null' => true,
                 'signed' => false,
             ])
+            ->addColumn('baryon_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+                'signed' => false,
+            ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
                 'limit' => null,
@@ -101,6 +154,11 @@ class Initial extends AbstractMigration
                 [
                     'active_id',
                     'passive_id',
+                ]
+            )
+            ->addIndex(
+                [
+                    'baryon_id',
                 ]
             )
             ->create();
@@ -296,6 +354,11 @@ class Initial extends AbstractMigration
                 'limit' => 3,
                 'null' => false,
             ])
+            ->addColumn('is_exclusive', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
             ->addColumn('user_id', 'integer', [
                 'default' => null,
                 'limit' => 11,
@@ -303,6 +366,12 @@ class Initial extends AbstractMigration
                 'signed' => false,
             ])
             ->addColumn('last_modified_user', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+                'signed' => false,
+            ])
+            ->addColumn('baryon_id', 'integer', [
                 'default' => null,
                 'limit' => 11,
                 'null' => true,
@@ -422,6 +491,11 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
+            ->addColumn('is_exclusive', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
             ->addColumn('user_id', 'integer', [
                 'default' => null,
                 'limit' => 11,
@@ -507,6 +581,7 @@ class Initial extends AbstractMigration
 
     public function down()
     {
+        $this->dropTable('baryons');
         $this->dropTable('ja_relations');
         $this->dropTable('ja_subject_searches');
         $this->dropTable('ja_subjects');
