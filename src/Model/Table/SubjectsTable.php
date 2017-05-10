@@ -51,7 +51,7 @@ class SubjectsTable extends AppTable
         $this->addBehavior('Timestamp');
 
         $this->hasMany('Relations', [
-            'foreignKey' => 'active_id',
+            'foreignKey' => 'active_id'
         ]);
 
         $this->hasOne('SubjectSearches', [

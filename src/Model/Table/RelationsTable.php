@@ -148,9 +148,9 @@ class RelationsTable extends AppTable
         return $rules;
     }
 
-    public function getByBaryon($id, $contain = NULL)
+    public function getByBaryon($baryon_id, $contain = NULL)
     {
-      return $this->findByBaryonId($id)->contain($contain);
+      return $this->findByBaryonId($baryon_id)->contain($contain);
     }
 
 }
