@@ -5,7 +5,7 @@
           <li><?= $this->Html->link(__('My Baryons'), ['controller' => 'Baryons', 'action' => 'index']) ?></li>
 
 <? if ($this->Page->isSubject() && isset($subject)): ?>
-          <li><?= $this->Html->link(__('Add to Baryon'), ['controller' => 'Baryons', 'action' => 'quark', $subject->id]) ?></li>
+          <li><?= $this->Html->link(__('Go to Baryon'), ['controller' => 'Baryons', 'action' => 'quark', $subject->id]) ?></li>
 <? endif; ?>
 
       </ul>

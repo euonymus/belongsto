@@ -137,7 +137,7 @@ class BaryonsController extends AppController
         $subject = $Subjects->getRelations($subject_id, $contain, 2, $second_type, $baryon_id);
 	if (!$subject) $this->redirect('/');
 
-	$title = 'Baryon: ' . $subject->name;
+	$title = $subject->name . '[Baryon: ' . $baryon->name . ']';
 
         $this->set(compact('baryon', 'second_type', 'subject', 'title'));
         $this->set('_serialize', ['baryon']);

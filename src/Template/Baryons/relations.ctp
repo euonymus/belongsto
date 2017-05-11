@@ -41,6 +41,11 @@
 			     ['class' => 'btn btn-primary']); ?></p>
  <? endif; ?>
 
+
+        <div>
+            <p><?= $this->Html->link('Back to gluon', ['controller' => 'subjects', 'action' => 'relations', $subject->id]
+			     ); ?></p>
+        </div>
     </div>
   </div>
 
@@ -72,7 +77,7 @@
 <? if ($subject->actives): ?>
     <h2><?
    $en = 'Quarks Related to ' . $subject->name . '?';
-   $ja = $subject->name . 'との関連事項';
+   $ja = $subject->name . 'に関する事項';
    echo $this->LangMngr->txt($en, $ja);
 ?></h2>
     <div class="related">
