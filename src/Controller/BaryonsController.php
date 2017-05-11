@@ -117,12 +117,17 @@ class BaryonsController extends AppController
 	// * I didn't want to use the global value, but could not find alternative way...
 	global $g_id;
 	$g_id = $id;
-	$contain['Actives'] = function ($q) {
-	  return $q->where(['Relations.baryon_id' => $GLOBALS['g_id']]);
-	};
-	$contain['Passives'] = function ($q) {
-	  return $q->where(['Relations.baryon_id' => $GLOBALS['g_id']]);
-	};
+
+	$contain = ['Actives', 'Passives'];
+	if (!$baryon->is_oneway) {
+	  $contain = [];
+	  $contain['Actives'] = function ($q) {
+	    return $q->where(['Relations.baryon_id' => $GLOBALS['g_id']]);
+	  };
+	  $contain['Passives'] = function ($q) {
+	    return $q->where(['Relations.baryon_id' => $GLOBALS['g_id']]);
+	  };
+	}
 
 	$baryon_id = false;
 	if (!$baryon->is_oneway) {
