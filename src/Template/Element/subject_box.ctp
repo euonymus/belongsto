@@ -52,6 +52,11 @@
                  ?>
         <? endif; ?>
     <? endif; ?>
+
+    <? if (is_null($relation_object->_joinData->baryon_id)): ?>
+                &nbsp;<b class="glyphicon glyphicon-log-out" ></b>
+    <? endif; ?>
+
             </h4>
             <p><?= $this->SubjectTool->period($relation_object->_joinData) ?></p>
           </div>
@@ -105,11 +110,11 @@
            <? if ($subject->id == $passive2->passive_id) continue; ?>
     <? if (is_null($passive2->baryon_id)): ?>
        <? if (!isset($baryon) || $baryon->is_oneway): ?>
+
             <?= $this->SubjectTool->imageLink($passive2->passive, ['width' => '40px', 'height' => '40px']) ?>
             <?= $this->SubjectTool->buildRelationShortText($passive2->passive, $relation->name,
 						     $passive2->relation, $passive2->suffix) ?>
-
-            <? if ($relation_object->_joinData->baryon_id): ?>
+            <? if (is_null($passive2->baryon_id)): ?>
                 &nbsp;<b class="glyphicon glyphicon-log-out" ></b>
             <? endif; ?>
 
@@ -119,7 +124,6 @@
             <?= $this->BaryonTool->buildRelationShortText($baryon->id, $passive2->passive, $relation->name,
 						     $passive2->relation, $passive2->suffix) ?>
     <? endif; ?>
-
 
         <? elseif ($second_type == 'passive'): ?>
 
@@ -131,7 +135,7 @@
             <?= $this->SubjectTool->buildRelationText($passive2->active, $relation->name,
 						     $passive2->relation, $passive2->suffix, 2) ?>
 
-            <? if ($relation_object->_joinData->baryon_id): ?>
+            <? if (is_null($passive2->baryon_id)): ?>
                 &nbsp;<b class="glyphicon glyphicon-log-out" ></b>
             <? endif; ?>
 
