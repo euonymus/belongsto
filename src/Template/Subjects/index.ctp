@@ -1,5 +1,15 @@
 <div class="subject-list-box">
     <h1><?= h($title) ?></h1>
+
+    <ul class="nav nav-pills">
+      <li role="presentation"<? if ($order) { echo ' class="active"'; } ?>>
+          <?= $this->Html->link('New Quarks', ['controller' => 'subjects', 'action' => 'index']); ?>
+      </li>
+      <li role="presentation"<? if (!$order) { echo ' class="active"'; } ?>>
+          <?= $this->Html->link('Random', ['controller' => 'subjects', 'action' => 'index', '?' => ['type' => 0]]); ?>
+      </li>
+    </ul>
+
     <? foreach ($subjects as $subject): ?>
     <div class="well subject-list">
 

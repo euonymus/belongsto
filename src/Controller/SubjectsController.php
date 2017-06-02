@@ -33,13 +33,20 @@ class SubjectsController extends AppController
 
     public function index()
     {
-        $this->paginate = [
+        $options = [
             'conditions' => [$this->Subjects->wherePrivacy()]
         ];
+	$order = false;
+        if (!isset($this->request->query['type']) || $this->request->query['type'] != 0) {
+	  $options['order'] = ['Subjects.modified' => 'desc'];
+	  $order = true;
+        }
+        $this->paginate = $options;
+
         $subjects = $this->paginate($this->Subjects, ['contain' => 'Actives']);
 	$title = 'quarks that gluons hold';
 
-        $this->set(compact('subjects', 'title'));
+        $this->set(compact('subjects', 'title', 'order'));
         $this->set('_serialize', ['subjects']);
     }
 
