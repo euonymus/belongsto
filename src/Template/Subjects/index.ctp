@@ -1,6 +1,7 @@
 <div class="subject-list-box">
     <h1><?= h($title) ?></h1>
 
+    <? if (!$this->Page->isSearch()): ?>
     <ul class="nav nav-pills">
       <li role="presentation"<? if ($order) { echo ' class="active"'; } ?>>
           <?= $this->Html->link('New Quarks', ['controller' => 'subjects', 'action' => 'index']); ?>
@@ -9,6 +10,7 @@
           <?= $this->Html->link('Random', ['controller' => 'subjects', 'action' => 'index', '?' => ['type' => 0]]); ?>
       </li>
     </ul>
+    <? endif; ?>
 
     <? foreach ($subjects as $subject): ?>
     <div class="well subject-list">

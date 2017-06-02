@@ -32,24 +32,37 @@ class PagesController extends AppController
       $lang_now = AppController::$lang;
       $lang_eng = AppController::LANG_ENG;
 
-      if ($lang_now == $lang_eng) {
-	$title = 'Search hidden relations on your favorite things, people, company...';
-      } else {
-	$title = '気になる人、物、会社の隠れた関係を見つけよう';
-      }
-
-
       // Pickup contents
-      $pickup_ids = [
-		     'ed2826db-028b-48eb-9db1-919dafcc33aa' => 'passive', // 籠池 町浪: 話題の人
+      $en_pickup_ids = [
+		     'b96a6ce9-cb03-4091-a7d9-a6eb2aa94f3b' => 'active',  // Donald Trump's Strategic and Policy Forum
 		     '006f7220-a171-41f6-ab7d-13019f42375c' => 'active',  // 明治維新:  歴史
 		     '25e6d34b-38b1-4586-97f5-f130fff1b9a0' => 'active',  // iPhone:   ガジェット
-		     '1818e992-3d0d-4958-8fcd-dd703930a3ba' => 'passive', // SMBC:     投資会社
-		     '493009cd-9c63-400c-8c15-9ac7b7995879' => 'passive', // Google:   大企業
-		     'faea45fc-ee7c-442e-88ef-031f35c92440' => 'active',  // ハーバード: 学校
-		     '624ce77c-d825-4ae2-9778-15673374f478' => 'active',  // マンジーニ: ドラマー
+		     'd6484654-8c9b-44d3-b400-83e156a83dc2' => 'passive', // Y Combinator
+		     'cf873581-5d92-44ed-b205-cb016e2de6d8' => 'active',  // Rothschild & co
+		     '80728b23-9b10-4d0c-b010-e53e742eed8a' => 'active',  // Shinzo Abe
+		     'eff387d7-8ec9-467a-ab6f-c72310ba6c4d' => 'active',  // Black Sabbath
 		     '0886067b-6b82-4ffe-8d5b-5c216f84ad00' => 'active',  // 大統領
 		     ];
+
+      $ja_pickup_ids = [
+		     '5abdaf6d-d34a-44b9-874d-5fb6d4544ed5' => 'passive', // 加計学園
+		     '48e5c92d-d6dd-41fb-88f9-8245b578181f' => 'active',  // 山口敬之
+		     'c1e9c2e2-4f78-4e36-8629-9e99bfc40005' => 'active',  // 福岡金塊強奪事件
+		     'e6bf3f6b-0042-4ec4-b665-c6005817e8e6' => 'passive', // 眞子内親王
+		     '493009cd-9c63-400c-8c15-9ac7b7995879' => 'passive', // Google:   大企業
+		     'faea45fc-ee7c-442e-88ef-031f35c92440' => 'active',  // ハーバード: 学校
+		     'eff387d7-8ec9-467a-ab6f-c72310ba6c4d' => 'active',  // ブラックサバス
+		     '0886067b-6b82-4ffe-8d5b-5c216f84ad00' => 'active',  // 大統領
+		     ];
+
+      if ($lang_now == $lang_eng) {
+	$title = 'Search hidden relations on your favorite things, people, company...';
+	$pickup_ids = $en_pickup_ids;
+      } else {
+	$title = '気になる人、物、会社の隠れた関係を見つけよう';
+	$pickup_ids = $ja_pickup_ids;
+      }
+
       $Subjects = TableRegistry::get('Subjects');
       $pickups = $Subjects->find('all', ['conditions' => ['Subjects.id in' => array_keys($pickup_ids)]])->limit(8);
       $pickups = self::picupsOrder($pickups, $pickup_ids);
