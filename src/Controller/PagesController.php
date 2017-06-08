@@ -45,14 +45,16 @@ class PagesController extends AppController
 		     ];
 
       $ja_pickup_ids = [
+
+		     'aa0ca65b-bcb5-4014-b04e-d2b6d8346dc2' => 'passive', // 西山茉希
 		     '5abdaf6d-d34a-44b9-874d-5fb6d4544ed5' => 'passive', // 加計学園
 		     '48e5c92d-d6dd-41fb-88f9-8245b578181f' => 'active',  // 山口敬之
 		     'c1e9c2e2-4f78-4e36-8629-9e99bfc40005' => 'active',  // 福岡金塊強奪事件
 		     'e6bf3f6b-0042-4ec4-b665-c6005817e8e6' => 'passive', // 眞子内親王
 		     '493009cd-9c63-400c-8c15-9ac7b7995879' => 'passive', // Google:   大企業
 		     'faea45fc-ee7c-442e-88ef-031f35c92440' => 'active',  // ハーバード: 学校
-		     'eff387d7-8ec9-467a-ab6f-c72310ba6c4d' => 'active',  // ブラックサバス
 		     '0886067b-6b82-4ffe-8d5b-5c216f84ad00' => 'active',  // 大統領
+		     //'eff387d7-8ec9-467a-ab6f-c72310ba6c4d' => 'active',  // ブラックサバス
 		     ];
 
       if ($lang_now == $lang_eng) {
