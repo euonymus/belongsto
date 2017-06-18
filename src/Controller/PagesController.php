@@ -45,6 +45,7 @@ class PagesController extends AppController
 		     ];
 
       $ja_pickup_ids = [
+		     '9e8ab1fe-dba9-43f7-a302-fb4838978060' => 'active',  // 山﨑夕貴
 		     '6257e52a-f888-4d4c-a4c2-18e4cccfa94c' => 'active',  // 共謀罪
 		     '90be0840-5a7e-439b-ae3d-30e41f7ee1bb' => 'passive', // 小出恵介
 		     'aa0ca65b-bcb5-4014-b04e-d2b6d8346dc2' => 'passive', // 西山茉希
@@ -52,7 +53,7 @@ class PagesController extends AppController
 		     '48e5c92d-d6dd-41fb-88f9-8245b578181f' => 'active',  // 山口敬之
 		     'c1e9c2e2-4f78-4e36-8629-9e99bfc40005' => 'active',  // 福岡金塊強奪事件
 		     'e6bf3f6b-0042-4ec4-b665-c6005817e8e6' => 'passive', // 眞子内親王
-		     '0886067b-6b82-4ffe-8d5b-5c216f84ad00' => 'active',  // 大統領
+		     //'0886067b-6b82-4ffe-8d5b-5c216f84ad00' => 'active',  // 大統領
 		     //'493009cd-9c63-400c-8c15-9ac7b7995879' => 'passive', // Google:   大企業
 		     //'faea45fc-ee7c-442e-88ef-031f35c92440' => 'active',  // ハーバード: 学校
 		     //'eff387d7-8ec9-467a-ab6f-c72310ba6c4d' => 'active',  // ブラックサバス
