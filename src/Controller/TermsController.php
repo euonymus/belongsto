@@ -18,5 +18,7 @@ class TermsController extends AppController
      */
     public function index()
     {
+      $title = 'Terms of Service';
+      $this->set(compact('title', 'pickups'));
     }
 }
