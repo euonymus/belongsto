@@ -18,5 +18,7 @@ class PrivacyController extends AppController
      */
     public function index()
     {
+      $title = 'Privacy Policy';
+      $this->set(compact('title', 'pickups'));
     }
 }
