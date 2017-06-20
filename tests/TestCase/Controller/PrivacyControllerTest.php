@@ -1,13 +1,13 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\TermsController;
+use App\Controller\PrivacyController;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Controller\TermsController Test Case
+ * App\Controller\PrivacyController Test Case
  */
-class TermsControllerTest extends IntegrationTestCase
+class PrivacyControllerTest extends IntegrationTestCase
 {
 
     /**
@@ -16,7 +16,7 @@ class TermsControllerTest extends IntegrationTestCase
      * @var array
      */
     /* public $fixtures = [ */
-    /*     'app.terms' */
+    /*     'app.privacy' */
     /* ]; */
 
     /**
@@ -28,4 +28,5 @@ class TermsControllerTest extends IntegrationTestCase
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
+
 }
