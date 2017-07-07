@@ -45,14 +45,15 @@ class PagesController extends AppController
 		     ];
 
       $ja_pickup_ids = [
+		     '7faa51c3-623f-4821-937a-b9511139491f' => 'passive', // 「テロ等準備罪で逮捕すべし！」投稿
 		     '0db33165-dac4-4398-81e0-cb9aeb1e05f3' => 'active',  // 平慶翔
 		     'a54ab8db-4d79-43fe-8e01-3ea37503a2ae' => 'active',  // タカタ株式会社
 		     '3bd11ac9-b39e-4400-b25e-e177299719e6' => 'active',  // 豊田真由子
 		     'df1cd605-00b9-4db5-9a31-9330cc41aaf8' => 'active',  // 豊田三郎
 		     '9e8ab1fe-dba9-43f7-a302-fb4838978060' => 'active',  // 山﨑夕貴
 		     '6257e52a-f888-4d4c-a4c2-18e4cccfa94c' => 'active',  // 共謀罪
-		     '90be0840-5a7e-439b-ae3d-30e41f7ee1bb' => 'passive', // 小出恵介
 		     '48e5c92d-d6dd-41fb-88f9-8245b578181f' => 'active',  // 山口敬之
+		     //'90be0840-5a7e-439b-ae3d-30e41f7ee1bb' => 'passive', // 小出恵介
 		     //'c1e9c2e2-4f78-4e36-8629-9e99bfc40005' => 'active',  // 福岡金塊強奪事件
 		     //'aa0ca65b-bcb5-4014-b04e-d2b6d8346dc2' => 'passive', // 西山茉希
 		     //'5abdaf6d-d34a-44b9-874d-5fb6d4544ed5' => 'passive', // 加計学園
