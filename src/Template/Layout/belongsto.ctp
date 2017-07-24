@@ -10,7 +10,7 @@
     <?= $this->Html->meta('icon') ?>
 
     <title>
-        <?= $title ?>:
+        <?= $title ?> -
         <?= $gluonsDescription ?>
     </title>
     <link rel="apple-touch-icon-precomposed" href="/webclip.png" />

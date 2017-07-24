@@ -121,9 +121,11 @@ class AppController extends Controller
 
 	// Setting title description
 	if ($lang_now == $lang_eng) {
-	  $gluonsDescription = 'gluons - Find hidden relations behind person and things';
+	  //$gluonsDescription = 'gluons - Find hidden relations behind person and things';
+	  $gluonsDescription = 'gluons';
 	} else {
-	  $gluonsDescription = 'gluons - 人と物のつながりを発見するサービス';
+	  //$gluonsDescription = 'gluons - 人と物のつながりを発見するサービス';
+	  $gluonsDescription = 'グルーオンズ';
 	}
         $this->set(compact('lang_now', 'lang_eng', 'gluonsDescription'));
     }

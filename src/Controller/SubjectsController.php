@@ -89,9 +89,11 @@ class SubjectsController extends AppController
 
 	$title_second_level = '';
 	if ($second_type == 'passive') {
-	  $title_second_level = '[' . $second_type . ' relation]';
+	  //$title_second_level = '[' . $second_type . ' relation]';
+	  $title_second_level = '[' . $second_type . ']';
 	} elseif ($second_type == 'none') {
-	  $title_second_level = '[no second relation]';
+	  //$title_second_level = '[no second relation]';
+	  $title_second_level = '[simple]';
 	}
 	$title = $subject->name . $title_second_level;
 
