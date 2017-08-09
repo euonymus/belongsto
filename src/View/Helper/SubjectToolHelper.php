@@ -82,15 +82,19 @@ class SubjectToolHelper extends Helper
 
   public function period($obj)
   {
+    if (empty($obj->start) && empty($obj->end)) return '';
+
     $start = $this->date($obj->start, $obj->start_accuracy);
+    $end   = $this->date($obj->end, $obj->end_accuracy);
     if ($obj->is_momentary) {
-      $ret = 'Occurred at: ' . $start;
+      //$ret = 'Occurred at: ' . $start;
+      $ret = '(' . $start . ')';
     } else {
-      $ret = 'Period: ' . $start;
+      //$ret = 'Period: ' . $start;
+      $ret = '(' . $start;
       $ret .= ' ~ ';
-      $ret .= $this->date($obj->end, $obj->end_accuracy);
+      $ret .= $end . ')';
     }
-    if (empty($obj->start)) return '';
     return $ret;
   }
 

@@ -117,12 +117,14 @@
             <? if ($this->Page->isBaryon() && is_null($passive2->baryon_id)): ?>
                 &nbsp;<b class="glyphicon glyphicon-log-out" ></b>
             <? endif; ?>
+            <br><?= $this->SubjectTool->period($passive2) ?>
 
        <? endif; ?>
     <? else: ?>
             <?= $this->BaryonTool->imageLink($baryon->id, $passive2->passive, ['width' => '40px', 'height' => '40px']) ?>
             <?= $this->BaryonTool->buildRelationShortText($baryon->id, $passive2->passive, $relation->name,
 						     $passive2->relation, $passive2->suffix) ?>
+            <br><?= $this->SubjectTool->period($passive2) ?>
     <? endif; ?>
 
         <? elseif ($second_type == 'passive'): ?>
@@ -138,12 +140,14 @@
             <? if ($this->Page->isBaryon() && is_null($passive2->baryon_id)): ?>
                 &nbsp;<b class="glyphicon glyphicon-log-out" ></b>
             <? endif; ?>
+            <br><?= $this->SubjectTool->period($passive2) ?>
 
        <? endif; ?>
     <? else: ?>
             <?= $this->BaryonTool->imageLink($baryon->id, $passive2->active, ['width' => '40px', 'height' => '40px']) ?>
             <?= $this->BaryonTool->buildRelationText($baryon->id, $passive2->active, $relation->name,
 						     $passive2->relation, $passive2->suffix, 2) ?>
+            <br><?= $this->SubjectTool->period($passive2) ?>
     <? endif; ?>
 
 
