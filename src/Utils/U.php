@@ -22,20 +22,43 @@ class U
   // 実験様メソッド
   public function tryRetrieve()
   {
-    $path = 'https://talent-dictionary.com/s/age/p/10?page=1';
+    $path = 'https://talent-dictionary.com/s/age/p/10?page=143';
     $element = '//div[contains(@class,"main")]/div[contains(@class,"home_talent_list_wrapper")]/ul/li';
     $res = self::getXpathFromUrl($path, $element);
 
+    // record loop
     foreach ($res as $val) {
+      // get the obj from the right column
       $obj = false;
       foreach($val->div->div as $val2) {
 	if ((string)$val2->a->attributes()->class == 'title') {
-	  $obj = $val2->a;
+	  $obj = $val2;
 	}
       }
       if (!$obj) continue;
-      $name = (string)$obj;
+
+
+      // get the data from description
+      $start = NULL;
+      foreach($obj->div as $val3) {
+	if ((string)$val3) {
+	  $txt = (string)$val3;
+
+          $pattern = '/\A(.+)(\d{4})\s?年\s?(\d{2})\s?月\s?(\d{2})\s?日\s?生まれ(.+)\z/';
+	  $replacement = '$2-$3-$4';
+	  $tmp = preg_replace($pattern, $replacement, $txt);
+	  if (strcmp($txt, $tmp) == 0) break;
+	  $time = self::tableDate($tmp);
+	  if (!$time) break;
+	  $start = $time;
+	}
+      }
+
+
+
+      $name = (string)$obj->a;
 debug($name);
+debug($start);
     }
 
   }
