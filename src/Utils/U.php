@@ -19,6 +19,7 @@ class U
   {
   }
 
+  // 実験様メソッド
   public function tryRetrieve()
   {
     $path = 'https://talent-dictionary.com/s/age/p/10?page=1';
