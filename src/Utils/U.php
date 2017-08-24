@@ -7,7 +7,7 @@ namespace App\Utils;
  * @category Awesomeness
  * @package  Utility
  * @author   euonymus
- * @license  Digital Garage
+ * @license  euonymus
  * @version  1.0.0
  */
 use Cake\Cache\Cache;
@@ -17,6 +17,26 @@ class U
 {
   public function __construct(array $token = array(), array $consumer = array())
   {
+  }
+
+  public function tryRetrieve()
+  {
+    $path = 'https://talent-dictionary.com/s/age/p/10?page=1';
+    $element = '//div[contains(@class,"main")]/div[contains(@class,"home_talent_list_wrapper")]/ul/li';
+    $res = self::getXpathFromUrl($path, $element);
+
+    foreach ($res as $val) {
+      $obj = false;
+      foreach($val->div->div as $val2) {
+	if ((string)$val2->a->attributes()->class == 'title') {
+	  $obj = $val2->a;
+	}
+      }
+      if (!$obj) continue;
+      $name = (string)$obj;
+debug($name);
+    }
+
   }
 
   /*******************************************************/
@@ -520,9 +540,9 @@ class U
   /* Retrieve data                                       */
   /*******************************************************/
   // Get Json data
-  public static function retrieveJsonFromUrl($path)
+  public static function retrieveJsonFromUrl($path, $withAgent = false)
   {
-    $file = self::retrieveFileFromUrl($path);
+    $file = self::retrieveFileFromUrl($path, $withAgent);
     if (!$file) return false;
 
     $res = json_decode($file);
@@ -530,9 +550,9 @@ class U
     return $res;
   }
   // Get Json data as an array
-  public static function retrieveJsonArrayFromUrl($path)
+  public static function retrieveJsonArrayFromUrl($path, $withAgent = false)
   {
-    $file = self::retrieveFileFromUrl($path);
+    $file = self::retrieveFileFromUrl($path, $withAgent);
     if (!$file) return false;
 
     $res = json_decode($file, true);
@@ -540,41 +560,41 @@ class U
     return $res;
   }
   // Get RSS items
-  public static function retrieveFeedItemsFromUrl($path)
+  public static function retrieveFeedItemsFromUrl($path, $withAgent = false)
   {
-    $res = self::retrieveFeedFromUrl($path);
+    $res = self::retrieveFeedFromUrl($path, $withAgent);
     if (!$res || !property_exists($res, 'channel') || !property_exists($res->channel, 'item')) return false;
     return $res->channel->item;
   }
   // Get RDF items
-  public static function retrieveRdfItemsFromUrl($path)
+  public static function retrieveRdfItemsFromUrl($path, $withAgent = false)
   {
-    $res = self::retrieveFeedFromUrl($path);
+    $res = self::retrieveFeedFromUrl($path, $withAgent);
     if (!$res || !property_exists($res, 'item')) return false;
     return $res->item;
   }
   // Get Atom items
-  public static function retrieveAtomItemsFromUrl($path)
+  public static function retrieveAtomItemsFromUrl($path, $withAgent = false)
   {
-    $res = self::retrieveFeedFromUrl($path);
+    $res = self::retrieveFeedFromUrl($path, $withAgent);
     if (!$res || !property_exists($res, 'entry')) return false;
     return $res->entry;
   }
   // You can choose how to retrieve simplexml from either way of simplexml_load_file or file_get_contents.
   static $retrieveXmlViaText = false; // simplexml_load_file is prefered.
-  public static function retrieveFeedFromUrl($path)
+  public static function retrieveFeedFromUrl($path, $withAgent = false)
   {
     if (self::$retrieveXmlViaText) {
-      $ret = self::retrieveXmlViaTextFromUrl($path);
+      $ret = self::retrieveXmlViaTextFromUrl($path, $withAgent);
     } else {
-      $ret = self::retrieveXmlFromUrl($path);
+      $ret = self::retrieveXmlFromUrl($path, $withAgent);
     }
     return $ret;
   }
   // Get Xpath data from html
-  public static function getXpathFromUrl($url, $xpath, $asString = false)
+  public static function getXpathFromUrl($url, $xpath, $asString = false, $withAgent = false)
   {
-    $xml = self::simplexml_from_html_path($url);
+    $xml = self::simplexml_from_html_path($url, $withAgent);
     if (!($xml instanceof \SimpleXMLElement)) return false;
     $node = @$xml->xpath($xpath);
     if (!$node) return false;
@@ -592,31 +612,38 @@ class U
   /*******************************************************/
   /* Retrieve data primitive                             */
   /*******************************************************/
+  const USER_AGENT = 'gluons crawler';
   // Get text data
-  public static function retrieveFileFromUrl($path)
+  public static function retrieveFileFromUrl($path, $withAgent = false)
   {
-    //return @file_get_contents($path);
+    if ($withAgent) {
+      ini_set('user_agent', self::USER_AGENT);
+    }
     return self::cachedRetrieve($path, 'file_get_contents');
   }
+
   // Get XML data
-  public static function retrieveXmlFromUrl($path)
+  public static function retrieveXmlFromUrl($path, $withAgent = false)
   {
+    if ($withAgent) {
+      ini_set('user_agent', self::USER_AGENT);
+    }
     //ini_set("max_execution_time", 0);
     //ini_set("memory_limit", "10000M");
     //return @simplexml_load_file($path);
     return self::cachedRetrieveForXml($path, 'simplexml_load_file');
   }
   // Get XML data of html
-  public static function simplexml_from_html_path($path)
+  public static function simplexml_from_html_path($path, $withAgent = false)
   {
-    $html = self::retrieveFileFromUrl($path);
+    $html = self::retrieveFileFromUrl($path, $withAgent);
     if (empty($html)) return false;
     return self::simplexml_from_html($html);
   }
   // Get broken XML data
-  public static function retrieveXmlViaTextFromUrl($path)
+  public static function retrieveXmlViaTextFromUrl($path, $withAgent = false)
   {
-    $text = self::retrieveFileFromUrl($path);
+    $text = self::retrieveFileFromUrl($path, $withAgent);
     if (!$text) return false;
     $clean = self::sanitizeXml($text);
     return @simplexml_load_string($clean);

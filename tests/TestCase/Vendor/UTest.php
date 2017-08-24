@@ -3,7 +3,7 @@ namespace App\Test\TestCase\Vendor;
 
 use Cake\Core\Configure;
 
-use U\U;
+use App\Utils\U;
 use Cake\TestSuite\TestCase;
 use Cake\Cache\Cache;
 /**
@@ -27,7 +27,6 @@ class UTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-	require_once(ROOT .DS. "vendor" . DS . "euonymus" . DS . "U.php");
 	$this->U = new U;
     }
 
