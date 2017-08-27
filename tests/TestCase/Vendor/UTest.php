@@ -41,10 +41,5 @@ class UTest extends TestCase
         parent::tearDown();
     }
 
-    public function testFilterMatch()
-    {
-      $this->U->tryRetrieve();
-
-    }
 
 }
