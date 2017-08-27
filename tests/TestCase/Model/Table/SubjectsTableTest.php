@@ -57,18 +57,23 @@ class SubjectsTableTest extends TestCase
      *
      * @return void
      */
-    public function testInitialize()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+    //public function testInitialize()
+    //{
+    //    $this->markTestIncomplete('Not implemented yet.');
+    //}
 
     /**
      * Test validationDefault method
      *
      * @return void
      */
-    public function testValidationDefault()
+    //public function testValidationDefault()
+    //{
+    //    $this->markTestIncomplete('Not implemented yet.');
+    //}
+
+    public function testHoge()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+      $this->Subjects->hoge();
     }
 }

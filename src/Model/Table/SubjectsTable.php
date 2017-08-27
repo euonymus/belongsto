@@ -14,6 +14,7 @@ use App\Model\Table\SubjectSearchesTable;
 use Cake\Network\Exception\NotFoundException;
 
 use App\Utils\U;
+use App\Utils\TalentDictionary;
 use App\Utils\NgramConverter;
 
 /**
@@ -210,6 +211,13 @@ class SubjectsTable extends AppTable
     /****************************************************************************/
     /* Edit Data                                                                */
     /****************************************************************************/
+    public function hoge()
+    {
+      $res = TalentDictionary::readPagesOfAllGenerations('default');
+      debug($res);
+
+
+    }
 
     /****************************************************************************/
     /* Get Data                                                                 */
