@@ -25,6 +25,7 @@ class SubjectsTableTest extends TestCase
      */
     public $fixtures = [
         'app.subjects',
+        'app.subject_searches',
         'app.relations'
     ];
 
@@ -74,6 +75,6 @@ class SubjectsTableTest extends TestCase
 
     public function testHoge()
     {
-      $this->Subjects->hoge();
+      $this->Subjects->readTalentDictionary();
     }
 }

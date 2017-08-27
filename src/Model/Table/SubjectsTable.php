@@ -211,10 +211,17 @@ class SubjectsTable extends AppTable
     /****************************************************************************/
     /* Edit Data                                                                */
     /****************************************************************************/
-    public function hoge()
+    public function readTalentDictionary()
     {
       $res = TalentDictionary::readPagesOfAllGenerations('default');
-      debug($res);
+      if (!$res) return false;
+
+      foreach($res as $val) {
+	/* $subjects = $this->search($val['name']); */
+	/* foreach($subjects as $subject) { */
+	/*   debug($subject); */
+	/* } */
+      }
 
 
     }
