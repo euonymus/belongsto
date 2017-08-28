@@ -22,7 +22,9 @@ class TalentDictionary
   // $retrieveCacheConfig: For now, only 'defalut' is acceptable
   public static function readPagesOfAllGenerations($retrieveCacheConfig = false)
   {
-    $maxI = 9;
+    // TODO: 1 for test, 9 for production
+    //$maxI = 9;
+    $maxI = 1;
     $ret = [];
     for($i = 1; $i <= $maxI; $i++) {
       $generation = $i . '0';
@@ -38,6 +40,7 @@ class TalentDictionary
   {
     U::$retrieveCacheConfig = $retrieveCacheConfig;
 
+    // TODO: 2 for test, 1000 for production
     //$maxPage = 1000;
     $maxPage = 2;
     $ret = [];
