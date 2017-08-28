@@ -14,7 +14,6 @@ use App\Model\Table\SubjectSearchesTable;
 use Cake\Network\Exception\NotFoundException;
 
 use App\Utils\U;
-use App\Utils\TalentDictionary;
 use App\Utils\NgramConverter;
 
 /**
@@ -211,20 +210,12 @@ class SubjectsTable extends AppTable
     /****************************************************************************/
     /* Edit Data                                                                */
     /****************************************************************************/
-    public function readTalentDictionary()
+    // $filling arr: single retrieved data from foreign site
+    // $existing obj: single record to update.
+    public function fillMissingData($filling, $existing)
     {
-      $res = TalentDictionary::readPagesOfAllGenerations('default');
-      if (!$res) return false;
-
-      foreach($res as $val) {
-	/* $subjects = $this->search($val['name']); */
-	/* foreach($subjects as $subject) { */
-	/*   debug($subject); */
-	/* } */
-      }
-
-
     }
+
 
     /****************************************************************************/
     /* Get Data                                                                 */
@@ -381,6 +372,34 @@ class SubjectsTable extends AppTable
     public static function bigramize($str)
     {
       return NgramConverter::to_query($str, 2);
+    }
+
+    // remove all the spaces.
+    // this will remove all the spaces, even in between the strings.
+    public static function removeAllSpaces($str, $includeIdeographicSpace = true)
+    {
+      $tmp = preg_replace('/ /', '', $str);
+      return preg_replace('/　/', '', $tmp);
+    }
+
+    // $retrieved arr: single retrieved data from foreign site
+    // $existings obj: multiple records found by search function.
+    public function findTargetFromSearchedData($retrieved, $existings)
+    {
+      // sanitization
+      $retrieved['name'] = self::removeAllSpaces($retrieved['name']);
+
+      $candidates = [];
+      foreach($existings as $existing) {
+      	// sanitization
+      	$comparison = self::removeAllSpaces($existing->name);
+	if (strcmp($retrieved['name'], $comparison) === 0) {
+	  $candidates[] = $existing;
+	}
+      }
+      // If there are many records matches, system can't detect which, so returns false.
+      if (count($candidates) == 1) return $candidates[0];
+      return false;
     }
 
     /****************************************************************************/
