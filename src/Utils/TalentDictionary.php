@@ -147,7 +147,7 @@ class TalentDictionary
 
       $txt = (string)$val;
 
-      $pattern = '/\A(.+)(\d{4})\s?年\s?(\d{2})\s?月\s?(\d{2})\s?日\s?生まれ(.+)\z/';
+      $pattern = '/\A(.+)(\d{4})\s?年\s?(\d{1,2})\s?月\s?(\d{1,2})\s?日\s?生まれ(.+)\z/';
       $replacement = '$2-$3-$4';
       $tmp = preg_replace($pattern, $replacement, $txt);
       if (strcmp($txt, $tmp) == 0) break;

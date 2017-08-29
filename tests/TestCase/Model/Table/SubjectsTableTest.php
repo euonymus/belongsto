@@ -5,6 +5,7 @@ use App\Model\Table\SubjectsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
+use App\Utils\U;
 use App\Utils\TalentDictionary;
 /**
  * App\Model\Table\SubjectsTable Test Case
@@ -74,6 +75,23 @@ class SubjectsTableTest extends TestCase
     //    $this->markTestIncomplete('Not implemented yet.');
     //}
 
+    // Dummy function for TalentDictionary::readPagesOfAllGenerations('default')
+    public static function dummyReadOfTalentDictionary()
+    {
+      $path = ROOT .DS. "tests" . DS . "DummyData" . DS . "talent_dictionary.html";
+      $element = '//div[contains(@class,"main")]/div[contains(@class,"home_talent_list_wrapper")]/ul/li';
+      $res = U::getXpathFromUrl($path, $element);
+
+      // record loop
+      $ret = [];
+      foreach ($res as $val) {
+	$rec = TalentDictionary::constructData($val->div->div);
+	if (!$rec) continue;
+	$ret[] = $rec;
+      }
+      return $ret;
+    }
+
     public function testRemoveAllSpaces()
     {
       $str      = 'aaa iii ううう　eee　ooo かかか　ききき';
@@ -88,7 +106,7 @@ class SubjectsTableTest extends TestCase
       // retreive the target array from Talent dictionary.
       $testTarget = '上白石萌歌';
       $retrieved = false;
-      $retrievedDatas = TalentDictionary::readPagesOfAllGenerations('default');
+      $retrievedDatas = self::dummyReadOfTalentDictionary();
       foreach($retrievedDatas as $val) {
     	if ($val['name'] != $testTarget) continue;
 	$retrieved = $val;
@@ -105,7 +123,7 @@ class SubjectsTableTest extends TestCase
       // retreive the target array from Talent dictionary.
       $testTarget = '白間 美瑠';
       $retrieved = false;
-      $retrievedDatas = TalentDictionary::readPagesOfAllGenerations('default');
+      $retrievedDatas = self::dummyReadOfTalentDictionary();
       foreach($retrievedDatas as $val) {
     	if ($val['name'] != SubjectsTable::removeAllSpaces($testTarget)) continue;
 	$retrieved = $val;
@@ -124,7 +142,7 @@ class SubjectsTableTest extends TestCase
       // retreive the target array from Talent dictionary.
       $testTarget = '芦田愛菜';
       $retrieved = false;
-      $retrievedDatas = TalentDictionary::readPagesOfAllGenerations('default');
+      $retrievedDatas = self::dummyReadOfTalentDictionary();
       foreach($retrievedDatas as $val) {
     	if ($val['name'] != SubjectsTable::removeAllSpaces($testTarget)) continue;
 	$retrieved = $val;
@@ -142,10 +160,11 @@ class SubjectsTableTest extends TestCase
 
     public function testFillMissingData()
     {
+      // Case 1: normal case
       // retreive the target array from Talent dictionary.
       $testTarget = '上白石萌歌';
       $filling = false;
-      $retrievedDatas = TalentDictionary::readPagesOfAllGenerations('default');
+      $retrievedDatas = self::dummyReadOfTalentDictionary();
       foreach($retrievedDatas as $val) {
     	if ($val['name'] != $testTarget) continue;
 	$filling = $val;
@@ -155,10 +174,77 @@ class SubjectsTableTest extends TestCase
       $existings = $this->Subjects->findByName($testTarget);
       $existing = $this->Subjects->findTargetFromSearchedData($filling, $existings);
 
-
+      // Test 1
       $res = $this->Subjects->fillMissingData($filling, $existing);
-      debug($res);
+      $this->assertSame($res->image_path, $filling['image_path']);
+      $this->assertSame($res->description, $filling['description']);
+      $this->assertSame($res->start, $filling['start']);
+      $this->assertSame($res->start_accuracy, $filling['start_accuracy']);
 
+      // Case 2: no update
+      // retreive the target array from Talent dictionary.
+      $testTarget = '白間 美瑠';
+      $filling = false;
+      $retrievedDatas = self::dummyReadOfTalentDictionary();
+      foreach($retrievedDatas as $val) {
+    	if ($val['name'] != SubjectsTable::removeAllSpaces($testTarget)) continue;
+	$filling = $val;
+	break;
+      }
+      // You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
+      $existings = $this->Subjects->findByName($testTarget);
+      $existing = $this->Subjects->findTargetFromSearchedData($filling, $existings);
 
+      // Test 1
+      $res = $this->Subjects->fillMissingData($filling, $existing);
+      $this->assertSame($res->image_path, $existing->image_path);
+      $this->assertSame($res->description, $existing->description);
+      $this->assertSame($res->start, $existing->start);
+      $this->assertSame($res->start_accuracy, $existing->start_accuracy);
+
+      // Case 3: update start to specialize
+      // retreive the target array from Talent dictionary.
+      $testTarget = '朝長美桜';
+      $filling = false;
+      $retrievedDatas = self::dummyReadOfTalentDictionary();
+
+      foreach($retrievedDatas as $val) {
+    	if ($val['name'] != SubjectsTable::removeAllSpaces($testTarget)) continue;
+	$filling = $val;
+	break;
+      }
+      // You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
+      $existings = $this->Subjects->findByName($testTarget);
+      $existing = $this->Subjects->findTargetFromSearchedData($filling, $existings);
+
+      // Test 3
+      $res = $this->Subjects->fillMissingData($filling, $existing);
+      $this->assertSame($res->image_path, $existing->image_path);
+      $this->assertSame($res->description, $existing->description);
+      $this->assertSame($res->start, $filling['start']); // has to be updated
+      $this->assertSame($res->start_accuracy, ''); // has to be updated to blank
+
+      // Case 4: no updates if it originally have accurate start data
+      // retreive the target array from Talent dictionary.
+      $testTarget = '向井地美音';
+      $filling = false;
+      $retrievedDatas = self::dummyReadOfTalentDictionary();
+      debug($retrievedDatas);
+
+      foreach($retrievedDatas as $val) {
+    	if ($val['name'] != SubjectsTable::removeAllSpaces($testTarget)) continue;
+	$filling = $val;
+	break;
+      }
+      // You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
+      $existings = $this->Subjects->findByName($testTarget);
+      $existing = $this->Subjects->findTargetFromSearchedData($filling, $existings);
+
+      // Test 4
+      $res = $this->Subjects->fillMissingData($filling, $existing);
+      $this->assertSame($res->image_path, $existing->image_path);
+      $this->assertSame($res->description, $existing->description);
+      $this->assertSame($res->start, $existing->start); // no change
+      $this->assertSame($res->start_accuracy, ''); // no change
     }
 }
