@@ -34,6 +34,7 @@ class TalentDictionaryTest extends TestCase
     {
         parent::setUp();
 	$this->TalentDictionary = new TalentDictionary;
+	TalentDictionary::$internal = true; // in order not to access google search
     }
 
     /**
@@ -53,6 +54,12 @@ class TalentDictionaryTest extends TestCase
 	// Actual read
 	$res = TalentDictionary::readPagesOfAllGenerations('default');
 	debug($res);
+
+	// Google Image Search
+	TalentDictionary::$internal = false;
+	$res = TalentDictionary::dummyReadOfTalentDictionary();
+	TalentDictionary::$internal = true;
+	debug($res);
       }
 
       // Dummy read
@@ -60,4 +67,13 @@ class TalentDictionaryTest extends TestCase
       debug($res);
     }
 
+    public function testReadGoogleImg()
+    {
+      if (self::$apitest) {
+	// Dummy read
+	$str = 'タモリ';
+	$res = TalentDictionary::readGoogleImg($str);
+	debug($res);
+      }
+    }
 }

@@ -41,6 +41,7 @@ class SubjectsTableTest extends TestCase
         parent::setUp();
         $config = TableRegistry::exists('Subjects') ? [] : ['className' => 'App\Model\Table\SubjectsTable'];
         $this->Subjects = TableRegistry::get('Subjects', $config);
+	TalentDictionary::$internal = true; // in order not to access google search
     }
 
     /**

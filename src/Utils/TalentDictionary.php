@@ -89,6 +89,7 @@ class TalentDictionary
     return $ret;
   }
 
+  public static $internal = false;
   public static function constructData($element)
   {
     // get main object
@@ -105,7 +106,11 @@ class TalentDictionary
     $ret = ['name' => $name];
 
     // get image
-    $image = self::readImg($img);
+    if (self::$internal) {
+      $image = self::readImg($img);
+    } else {
+      $image = TalentDictionary::readGoogleImg($name);
+    }
     if ($image) $ret['image_path'] = $image;
 
     // get description
@@ -117,6 +122,11 @@ class TalentDictionary
     $ret = array_merge($ret, $startArr);
 
     return $ret;
+  }
+
+  public static function readGoogleImg($str)
+  {
+    return GoogleSearch::getFirstImageFromImageSearch($str);
   }
 
   public static function readImg($element)
@@ -131,7 +141,7 @@ class TalentDictionary
   }
   public static function readName($element)
   {
-    return (string)$element->a;
+    return U::trimSpace((string)$element->a);
   }
   public static function readDesc($element)
   {
