@@ -21,6 +21,10 @@ class TalentDictionaryTest extends TestCase
     public $fixtures = [
     ];
 
+    // MEMO: Twitter API callを頻繁にテストで使用したくないのでFalseにしておく。
+    //static $apitest = true;
+    static $apitest = false;
+
     /**
      * setUp method
      *
@@ -43,31 +47,16 @@ class TalentDictionaryTest extends TestCase
         parent::tearDown();
     }
 
-    // Dummy function for TalentDictionary::readPagesOfAllGenerations('default')
-    public static function dummyReadOfTalentDictionary()
-    {
-      $path = ROOT .DS. "tests" . DS . "DummyData" . DS . "talent_dictionary.html";
-      $element = '//div[contains(@class,"main")]/div[contains(@class,"home_talent_list_wrapper")]/ul/li';
-      $res = U::getXpathFromUrl($path, $element);
-
-      // record loop
-      $ret = [];
-      foreach ($res as $val) {
-	$rec = TalentDictionary::constructData($val->div->div);
-	if (!$rec) continue;
-	$ret[] = $rec;
-      }
-      return $ret;
-    }
-
     public function testFilterMatch()
     {
-      // Actual read
-      $res = TalentDictionary::readPagesOfAllGenerations('default');
-      debug($res);
+      if (self::$apitest) {
+	// Actual read
+	$res = TalentDictionary::readPagesOfAllGenerations('default');
+	debug($res);
+      }
 
       // Dummy read
-      $res = self::dummyReadOfTalentDictionary();
+      $res = TalentDictionary::dummyReadOfTalentDictionary();
       debug($res);
     }
 

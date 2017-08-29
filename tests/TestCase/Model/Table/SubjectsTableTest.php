@@ -75,23 +75,6 @@ class SubjectsTableTest extends TestCase
     //    $this->markTestIncomplete('Not implemented yet.');
     //}
 
-    // Dummy function for TalentDictionary::readPagesOfAllGenerations('default')
-    public static function dummyReadOfTalentDictionary()
-    {
-      $path = ROOT .DS. "tests" . DS . "DummyData" . DS . "talent_dictionary.html";
-      $element = '//div[contains(@class,"main")]/div[contains(@class,"home_talent_list_wrapper")]/ul/li';
-      $res = U::getXpathFromUrl($path, $element);
-
-      // record loop
-      $ret = [];
-      foreach ($res as $val) {
-	$rec = TalentDictionary::constructData($val->div->div);
-	if (!$rec) continue;
-	$ret[] = $rec;
-      }
-      return $ret;
-    }
-
     public function testRemoveAllSpaces()
     {
       $str      = 'aaa iii ううう　eee　ooo かかか　ききき';
@@ -106,7 +89,7 @@ class SubjectsTableTest extends TestCase
       // retreive the target array from Talent dictionary.
       $testTarget = '上白石萌歌';
       $retrieved = false;
-      $retrievedDatas = self::dummyReadOfTalentDictionary();
+      $retrievedDatas = TalentDictionary::dummyReadOfTalentDictionary();
       foreach($retrievedDatas as $val) {
     	if ($val['name'] != $testTarget) continue;
 	$retrieved = $val;
@@ -123,7 +106,7 @@ class SubjectsTableTest extends TestCase
       // retreive the target array from Talent dictionary.
       $testTarget = '白間 美瑠';
       $retrieved = false;
-      $retrievedDatas = self::dummyReadOfTalentDictionary();
+      $retrievedDatas = TalentDictionary::dummyReadOfTalentDictionary();
       foreach($retrievedDatas as $val) {
     	if ($val['name'] != SubjectsTable::removeAllSpaces($testTarget)) continue;
 	$retrieved = $val;
@@ -142,7 +125,7 @@ class SubjectsTableTest extends TestCase
       // retreive the target array from Talent dictionary.
       $testTarget = '芦田愛菜';
       $retrieved = false;
-      $retrievedDatas = self::dummyReadOfTalentDictionary();
+      $retrievedDatas = TalentDictionary::dummyReadOfTalentDictionary();
       foreach($retrievedDatas as $val) {
     	if ($val['name'] != SubjectsTable::removeAllSpaces($testTarget)) continue;
 	$retrieved = $val;
@@ -164,7 +147,7 @@ class SubjectsTableTest extends TestCase
       // retreive the target array from Talent dictionary.
       $testTarget = '上白石萌歌';
       $filling = false;
-      $retrievedDatas = self::dummyReadOfTalentDictionary();
+      $retrievedDatas = TalentDictionary::dummyReadOfTalentDictionary();
       foreach($retrievedDatas as $val) {
     	if ($val['name'] != $testTarget) continue;
 	$filling = $val;
@@ -185,7 +168,7 @@ class SubjectsTableTest extends TestCase
       // retreive the target array from Talent dictionary.
       $testTarget = '白間 美瑠';
       $filling = false;
-      $retrievedDatas = self::dummyReadOfTalentDictionary();
+      $retrievedDatas = TalentDictionary::dummyReadOfTalentDictionary();
       foreach($retrievedDatas as $val) {
     	if ($val['name'] != SubjectsTable::removeAllSpaces($testTarget)) continue;
 	$filling = $val;
@@ -206,7 +189,7 @@ class SubjectsTableTest extends TestCase
       // retreive the target array from Talent dictionary.
       $testTarget = '朝長美桜';
       $filling = false;
-      $retrievedDatas = self::dummyReadOfTalentDictionary();
+      $retrievedDatas = TalentDictionary::dummyReadOfTalentDictionary();
 
       foreach($retrievedDatas as $val) {
     	if ($val['name'] != SubjectsTable::removeAllSpaces($testTarget)) continue;
@@ -228,7 +211,7 @@ class SubjectsTableTest extends TestCase
       // retreive the target array from Talent dictionary.
       $testTarget = '向井地美音';
       $filling = false;
-      $retrievedDatas = self::dummyReadOfTalentDictionary();
+      $retrievedDatas = TalentDictionary::dummyReadOfTalentDictionary();
       debug($retrievedDatas);
 
       foreach($retrievedDatas as $val) {

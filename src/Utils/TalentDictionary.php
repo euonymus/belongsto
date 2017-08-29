@@ -34,6 +34,22 @@ class TalentDictionary
     }
     return $ret;
   }
+  // Dummy function for self::readPagesOfAllGenerations('default')
+  public static function dummyReadOfTalentDictionary()
+  {
+    $path = ROOT .DS. "tests" . DS . "DummyData" . DS . "talent_dictionary.html";
+    $element = '//div[contains(@class,"main")]/div[contains(@class,"home_talent_list_wrapper")]/ul/li';
+    $res = U::getXpathFromUrl($path, $element);
+
+    // record loop
+    $ret = [];
+    foreach ($res as $val) {
+      $rec = self::constructData($val->div->div);
+      if (!$rec) continue;
+      $ret[] = $rec;
+    }
+    return $ret;
+  }
 
   // $retrieveCacheConfig: For now, only 'defalut' is acceptable
   public static function readPages($generation, $retrieveCacheConfig = false)
