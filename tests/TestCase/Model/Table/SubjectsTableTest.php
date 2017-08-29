@@ -140,14 +140,25 @@ class SubjectsTableTest extends TestCase
     }
 
 
-    public function testHoge()
+    public function testFillMissingData()
     {
-      /* $existings = $this->Subjects->findByName($testTarget); */
+      // retreive the target array from Talent dictionary.
+      $testTarget = '上白石萌歌';
+      $filling = false;
+      $retrievedDatas = TalentDictionary::readPagesOfAllGenerations('default');
+      foreach($retrievedDatas as $val) {
+    	if ($val['name'] != $testTarget) continue;
+	$filling = $val;
+	break;
+      }
+      // You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
+      $existings = $this->Subjects->findByName($testTarget);
+      $existing = $this->Subjects->findTargetFromSearchedData($filling, $existings);
 
 
-      /* foreach($existings as $val) { */
-      /* debug($val); */
-      /* } */
+      $res = $this->Subjects->fillMissingData($filling, $existing);
+      debug($res);
+
 
     }
 }

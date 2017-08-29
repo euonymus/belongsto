@@ -214,6 +214,36 @@ class SubjectsTable extends AppTable
     // $existing obj: single record to update.
     public function fillMissingData($filling, $existing)
     {
+      // sanitization
+      $filling_name = self::removeAllSpaces($filling['name']);
+      $existing_name = self::removeAllSpaces($existing->name);
+      if (strcmp($filling_name, $existing_name) !== 0) return false;
+
+      if (empty($existing->image_path)) {
+	$existing->image_path = $filling['image_path'];
+      }
+      if (empty($existing->description)) {
+	$existing->description = $filling['description'];
+      }
+
+      $month = (int)date('m', strtotime($existing->start));
+      $day = (int)date('d', strtotime($existing->start));
+
+      // No start exists
+      if (empty($existing->start)) {
+	$existing->start = $filling['start'];
+	if (empty($existing->start_accuracy)) {
+	  $existing->start_accuracy = $filling['start_accuracy'];
+	}
+      } elseif ($month == 1 && $day == 1) {
+	$month_fill = (int)date('m', strtotime($filling['start']));
+	$day_fill = (int)date('d', strtotime($filling['start']));
+	if ($month_fill != 1 || $day_fill != 1) {
+	  $existing->start = $filling['start'];
+	  $existing->start_accuracy = '';
+	}
+      }
+      return $existing;
     }
 
 
