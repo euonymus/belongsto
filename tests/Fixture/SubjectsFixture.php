@@ -60,7 +60,7 @@ class SubjectsFixture extends TestFixture
             'name'               => '芦田愛菜', // Space
             'image_path'         => '',
             'description'        => '',
-            'start'              => '',
+            'start'              => NULL,
             'end'                => NULL,
             'start_accuracy'     => '',
             'end_accuracy'       => '',
@@ -79,7 +79,7 @@ class SubjectsFixture extends TestFixture
             'name'               => '芦田愛菜',
             'image_path'         => '',
             'description'        => '',
-            'start'              => '',
+            'start'              => NULL,
             'end'                => NULL,
             'start_accuracy'     => '',
             'end_accuracy'       => '',
