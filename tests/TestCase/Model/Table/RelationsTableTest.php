@@ -5,6 +5,7 @@ use App\Model\Table\RelationsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
+use App\Utils\U;
 /**
  * App\Model\Table\RelationsTable Test Case
  */
@@ -26,7 +27,6 @@ class RelationsTableTest extends TestCase
     public $fixtures = [
         'app.relations',
         'app.subjects',
-        'app.objects'
     ];
 
     /**
@@ -58,28 +58,45 @@ class RelationsTableTest extends TestCase
      *
      * @return void
      */
-    public function testInitialize()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+    //public function testInitialize()
+    //{
+    //    $this->markTestIncomplete('Not implemented yet.');
+    //}
 
     /**
      * Test validationDefault method
      *
      * @return void
      */
-    public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+    //public function testValidationDefault()
+    //{
+    //    $this->markTestIncomplete('Not implemented yet.');
+    //}
 
     /**
      * Test buildRules method
      *
      * @return void
      */
-    public function testBuildRules()
+    //public function testBuildRules()
+    //{
+    //    $this->markTestIncomplete('Not implemented yet.');
+    //}
+
+    static $dummyRelatives = [
+		[
+			'main' => '田中眞紀子',
+			'relative_type' => '長女'
+		],
+		[
+			'main' => '田中直紀',
+			'relative_type' => '娘婿'
+		]
+    ];
+
+    public function testBuildRelativeGluon()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+      $relatives = self::$dummyRelatives;
+      $this->Relations->buildRelativeGluon($relatives[0]);
     }
 }

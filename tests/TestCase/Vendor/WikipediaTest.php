@@ -47,9 +47,19 @@ class WikipediaTest extends TestCase
         parent::tearDown();
     }
 
-    public function testHoge()
+    public function testReadPageForGluons()
     {
-      $query = '石田純一';
-      $this->Wikipedia->readPage($query);
+      if (self::$apitest) {
+	/* $query = '石田純一'; */
+	/* $query = '安倍晋三'; */
+	/* $query = '伊東博文'; */
+	/* $query = '渡辺謙'; */
+	/* $query = '東出昌大'; */
+	/* $query = '中川昭一'; */
+	$query = '田中角栄';
+
+	$res = Wikipedia::readPageForGluons($query);
+	debug($res);
+      }
     }
 }

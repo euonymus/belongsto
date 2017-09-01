@@ -49,7 +49,9 @@ class DbpediaTest extends TestCase
 
     public function testHoge()
     {
-      $query = '石田純一';
-      $this->Dbpedia->readPage($query);
+      if (self::$apitest) {
+	$query = '石田純一';
+	Dbpedia::readPage($query);
+      }
     }
 }

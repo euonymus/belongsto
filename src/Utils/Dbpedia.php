@@ -23,12 +23,11 @@ class Dbpedia
   {
   }
 
-  public function readPage($query)
+  public static function readPage($query)
   {
     if (!is_string($query) || empty($query)) return false;
     $template = 'http://ja.dbpedia.org/page/%s';
     $path = sprintf($template, urlencode($query));
-
 
     $element = '//table';
     $res = U::getXpathFromUrl($path, $element);
@@ -45,7 +44,7 @@ class Dbpedia
       }
       $content = preg_replace('/\A:/','',(string)$content_item);
 
-      debug($type. ' ' . $content);
+debug($type. ' ' . $content);
     }
 
 

@@ -10,6 +10,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Core\Configure;
 
 use App\Utils\U;
+use App\Utils\GlobalDataSet;
 
 /**
  * Relations Model
@@ -153,4 +154,16 @@ class RelationsTable extends AppTable
       return $this->findByBaryonId($baryon_id)->contain($contain);
     }
 
+    /***************************************************************************/
+    /* Tools                                                                   */
+    /***************************************************************************/
+    public function buildRelativeGluon($relative)
+    {
+      if (!is_array($relative) ||
+	  !array_key_exists('main', $relative) || !array_key_exists('relative_type', $relative)) return false;
+
+      debug(GlobalDataSet::$relative_types_older);
+      debug(GlobalDataSet::$relative_types_younger);
+      debug($relative);
+    }
 }
