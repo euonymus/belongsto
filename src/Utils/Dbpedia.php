@@ -30,9 +30,23 @@ class Dbpedia
     $path = sprintf($template, urlencode($query));
 
 
-    $element = '//body';
+    $element = '//table';
     $res = U::getXpathFromUrl($path, $element);
-    debug($res);
+    foreach($res[0] as $val) {
+      if (!property_exists($val, 'td')) continue;
+
+      $type = (string)$val->td[0]->a;
+
+      $content_base = $val->td[1]->ul->li->span;
+      if (property_exists($content_base, 'a')) {
+	$content_item = $content_base->a;
+      } elseif (property_exists($content_base, 'span')) {
+	$content_item = $content_base->span;
+      }
+      $content = preg_replace('/\A:/','',(string)$content_item);
+
+      debug($type. ' ' . $content);
+    }
 
 
   }
