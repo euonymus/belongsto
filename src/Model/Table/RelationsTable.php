@@ -157,16 +157,37 @@ class RelationsTable extends AppTable
     /***************************************************************************/
     /* Tools                                                                   */
     /***************************************************************************/
-    public function buildRelativeGluon($relative)
+    public static function buildYoungRelativeGluon($relative)
     {
       if (!is_array($relative) ||
 	  !array_key_exists('main', $relative) || !array_key_exists('relative_type', $relative)) return false;
+      if (!GlobalDataSet::isYoungerRelativeType($relative['relative_type'])) return false;
 
+      $arr = [
+	      'active_name'    => $relative['main'],
+	      'passive_name'   => '',
+	      'relation'       => 'の' . $relative['relative_type'],
+	      'start'          => '',
+	      'start_accuracy' => '',
+	      'is_momentary'   => true,
+      ];
+      debug($arr);
+    }
 
-      if (GlobalDataSet::isOlderRelativeType($relative['relative_type']) ) {
-	debug(__LINE__);
-      } elseif (GlobalDataSet::isYoungerRelativeType($relative['relative_type'])) {
-	debug(__LINE__);
-      }
+    public static function buildOldRelativeGluon($relative)
+    {
+      if (!is_array($relative) ||
+	  !array_key_exists('main', $relative) || !array_key_exists('relative_type', $relative)) return false;
+      if (!GlobalDataSet::isOlderRelativeType($relative['relative_type'])) return false;
+
+      $arr = [
+	      'active_name'    => '',
+	      'passive_name'   => $relative['main'],
+	      'relation'       => 'を' . $relative['relative_type'] . 'に持つ',
+	      'start'          => '',
+	      'start_accuracy' => '',
+	      'is_momentary'   => true,
+      ];
+      debug($arr);
     }
 }

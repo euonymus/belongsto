@@ -61,4 +61,13 @@ class GlobalDataSet
     }
     return false;
   }
+
+/*
+  public static function youngerLabelRelative($str)
+  {
+    if (!self::isOlderRelativeType($str)) return false;
+    return $str;
+  }
+*/
+
 }

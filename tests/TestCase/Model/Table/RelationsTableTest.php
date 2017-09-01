@@ -85,18 +85,32 @@ class RelationsTableTest extends TestCase
 
     static $dummyRelatives = [
 		[
-			'main' => '田中眞紀子',
+			'main' => 'A子さん',
 			'relative_type' => '長女'
 		],
 		[
-			'main' => '田中直紀',
+			'main' => 'B子さん',
 			'relative_type' => '娘婿'
-		]
+		],
+		[
+			'main' => 'C男さん',
+			'relative_type' => '祖父'
+		],
     ];
 
     public function testBuildRelativeGluon()
     {
       $relatives = self::$dummyRelatives;
-      $this->Relations->buildRelativeGluon($relatives[0]);
+      $res = RelationsTable::buildYoungRelativeGluon($relatives[2]);
+      $this->assertFalse($res);
+
+      $res = RelationsTable::buildYoungRelativeGluon($relatives[0]);
+
+
+
+      $res = RelationsTable::buildOldRelativeGluon($relatives[0]);
+      $this->assertFalse($res);
+
+      $res = RelationsTable::buildOldRelativeGluon($relatives[2]);
     }
 }
