@@ -87,7 +87,7 @@ class Wikipedia
     $tmp = explode('・', $main);
     if (count($tmp) > 1) {
       foreach($tmp as $val) {
-	if (self::isRelativeType($val)) {
+	if (GlobalDataSet::isRelativeType($val)) {
 	  $relative_type = $val;
 	} else {
 	  $rest = $val;
@@ -103,26 +103,6 @@ class Wikipedia
     if (!$relative_type) return false;
 
     return ['main' => $main, 'relative_type' => $relative_type];
-  }
-  public static function isRelativeType($str)
-  {
-    if (self::isOlderRelativeType($str)) return true;
-    if (self::isYoungerRelativeType($str)) return true;
-    return false;
-  }
-  public static function isOlderRelativeType($str)
-  {
-    foreach(GlobalDataSet::$relative_types_older as $val) {
-      if (strcmp($val, $str) === 0) return true;
-    }
-    return false;
-  }
-  public static function isYoungerRelativeType($str)
-  {
-    foreach(GlobalDataSet::$relative_types_younger as $val) {
-      if (strcmp($val, $str) === 0) return true;
-    }
-    return false;
   }
 
   public static function isRelativesItem($str)

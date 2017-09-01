@@ -162,8 +162,11 @@ class RelationsTable extends AppTable
       if (!is_array($relative) ||
 	  !array_key_exists('main', $relative) || !array_key_exists('relative_type', $relative)) return false;
 
-      debug(GlobalDataSet::$relative_types_older);
-      debug(GlobalDataSet::$relative_types_younger);
-      debug($relative);
+
+      if (GlobalDataSet::isOlderRelativeType($relative['relative_type']) ) {
+	debug(__LINE__);
+      } elseif (GlobalDataSet::isYoungerRelativeType($relative['relative_type'])) {
+	debug(__LINE__);
+      }
     }
 }

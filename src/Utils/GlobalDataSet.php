@@ -41,4 +41,24 @@ class GlobalDataSet
   {
   }
 
+  public static function isRelativeType($str)
+  {
+    if (self::isOlderRelativeType($str)) return true;
+    if (self::isYoungerRelativeType($str)) return true;
+    return false;
+  }
+  public static function isOlderRelativeType($str)
+  {
+    foreach(GlobalDataSet::$relative_types_older as $val) {
+      if (strcmp($val, $str) === 0) return true;
+    }
+    return false;
+  }
+  public static function isYoungerRelativeType($str)
+  {
+    foreach(GlobalDataSet::$relative_types_younger as $val) {
+      if (strcmp($val, $str) === 0) return true;
+    }
+    return false;
+  }
 }
