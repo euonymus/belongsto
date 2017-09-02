@@ -83,7 +83,9 @@ class Wikipedia
     // TODO: This covers only when the element is a person. Add logic for some other types of elements
     if (!self::isBirthdayItem((string)$element->th)) return false;
 
-    debug($element);
+    $list = self::getPlainText($element->td);
+    if (!$list) return false;
+    debug($list);
   }
 
 
