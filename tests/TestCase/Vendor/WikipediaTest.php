@@ -62,4 +62,13 @@ class WikipediaTest extends TestCase
 	debug($res);
       }
     }
+
+    public function testReadPageForQuark()
+    {
+      $query = '石田純一';
+      /* $query = '佐伯日菜子'; */
+
+      $res = Wikipedia::readPageForQuark($query);
+      /* debug($res); */
+    }
 }
