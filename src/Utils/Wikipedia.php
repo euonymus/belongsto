@@ -77,8 +77,15 @@ class Wikipedia
   }
   public static function retrieveStartArr($element)
   {
+    if (!property_exists($element, 'th')) return false;
+    if (!property_exists($element, 'td')) return false;
+
+    // TODO: This covers only when the element is a person. Add logic for some other types of elements
+    if (!self::isBirthdayItem((string)$element->th)) return false;
+
     debug($element);
   }
+
 
   // sample:   https://upload.wikimedia.org/wikipedia/commons/4/49/SONY_VAIO_%E7%9F%B3%E7%94%B0%E7%B4%94%E4%B8%80_%E4%BD%90%E7%94%B0%E7%9C%9F%E7%94%B1%E7%BE%8E.jpg
   public static function retrieveImagePath($element)
@@ -175,17 +182,6 @@ class Wikipedia
     return ['main' => $main, 'relative_type' => $relative_type];
   }
 
-  public static function isRelativesItem($str)
-  {
-    return ((strcmp($str, '著名な家族') === 0) ||
-	    (strcmp($str, '親族') === 0) ||
-	    (strcmp($str, '父親') === 0) ||
-	    (strcmp($str, '母親') === 0) ||
-	    (strcmp($str, '子女') === 0) ||
-	    (strcmp($str, '子供') === 0)
-	    );
-  }
-
   /*********************************************************************************/
   /* Tools                                                                         */
   /*********************************************************************************/
@@ -199,4 +195,24 @@ class Wikipedia
   {
     return strip_tags(preg_replace('/\n?\<br\/\>\n?/',"\n",$element->asXml()));
   }
+
+  public static function isRelativesItem($str)
+  {
+    return ((strcmp($str, '著名な家族') === 0) ||
+	    (strcmp($str, '親族') === 0) ||
+	    (strcmp($str, '父親') === 0) ||
+	    (strcmp($str, '母親') === 0) ||
+	    (strcmp($str, '子女') === 0) ||
+	    (strcmp($str, '子供') === 0)
+	    );
+  }
+  public static function isBirthdayItem($str)
+  {
+    return ((strcmp($str, '生年月日') === 0) ||
+	    (strcmp($str, '出生') === 0) ||
+	    (strcmp($str, '生誕') === 0)
+	    );
+  }
+
+
 }
