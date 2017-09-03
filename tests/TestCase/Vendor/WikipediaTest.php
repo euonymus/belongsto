@@ -66,6 +66,7 @@ class WikipediaTest extends TestCase
     public function testReadPageForQuark()
     {
       $query = '石田純一';
+      /* $query = '石田桃子'; */
       /* $query = '佐伯日菜子'; */
 
       $res = Wikipedia::readPageForQuark($query);
