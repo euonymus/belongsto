@@ -459,6 +459,80 @@ class U
     return date('Y-m-d H:i:s', $time);
   }
 
+
+
+  public static function getStartDateFromText($txt)
+  {
+    $period = self::salvagePeriodFromText($txt);
+    if (!$period) return false;
+    $roughDateTxt = self::salvageStartFromPeriodText($period);
+    if (!$roughDateTxt) return false;
+    return self::normalizeDateFormat($roughDateTxt);
+  }
+  public static function getEndDateFromText($txt)
+  {
+    $period = self::salvagePeriodFromText($txt);
+    if (!$period) return false;
+    $roughDateTxt = self::salvageEndFromPeriodText($period);
+    if (!$roughDateTxt) return false;
+    return self::normalizeDateFormat($roughDateTxt);
+  }
+
+  static $pattern_date = '(（)?\d{4} ?年(）)?( ?\d{1,2} ?月( ?\d{1,2} ?日)?)?';
+  public static function salvageDateFromText($txt)
+  {
+    $pattern = '/' . self::$pattern_date . '/';
+    $res = preg_match($pattern, $txt, $matches);
+    if (!$res) return false;
+    return $matches[0];
+  }
+
+  public static function salvagePeriodFromText($txt)
+  {
+    // \D{6} はUTF-8漢字二文字（昭和・平成など）に対応
+    $pattern = '/' . self::$pattern_date . ' ?[\-\~] ?(\D{6}\d{1,2} ?年 ?)?(' . self::$pattern_date . ')?/';
+    $res = preg_match($pattern, $txt, $matches);
+    if (!$res) return false;
+    return $matches[0];
+  }
+  public static function salvageStartFromPeriodText($roughPeriodTxt)
+  {
+    $pattern = '/\A' . self::$pattern_date . '/';
+    $res = preg_match($pattern, $roughPeriodTxt, $matches);
+    if (!$res) return false;
+    return $matches[0];
+  }  
+  public static function salvageEndFromPeriodText($roughPeriodTxt)
+  {
+    $pattern = '/' . self::$pattern_date . '\z/';
+    $res = preg_match($pattern, $roughPeriodTxt, $matches);
+    if (!$res) return false;
+    return $matches[0];
+  }  
+
+  public static function normalizeDateFormat($roughDateTxt)
+  {
+    $pattern = '/(\d{4} ?)年/';
+    $res = preg_match($pattern, $roughDateTxt, $matches);
+    if (!$res) return false;
+    $ret = $matches[1];
+
+    $pattern = '/(\d{1,2}) ?月/';
+    $res = preg_match($pattern, $roughDateTxt, $matches);
+    if ($res) {
+      $month = $matches[1];
+      $ret = sprintf($ret . '-%02d', $month);
+
+      $pattern = '/(\d{1,2}) ?日/';
+      $res = preg_match($pattern, $roughDateTxt, $matches);
+      if ($res) {
+	$day = $matches[1];
+	$ret = sprintf($ret . '-%02d', $day);
+      }
+    }
+    return $ret;
+  }
+
   /*******************************************************/
   /* Sanitize Strings                                    */
   /*******************************************************/
