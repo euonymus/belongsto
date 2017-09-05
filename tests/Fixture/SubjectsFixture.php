@@ -136,7 +136,7 @@ class SubjectsFixture extends TestFixture
             'name'               => '石田純一',
             'image_path'         => '',
             'description'        => '',
-            'start'              => '', // accurate
+            'start'              => NULL, // accurate
             'end'                => NULL,
             'start_accuracy'     => '',                    // accurate
             'end_accuracy'       => '',
