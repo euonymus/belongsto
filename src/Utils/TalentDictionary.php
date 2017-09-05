@@ -109,7 +109,7 @@ class TalentDictionary
     if (self::$internal) {
       $image = self::readImg($img);
     } else {
-      $image = TalentDictionary::readGoogleImg($name);
+      $image = self::readGoogleImg($name);
     }
     if ($image) $ret['image_path'] = $image;
 

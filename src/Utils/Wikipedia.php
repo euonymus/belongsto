@@ -51,6 +51,7 @@ class Wikipedia
   /*********************************************************************************/
   /* quark                                                                         */
   /*********************************************************************************/
+  public static $internal = false;
   public static function readPageForQuark($query)
   {
     $xml = self::readPage($query);
@@ -58,13 +59,24 @@ class Wikipedia
 
     $ret = self::constructData($xml);
     if (!$ret || !is_array($ret)) return false;
+
+    // get google image
+    if (!self::$internal) {
+      $res =  GoogleSearch::getFirstImageFromImageSearch($query);
+      if ($res) {
+	$ret['image_path'] =  $res;
+      }
+    }
+
     $ret['name'] = $query;
     return $ret;
   }
 
-  public static $internal = false;
   public static function constructData($xml)
   {
+    // get description
+    $description = ($res = self::retrieveDescription($xml)) ? $res : '';
+
     // get image_path
     $image_path = ($res = self::retrieveImagePath($xml)) ? $res : NULL;
 
@@ -95,7 +107,7 @@ class Wikipedia
 
     return [
 	    'image_path'         => $image_path,
-	    'description'        => '',
+	    'description'        => $description,
 	    'start'              => $start,
 	    'start_accuracy'     => $start_accuracy,
 	    'end'                => $end,
@@ -108,6 +120,12 @@ class Wikipedia
   }
 
 
+  public static function retrieveDescription($xml)
+  {
+    $txt = self::retrieveFirstP($xml);
+    if (!$txt || !is_string($txt)) return false;
+    return U::abbreviateStr($txt, 255);
+  }
   public static function retrieveStart($xml)
   {
     if ($ret = self::retrieveStartItemFromInfobox($xml)) return $ret;
