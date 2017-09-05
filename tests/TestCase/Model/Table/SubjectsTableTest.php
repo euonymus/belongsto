@@ -240,7 +240,7 @@ class SubjectsTableTest extends TestCase
 
     public function testUpdateInfoFromWikipedia()
     {
-      /* if (self::$apitest) { */
+      if (self::$apitest) {
         // Case1: no data will be updated, because all fields in db are already filled
 	$testTarget = '白間 美瑠';
 	// You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
@@ -260,6 +260,6 @@ class SubjectsTableTest extends TestCase
 	$ret = $this->Subjects->updateInfoFromWikipedia($existing);
 	$this->assertTrue(!!$ret);
 /* debug($ret); */
-      /* } */
+      }
     }
 }
