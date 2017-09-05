@@ -500,23 +500,23 @@ class SubjectsTable extends AppTable
     }
 
     /** Wikipedia **/
+    public function insertInfoFromWikipedia($txt)
+    {
+      $query = self::removeAllSpaces($txt);
+      if (!$query) return false;
+
+      $res = Wikipedia::readPageForQuark($query);
+      $saving = $this->formToSaving($res);
+      return $this->save($saving);
+    }
     public function updateInfoFromWikipedia($data)
     {
       $query = self::removeAllSpaces($data->name);
       if (!$query) return false;
 
-
-
-      /* $data = $this->patchEntity($data, $form); */
-
-/*
       $res = Wikipedia::readPageForQuark($query);
+      unset($res['name']); // in order not to update name field
       $saving = $this->formToEditing($data, $res);
-
-      debug($saving);
-*/
-
-    /* formToSaving($form) */
-    /*   debug($res); */
+      return $this->save($saving);
     }
 }

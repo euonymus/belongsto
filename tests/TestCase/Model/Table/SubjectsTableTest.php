@@ -235,13 +235,25 @@ class SubjectsTableTest extends TestCase
     }
 
 
-    public function testRetrieveInfoFromWikipedia()
+    public function testUpdateInfoFromWikipedia()
     {
-      $testTarget = '白間 美瑠';
-      // You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
-      $existings = $this->Subjects->findByName($testTarget);
-      $existing = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
+      if (self::$apitest) {
+	$testTarget = '白間 美瑠';
+	// You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
+	$existings = $this->Subjects->findByName($testTarget);
+	$existing = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
 
-      $ret = $this->Subjects->updateInfoFromWikipedia($existing);
+	$ret = $this->Subjects->updateInfoFromWikipedia($existing);
+	$this->assertTrue(!!$ret);
+      }
+    }
+
+    public function testInsertInfoFromWikipedia()
+    {
+      if (self::$apitest) {
+	$testTarget = 'ダルビッシュ有';
+	$ret = $this->Subjects->insertInfoFromWikipedia($testTarget);
+	$this->assertTrue(!!$ret);
+      }
     }
 }

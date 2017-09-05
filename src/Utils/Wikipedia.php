@@ -106,16 +106,16 @@ class Wikipedia
     $url = ($res = self::retrieveUrl($xml)) ? $res : '';
 
     return [
-	    'image_path'         => $image_path,
-	    'description'        => $description,
-	    'start'              => $start,
-	    'start_accuracy'     => $start_accuracy,
-	    'end'                => $end,
-	    'end_accuracy'       => $end_accuracy,
-	    'is_momentary'       => false,
-	    'url'                => $url,
-	    'user_id'            => 1,
-	    'last_modified_user' => 1,
+	    'image_path'            => $image_path,
+	    'description'           => $description,
+	    'start'                 => $start,
+	    'start_accuracy'        => $start_accuracy,
+	    'end'                   => $end,
+	    'end_accuracy'          => $end_accuracy,
+	    'is_momentary'          => false,
+	    'url'                   => $url,
+	    'user_id'               => 1,
+	    'last_modified_user_id' => 1,
 	    ];
   }
 
