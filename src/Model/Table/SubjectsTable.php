@@ -224,39 +224,60 @@ class SubjectsTable extends AppTable
       // never update private record automatically
       if ($existing->is_private) return false;
 
-      if (empty($existing->image_path) && array_key_exists('image_path', $filling)) {
-	$existing->image_path = $filling['image_path'];
+      // Start choosing filling data
+      $ret = [];
+      if (empty($existing->image_path) && array_key_exists('image_path', $filling) && !empty($filling['image_path'])) {
+	$ret['image_path'] = $filling['image_path'];
       }
-      if (empty($existing->description) && array_key_exists('description', $filling)) {
-	$existing->description = $filling['description'];
+      if (empty($existing->description) && array_key_exists('description', $filling) && !empty($filling['description'])) {
+	$ret['description'] = $filling['description'];
       }
-      if (empty($existing->url) && array_key_exists('url', $filling)) {
-	$existing->url = $filling['url'];
-      }
-      if (array_key_exists('last_modified_user', $filling)) {
-	$existing->last_modified_user = $filling['last_modified_user'];
+      if (empty($existing->url) && array_key_exists('url', $filling) && !empty($filling['url'])) {
+	$ret['url'] = $filling['url'];
       }
 
-      $month = (int)date('m', strtotime($existing->start));
-      $day = (int)date('d', strtotime($existing->start));
-
-      // No start exists
-      if (empty($existing->start) && array_key_exists('start', $filling)) {
-	$existing->start = $filling['start'];
-	if (empty($existing->start_accuracy) && array_key_exists('start_accuracy', $filling)) {
-	  $existing->start_accuracy = $filling['start_accuracy'];
-	}
-      } elseif ($month == 1 && $day == 1 && array_key_exists('start', $filling)) {
-	$month_fill = (int)date('m', strtotime($filling['start']));
-	$day_fill = (int)date('d', strtotime($filling['start']));
-	if ($month_fill != 1 || $day_fill != 1) {
-	  $existing->start = $filling['start'];
-	  $existing->start_accuracy = '';
+      $new_date     = array_key_exists('start', $filling) ? $filling['start'] : false;
+      $new_accuracy = array_key_exists('start_accuracy', $filling) ? $filling['start_accuracy'] : false;
+      $datePair = self::chooseMoreAccurateDatePair($existing->start, $existing->start_accuracy,
+						   $new_date, $new_accuracy);
+      if (array_key_exists('date', $datePair)) {
+	$ret['start'] = $datePair['date'];
+	if (array_key_exists('accuracy', $datePair)) {
+	  $ret['start_accuracy'] = $datePair['accuracy'];
 	}
       }
-      return $existing;
+
+
+      $new_date     = array_key_exists('end', $filling) ? $filling['end'] : false;
+      $new_accuracy = array_key_exists('end_accuracy', $filling) ? $filling['end_accuracy'] : false;
+      $datePair = self::chooseMoreAccurateDatePair($existing->end, $existing->end_accuracy,
+						   $new_date, $new_accuracy);
+      if (array_key_exists('date', $datePair)) {
+	$ret['end'] = $datePair['date'];
+	if (array_key_exists('accuracy', $datePair)) {
+	  $ret['end_accuracy'] = $datePair['accuracy'];
+	}
+      }
+
+      return $ret;
     }
 
+    public static function chooseMoreAccurateDatePair($existing_date, $existing_accuracy, $new_date, $new_accuracy)
+    {
+      $ret = [];
+      if (empty($existing_date) && $new_date) {
+	$ret['date'] = $new_date;
+	if (empty($existing_accuracy) && $new_accuracy) {
+	  $ret['accuracy'] = $new_accuracy;
+	}
+      } elseif ((($existing_accuracy == 'month' && empty($new_accuracy))
+		 || ($existing_accuracy == 'year'))
+		&& $new_date) {
+	$ret['date'] = $new_date;
+	$ret['accuracy'] = !!$new_accuracy ? $new_accuracy : '';
+      }
+      return $ret;
+    }
 
     /****************************************************************************/
     /* Get Data                                                                 */
@@ -515,8 +536,11 @@ class SubjectsTable extends AppTable
       if (!$query) return false;
 
       $res = Wikipedia::readPageForQuark($query);
-      unset($res['name']); // in order not to update name field
-      $saving = $this->formToEditing($data, $res);
+      $update = self::fillMissingData($res, $data);
+      if (!$update) return false;
+
+      $saving = $this->formToEditing($data, $update);
+      $saving->last_modified_user = 1; // static
       return $this->save($saving);
     }
 }

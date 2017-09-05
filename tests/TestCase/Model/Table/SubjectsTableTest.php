@@ -142,10 +142,10 @@ class SubjectsTableTest extends TestCase
 
       // Test 1
       $res = $this->Subjects->fillMissingData($filling, $existing);
-      $this->assertSame($res->image_path, $filling['image_path']);
-      $this->assertSame($res->description, $filling['description']);
-      $this->assertSame($res->start, $filling['start']);
-      $this->assertSame($res->start_accuracy, $filling['start_accuracy']);
+      $this->assertSame($res['image_path'], $filling['image_path']);
+      $this->assertSame($res['description'], $filling['description']);
+      $this->assertSame($res['start'], $filling['start']);
+      $this->assertSame($res['start_accuracy'], $filling['start_accuracy']);
 
       // Case 2: no update
       // retreive the target array from Talent dictionary.
@@ -161,12 +161,9 @@ class SubjectsTableTest extends TestCase
       $existings = $this->Subjects->findByName($testTarget);
       $existing = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
 
-      // Test 1
+      // Test 2
       $res = $this->Subjects->fillMissingData($filling, $existing);
-      $this->assertSame($res->image_path, $existing->image_path);
-      $this->assertSame($res->description, $existing->description);
-      $this->assertSame($res->start, $existing->start);
-      $this->assertSame($res->start_accuracy, $existing->start_accuracy);
+      $this->assertTrue(empty($res));
 
       // Case 3: update start to specialize
       // retreive the target array from Talent dictionary.
@@ -185,10 +182,8 @@ class SubjectsTableTest extends TestCase
 
       // Test 3
       $res = $this->Subjects->fillMissingData($filling, $existing);
-      $this->assertSame($res->image_path, $existing->image_path);
-      $this->assertSame($res->description, $existing->description);
-      $this->assertSame($res->start, $filling['start']); // has to be updated
-      $this->assertSame($res->start_accuracy, ''); // has to be updated to blank
+      $this->assertSame($res['start'], $filling['start']); // has to be updated
+      $this->assertSame($res['start_accuracy'], ''); // has to be updated to blank
 
       // Case 4: no updates if it originally have accurate start data
       // retreive the target array from Talent dictionary.
@@ -208,11 +203,10 @@ class SubjectsTableTest extends TestCase
 
       // Test 4
       $res = $this->Subjects->fillMissingData($filling, $existing);
-      $this->assertSame($res->image_path, $existing->image_path);
-      $this->assertSame($res->description, $existing->description);
-      $this->assertSame($res->start, $existing->start); // no change
-      $this->assertSame($res->start_accuracy, ''); // no change
 
+      $this->assertSame($res['description'], $filling['description']);
+      $this->assertFalse(array_key_exists('start', $res));   // start should not be set
+      $this->assertFalse(array_key_exists('start_accuracy', $res)); // start_accuracy should not be set
 
       if (self::$apitest) {
 	// Case 5: data from Wikipedia
@@ -225,28 +219,15 @@ class SubjectsTableTest extends TestCase
 
 	// Test 5
 	$res = $this->Subjects->fillMissingData($filling, $existing);
-	$this->assertSame($res->image_path, $filling['image_path']);
-	$this->assertSame($res->description, $filling['description']);
-	$this->assertSame($res->start, $filling['start']);
-	$this->assertSame($res->start_accuracy, $filling['start_accuracy']);
-	$this->assertSame($res->url, $filling['url']);
-	$this->assertSame($res->last_modified_user, $filling['last_modified_user']);
+	debug($res);
+	$this->assertSame($res['image_path'], $filling['image_path']);
+	$this->assertSame($res['description'], $filling['description']);
+	$this->assertSame($res['start'], $filling['start']);
+	$this->assertSame($res['start_accuracy'], $filling['start_accuracy']);
+	$this->assertSame($res['url'], $filling['url']);
       }
     }
 
-
-    public function testUpdateInfoFromWikipedia()
-    {
-      if (self::$apitest) {
-	$testTarget = '白間 美瑠';
-	// You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
-	$existings = $this->Subjects->findByName($testTarget);
-	$existing = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
-
-	$ret = $this->Subjects->updateInfoFromWikipedia($existing);
-	$this->assertTrue(!!$ret);
-      }
-    }
 
     public function testInsertInfoFromWikipedia()
     {
@@ -255,5 +236,30 @@ class SubjectsTableTest extends TestCase
 	$ret = $this->Subjects->insertInfoFromWikipedia($testTarget);
 	$this->assertTrue(!!$ret);
       }
+    }
+
+    public function testUpdateInfoFromWikipedia()
+    {
+      /* if (self::$apitest) { */
+        // Case1: no data will be updated, because all fields in db are already filled
+	$testTarget = '白間 美瑠';
+	// You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
+	$existings = $this->Subjects->findByName($testTarget);
+	$existing = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
+
+	$ret = $this->Subjects->updateInfoFromWikipedia($existing);
+	$this->assertFalse($ret);
+
+
+        // Case1: no data will be updated, because all fields in db are already filled
+	$testTarget = '徳川家康';
+	// You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
+	$existings = $this->Subjects->findByName($testTarget);
+	$existing = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
+
+	$ret = $this->Subjects->updateInfoFromWikipedia($existing);
+	$this->assertTrue(!!$ret);
+/* debug($ret); */
+      /* } */
     }
 }

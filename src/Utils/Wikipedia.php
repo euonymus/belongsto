@@ -115,7 +115,6 @@ class Wikipedia
 	    'is_momentary'          => false,
 	    'url'                   => $url,
 	    'user_id'               => 1,
-	    'last_modified_user_id' => 1,
 	    ];
   }
 
