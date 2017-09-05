@@ -423,18 +423,18 @@ class SubjectsTable extends AppTable
       return preg_replace('/　/', '', $tmp);
     }
 
-    // $retrieved arr: single retrieved data from foreign site
+    // $name: name of the quark
     // $existings obj: multiple records found by search function.
-    public function findTargetFromSearchedData($retrieved, $existings)
+    public function findTargetFromSearchedData($name, $existings)
     {
       // sanitization
-      $retrieved['name'] = self::removeAllSpaces($retrieved['name']);
+      $name = self::removeAllSpaces($name);
 
       $candidates = [];
       foreach($existings as $existing) {
       	// sanitization
       	$comparison = self::removeAllSpaces($existing->name);
-	if (strcmp($retrieved['name'], $comparison) === 0) {
+	if (strcmp($name, $comparison) === 0) {
 	  $candidates[] = $existing;
 	}
       }
@@ -500,11 +500,23 @@ class SubjectsTable extends AppTable
     }
 
     /** Wikipedia **/
-    public static function updateInfoFromWikipedia($name)
+    public function updateInfoFromWikipedia($data)
     {
-      $res = Wikipedia::readPageForQuark($name);
+      $query = self::removeAllSpaces($data->name);
+      if (!$query) return false;
 
 
-      debug($res);
+
+      /* $data = $this->patchEntity($data, $form); */
+
+/*
+      $res = Wikipedia::readPageForQuark($query);
+      $saving = $this->formToEditing($data, $res);
+
+      debug($saving);
+*/
+
+    /* formToSaving($form) */
+    /*   debug($res); */
     }
 }

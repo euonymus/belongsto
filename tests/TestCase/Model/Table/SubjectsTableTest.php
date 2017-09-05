@@ -94,55 +94,32 @@ class SubjectsTableTest extends TestCase
       // Case 1: Normal
       // retreive the target array from Talent dictionary.
       $testTarget = '上白石萌歌';
-      $retrieved = false;
-      $retrievedDatas = TalentDictionary::dummyReadOfTalentDictionary();
-      foreach($retrievedDatas as $val) {
-    	if ($val['name'] != $testTarget) continue;
-	$retrieved = $val;
-	break;
-      }
       // You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
       $existings = $this->Subjects->findByName($testTarget);
 
       // Test 1: 
-      $res = $this->Subjects->findTargetFromSearchedData($retrieved, $existings);
+      $res = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
       $this->assertSame($testTarget, $res->name);
 
       // Case 2: Space in between
       // retreive the target array from Talent dictionary.
       $testTarget = '白間 美瑠';
-      $retrieved = false;
-      $retrievedDatas = TalentDictionary::dummyReadOfTalentDictionary();
-      foreach($retrievedDatas as $val) {
-    	if ($val['name'] != SubjectsTable::removeAllSpaces($testTarget)) continue;
-	$retrieved = $val;
-	break;
-      }
-
       // You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
       $existings = $this->Subjects->findByName($testTarget);
 
       // Test 2:
-      $res = $this->Subjects->findTargetFromSearchedData($retrieved, $existings);
+      $res = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
       $this->assertSame($testTarget, $res->name);
 
 
       // Case 3: Multiple Targets make it failure.
       // retreive the target array from Talent dictionary.
       $testTarget = '芦田愛菜';
-      $retrieved = false;
-      $retrievedDatas = TalentDictionary::dummyReadOfTalentDictionary();
-      foreach($retrievedDatas as $val) {
-    	if ($val['name'] != SubjectsTable::removeAllSpaces($testTarget)) continue;
-	$retrieved = $val;
-	break;
-      }
-
       // You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
       $existings = $this->Subjects->findByName($testTarget);
 
       // Test 3:
-      $res = $this->Subjects->findTargetFromSearchedData($retrieved, $existings);
+      $res = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
       $this->assertFalse($res);
     }
 
@@ -161,7 +138,7 @@ class SubjectsTableTest extends TestCase
       }
       // You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
       $existings = $this->Subjects->findByName($testTarget);
-      $existing = $this->Subjects->findTargetFromSearchedData($filling, $existings);
+      $existing = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
 
       // Test 1
       $res = $this->Subjects->fillMissingData($filling, $existing);
@@ -182,7 +159,7 @@ class SubjectsTableTest extends TestCase
       }
       // You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
       $existings = $this->Subjects->findByName($testTarget);
-      $existing = $this->Subjects->findTargetFromSearchedData($filling, $existings);
+      $existing = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
 
       // Test 1
       $res = $this->Subjects->fillMissingData($filling, $existing);
@@ -204,7 +181,7 @@ class SubjectsTableTest extends TestCase
       }
       // You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
       $existings = $this->Subjects->findByName($testTarget);
-      $existing = $this->Subjects->findTargetFromSearchedData($filling, $existings);
+      $existing = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
 
       // Test 3
       $res = $this->Subjects->fillMissingData($filling, $existing);
@@ -227,7 +204,7 @@ class SubjectsTableTest extends TestCase
       }
       // You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
       $existings = $this->Subjects->findByName($testTarget);
-      $existing = $this->Subjects->findTargetFromSearchedData($filling, $existings);
+      $existing = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
 
       // Test 4
       $res = $this->Subjects->fillMissingData($filling, $existing);
@@ -244,7 +221,7 @@ class SubjectsTableTest extends TestCase
 
 	// You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
 	$existings = $this->Subjects->findByName($testTarget);
-	$existing = $this->Subjects->findTargetFromSearchedData($filling, $existings);
+	$existing = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
 
 	// Test 5
 	$res = $this->Subjects->fillMissingData($filling, $existing);
@@ -260,10 +237,11 @@ class SubjectsTableTest extends TestCase
 
     public function testRetrieveInfoFromWikipedia()
     {
-      /* $name = '石田純一'; */
-      /* $ret = SubjectsTable::updateInfoFromWikipedia($name); */
+      $testTarget = '白間 美瑠';
+      // You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
+      $existings = $this->Subjects->findByName($testTarget);
+      $existing = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
 
-      /* $data = $this->Subjects->findById(1); */
-      /* debug($data); */
+      $ret = $this->Subjects->updateInfoFromWikipedia($existing);
     }
 }
