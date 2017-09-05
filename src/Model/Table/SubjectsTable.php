@@ -379,6 +379,60 @@ class SubjectsTable extends AppTable
     }
 
 
+    // findByNameだとスペース区切りの違いで取得できない場合があるのでわざわざsearch()から取得する
+    public function getOneWithSearch($str)
+    {
+// TODO: 本当は search() だけど、phpunit testできないためfindByNameでテスト中。
+      $existings = $this->findByName($str);
+      //$existings = $this->search($str);
+      return $this->findTargetFromSearchedData($str, $existings);
+    }
+
+    // 文字列の名前のデータがあれば取得、なければWikipediaから取得、Wikipediaにもなければ名前だけでsaveして取得
+    public function forceGetQuark($str)
+    {
+      $data = $this->getOneWithSearch($str);
+      if ($data) return $data;
+
+      $res = $this->insertInfoFromWikipedia($str);
+      if ($res) return $res;
+
+      $saving = $this->formToSaving(['name' => $str, 'is_momentary' => false]);
+      return $this->save($saving);
+    }
+
+
+    /****************************************************************************/
+    /* Save Data                                                                */
+    /****************************************************************************/
+    public function saveNewArray($arr)
+    {
+      if (!is_array($arr) || !array_key_exists('name', $arr)) return false;
+      $filling_name = self::removeAllSpaces($arr['name']);
+
+// TODO: 本当は search() だけど、phpunit testできないためfindByNameでテスト中。
+      $existings = $this->findByName($filling_name);
+      //$existings = $this->search($filling_name);
+      $existing = $this->findTargetFromSearchedData($filling_name, $existings);
+      if ($existing) {
+	return $this->saveToFillEmptyField($existing, $arr);
+      } else {
+	$saving = $this->formToSaving($arr);
+	return $this->save($saving);
+      }
+      return false;
+    }
+
+    public function saveToFillEmptyField($data, $arr)
+    {
+      $filling = self::fillMissingData($arr, $data);
+      if (!$filling) return false;
+
+      $saving = $this->formToEditing($data, $filling);
+      $saving->last_modified_user = 1; // static
+      return $this->save($saving);
+    }
+
     /*******************************************************/
     /* where                                               */
     /*******************************************************/
@@ -527,6 +581,8 @@ class SubjectsTable extends AppTable
       if (!$query) return false;
 
       $res = Wikipedia::readPageForQuark($query);
+      if (!$res) return false;
+
       $saving = $this->formToSaving($res);
       return $this->save($saving);
     }
@@ -536,11 +592,7 @@ class SubjectsTable extends AppTable
       if (!$query) return false;
 
       $res = Wikipedia::readPageForQuark($query);
-      $update = self::fillMissingData($res, $data);
-      if (!$update) return false;
-
-      $saving = $this->formToEditing($data, $update);
-      $saving->last_modified_user = 1; // static
-      return $this->save($saving);
+      return $this->saveToFillEmptyField($data, $res);
     }
+
 }

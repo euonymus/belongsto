@@ -262,4 +262,30 @@ class SubjectsTableTest extends TestCase
 /* debug($ret); */
       }
     }
+
+    public function testSavingFunctions()
+    {
+      if (self::$apitest) {
+	// retreive the target array from Talent dictionary.
+	$testTarget = '上白石萌歌';
+	$data = $this->Subjects->getOneWithSearch($testTarget);
+	/* debug($data); */
+
+	$testTarget = 'hohgehg';
+	$data = $this->Subjects->forceGetQuark($testTarget);
+	debug($data);
+
+
+
+	$testTarget = '上白石萌歌';
+	$filling = false;
+	$retrievedDatas = TalentDictionary::dummyReadOfTalentDictionary();
+	foreach($retrievedDatas as $val) {
+	  if ($val['name'] != $testTarget) continue;
+	  $filling = $val;
+	  break;
+	}
+	$this->Subjects->saveNewArray($filling);
+      }
+    }
 }
