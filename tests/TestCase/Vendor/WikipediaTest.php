@@ -68,7 +68,11 @@ class WikipediaTest extends TestCase
       /* $query = '石田純一'; */
       /* $query = '石田桃子'; */
       /* $query = '佐伯日菜子'; */
-      $query = '松平信子';   // no infobox, but thumbnail in thumbinner
+      /* $query = '松平信子';   // no infobox, but thumbnail in thumbinner */
+      /* $query = '高倉健'; */
+      /* $query = '明治天皇'; */
+      $query = '出澤剛';  // URL in main contents
+
 
 
       $res = Wikipedia::readPageForQuark($query);

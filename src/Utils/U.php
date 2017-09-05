@@ -478,7 +478,8 @@ class U
     return self::normalizeDateFormat($roughDateTxt);
   }
 
-  static $pattern_date = '(（)?\d{4} ?年(）)?( ?\d{1,2} ?月( ?\d{1,2} ?日)?)?';
+  // 和暦と区別つかないため、３桁以上の年にしか対応できない
+  static $pattern_date = '(（)?\d{3,4} ?年(）)?( ?\d{1,2} ?月( ?\d{1,2} ?日)?)?';
   public static function salvageDateFromText($txt)
   {
     $pattern = '/' . self::$pattern_date . '/';
@@ -512,7 +513,7 @@ class U
 
   public static function normalizeDateFormat($roughDateTxt)
   {
-    $pattern = '/(\d{4} ?)年/';
+    $pattern = '/(\d{3,4} ?)年/';
     $res = preg_match($pattern, $roughDateTxt, $matches);
     if (!$res) return false;
     $ret = $matches[1];
@@ -531,6 +532,29 @@ class U
       }
     }
     return $ret;
+  }
+  // $dateTxt: 'y-m-d'
+  public static function normalizeDateArrayFormat($dateTxt)
+  {
+    if (!is_string($dateTxt)) return false;
+
+    $arr = explode('-', $dateTxt);
+    if (count($arr) == 1) {
+      if (!is_numeric($arr[0])) return false;
+      $date = $arr[0] . '-1-1 00:00:00';
+      $accuracy = 'year';
+    } elseif (count($arr) == 2) {
+      if (!is_numeric($arr[0]) || !is_numeric($arr[1])) return false;
+      $date = $arr[0] . '-' .$arr[1] .'-1 00:00:00';
+      $accuracy = 'month';
+    } elseif (count($arr) == 3) {
+      if (!is_numeric($arr[0]) || !is_numeric($arr[1]) || !is_numeric($arr[2])) return false;
+      $date = $arr[0] . '-' .$arr[1] . '-' . $arr[2] .' 00:00:00';
+      $accuracy = NULL;
+    } else {
+      return false;
+    }
+    return ['date' => $date, 'date_accuracy' => $accuracy];
   }
 
   /*******************************************************/

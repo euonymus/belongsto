@@ -213,7 +213,7 @@ class SubjectsTableTest extends TestCase
       $testTarget = '向井地美音';
       $filling = false;
       $retrievedDatas = TalentDictionary::dummyReadOfTalentDictionary();
-      debug($retrievedDatas);
+// debug($retrievedDatas);
 
       foreach($retrievedDatas as $val) {
     	if ($val['name'] != SubjectsTable::removeAllSpaces($testTarget)) continue;
@@ -230,5 +230,12 @@ class SubjectsTableTest extends TestCase
       $this->assertSame($res->description, $existing->description);
       $this->assertSame($res->start, $existing->start); // no change
       $this->assertSame($res->start_accuracy, ''); // no change
+    }
+
+
+    public function testRetrieveInfoFromWikipedia()
+    {
+      $name = '石田純一';
+      $ret = SubjectsTable::retrieveInfoFromWikipedia($name);
     }
 }

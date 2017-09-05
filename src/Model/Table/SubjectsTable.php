@@ -15,6 +15,7 @@ use Cake\Network\Exception\NotFoundException;
 
 use App\Utils\U;
 use App\Utils\NgramConverter;
+use App\Utils\Wikipedia;
 
 /**
  * Subjects Model
@@ -435,6 +436,7 @@ class SubjectsTable extends AppTable
     /****************************************************************************/
     /* API call                                                                 */
     /****************************************************************************/
+    /** MS Image API **/
     public static $retrieveCacheConfig = 'default';
     public static function buildCacheKey($keywords)
     {
@@ -487,4 +489,10 @@ class SubjectsTable extends AppTable
 	return $response;
     }
 
+    /** Wikipedia **/
+    public static function retrieveInfoFromWikipedia($name)
+    {
+      $res = Wikipedia::readPageForQuark($name);
+      debug($res);
+    }
 }

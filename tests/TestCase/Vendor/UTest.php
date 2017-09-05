@@ -188,13 +188,26 @@ class UTest extends TestCase
       $res = U::normalizeDateFormat($end);
       $this->assertSame($res, '1969-05-08');
 
-
       $testText = 'あああ、明治19年（1886年）7月 - 昭和44年（1969年）5月8日）、だお';
       $res = U::getStartDateFromText($testText);
-      debug($res);
+      $this->assertSame($res, '1886-07');
 
       $res = U::getEndDateFromText($testText);
-      debug($res);
+      $this->assertSame($res, '1969-05-08');
+    }
 
+    public function testNormalizeDateArrayFormat()
+    {
+      $dateTxt = '1999';
+      $res = U::normalizeDateArrayFormat($dateTxt);
+      $this->assertSame($res, ['date' => '1999-1-1 00:00:00', 'date_accuracy' => 'year']);
+
+      $dateTxt = '2018-2';
+      $res = U::normalizeDateArrayFormat($dateTxt);
+      $this->assertSame($res, ['date' => '2018-2-1 00:00:00', 'date_accuracy' => 'month']);
+
+      $dateTxt = '593-10-16';
+      $res = U::normalizeDateArrayFormat($dateTxt);
+      $this->assertSame($res, ['date' => '593-10-16 00:00:00', 'date_accuracy' => NULL]);
     }
 }

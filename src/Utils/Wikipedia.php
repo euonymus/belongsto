@@ -69,61 +69,71 @@ class Wikipedia
     $image_path = ($res = self::retrieveImagePath($xml)) ? $res : NULL;
 
     // get start array
-    $startArr = self::retrieveStartArr($xml);
-    if ($startArr) {
-      $start          = $startArr['start'];
-      $start_accuracy = $startArr['start_accuracy'];
+    $start = self::retrieveStart($xml);
+    $dateArr = U::normalizeDateArrayFormat($start);
+    if ($dateArr) {
+      $start          = $dateArr['date'];
+      $start_accuracy = $dateArr['date_accuracy'];
     } else {
       $start          = NULL;
       $start_accuracy = '';
     }
+
+    // get end array
+    $end = self::retrieveEnd($xml);
+    $dateArr = U::normalizeDateArrayFormat($end);
+    if ($dateArr) {
+      $end          = $dateArr['date'];
+      $end_accuracy = $dateArr['date_accuracy'];
+    } else {
+      $end          = NULL;
+      $end_accuracy = '';
+    }
+
+    // get url
+    $url = ($res = self::retrieveUrl($xml)) ? $res : '';
 
     return [
 	    'image_path'         => $image_path,
 	    'description'        => '',
 	    'start'              => $start,
 	    'start_accuracy'     => $start_accuracy,
-	    'end'                => NULL,
-	    'end_accuracy'       => '',
+	    'end'                => $end,
+	    'end_accuracy'       => $end_accuracy,
 	    'is_momentary'       => false,
-	    'url'                => '',
+	    'url'                => $url,
 	    'user_id'            => 1,
 	    'last_modified_user' => 1,
 	    ];
   }
 
-  public static function retrieveStartArr($xml)
+
+  public static function retrieveStart($xml)
   {
-    $txt = self::retrieveStartItemFromInfobox($xml);
-    if (!$txt) {
-      $txt = self::retrieveStartEndItemFromFirstP($xml);
-    }
-
-/* debug($txt); */
-    $pattern = '/\A(.+)(\d{4})\s?年\s?(\d{1,2})\s?月\s?(\d{1,2})\s?日(.+)\z/';
-    $replacement = '$2-$3-$4';
-    $tmp = preg_replace($pattern, $replacement, $txt);
-/* debug($tmp); */
+    if ($ret = self::retrieveStartItemFromInfobox($xml)) return $ret;
+    return  self::retrieveStartItemFromFirstP($xml);
   }
-
-
-  public static function retrieveStartEndItemFromFirstP($xml)
+  public static function retrieveEnd($xml)
+  {
+    if ($ret = self::retrieveEndItemFromInfobox($xml)) return $ret;
+    return  self::retrieveEndItemFromFirstP($xml);
+  }
+  public static function retrieveStartItemFromFirstP($xml)
   {
     $txt = self::retrieveFirstP($xml);
     if (!$txt) return false;
-
-    // sample:  明治19年（1886年）7月 - 昭和44年（1969年）5月8日
-    $pattern = '/（\d{4}\s?年）\d{1,2}\s?月(.+)\s?-\s?(.+)（\d{4}\s?年）\s?\d{1,2}\s?月\s?\d{1,2}\s?日/';
-    $tmp = preg_match($pattern, $txt, $matches);
-debug($tmp);
-debug($matches);
-
+    return U::getStartDateFromText($txt);
+  }
+  public static function retrieveEndItemFromFirstP($xml)
+  {
+    $txt = self::retrieveFirstP($xml);
+    if (!$txt) return false;
+    return U::getEndDateFromText($txt);
   }
   public static function retrieveFirstP($xml)
   {
     return self::getPlainText($xml->p);
   }
-
   public static function retrieveStartItemFromInfobox($xml)
   {
     $element = self::parseInfoBox($xml);
@@ -138,11 +148,78 @@ debug($matches);
 
       $txt = self::getPlainText($val->td);
       if (!$txt) return false;
-      return $txt;
+      return U::normalizeDateFormat($txt);
+    }
+    return false;
+  }
+  public static function retrieveEndItemFromInfobox($xml)
+  {
+    $element = self::parseInfoBox($xml);
+    if (!$element) return false;
+
+    foreach($element as $val) {
+      if (!property_exists($val, 'th')) continue;
+      if (!property_exists($val, 'td')) continue;
+
+      // TODO: This covers only when the element is a person. Add logic for some other types of elements
+      if (!self::isDeathdayItem((string)$val->th)) continue;
+
+      $txt = self::getPlainText($val->td);
+      if (!$txt) return false;
+      return U::normalizeDateFormat($txt);
     }
     return false;
   }
 
+
+
+
+  public static function retrieveUrl($xml)
+  {
+    if ($ret = self::retrieveUrlFromInfobox($xml)) return $ret;
+    return  self::retrieveUrlFromContent($xml);
+  }
+  public static function retrieveUrlFromInfobox($xml)
+  {
+    $element = self::parseInfoBox($xml);
+    if (!$element) return false;
+
+    foreach($element as $val) {
+      if (!property_exists($val, 'th')) continue;
+      if (!property_exists($val, 'td')) continue;
+
+      if (!self::isUrlItem((string)$val->th)) continue;
+
+      if (!property_exists($val->td, 'a') || !$val->td->a->attributes()) return false;
+      return (string)$val->td->a->attributes()->href;
+    }
+    return false;
+  }
+  public static function retrieveUrlFromContent($xml)
+  {
+    // get the element next to 外部リンク header
+    $target = false;
+    $flg = false;
+    foreach($xml as $val) {
+      if ($flg) {
+	$target = $val;
+	break;
+      } else {
+	$txt = self::getPlainText($val);
+	if (preg_match('/\A外部リンク/', $txt, $matches)) $flg = true;
+      }
+    }
+    if (!$target) return false;
+
+    if (!is_object($target)
+	|| !property_exists($target, 'li')
+	|| empty($target->li)
+	|| !is_object($target->li[0])
+	|| !property_exists($target->li[0], 'a')
+	|| !$target->li[0]->a->attributes()
+    ) return false;
+    return (string)$target->li[0]->a->attributes()->href;
+  }
 
   // sample:   https://upload.wikimedia.org/wikipedia/commons/4/49/SONY_VAIO_%E7%9F%B3%E7%94%B0%E7%B4%94%E4%B8%80_%E4%BD%90%E7%94%B0%E7%9C%9F%E7%94%B1%E7%BE%8E.jpg
   public static function retrieveImagePath($xml)
@@ -174,7 +251,7 @@ debug($matches);
 
     $xpath = '//div[contains(@class,"thumbinner")]';
     $element = @$xml->xpath($xpath);
-    if (!is_array($element) || !$element[0] ||
+    if (!is_array($element) || empty($element) || !$element[0] ||
 	!is_object($element[0]) || !property_exists($element[0], 'a') || !property_exists($element[0]->a, 'img') ||
 	!$element[0]->a->img->attributes()) return false;
 
@@ -296,7 +373,21 @@ debug($matches);
   {
     return ((strcmp($str, '生年月日') === 0) ||
 	    (strcmp($str, '出生') === 0) ||
+	    (strcmp($str, '誕生') === 0) ||
 	    (strcmp($str, '生誕') === 0)
+	    );
+  }
+  public static function isDeathdayItem($str)
+  {
+    return ((strcmp($str, '没年月日') === 0) ||
+	    (strcmp($str, '死没') === 0) ||
+	    (strcmp($str, '崩御') === 0)
+	    );
+  }
+  public static function isUrlItem($str)
+  {
+    return ((strcmp($str, '公式サイト') === 0) ||
+	    (strcmp($str, '外部リンク') === 0)
 	    );
   }
 
