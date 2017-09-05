@@ -157,37 +157,35 @@ class RelationsTable extends AppTable
     /***************************************************************************/
     /* Tools                                                                   */
     /***************************************************************************/
-    public static function buildYoungRelativeGluon($relative)
+    public static function constRelativeGluon($data1, $data2, $relative)
     {
-      if (!is_array($relative) ||
-	  !array_key_exists('main', $relative) || !array_key_exists('relative_type', $relative)) return false;
-      if (!GlobalDataSet::isYoungerRelativeType($relative['relative_type'])) return false;
+      if (!self::checkRelativeInfoFormat($relative)) return false;
+      if (GlobalDataSet::isYoungerRelativeType($relative['relative_type'])) {
+	$active_id      = $data2->id;
+	$passive_id     = $data1->id;
+	$relation       = 'の' . $relative['relative_type'];
+	$start          = $data2->start;
+	$start_accuracy = $data2->start_accuracy;
 
-      $arr = [
-	      'active_name'    => $relative['main'],
-	      'passive_name'   => '',
-	      'relation'       => 'の' . $relative['relative_type'],
-	      'start'          => '',
-	      'start_accuracy' => '',
+      } elseif (GlobalDataSet::isOlderRelativeType($relative['relative_type'])) {
+	$active_id      = $data1->id;
+	$passive_id     = $data2->id;
+	$relation       = 'を' . $relative['relative_type'] . 'に持つ';
+	$start          = $data1->start;
+	$start_accuracy = $data1->start_accuracy;
+      } else return false;
+
+      return [
+	      'active_id'      => $active_id,
+	      'passive_id'     => $passive_id,
+	      'relation'       => $relation,
+	      'start'          => $start->format('Y-m-d H:i:s'),
+	      'start_accuracy' => $start_accuracy,
 	      'is_momentary'   => true,
       ];
-      debug($arr);
     }
-
-    public static function buildOldRelativeGluon($relative)
+    public static function checkRelativeInfoFormat($relative)
     {
-      if (!is_array($relative) ||
-	  !array_key_exists('main', $relative) || !array_key_exists('relative_type', $relative)) return false;
-      if (!GlobalDataSet::isOlderRelativeType($relative['relative_type'])) return false;
-
-      $arr = [
-	      'active_name'    => '',
-	      'passive_name'   => $relative['main'],
-	      'relation'       => 'を' . $relative['relative_type'] . 'に持つ',
-	      'start'          => '',
-	      'start_accuracy' => '',
-	      'is_momentary'   => true,
-      ];
-      debug($arr);
+      return (is_array($relative) && array_key_exists('main', $relative) && array_key_exists('relative_type', $relative));
     }
 }

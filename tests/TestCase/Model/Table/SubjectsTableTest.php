@@ -7,6 +7,7 @@ use Cake\TestSuite\TestCase;
 
 use App\Utils\U;
 use App\Utils\TalentDictionary;
+use App\Utils\Wikipedia;
 /**
  * App\Model\Table\SubjectsTable Test Case
  */
@@ -30,6 +31,10 @@ class SubjectsTableTest extends TestCase
         'app.subject_searches',
         'app.relations'
     ];
+
+    // MEMO: Twitter API callを頻繁にテストで使用したくないのでFalseにしておく。
+    //static $apitest = true;
+    static $apitest = false;
 
     /**
      * setUp method
@@ -230,12 +235,35 @@ class SubjectsTableTest extends TestCase
       $this->assertSame($res->description, $existing->description);
       $this->assertSame($res->start, $existing->start); // no change
       $this->assertSame($res->start_accuracy, ''); // no change
+
+
+      if (self::$apitest) {
+	// Case 5: data from Wikipedia
+	$testTarget = '石田純一';
+	$filling = Wikipedia::readPageForQuark($testTarget);
+
+	// You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
+	$existings = $this->Subjects->findByName($testTarget);
+	$existing = $this->Subjects->findTargetFromSearchedData($filling, $existings);
+
+	// Test 5
+	$res = $this->Subjects->fillMissingData($filling, $existing);
+	$this->assertSame($res->image_path, $filling['image_path']);
+	$this->assertSame($res->description, $filling['description']);
+	$this->assertSame($res->start, $filling['start']);
+	$this->assertSame($res->start_accuracy, $filling['start_accuracy']);
+	$this->assertSame($res->url, $filling['url']);
+	$this->assertSame($res->last_modified_user, $filling['last_modified_user']);
+      }
     }
 
 
     public function testRetrieveInfoFromWikipedia()
     {
-      $name = '石田純一';
-      $ret = SubjectsTable::retrieveInfoFromWikipedia($name);
+      /* $name = '石田純一'; */
+      /* $ret = SubjectsTable::updateInfoFromWikipedia($name); */
+
+      /* $data = $this->Subjects->findById(1); */
+      /* debug($data); */
     }
 }

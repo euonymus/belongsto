@@ -215,16 +215,26 @@ class SubjectsTable extends AppTable
     // $existing obj: single record to update.
     public function fillMissingData($filling, $existing)
     {
+      if (!$existing || !is_object($existing)) return false;
+
       // sanitization
       $filling_name = self::removeAllSpaces($filling['name']);
       $existing_name = self::removeAllSpaces($existing->name);
       if (strcmp($filling_name, $existing_name) !== 0) return false;
+      // never update private record automatically
+      if ($existing->is_private) return false;
 
       if (empty($existing->image_path) && array_key_exists('image_path', $filling)) {
 	$existing->image_path = $filling['image_path'];
       }
       if (empty($existing->description) && array_key_exists('description', $filling)) {
 	$existing->description = $filling['description'];
+      }
+      if (empty($existing->url) && array_key_exists('url', $filling)) {
+	$existing->url = $filling['url'];
+      }
+      if (array_key_exists('last_modified_user', $filling)) {
+	$existing->last_modified_user = $filling['last_modified_user'];
       }
 
       $month = (int)date('m', strtotime($existing->start));
@@ -490,9 +500,11 @@ class SubjectsTable extends AppTable
     }
 
     /** Wikipedia **/
-    public static function retrieveInfoFromWikipedia($name)
+    public static function updateInfoFromWikipedia($name)
     {
       $res = Wikipedia::readPageForQuark($name);
+
+
       debug($res);
     }
 }

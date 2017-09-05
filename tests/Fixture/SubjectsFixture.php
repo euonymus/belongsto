@@ -131,5 +131,24 @@ class SubjectsFixture extends TestFixture
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
+        [
+            'id'                 => '7',
+            'name'               => '石田純一',
+            'image_path'         => '',
+            'description'        => '',
+            'start'              => '', // accurate
+            'end'                => NULL,
+            'start_accuracy'     => '',                    // accurate
+            'end_accuracy'       => '',
+            'is_momentary'       => false,
+	    'url'                => '',
+	    'affiliate'          => 'http://hoge.com',
+	    'is_private'         => false,
+	    'is_exclusive'       => false,
+	    'user_id'            => 2,
+	    'last_modified_user' => 2,
+            'created'            => '2016-11-01 06:32:38',
+            'modified'           => '2016-11-01 06:32:38'
+        ],
     ];
 }

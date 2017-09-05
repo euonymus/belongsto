@@ -65,17 +65,19 @@ class WikipediaTest extends TestCase
 
     public function testReadPageForQuark()
     {
-      $query = '石田純一';
-      /* $query = '石田桃子'; */
-      /* $query = '佐伯日菜子'; */
-      /* $query = '松平信子';   // no infobox, but thumbnail in thumbinner */
-      /* $query = '高倉健'; */
-      /* $query = '明治天皇'; */
-      /* $query = '出澤剛';  // URL in main contents */
+      if (self::$apitest) {
+	$query = '石田純一';
+	/* $query = '石田桃子'; */
+	/* $query = '佐伯日菜子'; */
+	/* $query = '松平信子';   // no infobox, but thumbnail in thumbinner */
+	/* $query = '高倉健'; */
+	/* $query = '明治天皇'; */
+	/* $query = '出澤剛';  // URL in main contents */
 
 
-      Wikipedia::$internal = true;
-      $res = Wikipedia::readPageForQuark($query);
-      debug($res);
+	Wikipedia::$internal = true;
+	$res = Wikipedia::readPageForQuark($query);
+	debug($res);
+      }
     }
 }

@@ -98,19 +98,44 @@ class RelationsTableTest extends TestCase
 		],
     ];
 
-    public function testBuildRelativeGluon()
+    public function testConstRelativeGluon()
     {
       $relatives = self::$dummyRelatives;
-      $res = RelationsTable::buildYoungRelativeGluon($relatives[2]);
-      $this->assertFalse($res);
+      $Subjects = TableRegistry::get('Subjects');
 
-      $res = RelationsTable::buildYoungRelativeGluon($relatives[0]);
+      $testTarget1 = '向井地美音';
+      $testTarget2 = '朝長美桜';
+      $existings = $Subjects->findByName($testTarget1);
+      foreach($existings as $val) {
+	$data1 = $val;
+      }
+      $existings = $Subjects->findByName($testTarget2);
+      foreach($existings as $val) {
+	$data2 = $val;
+      }
 
+      // Case 1
+      $expected = [
+	'active_id'  => '5',
+	'passive_id' => '6',
+	'relation' => 'の長女',
+	'start' => '1998-01-01 00:00:00',
+	'start_accuracy' => 'year',
+	'is_momentary' => true
+      ];
+      $res = RelationsTable::constRelativeGluon($data1, $data2, $relatives[0]);
+      $this->assertSame($res, $expected);
 
-
-      $res = RelationsTable::buildOldRelativeGluon($relatives[0]);
-      $this->assertFalse($res);
-
-      $res = RelationsTable::buildOldRelativeGluon($relatives[2]);
+      // Case 2
+      $expected = [
+	'active_id'  => '6',
+	'passive_id' => '5',
+	'relation' => 'を祖父に持つ',
+	'start' => '1998-01-29 00:00:00',
+	'start_accuracy' => '',
+	'is_momentary' => true
+      ];
+      $res = RelationsTable::constRelativeGluon($data1, $data2, $relatives[2]);
+      $this->assertSame($res, $expected);
     }
 }
