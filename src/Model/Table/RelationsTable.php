@@ -157,22 +157,22 @@ class RelationsTable extends AppTable
     /***************************************************************************/
     /* Tools                                                                   */
     /***************************************************************************/
-    public static function constRelativeGluon($data1, $data2, $relative)
+    public static function constRelativeGluon($subject1, $subject2, $relative)
     {
       if (!self::checkRelativeInfoFormat($relative)) return false;
       if (GlobalDataSet::isYoungerRelativeType($relative['relative_type'])) {
-	$active_id      = $data2->id;
-	$passive_id     = $data1->id;
+	$active_id      = $subject2->id;
+	$passive_id     = $subject1->id;
 	$relation       = 'の' . $relative['relative_type'];
-	$start          = $data2->start;
-	$start_accuracy = $data2->start_accuracy;
+	$start          = $subject2->start;
+	$start_accuracy = $subject2->start_accuracy;
 
       } elseif (GlobalDataSet::isOlderRelativeType($relative['relative_type'])) {
-	$active_id      = $data1->id;
-	$passive_id     = $data2->id;
+	$active_id      = $subject1->id;
+	$passive_id     = $subject2->id;
 	$relation       = 'を' . $relative['relative_type'] . 'に持つ';
-	$start          = $data1->start;
-	$start_accuracy = $data1->start_accuracy;
+	$start          = $subject1->start;
+	$start_accuracy = $subject1->start_accuracy;
       } else return false;
 
       return [

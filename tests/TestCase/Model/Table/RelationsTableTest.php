@@ -107,11 +107,11 @@ class RelationsTableTest extends TestCase
       $testTarget2 = '朝長美桜';
       $existings = $Subjects->findByName($testTarget1);
       foreach($existings as $val) {
-	$data1 = $val;
+	$subject1 = $val;
       }
       $existings = $Subjects->findByName($testTarget2);
       foreach($existings as $val) {
-	$data2 = $val;
+	$subject2 = $val;
       }
 
       // Case 1
@@ -123,7 +123,7 @@ class RelationsTableTest extends TestCase
 	'start_accuracy' => 'year',
 	'is_momentary' => true
       ];
-      $res = RelationsTable::constRelativeGluon($data1, $data2, $relatives[0]);
+      $res = RelationsTable::constRelativeGluon($subject1, $subject2, $relatives[0]);
       $this->assertSame($res, $expected);
 
       // Case 2
@@ -135,7 +135,7 @@ class RelationsTableTest extends TestCase
 	'start_accuracy' => '',
 	'is_momentary' => true
       ];
-      $res = RelationsTable::constRelativeGluon($data1, $data2, $relatives[2]);
+      $res = RelationsTable::constRelativeGluon($subject1, $subject2, $relatives[2]);
       $this->assertSame($res, $expected);
     }
 }
