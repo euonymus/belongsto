@@ -47,6 +47,7 @@ class SubjectsTableTest extends TestCase
         $config = TableRegistry::exists('Subjects') ? [] : ['className' => 'App\Model\Table\SubjectsTable'];
         $this->Subjects = TableRegistry::get('Subjects', $config);
 	TalentDictionary::$internal = true; // in order not to access google search
+	Wikipedia::$internal = true; // in order not to access google search
     }
 
     /**
@@ -219,7 +220,6 @@ class SubjectsTableTest extends TestCase
 
 	// Test 5
 	$res = $this->Subjects->fillMissingData($filling, $existing);
-	debug($res);
 	$this->assertSame($res['image_path'], $filling['image_path']);
 	$this->assertSame($res['description'], $filling['description']);
 	$this->assertSame($res['start'], $filling['start']);
@@ -259,24 +259,45 @@ class SubjectsTableTest extends TestCase
 
 	$ret = $this->Subjects->updateInfoFromWikipedia($existing);
 	$this->assertTrue(!!$ret);
-/* debug($ret); */
       }
     }
 
-    public function testSavingFunctions()
+    public function testGetOneWithSearch()
+    {
+      $testTarget = '上白石萌歌';
+      $current = $this->Subjects->findByName($testTarget)->first();
+      $data = $this->Subjects->getOneWithSearch($testTarget);
+      $this->assertSame($data->id, $current->id);
+      $this->assertSame($data->description, $current->description);
+    }
+
+    public function testForceGetQuark()
+    {
+      // get record existing in db. in this case, it doesn't access to outsider's data
+      $testTarget = '上白石萌歌';
+      $current = $this->Subjects->findByName($testTarget)->first();
+      $data = $this->Subjects->forceGetQuark($testTarget);
+      $this->assertSame($data->id, $current->id);
+      $this->assertSame($data->description, $current->description);
+
+      if (self::$apitest) {
+	// get record from wikipedia
+	$testTarget = '武井咲';
+	$data = $this->Subjects->forceGetQuark($testTarget);
+	$this->assertSame($data->name, $testTarget);
+	$this->assertSame($data->start->format('Y-m-d\TH:i:s+00:00'), '1993-12-25T00:00:00+00:00');
+
+	// no data exists in neither wikipedia nor db, so create one
+	$testTarget = 'hohgehg';
+	$data = $this->Subjects->forceGetQuark($testTarget);
+	$this->assertSame($data->name, $testTarget);
+      }
+    }
+
+    public function testSaveNewArray()
     {
       if (self::$apitest) {
 	// retreive the target array from Talent dictionary.
-	$testTarget = '上白石萌歌';
-	$data = $this->Subjects->getOneWithSearch($testTarget);
-	/* debug($data); */
-
-	$testTarget = 'hohgehg';
-	$data = $this->Subjects->forceGetQuark($testTarget);
-	debug($data);
-
-
-
 	$testTarget = '上白石萌歌';
 	$filling = false;
 	$retrievedDatas = TalentDictionary::dummyReadOfTalentDictionary();
@@ -285,7 +306,8 @@ class SubjectsTableTest extends TestCase
 	  $filling = $val;
 	  break;
 	}
-	$this->Subjects->saveNewArray($filling);
+	$res = $this->Subjects->saveNewArray($filling);
+	$this->assertSame($res->name, $testTarget);
       }
     }
 }
