@@ -410,10 +410,7 @@ class SubjectsTable extends AppTable
       if (!is_array($arr) || !array_key_exists('name', $arr)) return false;
       $filling_name = self::removeAllSpaces($arr['name']);
 
-// TODO: 本当は search() だけど、phpunit testできないためfindByNameでテスト中。
-      $existings = $this->findByName($filling_name);
-      //$existings = $this->search($filling_name);
-      $existing = $this->findTargetFromSearchedData($filling_name, $existings);
+      $existing = self::getOneWithSearch($filling_name);
       if ($existing) {
 	return $this->saveToFillEmptyField($existing, $arr);
       } else {
