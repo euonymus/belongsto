@@ -15,6 +15,7 @@ use Cake\Cache\Engine\FileEngine;
 use Cake\Log\Log;
 class GoogleSearch
 {
+  public static $retrieveCacheConfig = 'default';
   public function __construct(array $token = array(), array $consumer = array())
   {
   }
@@ -47,6 +48,7 @@ class GoogleSearch
 
     ini_set('user_agent',
        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36');
+    U::$retrieveCacheConfig = self::$retrieveCacheConfig;
     return U::getXpathFromUrl($path, $element);
   }
 

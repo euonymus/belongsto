@@ -16,6 +16,7 @@ use Cake\Cache\Engine\FileEngine;
 use Cake\Log\Log;
 class Wikipedia
 {
+  public static $retrieveCacheConfig = 'default';
   public function __construct(array $token = array(), array $consumer = array())
   {
   }
@@ -34,6 +35,7 @@ class Wikipedia
     } else {
       $element = self::$xpath_main;
     }
+    U::$retrieveCacheConfig = self::$retrieveCacheConfig;
     $res = U::getXpathFromUrl($path, $element);
     if (!$res) return false;
 
