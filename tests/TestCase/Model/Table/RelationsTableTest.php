@@ -138,4 +138,13 @@ class RelationsTableTest extends TestCase
       $res = RelationsTable::constRelativeGluon($subject1, $subject2, $relatives[2]);
       $this->assertSame($res, $expected);
     }
+
+    public function testSaveGluonsFromWikipedia()
+    {
+      $testTarget1 = '向井地美音';
+      $Subjects = TableRegistry::get('Subjects');
+      $subject = $Subjects->findByName($testTarget1)->first();
+      debug($subject);
+      /* $this->Relatives->saveGluonsFromWikipedia(); */
+    }
 }

@@ -154,6 +154,14 @@ class RelationsTable extends AppTable
       return $this->findByBaryonId($baryon_id)->contain($contain);
     }
 
+    /*******************************************************/
+    /* batch                                               */
+    /*******************************************************/
+    public function saveGluonsFromWikipedia($subject)
+    {
+      debug($subject);
+    }
+
     /***************************************************************************/
     /* Tools                                                                   */
     /***************************************************************************/
