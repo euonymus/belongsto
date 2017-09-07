@@ -180,9 +180,13 @@ class RelationsTable extends AppTable
 
 	// if the relation already exists, skip it.
 	if ($this->checkRelationExists($gluon['active_id'], $gluon['passive_id'])) continue;
-debug($gluon);
-      }
 
+	$saving = $this->formToEntity($gluon);
+	$saving->user_id = 1;
+	$saving->last_modified_user = 1;
+// TODO: なぜか保存されない。意味不明
+	$saved = $this->save($saving);
+      }
     }
     public function checkRelationExists($active_id, $passive_id)
     {

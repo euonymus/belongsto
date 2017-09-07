@@ -32,7 +32,6 @@ class SubjectsTableTest extends TestCase
         'app.relations'
     ];
 
-    // MEMO: Twitter API callを頻繁にテストで使用したくないのでFalseにしておく。
     //static $apitest = true;
     static $apitest = false;
 

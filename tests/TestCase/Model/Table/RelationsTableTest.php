@@ -30,6 +30,9 @@ class RelationsTableTest extends TestCase
         'app.subject_searches',
     ];
 
+    //static $apitest = true;
+    static $apitest = false;
+
     /**
      * setUp method
      *
@@ -142,10 +145,20 @@ class RelationsTableTest extends TestCase
 
     public function testSaveGluonsFromWikipedia()
     {
-      $testTarget1 = '石田純一';
-      $Subjects = TableRegistry::get('Subjects');
-      $subject = $Subjects->findByName($testTarget1)->first();
-      $this->Relations->saveGluonsFromWikipedia($subject);
+      if (self::$apitest) {
+	$testTarget1 = '石田純一';
+	$Subjects = TableRegistry::get('Subjects');
+	$subject = $Subjects->findByName($testTarget1)->first();
+	$res = $this->Relations->saveGluonsFromWikipedia($subject);
+	$savedSubject = $Subjects->findByName('いしだ壱成')->first();
+	$this->assertTrue(!!$savedSubject);
+
+	/* $saved = $this->Relations->find()->all(); */
+	/* foreach($saved as $val) { */
+	/*   debug($val); */
+	/* } */
+
+      }
     }
 
     public function testCheckRelationExists()
