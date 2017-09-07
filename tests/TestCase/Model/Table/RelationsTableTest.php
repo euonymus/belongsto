@@ -27,6 +27,7 @@ class RelationsTableTest extends TestCase
     public $fixtures = [
         'app.relations',
         'app.subjects',
+        'app.subject_searches',
     ];
 
     /**
@@ -141,10 +142,18 @@ class RelationsTableTest extends TestCase
 
     public function testSaveGluonsFromWikipedia()
     {
-      $testTarget1 = '向井地美音';
+      $testTarget1 = '石田純一';
       $Subjects = TableRegistry::get('Subjects');
       $subject = $Subjects->findByName($testTarget1)->first();
-      debug($subject);
-      /* $this->Relatives->saveGluonsFromWikipedia(); */
+      $this->Relations->saveGluonsFromWikipedia($subject);
+    }
+
+    public function testCheckRelationExists()
+    {
+      $res = $this->Relations->checkRelationExists(1,2);
+      $this->assertFalse($res);
+
+      $res = $this->Relations->checkRelationExists(9,7);
+      $this->assertTrue($res);
     }
 }

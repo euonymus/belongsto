@@ -47,17 +47,24 @@ class GlobalDataSetTest extends TestCase
         parent::tearDown();
     }
 
-/*
-    public function testGetPassiveRelativeName()
+    public function testIsOlderRelativeType()
     {
       $str = '息子';
-      $res = GlobalDataSet::youngerLabelRelative($str);
+      $res = GlobalDataSet::isOlderRelativeType($str);
       $this->assertFalse($res);
 
       $str = '父';
-      $res = GlobalDataSet::youngerLabelRelative($str);
-      debug($res);
+      $res = GlobalDataSet::isOlderRelativeType($str);
+      $this->assertTrue($res);
+
+
+      $str = '長男';
+      $res = GlobalDataSet::isYoungerRelativeType($str);
+      $this->assertTrue($res);
+
+      $str = '星川との間の長男';
+      $res = GlobalDataSet::isYoungerRelativeType($str);
+      $this->assertTrue($res);
     }
-*/
 
 }

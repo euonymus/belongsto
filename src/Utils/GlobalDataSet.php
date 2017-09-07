@@ -50,24 +50,18 @@ class GlobalDataSet
   public static function isOlderRelativeType($str)
   {
     foreach(GlobalDataSet::$relative_types_older as $val) {
-      if (strcmp($val, $str) === 0) return true;
+      //if (strcmp($val, $str) === 0) return true;
+      if (preg_match('/'. $val . '/', $str)) return true;
     }
     return false;
   }
   public static function isYoungerRelativeType($str)
   {
     foreach(GlobalDataSet::$relative_types_younger as $val) {
-      if (strcmp($val, $str) === 0) return true;
+      //if (strcmp($val, $str) === 0) return true;
+      if (preg_match('/'. $val . '/', $str)) return true;
     }
     return false;
   }
-
-/*
-  public static function youngerLabelRelative($str)
-  {
-    if (!self::isOlderRelativeType($str)) return false;
-    return $str;
-  }
-*/
 
 }

@@ -18,17 +18,17 @@ class RelationsFixture extends TestFixture
      */
     public $records = [
         [
-            'id' => 'd5277032-3ee7-441b-86d1-c1caca39f027',
-            'active_id' => 'Lorem ipsum dolor sit amet',
-            'passive_id' => 'Lorem ipsum dolor sit amet',
-            'relation' => 'Lorem ipsum dolor sit amet',
-            'start' => '2016-11-01 06:33:07',
-            'end' => '2016-11-01 06:33:07',
-            'start_accuracy' => 'Lorem ip',
-            'end_accuracy' => 'Lorem ip',
-            'is_momentary' => 1,
-            'created' => '2016-11-01 06:33:07',
-            'modified' => '2016-11-01 06:33:07'
+            'id'             => '1',
+            'active_id'      => '9',
+            'passive_id'     => '7',
+            'relation'       => 'の娘',
+            'start'          => '2016-11-01 06:33:07',
+            'end'            => NULL,
+            'start_accuracy' => '',
+            'end_accuracy'   => '',
+            'is_momentary'   => 1,
+            'created'        => '2016-11-01 06:33:07',
+            'modified'       => '2016-11-01 06:33:07'
         ],
     ];
 }

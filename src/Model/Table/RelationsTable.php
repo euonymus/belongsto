@@ -11,6 +11,7 @@ use Cake\Core\Configure;
 
 use App\Utils\U;
 use App\Utils\GlobalDataSet;
+use App\Utils\Wikipedia;
 
 /**
  * Relations Model
@@ -155,16 +156,44 @@ class RelationsTable extends AppTable
     }
 
     /*******************************************************/
+    /* where                                               */
+    /*******************************************************/
+    public static function whereActivePassivePair($active_id, $passive_id)
+    {
+      return ['Relations.active_id' => $active_id, 
+	      'Relations.passive_id' => $passive_id];
+    }
+    
+    /*******************************************************/
     /* batch                                               */
     /*******************************************************/
     public function saveGluonsFromWikipedia($subject)
     {
-      debug($subject);
+      $Subjects = TableRegistry::get('Subjects');
+      $relations = Wikipedia::readPageForGluons($subject->name);
+      // treat relatives
+      foreach($relations['relatives'] as $val) {
+	if (!is_array($val) || !array_key_exists('main', $val)) continue;
+	$subject2 = $Subjects->forceGetQuark($val['main']);
+	$gluon = self::constRelativeGluon($subject, $subject2, $val);
+	if (!$gluon) continue;
+
+	// if the relation already exists, skip it.
+	if ($this->checkRelationExists($gluon['active_id'], $gluon['passive_id'])) continue;
+debug($gluon);
+      }
+
+    }
+    public function checkRelationExists($active_id, $passive_id)
+    {
+      $where = self::whereActivePassivePair($active_id, $passive_id);
+      $data = $this->find()->where($where)->first();
+      return !!$data;
     }
 
-    /***************************************************************************/
-    /* Tools                                                                   */
-    /***************************************************************************/
+    /*******************************************************/
+    /* Tools                                               */
+    /*******************************************************/
     public static function constRelativeGluon($subject1, $subject2, $relative)
     {
       if (!self::checkRelativeInfoFormat($relative)) return false;
@@ -172,14 +201,13 @@ class RelationsTable extends AppTable
 	$active_id      = $subject2->id;
 	$passive_id     = $subject1->id;
 	$relation       = 'の' . $relative['relative_type'];
-	$start          = $subject2->start;
+	$start          = $subject2->start ? $subject2->start->format('Y-m-d H:i:s') : NULL;
 	$start_accuracy = $subject2->start_accuracy;
-
       } elseif (GlobalDataSet::isOlderRelativeType($relative['relative_type'])) {
 	$active_id      = $subject1->id;
 	$passive_id     = $subject2->id;
 	$relation       = 'を' . $relative['relative_type'] . 'に持つ';
-	$start          = $subject1->start;
+	$start          = $subject1->start ? $subject1->start->format('Y-m-d H:i:s') : NULL;
 	$start_accuracy = $subject1->start_accuracy;
       } else return false;
 
@@ -187,7 +215,7 @@ class RelationsTable extends AppTable
 	      'active_id'      => $active_id,
 	      'passive_id'     => $passive_id,
 	      'relation'       => $relation,
-	      'start'          => $start->format('Y-m-d H:i:s'),
+	      'start'          => $start,
 	      'start_accuracy' => $start_accuracy,
 	      'is_momentary'   => true,
       ];
