@@ -161,6 +161,38 @@ class RelationsTableTest extends TestCase
       }
     }
 
+    public function testHoge()
+    {
+      $arr = [
+	      'active_id' => 999,
+	      'passive_id' => 998,
+	      'relation' => 'hoge',
+
+	      'suffix'   => '',
+	      'start'   => NULL,
+	      'end'   => NULL,
+	      'start_accuracy'   => '',
+	      'end_accuracy'   => '',
+
+	      'is_momentary' => true,
+
+	      'order_level'   => 1,
+	      'is_exclusive'   => false,
+	      'user_id'   => 2,
+	      'last_modified_user'   => 2,
+	      'baryon_id'   => NULL,
+	      'created'   => NULL,
+	      'modified'   => NULL,
+
+      ];
+      $data = $this->Relations->formToEntity($arr);
+
+      /* $data = $this->Relations->findById(1)->first(); */
+
+      $res = $this->Relations->save($data);
+      debug($res);
+    }
+
     public function testCheckRelationExists()
     {
       $res = $this->Relations->checkRelationExists(1,2);

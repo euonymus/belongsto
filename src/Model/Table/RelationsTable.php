@@ -184,8 +184,11 @@ class RelationsTable extends AppTable
 	$saving = $this->formToEntity($gluon);
 	$saving->user_id = 1;
 	$saving->last_modified_user = 1;
+
+debug($saving);
 // TODO: なぜか保存されない。意味不明
 	$saved = $this->save($saving);
+debug($saved);
       }
     }
     public function checkRelationExists($active_id, $passive_id)
