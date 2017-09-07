@@ -149,9 +149,11 @@ class RelationsTableTest extends TestCase
     {
       if (self::$apitest) {
 	$testTarget1 = '石田純一';
+	// Relations->buildRules() にてActives, PassivesのルールをつけているのがFixtureが作れないので、テストではルールを無視する。
+	$options = ['checkRules' => false];
 	$Subjects = TableRegistry::get('Subjects');
 	$subject = $Subjects->findByName($testTarget1)->first();
-	$res = $this->Relations->saveGluonsFromWikipedia($subject);
+	$res = $this->Relations->saveGluonsFromWikipedia($subject, $options);
 	$savedSubject = $Subjects->findByName('いしだ壱成')->first();
 	$this->assertTrue(!!$savedSubject);
 

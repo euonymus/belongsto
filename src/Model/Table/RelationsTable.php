@@ -167,7 +167,7 @@ class RelationsTable extends AppTable
     /*******************************************************/
     /* batch                                               */
     /*******************************************************/
-    public function saveGluonsFromWikipedia($subject)
+    public function saveGluonsFromWikipedia($subject, $options =[])
     {
       $Subjects = TableRegistry::get('Subjects');
       $relations = Wikipedia::readPageForGluons($subject->name);
@@ -185,9 +185,7 @@ class RelationsTable extends AppTable
 	$saving->user_id = 1;
 	$saving->last_modified_user = 1;
 
-// TODO: ['checkRules' => false] にしないとなぜか保存されない。意味不明
-        //$saved = $this->save($saving);
-	$saved = $this->save($saving, ['checkRules' => false]);
+	$saved = $this->save($saving, $options);
       }
     }
     public function checkRelationExists($active_id, $passive_id)
