@@ -185,10 +185,9 @@ class RelationsTable extends AppTable
 	$saving->user_id = 1;
 	$saving->last_modified_user = 1;
 
-debug($saving);
-// TODO: なぜか保存されない。意味不明
-	$saved = $this->save($saving);
-debug($saved);
+// TODO: ['checkRules' => false] にしないとなぜか保存されない。意味不明
+        //$saved = $this->save($saving);
+	$saved = $this->save($saving, ['checkRules' => false]);
       }
     }
     public function checkRelationExists($active_id, $passive_id)

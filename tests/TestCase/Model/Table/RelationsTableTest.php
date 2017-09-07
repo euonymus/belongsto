@@ -28,6 +28,8 @@ class RelationsTableTest extends TestCase
         'app.relations',
         'app.subjects',
         'app.subject_searches',
+        //'app.actives',
+        //'app.passives',
     ];
 
     //static $apitest = true;
@@ -153,14 +155,15 @@ class RelationsTableTest extends TestCase
 	$savedSubject = $Subjects->findByName('いしだ壱成')->first();
 	$this->assertTrue(!!$savedSubject);
 
-	/* $saved = $this->Relations->find()->all(); */
-	/* foreach($saved as $val) { */
-	/*   debug($val); */
-	/* } */
+	$saved = $this->Relations->findByActiveId(7)->count();
+	$this->assertSame($saved, 4);
 
+	$saved = $this->Relations->findByPassiveId(7)->count();
+	$this->assertSame($saved, 2);
       }
     }
 
+/*
     public function testHoge()
     {
       $arr = [
@@ -187,11 +190,14 @@ class RelationsTableTest extends TestCase
       ];
       $data = $this->Relations->formToEntity($arr);
 
-      /* $data = $this->Relations->findById(1)->first(); */
+      //$data = $this->Relations->findById(1)->first();
+      //$data->name = 'pepe';
 
+      //$res = $this->Relations->save($data,['checkRules' => false]);
       $res = $this->Relations->save($data);
       debug($res);
     }
+*/
 
     public function testCheckRelationExists()
     {
