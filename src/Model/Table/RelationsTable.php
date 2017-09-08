@@ -171,6 +171,8 @@ class RelationsTable extends AppTable
     {
       $Subjects = TableRegistry::get('Subjects');
       $relations = Wikipedia::readPageForGluons($subject->name);
+      if (!$relations || !array_key_exists('relatives', $relations) || !$relations['relatives']) return false;
+
       // treat relatives
       foreach($relations['relatives'] as $val) {
 	if (!is_array($val) || !array_key_exists('main', $val)) continue;
@@ -187,6 +189,7 @@ class RelationsTable extends AppTable
 
 	$saved = $this->save($saving, $options);
       }
+      return true;
     }
     public function checkRelationExists($active_id, $passive_id)
     {

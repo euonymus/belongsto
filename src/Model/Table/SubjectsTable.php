@@ -34,6 +34,9 @@ use App\Utils\Wikipedia;
  */
 class SubjectsTable extends AppTable
 {
+    public static $relative_collected_non  = 0;
+    public static $relative_collected_done = 1;
+    public static $relative_collected_fail = 2;
 
     /**
      * Initialize method
@@ -484,6 +487,28 @@ class SubjectsTable extends AppTable
       return ['Subjects.id' => false];
     }
 
+    /*******************************************************/
+    /* gluons                                              */
+    /*******************************************************/
+    public function findAndSaveRelatives($limit = 10)
+    {
+      $datas = $this->findByRelativeCollected(self::$relative_collected_non)->limit($limit);
+      if (!$datas) return false;
+
+      foreach ($datas as $val) {
+	$res = $this->Relations->saveGluonsFromWikipedia($val);
+	if (!$res) {
+	  $val->relative_collected = self::$relative_collected_fail;
+	  $this->save($val);
+	  continue;
+	}
+
+	$val->relative_collected = self::$relative_collected_done;
+	$saved = $this->save($val);
+      }
+      return true;
+    }
+
     /****************************************************************************/
     /* Tools                                                                    */
     /****************************************************************************/
@@ -496,8 +521,7 @@ class SubjectsTable extends AppTable
     // this will remove all the spaces, even in between the strings.
     public static function removeAllSpaces($str, $includeIdeographicSpace = true)
     {
-      $tmp = preg_replace('/ /', '', $str);
-      return preg_replace('/　/', '', $tmp);
+      return U::removeAllSpaces($str, $includeIdeographicSpace);
     }
 
     // $name: name of the quark

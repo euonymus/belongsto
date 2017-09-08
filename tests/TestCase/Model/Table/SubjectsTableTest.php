@@ -309,4 +309,25 @@ class SubjectsTableTest extends TestCase
 	$this->assertSame($res->name, $testTarget);
       }
     }
+
+    public function testFindAndSaveRelatives()
+    {
+      if (self::$apitest) {
+	$res = $this->Subjects->findAndSaveRelatives(3);
+	$this->assertTrue($res);
+
+	$test = $this->Subjects->find()->all();
+	foreach ($test as $val) {
+	  debug($val->toArray());
+	}
+
+	// RelationsTableのRulesのせいで保存できないのでテストできない。
+	//$Relations = TableRegistry::get('Relations');
+	//$test = $Relations->find()->all();
+	//foreach ($test as $val) {
+	//	debug($val->toArray());
+	//}
+      }
+
+    }
 }

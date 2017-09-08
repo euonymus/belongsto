@@ -291,10 +291,11 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('relative_collected', 'boolean', [
-                'default' => false,
-                'limit' => null,
+            ->addColumn('relative_collected', 'integer', [
+                'default' => 0,
+                'limit' => 3,
                 'null' => false,
+                'signed' => false,
             ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
@@ -309,6 +310,11 @@ class Initial extends AbstractMigration
             ->addIndex(
                 [
                     'name',
+                ]
+            )
+            ->addIndex(
+                [
+                    'relative_collected',
                 ]
             )
             ->create();
@@ -548,10 +554,11 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('relative_collected', 'boolean', [
-                'default' => false,
-                'limit' => null,
+            ->addColumn('relative_collected', 'integer', [
+                'default' => 0,
+                'limit' => 3,
                 'null' => false,
+                'signed' => false,
             ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
@@ -566,6 +573,11 @@ class Initial extends AbstractMigration
             ->addIndex(
                 [
                     'name',
+                ]
+            )
+            ->addIndex(
+                [
+                    'relative_collected',
                 ]
             )
             ->create();

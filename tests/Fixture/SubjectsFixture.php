@@ -35,7 +35,7 @@ class SubjectsFixture extends TestFixture
 	    'last_modified_user' => 2,
 	    'wikipedia_sourced'  => false,
 	    't_dictionary_sourced' => false,
-	    'relative_collected' => false,
+	    'relative_collected' => 0,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -57,7 +57,7 @@ class SubjectsFixture extends TestFixture
 	    'last_modified_user' => 2,
 	    'wikipedia_sourced'  => false,
 	    't_dictionary_sourced' => false,
-	    'relative_collected' => false,
+	    'relative_collected' => 0,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -79,7 +79,7 @@ class SubjectsFixture extends TestFixture
 	    'last_modified_user' => 2,
 	    'wikipedia_sourced'  => false,
 	    't_dictionary_sourced' => false,
-	    'relative_collected' => false,
+	    'relative_collected' => 1,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -101,7 +101,7 @@ class SubjectsFixture extends TestFixture
 	    'last_modified_user' => 2,
 	    'wikipedia_sourced'  => false,
 	    't_dictionary_sourced' => false,
-	    'relative_collected' => false,
+	    'relative_collected' => 1,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -123,7 +123,7 @@ class SubjectsFixture extends TestFixture
 	    'last_modified_user' => 2,
 	    'wikipedia_sourced'  => false,
 	    't_dictionary_sourced' => false,
-	    'relative_collected' => false,
+	    'relative_collected' => 0,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -145,7 +145,7 @@ class SubjectsFixture extends TestFixture
 	    'last_modified_user' => 2,
 	    'wikipedia_sourced'  => false,
 	    't_dictionary_sourced' => false,
-	    'relative_collected' => false,
+	    'relative_collected' => 0,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -167,7 +167,7 @@ class SubjectsFixture extends TestFixture
 	    'last_modified_user' => 2,
 	    'wikipedia_sourced'  => false,
 	    't_dictionary_sourced' => false,
-	    'relative_collected' => false,
+	    'relative_collected' => 0,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -189,7 +189,7 @@ class SubjectsFixture extends TestFixture
 	    'last_modified_user' => 2,
 	    'wikipedia_sourced'  => false,
 	    't_dictionary_sourced' => false,
-	    'relative_collected' => false,
+	    'relative_collected' => 0,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -211,7 +211,7 @@ class SubjectsFixture extends TestFixture
 	    'last_modified_user' => 2,
 	    'wikipedia_sourced'  => false,
 	    't_dictionary_sourced' => false,
-	    'relative_collected' => false,
+	    'relative_collected' => 0,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],

@@ -570,6 +570,14 @@ class U
     //    return preg_replace('/^[ 　\r\n]*(.*?)[ 　\r\n]*$/u', '$1', $str);
     return preg_replace('/^[ 　\r\n]*((?:.|\n)*?)[ 　\r\n]*$/u', '$1', $str);
   }
+  // remove all the spaces.
+  // this will remove all the spaces, even in between the strings.
+  // TODO: 全角スペースの有無をコンフィグできるようにする。
+  public static function removeAllSpaces($str, $includeIdeographicSpace = true)
+  {
+    $tmp = preg_replace('/ /', '', $str);
+    return preg_replace('/　/', '', $tmp);
+  }
   public static function abbreviateStr($str, $length)
   {
     $str = self::trimSpace($str);
