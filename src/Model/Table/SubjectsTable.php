@@ -576,7 +576,9 @@ class SubjectsTable extends AppTable
 	return $response;
     }
 
-    /** Wikipedia **/
+    /****************************************************************************/
+    /* Wikipedia                                                                */
+    /****************************************************************************/
     public function insertInfoFromWikipedia($txt)
     {
       $query = self::removeAllSpaces($txt);
