@@ -67,12 +67,11 @@ class TalentDictionaryTest extends TestCase
       debug($res);
     }
 
-    public function testReadGoogleImg()
+    public function testReadPage()
     {
       if (self::$apitest) {
-	// Dummy read
-	$str = 'タモリ';
-	$res = TalentDictionary::readGoogleImg($str);
+	// Actual read
+	$res = TalentDictionary::readPage(10, 1);
 	debug($res);
       }
     }

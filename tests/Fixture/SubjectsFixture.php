@@ -33,6 +33,9 @@ class SubjectsFixture extends TestFixture
 	    'is_exclusive'       => false,
 	    'user_id'            => 2,
 	    'last_modified_user' => 2,
+	    'wikipedia_sourced'  => false,
+	    't_dictionary_sourced' => false,
+	    'relative_collected' => false,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -52,6 +55,9 @@ class SubjectsFixture extends TestFixture
 	    'is_exclusive'       => false,
 	    'user_id'            => 2,
 	    'last_modified_user' => 2,
+	    'wikipedia_sourced'  => false,
+	    't_dictionary_sourced' => false,
+	    'relative_collected' => false,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -71,6 +77,9 @@ class SubjectsFixture extends TestFixture
 	    'is_exclusive'       => false,
 	    'user_id'            => 2,
 	    'last_modified_user' => 2,
+	    'wikipedia_sourced'  => false,
+	    't_dictionary_sourced' => false,
+	    'relative_collected' => false,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -90,6 +99,9 @@ class SubjectsFixture extends TestFixture
 	    'is_exclusive'       => false,
 	    'user_id'            => 2,
 	    'last_modified_user' => 2,
+	    'wikipedia_sourced'  => false,
+	    't_dictionary_sourced' => false,
+	    'relative_collected' => false,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -109,6 +121,9 @@ class SubjectsFixture extends TestFixture
 	    'is_exclusive'       => false,
 	    'user_id'            => 2,
 	    'last_modified_user' => 2,
+	    'wikipedia_sourced'  => false,
+	    't_dictionary_sourced' => false,
+	    'relative_collected' => false,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -128,6 +143,9 @@ class SubjectsFixture extends TestFixture
 	    'is_exclusive'       => false,
 	    'user_id'            => 2,
 	    'last_modified_user' => 2,
+	    'wikipedia_sourced'  => false,
+	    't_dictionary_sourced' => false,
+	    'relative_collected' => false,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -147,6 +165,9 @@ class SubjectsFixture extends TestFixture
 	    'is_exclusive'       => false,
 	    'user_id'            => 2,
 	    'last_modified_user' => 2,
+	    'wikipedia_sourced'  => false,
+	    't_dictionary_sourced' => false,
+	    'relative_collected' => false,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -166,6 +187,9 @@ class SubjectsFixture extends TestFixture
 	    'is_exclusive'       => false,
 	    'user_id'            => 2,
 	    'last_modified_user' => 2,
+	    'wikipedia_sourced'  => false,
+	    't_dictionary_sourced' => false,
+	    'relative_collected' => false,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],
@@ -185,6 +209,9 @@ class SubjectsFixture extends TestFixture
 	    'is_exclusive'       => false,
 	    'user_id'            => 2,
 	    'last_modified_user' => 2,
+	    'wikipedia_sourced'  => false,
+	    't_dictionary_sourced' => false,
+	    'relative_collected' => false,
             'created'            => '2016-11-01 06:32:38',
             'modified'           => '2016-11-01 06:32:38'
         ],

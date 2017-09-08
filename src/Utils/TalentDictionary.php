@@ -109,7 +109,7 @@ class TalentDictionary
     if (self::$internal) {
       $image = self::readImg($img);
     } else {
-      $image = self::readGoogleImg($name);
+      $image = GoogleSearch::getFirstImageFromImageSearch($name);
     }
     if ($image) $ret['image_path'] = $image;
 
@@ -121,12 +121,9 @@ class TalentDictionary
     $startArr = self::readStartArr($main);
     $ret = array_merge($ret, $startArr);
 
-    return $ret;
-  }
+    $ret['t_dictionary_sourced'] = 1;
 
-  public static function readGoogleImg($str)
-  {
-    return GoogleSearch::getFirstImageFromImageSearch($str);
+    return $ret;
   }
 
   public static function readImg($element)

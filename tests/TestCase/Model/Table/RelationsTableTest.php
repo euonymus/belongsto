@@ -92,15 +92,18 @@ class RelationsTableTest extends TestCase
     static $dummyRelatives = [
 		[
 			'main' => 'A子さん',
-			'relative_type' => '長女'
+			'relative_type' => '長女',
+			'source' => 'wikipedia'
 		],
 		[
 			'main' => 'B子さん',
-			'relative_type' => '娘婿'
+			'relative_type' => '娘婿',
+			'source' => 'wikipedia'
 		],
 		[
 			'main' => 'C男さん',
-			'relative_type' => '祖父'
+			'relative_type' => '祖父',
+			'source' => 'wikipedia'
 		],
     ];
 
@@ -127,7 +130,8 @@ class RelationsTableTest extends TestCase
 	'relation' => 'の長女',
 	'start' => '1998-01-01 00:00:00',
 	'start_accuracy' => 'year',
-	'is_momentary' => true
+	'is_momentary' => true,
+	'source' => 'wikipedia',
       ];
       $res = RelationsTable::constRelativeGluon($subject1, $subject2, $relatives[0]);
       $this->assertSame($res, $expected);
@@ -139,7 +143,8 @@ class RelationsTableTest extends TestCase
 	'relation' => 'を祖父に持つ',
 	'start' => '1998-01-29 00:00:00',
 	'start_accuracy' => '',
-	'is_momentary' => true
+	'is_momentary' => true,
+	'source' => 'wikipedia',
       ];
       $res = RelationsTable::constRelativeGluon($subject1, $subject2, $relatives[2]);
       $this->assertSame($res, $expected);

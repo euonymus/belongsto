@@ -247,7 +247,6 @@ class SubjectsTable extends AppTable
 	}
       }
 
-
       $new_date     = array_key_exists('end', $filling) ? $filling['end'] : false;
       $new_accuracy = array_key_exists('end_accuracy', $filling) ? $filling['end_accuracy'] : false;
       $datePair = self::chooseMoreAccurateDatePair($existing->end, $existing->end_accuracy,
@@ -257,6 +256,13 @@ class SubjectsTable extends AppTable
 	if (array_key_exists('accuracy', $datePair)) {
 	  $ret['end_accuracy'] = $datePair['accuracy'];
 	}
+      }
+
+      if (array_key_exists('wikipedia_sourced', $filling) && !empty($filling['wikipedia_sourced'])) {
+	$ret['wikipedia_sourced'] = $filling['wikipedia_sourced'];
+      }
+      if (array_key_exists('t_dictionary_sourced', $filling) && !empty($filling['t_dictionary_sourced'])) {
+	$ret['t_dictionary_sourced'] = $filling['t_dictionary_sourced'];
       }
 
       return $ret;

@@ -48,6 +48,7 @@ class GoogleSearchTest extends TestCase
     public function testHoge()
     {
       if (self::$apitest) {
+	//$query = 'タモリ';
 	$query = 'とくだね';
 	$res = GoogleSearch::getFirstImageFromImageSearch($query);
 	debug($res);

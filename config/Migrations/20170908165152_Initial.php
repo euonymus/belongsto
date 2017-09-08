@@ -140,6 +140,11 @@ class Initial extends AbstractMigration
                 'null' => true,
                 'signed' => false,
             ])
+            ->addColumn('source', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
                 'limit' => null,
@@ -276,6 +281,21 @@ class Initial extends AbstractMigration
                 'null' => true,
                 'signed' => false,
             ])
+            ->addColumn('wikipedia_sourced', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('t_dictionary_sourced', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('relative_collected', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
                 'limit' => null,
@@ -377,6 +397,11 @@ class Initial extends AbstractMigration
                 'null' => true,
                 'signed' => false,
             ])
+            ->addColumn('source', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
                 'limit' => null,
@@ -391,6 +416,11 @@ class Initial extends AbstractMigration
                 [
                     'active_id',
                     'passive_id',
+                ]
+            )
+            ->addIndex(
+                [
+                    'baryon_id',
                 ]
             )
             ->create();
@@ -507,6 +537,21 @@ class Initial extends AbstractMigration
                 'limit' => 11,
                 'null' => true,
                 'signed' => false,
+            ])
+            ->addColumn('wikipedia_sourced', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('t_dictionary_sourced', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('relative_collected', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
             ])
             ->addColumn('created', 'datetime', [
                 'default' => null,

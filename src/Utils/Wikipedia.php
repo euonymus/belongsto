@@ -117,6 +117,7 @@ class Wikipedia
 	    'is_momentary'          => false,
 	    'url'                   => $url,
 	    'user_id'               => 1,
+	    'wikipedia_sourced'     => 1,
 	    ];
   }
 
@@ -361,7 +362,7 @@ class Wikipedia
     }
     if (!$relative_type) return false;
 
-    return ['main' => $main, 'relative_type' => $relative_type];
+    return ['main' => $main, 'relative_type' => $relative_type, 'source' => 'wikipedia'];
   }
 
   /*********************************************************************************/

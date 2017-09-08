@@ -215,6 +215,13 @@ class RelationsTable extends AppTable
 	$start_accuracy = $subject1->start_accuracy;
       } else return false;
 
+
+      if (array_key_exists('source', $relative) && $relative['source']) {
+	$source = $relative['source'];
+      } else {
+	$source = NULL;
+      }
+
       return [
 	      'active_id'      => $active_id,
 	      'passive_id'     => $passive_id,
@@ -222,6 +229,7 @@ class RelationsTable extends AppTable
 	      'start'          => $start,
 	      'start_accuracy' => $start_accuracy,
 	      'is_momentary'   => true,
+	      'source'         => $source,
       ];
     }
     public static function checkRelativeInfoFormat($relative)

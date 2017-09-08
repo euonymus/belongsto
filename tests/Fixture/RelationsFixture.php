@@ -33,6 +33,7 @@ class RelationsFixture extends TestFixture
             'user_id'            => 2,
             'last_modified_user' => 2,
             'baryon_id'          => NULL,
+            'source'             => NULL,
             'created'            => '2016-11-01 06:33:07',
             'modified'           => '2016-11-01 06:33:07'
         ],
