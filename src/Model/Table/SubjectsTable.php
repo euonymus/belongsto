@@ -493,6 +493,9 @@ class SubjectsTable extends AppTable
     public function findAndSaveRelatives($limit = 10)
     {
       $datas = $this->findByRelativeCollected(self::$relative_collected_non)->limit($limit);
+//foreach($datas as $data) {
+//  debug($data->toArray());
+//}
       if (!$datas) return false;
 
       foreach ($datas as $val) {

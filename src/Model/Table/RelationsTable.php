@@ -170,7 +170,9 @@ class RelationsTable extends AppTable
     public function saveGluonsFromWikipedia($subject, $options =[])
     {
       $Subjects = TableRegistry::get('Subjects');
-      $relations = Wikipedia::readPageForGluons($subject->name);
+
+      $query = U::removeAllSpaces($subject->name);
+      $relations = Wikipedia::readPageForGluons($query);
       if (!$relations || !array_key_exists('relatives', $relations) || !$relations['relatives']) return false;
 
       // treat relatives
