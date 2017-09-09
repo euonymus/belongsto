@@ -320,7 +320,9 @@ class Wikipedia
     // find relative information
     $relatives = [];
     foreach($element as $val) {
-      if ($res = self::findRelatives($val)) {
+      $res = self::findRelatives($val);
+      if ($res) {
+// TODO: なぜか falseなのにここを通過する場合があるように見える
 	$relatives = array_merge($relatives, $res);
       }
     }

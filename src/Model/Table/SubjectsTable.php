@@ -394,6 +394,7 @@ class SubjectsTable extends AppTable
     {
 // TODO: 本当は search() だけど、phpunit testできないためfindByNameでテスト中。
       $existings = $this->findByName($str);
+// TODO: なぜかバッチで検索できない
       //$existings = $this->search($str);
       return $this->findTargetFromSearchedData($str, $existings);
     }
