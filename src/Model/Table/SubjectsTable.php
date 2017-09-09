@@ -408,9 +408,9 @@ class SubjectsTable extends AppTable
       if ($res) return $res;
 
       $arr = ['name' => $str, 'is_momentary' => false, 'is_private' => false, 'is_exclusive' => true,
-	      //'user_id' => 1];
-	      'user_id' => 1, 'last_modified_user' => 1];
+	      'user_id' => 1];
       $saving = $this->formToSaving($arr);
+      $saving->last_modified_user = 1;
       return $this->save($saving);
     }
 
@@ -501,7 +501,9 @@ class SubjectsTable extends AppTable
 
       foreach ($datas as $val) {
 	//debug($val->toArray());
-	$res = $this->Relations->saveGluonsFromWikipedia($val);
+	// checkRules = falseとしないとrelationsの保存に失敗するのでしかたなく。
+	$options = ['checkRules' => false];
+	$res = $this->Relations->saveGluonsFromWikipedia($val, $options);
 	if (!$res) {
 	  $val->relative_collected = self::$relative_collected_fail;
 	  $this->save($val);
