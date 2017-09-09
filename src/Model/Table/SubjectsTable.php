@@ -260,6 +260,7 @@ class SubjectsTable extends AppTable
 	  $ret['end_accuracy'] = $datePair['accuracy'];
 	}
       }
+      if (empty($ret)) return false;
 
       if (array_key_exists('wikipedia_sourced', $filling) && !empty($filling['wikipedia_sourced'])) {
 	$ret['wikipedia_sourced'] = $filling['wikipedia_sourced'];
@@ -618,6 +619,7 @@ class SubjectsTable extends AppTable
       if (!$res) return false;
 
       $saving = $this->formToSaving($res);
+      $saving->last_modified_user = 1; // static
       return $this->save($saving);
     }
     public function updateInfoFromWikipedia($data)

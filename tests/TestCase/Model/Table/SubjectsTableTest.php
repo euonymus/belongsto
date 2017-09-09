@@ -221,8 +221,8 @@ class SubjectsTableTest extends TestCase
 	$res = $this->Subjects->fillMissingData($filling, $existing);
 	$this->assertSame($res['image_path'], $filling['image_path']);
 	$this->assertSame($res['description'], $filling['description']);
-	$this->assertSame($res['start'], $filling['start']);
-	$this->assertSame($res['start_accuracy'], $filling['start_accuracy']);
+	$this->assertFalse(array_key_exists('start', $res));
+	$this->assertFalse(array_key_exists('start_accuracy', $res));
 	$this->assertSame($res['url'], $filling['url']);
       }
     }
