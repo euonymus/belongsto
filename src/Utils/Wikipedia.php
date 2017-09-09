@@ -63,14 +63,17 @@ class Wikipedia
     if (!$ret || !is_array($ret)) return false;
 
     // get google image
-    if (!self::$internal) {
+    if (!self::$internal &&
+	(!array_key_exists('image_path', $ret) || empty($ret['image_path']))
+    ) {
       $res =  GoogleSearch::getFirstImageFromImageSearch($query);
-      if ($res) {
+      if ($res && (strlen($res) <= 255)) {
 	$ret['image_path'] =  $res;
       }
     }
 
     $ret['name'] = $query;
+
     return $ret;
   }
 
@@ -80,7 +83,9 @@ class Wikipedia
     $description = ($res = self::retrieveDescription($xml)) ? $res : '';
 
     // get image_path
-    $image_path = ($res = self::retrieveImagePath($xml)) ? $res : NULL;
+    //$image_path = ($res = self::retrieveImagePath($xml)) ? $res : NULL;
+    $res = self::retrieveImagePath($xml);
+    $image_path = ($res && (strlen($res) <= 255)) ? $res : NULL;
 
     // get start array
     $start = self::retrieveStart($xml);
@@ -116,7 +121,10 @@ class Wikipedia
 	    'end_accuracy'          => $end_accuracy,
 	    'is_momentary'          => false,
 	    'url'                   => $url,
+	    'is_private'            => false,
+	    'is_exclusive'          => true,
 	    'user_id'               => 1,
+	    'last_modified_user'    => 1,
 	    'wikipedia_sourced'     => 1,
 	    ];
   }

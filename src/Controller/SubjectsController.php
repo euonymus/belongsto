@@ -38,7 +38,7 @@ class SubjectsController extends AppController
         ];
 	$order = false;
         if (!isset($this->request->query['type']) || $this->request->query['type'] != 0) {
-	  $options['order'] = ['Subjects.modified' => 'desc'];
+	  $options['order'] = ['Subjects.created' => 'desc'];
 	  $order = true;
         }
         $this->paginate = $options;

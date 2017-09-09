@@ -406,7 +406,10 @@ class SubjectsTable extends AppTable
       $res = $this->insertInfoFromWikipedia($str);
       if ($res) return $res;
 
-      $saving = $this->formToSaving(['name' => $str, 'is_momentary' => false]);
+      $arr = ['name' => $str, 'is_momentary' => false, 'is_private' => false, 'is_exclusive' => true,
+	      //'user_id' => 1];
+	      'user_id' => 1, 'last_modified_user' => 1];
+      $saving = $this->formToSaving($arr);
       return $this->save($saving);
     }
 
@@ -494,7 +497,7 @@ class SubjectsTable extends AppTable
     {
       $datas = $this->findByRelativeCollected(self::$relative_collected_non)->limit($limit);
 //foreach($datas as $data) {
-//  debug($data->toArray());
+// debug($data->toArray());
 //}
       if (!$datas) return false;
 
