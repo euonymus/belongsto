@@ -16,8 +16,24 @@ class RetrieveShell extends Shell
   {
     Configure::write('Belongsto.lang',     'ja');
     Configure::write('Belongsto.lang_eng', 'eng');
+    Configure::write('Belongsto.privacyMode', \App\Controller\AppController::PRIVACY_PUBLIC);
 
     $Subjects = TableRegistry::get('Subjects');
     $Subjects->findAndSaveRelatives();
+  }
+
+  public function experimentSearch()
+  {
+    Configure::write('Belongsto.lang',     'ja');
+    Configure::write('Belongsto.lang_eng', 'eng');
+    Configure::write('Belongsto.privacyMode', \App\Controller\AppController::PRIVACY_PUBLIC);
+
+    $Subjects = TableRegistry::get('Subjects');
+    $word = '渡辺 謙';
+
+
+    debug($Subjects->privacyMode);
+    $res = $Subjects->search($word);
+    debug($res->toArray());
   }
 }
