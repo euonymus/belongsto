@@ -12,7 +12,6 @@ use U\U;
 
 class RetrieveShell extends Shell
 {
-  //public static $withCacheLog = true;
   public function retrieveRelatives()
   {
     Configure::write('Belongsto.lang',     'ja');
