@@ -368,6 +368,11 @@ class SubjectsTable extends AppTable
       return $subject;
     }
 
+    // lang, lang_eng, privacyMode 設定しないと検索できないので注意
+    // 例
+    // Configure::write('Belongsto.lang',     'ja');
+    // Configure::write('Belongsto.lang_eng', 'eng');
+    // Configure::write('Belongsto.privacyMode', 1);
     public function search($search_words, $limit = 20)
     {
       $expr = self::bigramize($search_words);
@@ -394,7 +399,6 @@ class SubjectsTable extends AppTable
     {
 // TODO: 本当は search() だけど、phpunit testできないためfindByNameでテスト中。
       //$existings = $this->findByName($str);
-// TODO: なぜかバッチで検索できない
       $existings = $this->search($str);
       return $this->findTargetFromSearchedData($str, $existings);
     }
