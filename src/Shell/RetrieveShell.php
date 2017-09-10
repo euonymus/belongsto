@@ -19,7 +19,7 @@ class RetrieveShell extends Shell
     Configure::write('Belongsto.privacyMode', \App\Controller\AppController::PRIVACY_PUBLIC);
 
     $Subjects = TableRegistry::get('Subjects');
-    $Subjects->findAndSaveRelatives();
+    $Subjects->findAndSaveRelatives(100);
   }
 
   public function experimentSearch()
