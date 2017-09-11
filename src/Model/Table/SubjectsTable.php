@@ -16,6 +16,7 @@ use Cake\Network\Exception\NotFoundException;
 use App\Utils\U;
 use App\Utils\NgramConverter;
 use App\Utils\Wikipedia;
+use App\Utils\TalentDictionary;
 
 /**
  * Subjects Model
@@ -142,6 +143,14 @@ class SubjectsTable extends AppTable
       return $ret;
     }
 
+    public function botToSaving($arr)
+    {
+      if (!is_array($arr)) return false;
+      $arr['is_private']   = false;
+      $arr['is_exclusive'] = true;
+      $arr['user_id']      = 1;
+      return $this->formToSaving($arr);
+    }
     public function formToSaving($form)
     {
       if (!is_array($form)) return false;
@@ -431,10 +440,16 @@ class SubjectsTable extends AppTable
       if ($existing) {
 	return $this->saveToFillEmptyField($existing, $arr);
       } else {
-	$saving = $this->formToSaving($arr);
-	return $this->save($saving);
+	return $this->saveBotArray($arr);
       }
       return false;
+    }
+
+    public function saveBotArray($arr)
+    {
+      $saving = $this->botToSaving($arr);
+      $saving->last_modified_user = 1; // static
+      return $this->save($saving);
     }
 
     public function saveToFillEmptyField($data, $arr)
@@ -494,6 +509,18 @@ class SubjectsTable extends AppTable
     public static function whereNoRecord()
     {
       return ['Subjects.id' => false];
+    }
+
+    /*******************************************************/
+    /* quarks                                              */
+    /*******************************************************/
+    public function retrieveAndSaveTalents($generation, $page)
+    {
+      $talents = TalentDictionary::readPage($generation, $page);
+      foreach($talents as $saving) {
+	$res = $this->saveNewArray($saving);
+debug($res);
+      }
     }
 
     /*******************************************************/

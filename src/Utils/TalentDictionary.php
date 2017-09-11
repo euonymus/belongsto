@@ -121,6 +121,7 @@ class TalentDictionary
     $startArr = self::readStartArr($main);
     $ret = array_merge($ret, $startArr);
 
+    $ret['is_momentary'] = false;
     $ret['t_dictionary_sourced'] = 1;
 
     return $ret;
