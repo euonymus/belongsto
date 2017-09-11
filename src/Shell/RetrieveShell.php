@@ -12,12 +12,15 @@ use U\U;
 
 class RetrieveShell extends Shell
 {
-  public function retrieveRelatives()
+  public function startup()
   {
     Configure::write('Belongsto.lang',     'ja');
     Configure::write('Belongsto.lang_eng', 'eng');
     Configure::write('Belongsto.privacyMode', \App\Controller\AppController::PRIVACY_PUBLIC);
+  }
 
+  public function retrieveRelatives()
+  {
     $Subjects = TableRegistry::get('Subjects');
     $Subjects->findAndSaveRelatives(100);
   }
