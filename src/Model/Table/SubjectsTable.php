@@ -421,11 +421,8 @@ class SubjectsTable extends AppTable
       $res = $this->insertInfoFromWikipedia($str);
       if ($res) return $res;
 
-      $arr = ['name' => $str, 'is_momentary' => false, 'is_private' => false, 'is_exclusive' => true,
-	      'user_id' => 1];
-      $saving = $this->formToSaving($arr);
-      $saving->last_modified_user = 1;
-      return $this->save($saving);
+      $arr = ['name' => $str, 'is_momentary' => false];
+      return $this->saveBotArray($arr);
     }
 
     /*******************************************************/
@@ -650,9 +647,7 @@ debug($res);
       $res = Wikipedia::readPageForQuark($query);
       if (!$res) return false;
 
-      $saving = $this->formToSaving($res);
-      $saving->last_modified_user = 1; // static
-      return $this->save($saving);
+      return $this->saveBotArray($res);
     }
     public function updateInfoFromWikipedia($data)
     {

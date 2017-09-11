@@ -121,10 +121,6 @@ class Wikipedia
 	    'end_accuracy'          => $end_accuracy,
 	    'is_momentary'          => false,
 	    'url'                   => $url,
-	    'is_private'            => false,
-	    'is_exclusive'          => true,
-	    'user_id'               => 1,
-	    'last_modified_user'    => 1,
 	    'wikipedia_sourced'     => 1,
 	    ];
   }
