@@ -259,6 +259,11 @@ class Initial extends AbstractMigration
                 'limit' => 255,
                 'null' => true,
             ])
+            ->addColumn('is_person', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
             ->addColumn('is_private', 'boolean', [
                 'default' => true,
                 'limit' => null,
@@ -315,6 +320,11 @@ class Initial extends AbstractMigration
             ->addIndex(
                 [
                     'relative_collected',
+                ]
+            )
+            ->addIndex(
+                [
+                    'is_person',
                 ]
             )
             ->create();
@@ -522,6 +532,11 @@ class Initial extends AbstractMigration
                 'limit' => 255,
                 'null' => true,
             ])
+            ->addColumn('is_person', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
             ->addColumn('is_private', 'boolean', [
                 'default' => true,
                 'limit' => null,
@@ -578,6 +593,11 @@ class Initial extends AbstractMigration
             ->addIndex(
                 [
                     'relative_collected',
+                ]
+            )
+            ->addIndex(
+                [
+                    'is_person',
                 ]
             )
             ->create();
