@@ -271,6 +271,15 @@ class SubjectsTable extends AppTable
       }
       if (empty($ret)) return false;
 
+
+      if (array_key_exists('is_momentary', $filling) && !is_null($filling['is_momentary'])) {
+	$ret['is_momentary'] = $filling['is_momentary'];
+      }
+
+      if (array_key_exists('is_person', $filling) && !is_null($filling['is_person'])) {
+	$ret['is_person'] = $filling['is_person'];
+      }
+
       if (array_key_exists('wikipedia_sourced', $filling) && !empty($filling['wikipedia_sourced'])) {
 	$ret['wikipedia_sourced'] = $filling['wikipedia_sourced'];
       }

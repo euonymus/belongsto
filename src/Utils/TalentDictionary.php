@@ -122,6 +122,7 @@ class TalentDictionary
     $ret = array_merge($ret, $startArr);
 
     $ret['is_momentary'] = false;
+    $ret['is_person'] = true;
     $ret['t_dictionary_sourced'] = 1;
 
     return $ret;
