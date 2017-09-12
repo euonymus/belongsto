@@ -29,4 +29,82 @@ class RetrieveShell extends Shell
   {
     $this->Subjects->retrieveAndSaveTalents($generation, $page);
   }
+
+  /********************************************/
+  /* Migration                                */
+  /********************************************/
+  public function talentCollector()
+  {
+    $generation = 10;
+    $page_range = [1,2];
+
+    /********* Waiting *********/
+    //$generation = 10;
+    //$page_range = [1,100];
+    //$page_range = [101,200];
+    //$page_range = [201,284];
+
+    //$generation = 20;
+    //$page_range = [1,100];
+    //$page_range = [101,200];
+    //$page_range = [201,300];
+    //$page_range = [301,400];
+    //$page_range = [401,500];
+    //$page_range = [501,600];
+    //$page_range = [601,700];
+    //$page_range = [701,800];
+    //$page_range = [801,826];
+
+    //$generation = 30;
+    //$page_range = [1,100];
+    //$page_range = [101,200];
+    //$page_range = [201,300];
+    //$page_range = [301,400];
+    //$page_range = [401,500];
+    //$page_range = [501,600];
+    //$page_range = [601,700];
+    //$page_range = [701,800];
+    //$page_range = [801,900];
+    //$page_range = [901,940];
+
+    //$generation = 40;
+    //$page_range = [1,100];
+    //$page_range = [101,200];
+    //$page_range = [201,300];
+    //$page_range = [301,400];
+    //$page_range = [401,500];
+    //$page_range = [501,600];
+    //$page_range = [601,663];
+
+    //$generation = 50;
+    //$page_range = [1,100];
+    //$page_range = [101,200];
+    //$page_range = [201,300];
+    //$page_range = [301,385];
+
+    //$generation = 60;
+    //$page_range = [1,100];
+    //$page_range = [101,200];
+    //$page_range = [201,210];
+
+    //$generation = 70;
+    //$page_range = [1,100];
+    //$page_range = [1,106];
+
+    //$generation = 80;
+    //$page_range = [1,46];
+
+    //$generation = 90;
+    //$page_range = [1,6];
+    /***************************/
+
+
+    /*********** Done **********/
+    /***************************/
+
+    for ($page = $page_range[0]; $page <= $page_range[1]; $page++) {
+      debug($page);
+    /* $this->retrieveTalents($generation, $page); */
+    }
+  }
 }
