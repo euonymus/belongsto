@@ -91,15 +91,15 @@ class RetrieveShell extends Shell
     //$page_range = [1,100];
     //$page_range = [1,106];
 
+    /***************************/
+
+
+    /*********** Done **********/
     //$generation = 80;
     //$page_range = [1,46];
 
     //$generation = 90;
     //$page_range = [1,6];
-    /***************************/
-
-
-    /*********** Done **********/
     /***************************/
 
     for ($page = $page_range[0]; $page <= $page_range[1]; $page++) {
