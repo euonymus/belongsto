@@ -103,8 +103,7 @@ class RetrieveShell extends Shell
     /***************************/
 
     for ($page = $page_range[0]; $page <= $page_range[1]; $page++) {
-      debug($page);
-    /* $this->retrieveTalents($generation, $page); */
+      $this->retrieveTalents($generation, $page);
     }
   }
 }
