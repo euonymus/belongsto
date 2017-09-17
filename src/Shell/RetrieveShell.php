@@ -40,8 +40,7 @@ class RetrieveShell extends Shell
 
     /********* Waiting *********/
     $generation = 10;
-    $page_range = [1,100];
-    //$page_range = [101,200];
+    $page_range = [101,200];
     //$page_range = [201,284];
 
     //$generation = 20;
@@ -72,6 +71,12 @@ class RetrieveShell extends Shell
 
 
     /*********** Done **********/
+    //$generation = 10;
+    //$page_range = [1,100];
+
+
+
+
     //$generation = 40;
     //$page_range = [1,100];
     //$page_range = [101,200];
