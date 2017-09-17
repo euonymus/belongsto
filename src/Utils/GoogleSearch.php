@@ -26,7 +26,7 @@ class GoogleSearch
     $obj = self::getFirstOjbFromImageSearch($query);
     if (!$obj) return false;
     if (!property_exists($obj, 'ou')) return false;
-    return $obj->ou;
+    return ($obj->ou && (strlen($obj->ou) <= 255)) ? $obj->ou : false;
   }
   public static function getFirstOjbFromImageSearch($query = NULL)
   {
