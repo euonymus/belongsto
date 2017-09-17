@@ -77,14 +77,16 @@ class RetrieveShell extends Shell
     //$page_range = [601,663];
 
     $generation = 50;
-    $page_range = [1,100];
-    //$page_range = [101,200];
+    $page_range = [101,200];
     //$page_range = [201,300];
     //$page_range = [301,385];
     /***************************/
 
 
     /*********** Done **********/
+    //$generation = 50;
+    //$page_range = [1,100];
+
     //$generation = 60;
     //$page_range = [1,100];
     //$page_range = [101,200];
