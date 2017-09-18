@@ -38,17 +38,20 @@ class RetrieveShell extends Shell
     $generation = 10;
     $page_range = [1,2];
 
-    /********* Waiting *********/
-    $generation = 20;
-    $page_range = [1,100];
+    /********* All List *********/
+    //$page_range = [1,100];
+    //$page_range = [101,200];
+    //$page_range = [201,284];
+
+    //$generation = 20;
+    //$page_range = [1,100];
     //$page_range = [101,200];
     //$page_range = [201,300];
     //$page_range = [301,400];
     //$page_range = [401,500];
     //$page_range = [501,600];
     //$page_range = [601,700];
-    //$page_range = [701,800];
-    //$page_range = [801,826];
+    //$page_range = [701,825];
 
     //$generation = 30;
     //$page_range = [1,100];
@@ -59,21 +62,8 @@ class RetrieveShell extends Shell
     //$page_range = [501,600];
     //$page_range = [601,700];
     //$page_range = [701,800];
-    //$page_range = [801,900];
-    //$page_range = [901,940];
-
-
-    /***************************/
-
-
-    /*********** Done **********/
-    //$generation = 10;
-    //$page_range = [1,100];
-    //$page_range = [101,200];
-    //$page_range = [201,284];
-
-
-
+    //$generation = 30;
+    //$page_range = [801,940];
 
     //$generation = 40;
     //$page_range = [1,100];
