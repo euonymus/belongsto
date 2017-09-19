@@ -16,13 +16,17 @@ use Cake\Cache\Engine\FileEngine;
 use Cake\Log\Log;
 class Wikipedia
 {
-  public static $retrieveCacheConfig = 'default';
   public function __construct(array $token = array(), array $consumer = array())
   {
   }
 
-  static $xpath_main = '//div[contains(@class, "mw-parser-output")]';
-  static $xpath_infobox = '//table[contains(@class,"infobox")]';
+  const CONTENT_TYPE_PERSON = 'person';
+  const CONTENT_TYPE_MOVIE = 'movie';
+  public static $contentType = self::CONTENT_TYPE_PERSON;
+
+  public static $xpath_main = '//div[contains(@class, "mw-parser-output")]';
+  public static $xpath_infobox = '//table[contains(@class,"infobox")]';
+  public static $retrieveCacheConfig = 'default';
 
   public static function readPage($query, $infobox = false)
   {
@@ -109,6 +113,8 @@ class Wikipedia
       $end_accuracy = '';
     }
 
+    $is_momentary = false;
+
     // get url
     $url = ($res = self::retrieveUrl($xml)) ? $res : '';
 
@@ -119,7 +125,7 @@ class Wikipedia
 	    'start_accuracy'        => $start_accuracy,
 	    'end'                   => $end,
 	    'end_accuracy'          => $end_accuracy,
-	    'is_momentary'          => false,
+	    'is_momentary'          => $is_momentary,
 	    'url'                   => $url,
 	    'wikipedia_sourced'     => 1,
 	    ];
@@ -167,8 +173,12 @@ class Wikipedia
       if (!property_exists($val, 'th')) continue;
       if (!property_exists($val, 'td')) continue;
 
-      // TODO: This covers only when the element is a person. Add logic for some other types of elements
-      if (!self::isBirthdayItem((string)$val->th)) continue;
+      // TODO: This covers only when the element is a person or movie. Add logic for some other types of elements
+      if (self::$contentType == self::CONTENT_TYPE_PERSON) {
+	if (!self::isBirthdayItem((string)$val->th)) continue;
+      } elseif (self::$contentType == self::CONTENT_TYPE_MOVIE) {
+	if (!self::isReleasedayItem((string)$val->th)) continue;
+      } else continue;
 
       $txt = self::getPlainText($val->td);
       if (!$txt) return false;
@@ -401,6 +411,11 @@ class Wikipedia
 	    (strcmp($str, '出生') === 0) ||
 	    (strcmp($str, '誕生') === 0) ||
 	    (strcmp($str, '生誕') === 0)
+	    );
+  }
+  public static function isReleasedayItem($str)
+  {
+    return ((strcmp($str, '公開') === 0)
 	    );
   }
   public static function isDeathdayItem($str)

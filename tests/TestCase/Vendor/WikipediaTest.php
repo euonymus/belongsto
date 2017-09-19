@@ -80,4 +80,18 @@ class WikipediaTest extends TestCase
 	debug($res);
       }
     }
+
+    public function testReadPageForMovie()
+    {
+      if (self::$apitest) {
+	$query = '本能寺ホテル';
+	$query = 'アラビアの女王_愛と宿命の日々';
+	$query = '新宿スワン';
+
+	Wikipedia::$internal = true;
+	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_MOVIE;
+	$res = Wikipedia::readPageForQuark($query);
+	debug($res);
+      }
+    }
 }
