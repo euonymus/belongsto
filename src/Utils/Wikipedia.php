@@ -323,16 +323,41 @@ class Wikipedia
     $element = self::parseInfoBox($xml);
     if (!$element) return false;
 
-    // find relative information
+
     $relatives = [];
-    foreach($element as $val) {
-      $res = self::findRelatives($val);
-      if ($res) {
+    if (self::$contentType == self::CONTENT_TYPE_PERSON) {
+      // find relative information
+      foreach($element as $val) {
+	$res = self::findRelatives($val);
+	if ($res) {
 // TODO: なぜか falseなのにここを通過する場合があるように見える
-	$relatives = array_merge($relatives, $res);
+	  $relatives = array_merge($relatives, $res);
+	}
       }
-    }
+    } elseif (self::$contentType == self::CONTENT_TYPE_MOVIE) {
+      // 監督、脚本、原作、出演者
+      foreach($element as $val) {
+	$res = self::findDirector($val);
+	/* if ($res) { */
+	/*   $relatives = array_merge($relatives, $res); */
+	/* } */
+      }
+
+    } else continue;
+
+
     return ['relatives' => $relatives];
+  }
+
+  public static function findDirector($element)
+  {
+    if (!property_exists($element, 'th')) return false;
+    if (!property_exists($element, 'td')) return false;
+    if (!self::isDirectorItem((string)$element->th)) return false;
+
+    $list = self::getPlainList($element->td);
+    if (!$list) return false;
+debug($list);
   }
 
   public static function findRelatives($element)
@@ -395,6 +420,12 @@ class Wikipedia
     return strip_tags(preg_replace('/\n?\<br\/\>\n?/',"\n",$element->asXml()));
   }
 
+
+  public static function isDirectorItem($str)
+  {
+    return ((strcmp($str, '監督') === 0) 
+	    );
+  }
   public static function isRelativesItem($str)
   {
     return ((strcmp($str, '著名な家族') === 0) ||

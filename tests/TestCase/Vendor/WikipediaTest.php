@@ -34,6 +34,7 @@ class WikipediaTest extends TestCase
     {
         parent::setUp();
 	$this->Wikipedia = new Wikipedia;
+	Wikipedia::$internal = true; // in order not to access google search
     }
 
     /**
@@ -75,7 +76,6 @@ class WikipediaTest extends TestCase
 	/* $query = '出澤剛';  // URL in main contents */
 
 
-	Wikipedia::$internal = true;
 	$res = Wikipedia::readPageForQuark($query);
 	debug($res);
       }
@@ -88,10 +88,22 @@ class WikipediaTest extends TestCase
 	$query = 'アラビアの女王_愛と宿命の日々';
 	$query = '新宿スワン';
 
-	Wikipedia::$internal = true;
 	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_MOVIE;
 	$res = Wikipedia::readPageForQuark($query);
 	debug($res);
+      }
+    }
+
+    public function testHoge()
+    {
+      if (self::$apitest) {
+        //$query = 'アラビアの女王_愛と宿命の日々';
+        //$query = '新宿スワン';
+        $query = '本能寺ホテル';
+
+	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_MOVIE;
+	$res = Wikipedia::readPageForGluons($query);
+      debug($res);
       }
     }
 }
