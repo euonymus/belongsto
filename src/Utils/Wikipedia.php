@@ -323,10 +323,11 @@ class Wikipedia
     $element = self::parseInfoBox($xml);
     if (!$element) return false;
 
-
     $relatives = [];
     $directors = [];
     $scenario_writers = [];
+    $original_authors = [];
+    $actors = [];
     if (self::$contentType == self::CONTENT_TYPE_PERSON) {
       // find relative information
       foreach($element as $val) {
@@ -337,23 +338,35 @@ class Wikipedia
 	}
       }
     } elseif (self::$contentType == self::CONTENT_TYPE_MOVIE) {
-      // 監督、脚本、原作、出演者
       foreach($element as $val) {
+	// 監督
 	$res = self::findDirector($val);
 	if ($res) {
 	  $directors = array_merge($directors, $res);
 	}
+	// 脚本
 	$res = self::findScenarioWriter($val);
 	if ($res) {
 	  $scenario_writers = array_merge($scenario_writers, $res);
 	}
+	// 原作
+	$res = self::findOriginalAuthor($val);
+	if ($res) {
+	  $original_authors = array_merge($original_authors, $res);
+	}
+	// 出演者
+	$res = self::findActor($val);
+	if ($res) {
+	  $actors = array_merge($actors, $res);
+	}
       }
-
     } else continue;
 
 
     return ['relatives' => $relatives,
 	    'scenario_writers' => $scenario_writers,
+	    'original_authors' => $original_authors,
+	    'actors' => $actors,
 	    'directors' => $directors];
   }
 
@@ -387,6 +400,37 @@ class Wikipedia
     }
     return $arr;
   }
+  public static function findOriginalAuthor($element)
+  {
+    if (!property_exists($element, 'th')) return false;
+    if (!property_exists($element, 'td')) return false;
+    if (!self::isOriginalAuthorItem((string)$element->th)) return false;
+
+    $list = self::getPlainList($element->td);
+    if (!$list) return false;
+
+    $arr = [];
+    foreach($list as $val) {
+      $arr[] = $val;
+    }
+    return $arr;
+  }
+  public static function findActor($element)
+  {
+    if (!property_exists($element, 'th')) return false;
+    if (!property_exists($element, 'td')) return false;
+    if (!self::isActorItem((string)$element->th)) return false;
+
+    $list = self::getPlainList($element->td);
+    if (!$list) return false;
+
+    $arr = [];
+    foreach($list as $val) {
+      $arr[] = $val;
+    }
+    return $arr;
+  }
+
 
   public static function findRelatives($element)
   {
@@ -457,6 +501,17 @@ class Wikipedia
   public static function isScenarioWriterItem($str)
   {
     return ((strcmp($str, '脚本') === 0) 
+	    );
+  }
+  public static function isOriginalAuthorItem($str)
+  {
+    return ((strcmp($str, '原作') === 0) 
+	    );
+  }
+  public static function isActorItem($str)
+  {
+    return ((strcmp($str, '出演者') === 0) ||
+	    (strcmp($str, 'キャスト') === 0)
 	    );
   }
   public static function isRelativesItem($str)
