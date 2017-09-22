@@ -325,6 +325,8 @@ class Wikipedia
 
 
     $relatives = [];
+    $directors = [];
+    $scenario_writers = [];
     if (self::$contentType == self::CONTENT_TYPE_PERSON) {
       // find relative information
       foreach($element as $val) {
@@ -338,15 +340,21 @@ class Wikipedia
       // 監督、脚本、原作、出演者
       foreach($element as $val) {
 	$res = self::findDirector($val);
-	/* if ($res) { */
-	/*   $relatives = array_merge($relatives, $res); */
-	/* } */
+	if ($res) {
+	  $directors = array_merge($directors, $res);
+	}
+	$res = self::findScenarioWriter($val);
+	if ($res) {
+	  $scenario_writers = array_merge($scenario_writers, $res);
+	}
       }
 
     } else continue;
 
 
-    return ['relatives' => $relatives];
+    return ['relatives' => $relatives,
+	    'scenario_writers' => $scenario_writers,
+	    'directors' => $directors];
   }
 
   public static function findDirector($element)
@@ -357,7 +365,27 @@ class Wikipedia
 
     $list = self::getPlainList($element->td);
     if (!$list) return false;
-debug($list);
+
+    $arr = [];
+    foreach($list as $val) {
+      $arr[] = $val;
+    }
+    return $arr;
+  }
+  public static function findScenarioWriter($element)
+  {
+    if (!property_exists($element, 'th')) return false;
+    if (!property_exists($element, 'td')) return false;
+    if (!self::isScenarioWriterItem((string)$element->th)) return false;
+
+    $list = self::getPlainList($element->td);
+    if (!$list) return false;
+
+    $arr = [];
+    foreach($list as $val) {
+      $arr[] = $val;
+    }
+    return $arr;
   }
 
   public static function findRelatives($element)
@@ -424,6 +452,11 @@ debug($list);
   public static function isDirectorItem($str)
   {
     return ((strcmp($str, '監督') === 0) 
+	    );
+  }
+  public static function isScenarioWriterItem($str)
+  {
+    return ((strcmp($str, '脚本') === 0) 
 	    );
   }
   public static function isRelativesItem($str)
