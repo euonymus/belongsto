@@ -73,7 +73,6 @@ class WikipediaTest extends TestCase
 
         //$query = 'アラビアの女王_愛と宿命の日々';
         //$query = '新宿スワン';
-        //$query = '本能寺ホテル';
         //$query = 'いしゃ先生';
         $query = '本能寺ホテル';
 	$res = Wikipedia::readPageForGluons($query);
@@ -81,6 +80,19 @@ class WikipediaTest extends TestCase
 	$this->assertSame($res['actors'][0], '綾瀬はるか');
 	$this->assertSame($res['actors'][1], '堤真一');
 	$this->assertSame($res['directors'][0], '鈴木雅之');
+
+
+        $query = '白鯨との闘い';
+	$res = Wikipedia::readPageForGluons($query);
+	$this->assertSame($res['scenario_writers'][0], 'チャールズ・リーヴィット');
+	$this->assertSame($res['original_authors'][0], 'ナサニエル・フィルブリック');
+	$this->assertSame($res['directors'][0], 'ロン・ハワード');
+	$this->assertSame($res['actors'][0], 'クリス・ヘムズワース');
+	$this->assertSame($res['actors'][1], 'ベンジャミン・ウォーカー');
+	$this->assertSame($res['actors'][2], 'キリアン・マーフィー');
+	$this->assertSame($res['actors'][3], 'トム・ホランド');
+	$this->assertSame($res['actors'][4], 'ベン・ウィショー');
+	$this->assertSame($res['actors'][5], 'ブレンダン・グリーソン');
       }
     }
 
@@ -104,8 +116,6 @@ class WikipediaTest extends TestCase
     public function testReadPageForMovie()
     {
       if (self::$apitest) {
-	$query = '本能寺ホテル';
-	$query = 'アラビアの女王_愛と宿命の日々';
 	$query = '新宿スワン';
 
 	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_MOVIE;

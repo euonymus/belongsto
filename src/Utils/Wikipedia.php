@@ -381,7 +381,10 @@ class Wikipedia
 
     $arr = [];
     foreach($list as $val) {
-      $arr[] = $val;
+      $res = self::parseName($val);
+      if ($res) {
+	$arr[] = $res;
+      }
     }
     return $arr;
   }
@@ -396,7 +399,10 @@ class Wikipedia
 
     $arr = [];
     foreach($list as $val) {
-      $arr[] = $val;
+      $res = self::parseName($val);
+      if ($res) {
+	$arr[] = $res;
+      }
     }
     return $arr;
   }
@@ -411,7 +417,10 @@ class Wikipedia
 
     $arr = [];
     foreach($list as $val) {
-      $arr[] = $val;
+      $res = self::parseName($val);
+      if ($res) {
+	$arr[] = $res;
+      }
     }
     return $arr;
   }
@@ -426,7 +435,10 @@ class Wikipedia
 
     $arr = [];
     foreach($list as $val) {
-      $arr[] = $val;
+      $res = self::parseName($val);
+      if ($res) {
+	$arr[] = $res;
+      }
     }
     return $arr;
   }
@@ -446,6 +458,13 @@ class Wikipedia
       $arr[] = self::parseRelative($val);
     }
     return $arr;
+  }
+
+  public static function parseName($str)
+  {
+    $replaced1 = preg_replace('/（(.*)）/', "", $str);
+    $ret = preg_replace('/『(.*)』/', "", $replaced1);
+    return empty($ret) ? false : $ret;
   }
 
   public static function parseRelative($str)

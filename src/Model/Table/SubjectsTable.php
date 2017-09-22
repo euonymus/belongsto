@@ -411,13 +411,16 @@ class SubjectsTable extends AppTable
       return $query;
     }
 
-
+    public static $escapeForTest = false;
     // findByNameだとスペース区切りの違いで取得できない場合があるのでわざわざsearch()から取得する
     public function getOneWithSearch($str)
     {
-// TODO: 本当は search() だけど、phpunit testできないためfindByNameでテスト中。
-      //$existings = $this->findByName($str);
-      $existings = $this->search($str);
+      // MEMO: 本当は search() だけど、phpunit testできないためfindByNameでテスト中。
+      if (self::$escapeForTest) {
+	$existings = $this->findByName($str);
+      } else {
+	$existings = $this->search($str);
+      }
       return $this->findTargetFromSearchedData($str, $existings);
     }
 
@@ -666,5 +669,16 @@ debug($res);
       $res = Wikipedia::readPageForQuark($query);
       return $this->saveToFillEmptyField($data, $res);
     }
+
+    public function retrieveAndSaveMovie($title)
+    {
+      Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_MOVIE;
+      $data = $this->insertInfoFromWikipedia($title);
+
+      // checkRules = falseとしないとrelationsの保存に失敗するのでしかたなく。
+      $options = ['checkRules' => false];
+      return $this->Relations->saveGluonsFromWikipedia($data, $options);
+    }
+
 
 }

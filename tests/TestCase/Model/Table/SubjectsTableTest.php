@@ -47,6 +47,7 @@ class SubjectsTableTest extends TestCase
         $this->Subjects = TableRegistry::get('Subjects', $config);
 	TalentDictionary::$internal = true; // in order not to access google search
 	Wikipedia::$internal = true; // in order not to access google search
+	SubjectsTable::$escapeForTest = true; // in order not to use FULL TEXT SEARCH
     }
 
     /**
@@ -328,6 +329,47 @@ class SubjectsTableTest extends TestCase
 	//	debug($val->toArray());
 	//}
       }
+    }
 
+    public function testRetrieveAndSaveMovie()
+    {
+      if (self::$apitest) {
+        $title = '白鯨との闘い';
+	$res = $this->Subjects->retrieveAndSaveMovie($title);
+	$this->assertTrue($res);
+
+	$Relations = TableRegistry::get('Relations');
+	$test = $Relations->find()->all();
+	$flag = 0;
+	foreach ($test as $val) {
+	  if (strcmp($val->relation, 'の脚本を手がけた') == 0) {
+	    $flag++;
+	    $this->assertSame($this->Subjects->findById($val->passive_id)->first()->name, $title);
+	    $this->assertSame($this->Subjects->findById($val->active_id)->first()->name, 'チャールズ・リーヴィット');
+	  }
+	  if (strcmp($val->relation, 'に出演した') == 0) {
+	    $this->assertSame($this->Subjects->findById($val->passive_id)->first()->name, $title);
+	    $actor = $this->Subjects->findById($val->active_id)->first()->name;
+	    if (strcmp($actor, 'ベン・ウィショー') == 0) {
+	      $flag++;
+	    } elseif (strcmp($actor, 'ブレンダン・グリーソン') == 0) {
+	      $flag++;
+	    } elseif (strcmp($actor, 'トム・ホランド') == 0) {
+	      $flag++;
+	    }
+	  }
+	  if (strcmp($val->relation, 'の監督') == 0) {
+	    $flag++;
+	    $this->assertSame($this->Subjects->findById($val->passive_id)->first()->name, $title);
+	    $this->assertSame($this->Subjects->findById($val->active_id)->first()->name, 'ロン・ハワード');
+	  }
+	  if (strcmp($val->relation, 'の原作者') == 0) {
+	    $flag++;
+	    $this->assertSame($this->Subjects->findById($val->passive_id)->first()->name, $title);
+	    $this->assertSame($this->Subjects->findById($val->active_id)->first()->name, 'ナサニエル・フィルブリック');
+	  }
+	}
+	$this->assertSame($flag, 6);
+      }
     }
 }

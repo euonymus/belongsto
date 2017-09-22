@@ -173,26 +173,99 @@ class RelationsTable extends AppTable
 
       $query = U::removeAllSpaces($subject->name);
       $relations = Wikipedia::readPageForGluons($query);
-      if (!$relations || !array_key_exists('relatives', $relations) || !$relations['relatives']) return false;
+      if (!$relations) return false;
 
-      // treat relatives
-      foreach($relations['relatives'] as $val) {
-	if (!is_array($val) || !array_key_exists('main', $val)) continue;
-	$subject2 = $Subjects->forceGetQuark($val['main']);
-	$gluon = self::constRelativeGluon($subject, $subject2, $val);
-	if (!$gluon) continue;
+      $ret = false;
+      if (array_key_exists('relatives', $relations) && $relations['relatives']) {
+	// treat relatives
+	foreach($relations['relatives'] as $val) {
+	  if (!is_array($val) || !array_key_exists('main', $val)) continue;
+	  $subject2 = $Subjects->forceGetQuark($val['main']);
+	  $gluon = self::constRelativeGluon($subject, $subject2, $val);
+	  if (!$gluon) continue;
 
-	// if the relation already exists, skip it.
-	if ($this->checkRelationExists($gluon['active_id'], $gluon['passive_id'])) continue;
+	  // if the relation already exists, skip it.
+	  if ($this->checkRelationExists($gluon['active_id'], $gluon['passive_id'])) continue;
 
-	$saving = $this->formToEntity($gluon);
-	$saving->user_id = 1;
-	$saving->last_modified_user = 1;
+	  $saving = $this->formToEntity($gluon);
+	  $saving->user_id = 1;
+	  $saving->last_modified_user = 1;
 
-	$saved = $this->save($saving, $options);
+	  $saved = $this->save($saving, $options);
+	}
+	$ret = true;
       }
-      return true;
+      if (array_key_exists('scenario_writers', $relations) && $relations['scenario_writers']) {
+	foreach($relations['scenario_writers'] as $val) {
+	  if (!is_string($val)) continue;
+	  $subject2 = $Subjects->forceGetQuark($val);
+	  $gluon = self::constGluonSub2OnSub1($subject, $subject2, 'の脚本を手がけた');
+	  if (!$gluon) continue;
+
+	  // if the relation already exists, skip it.
+	  if ($this->checkRelationExists($gluon['active_id'], $gluon['passive_id'])) continue;
+
+	  $saving = $this->formToEntity($gluon);
+	  $saving->user_id = 1;
+	  $saving->last_modified_user = 1;
+	  $saved = $this->save($saving, $options);
+	}
+	$ret = true;
+      }
+      if (array_key_exists('original_authors', $relations) && $relations['original_authors']) {
+	foreach($relations['original_authors'] as $val) {
+	  if (!is_string($val)) continue;
+	  $subject2 = $Subjects->forceGetQuark($val);
+	  $gluon = self::constGluonSub2OnSub1($subject, $subject2, 'の原作者');
+	  if (!$gluon) continue;
+
+	  // if the relation already exists, skip it.
+	  if ($this->checkRelationExists($gluon['active_id'], $gluon['passive_id'])) continue;
+
+	  $saving = $this->formToEntity($gluon);
+	  $saving->user_id = 1;
+	  $saving->last_modified_user = 1;
+	  $saved = $this->save($saving, $options);
+	}
+	$ret = true;
+      }
+      if (array_key_exists('actors', $relations) && $relations['actors']) {
+	foreach($relations['actors'] as $val) {
+	  if (!is_string($val)) continue;
+	  $subject2 = $Subjects->forceGetQuark($val);
+	  $gluon = self::constGluonSub2OnSub1($subject, $subject2, 'に出演した');
+	  if (!$gluon) continue;
+
+	  // if the relation already exists, skip it.
+	  if ($this->checkRelationExists($gluon['active_id'], $gluon['passive_id'])) continue;
+
+	  $saving = $this->formToEntity($gluon);
+	  $saving->user_id = 1;
+	  $saving->last_modified_user = 1;
+	  $saved = $this->save($saving, $options);
+	}
+	$ret = true;
+      }
+      if (array_key_exists('directors', $relations) && $relations['directors']) {
+	foreach($relations['directors'] as $val) {
+	  if (!is_string($val)) continue;
+	  $subject2 = $Subjects->forceGetQuark($val);
+	  $gluon = self::constGluonSub2OnSub1($subject, $subject2, 'の監督');
+	  if (!$gluon) continue;
+
+	  // if the relation already exists, skip it.
+	  if ($this->checkRelationExists($gluon['active_id'], $gluon['passive_id'])) continue;
+
+	  $saving = $this->formToEntity($gluon);
+	  $saving->user_id = 1;
+	  $saving->last_modified_user = 1;
+	  $saved = $this->save($saving, $options);
+	}
+	$ret = true;
+      }
+      return $ret;
     }
+
     public function checkRelationExists($active_id, $passive_id)
     {
       $where = self::whereActivePassivePair($active_id, $passive_id);
@@ -235,6 +308,23 @@ class RelationsTable extends AppTable
 	      'start_accuracy' => $start_accuracy,
 	      'is_momentary'   => true,
 	      'source'         => $source,
+      ];
+    }
+    public static function constGluonSub2OnSub1($subject1, $subject2, $relation)
+    {
+      $active_id      = $subject2->id;
+      $passive_id     = $subject1->id;
+      $relation       = $relation;
+      $start          = $subject1->start ? $subject1->start->format('Y-m-d H:i:s') : NULL;
+      $start_accuracy = $subject1->start_accuracy;
+
+      return [
+	      'active_id'      => $active_id,
+	      'passive_id'     => $passive_id,
+	      'relation'       => $relation,
+	      'start'          => $start,
+	      'start_accuracy' => $start_accuracy,
+	      'is_momentary'   => true,
       ];
     }
     public static function checkRelativeInfoFormat($relative)
