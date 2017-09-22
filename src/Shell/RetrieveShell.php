@@ -102,4 +102,16 @@ class RetrieveShell extends Shell
       $this->retrieveTalents($generation, $page);
     }
   }
+
+  /********************************************/
+  /* Movies                                   */
+  /********************************************/
+  public function movieCollector()
+  {
+    $titles = ['白鯨との闘い',
+	       ];
+    foreach ($titles as $title) {
+      $this->Subjects->retrieveAndSaveMovie($title);
+    }
+  }
 }
