@@ -76,7 +76,13 @@ class Wikipedia
       }
     }
 
-    $ret['name'] = $query;
+    $xpath = '//h1[contains(@id,"firstHeading")]';
+    $element = @$xml->xpath($xpath);
+    if (!$element || !is_array($element)) {
+      $ret['name'] = $query;
+    } else {
+      $ret['name'] = (string)$element[0];
+    }
 
     return $ret;
   }

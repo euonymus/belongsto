@@ -110,6 +110,12 @@ class WikipediaTest extends TestCase
 
 	$res = Wikipedia::readPageForQuark($query);
 	debug($res);
+
+	// test for reading firstHeading h1
+	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_MOVIE;
+        $query = 'アラビアの女王_愛と宿命の日々';
+	$res = Wikipedia::readPageForQuark($query);
+	$this->assertSame($res['name'], 'アラビアの女王 愛と宿命の日々');
       }
     }
 
