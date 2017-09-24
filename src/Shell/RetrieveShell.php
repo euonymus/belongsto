@@ -9,6 +9,7 @@ use Cake\ORM\TableRegistry;
 use App\Model\Table\SubjectsTable;
 
 use App\Utils\U;
+use App\Utils\Wikipedia;
 
 class RetrieveShell extends Shell
 {
@@ -108,10 +109,58 @@ class RetrieveShell extends Shell
   /********************************************/
   public function movieCollector()
   {
-    $titles = ['白鯨との闘い',
-	       ];
-    foreach ($titles as $title) {
-      $this->Subjects->retrieveAndSaveMovie($title);
+    // 範囲
+    $range = [1989, 1989];
+
+    $url = '年度別日本公開映画';
+    $xml = Wikipedia::readPage($url);
+
+    $xpath = '//div[contains(@class,"mw-parser-output")]/ul';
+    $element = @$xml->xpath($xpath);
+    foreach ($element as $val) {
+      foreach ($val->li as $val2) {
+	if (!empty((string)$val2->a->attributes()->class)) continue;
+
+	$title = (string)$val2->a->attributes()->title;
+	$res = preg_match('/年の日本公開映画\z/', $title, $matches);
+	if (!$res) continue;
+
+	$path = (string)$val2->a->attributes()->href;
+	$query = urldecode(preg_replace('/\/wiki\//', '', $path));
+	$year = preg_replace('/年の日本公開映画\z/', '', $query);
+	if ( ($year < $range[0]) || ($year > $range[1]) ) continue;
+
+	$this->movieCollectorByGeneration($query);
+      }
     }
   }
+
+  public function movieCollectorByGeneration($query)
+  {
+    $xml = Wikipedia::readPage($query);
+
+    $xpath = '//div[contains(@class,"mw-parser-output")]/ul';
+    $element = @$xml->xpath($xpath);
+    foreach ($element as $val) {
+      foreach($val->li as $val2) {
+	$res = preg_match('/\d{1,2}日/', (string)$val2, $matches);
+	if (!$res) continue;
+
+	foreach ($val2->ul->li as $val3) {
+	  if (!empty((string)$val3->a->attributes()->class)) continue;
+	  $path = (string)$val3->a->attributes()->href;
+	  $query = urldecode(preg_replace('/\/wiki\//', '', $path));
+	  $this->movieCollectorByTitle($query);
+	}
+      }
+    }
+  }
+
+  public function movieCollectorByTitle($query)
+  {
+// TODO
+    debug($query);
+    /* $this->Subjects->retrieveAndSaveMovie($query); */
+  }
+
 }
