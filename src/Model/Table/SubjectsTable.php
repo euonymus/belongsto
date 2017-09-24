@@ -670,10 +670,10 @@ debug($res);
       return $this->saveToFillEmptyField($data, $res);
     }
 
-    public function retrieveAndSaveMovie($title)
+    public function retrieveAndSaveMovie($query)
     {
       Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_MOVIE;
-      $data = $this->insertInfoFromWikipedia($title);
+      $data = $this->insertInfoFromWikipedia($query);
 
       // checkRules = falseとしないとrelationsの保存に失敗するのでしかたなく。
       $options = ['checkRules' => false];
