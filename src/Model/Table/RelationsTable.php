@@ -175,8 +175,13 @@ class RelationsTable extends AppTable
       $relations = Wikipedia::readPageForGluons($query);
       if (!$relations) return false;
 
+      // backup before change it
+      $contentType_bk = Wikipedia::$contentType;
+
       $ret = false;
       if (array_key_exists('relatives', $relations) && $relations['relatives']) {
+	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_PERSON;
+
 	// treat relatives
 	foreach($relations['relatives'] as $val) {
 	  if (!is_array($val) || !array_key_exists('main', $val)) continue;
@@ -196,6 +201,8 @@ class RelationsTable extends AppTable
 	$ret = true;
       }
       if (array_key_exists('scenario_writers', $relations) && $relations['scenario_writers']) {
+	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_PERSON;
+
 	foreach($relations['scenario_writers'] as $val) {
 	  if (!is_string($val)) continue;
 	  $subject2 = $Subjects->forceGetQuark($val);
@@ -213,6 +220,8 @@ class RelationsTable extends AppTable
 	$ret = true;
       }
       if (array_key_exists('original_authors', $relations) && $relations['original_authors']) {
+	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_PERSON;
+
 	foreach($relations['original_authors'] as $val) {
 	  if (!is_string($val)) continue;
 	  $subject2 = $Subjects->forceGetQuark($val);
@@ -230,6 +239,8 @@ class RelationsTable extends AppTable
 	$ret = true;
       }
       if (array_key_exists('actors', $relations) && $relations['actors']) {
+	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_PERSON;
+
 	foreach($relations['actors'] as $val) {
 	  if (!is_string($val)) continue;
 	  $subject2 = $Subjects->forceGetQuark($val);
@@ -247,6 +258,8 @@ class RelationsTable extends AppTable
 	$ret = true;
       }
       if (array_key_exists('directors', $relations) && $relations['directors']) {
+	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_PERSON;
+
 	foreach($relations['directors'] as $val) {
 	  if (!is_string($val)) continue;
 	  $subject2 = $Subjects->forceGetQuark($val);
@@ -263,6 +276,8 @@ class RelationsTable extends AppTable
 	}
 	$ret = true;
       }
+
+      Wikipedia::$contentType = $contentType_bk;
       return $ret;
     }
 

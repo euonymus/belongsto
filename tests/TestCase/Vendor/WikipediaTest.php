@@ -108,6 +108,7 @@ class WikipediaTest extends TestCase
 	/* $query = '出澤剛';  // URL in main contents */
 
 
+	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_PERSON;
 	$res = Wikipedia::readPageForQuark($query);
 	debug($res);
 
