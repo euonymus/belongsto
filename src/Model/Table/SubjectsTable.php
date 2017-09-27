@@ -537,7 +537,7 @@ debug($res);
     /*******************************************************/
     public function findAndSaveRelatives($limit = 10)
     {
-      $datas = $this->findByRelativeCollected(self::$relative_collected_non)->limit($limit);
+      $datas = $this->findByRelativeCollectedAndIsPerson(self::$relative_collected_non, true)->limit($limit);
       if (!$datas) return false;
 
       foreach ($datas as $val) {
