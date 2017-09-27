@@ -182,6 +182,8 @@ class RelationsTable extends AppTable
       if (array_key_exists('relatives', $relations) && $relations['relatives']) {
 	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_PERSON;
 
+
+debug("-----------------------\n" . $subject->name . "\n-----------------------");
 	// treat relatives
 	foreach($relations['relatives'] as $val) {
 	  if (!is_array($val) || !array_key_exists('main', $val)) continue;
