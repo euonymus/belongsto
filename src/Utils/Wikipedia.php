@@ -124,6 +124,13 @@ class Wikipedia
     // get url
     $url = ($res = self::retrieveUrl($xml)) ? $res : '';
 
+    // is_person
+    if (self::$contentType == self::CONTENT_TYPE_PERSON) {
+      $is_person = true;
+    } else {
+      $is_person = false;
+    }
+
     return [
 	    'image_path'            => $image_path,
 	    'description'           => $description,
@@ -133,6 +140,7 @@ class Wikipedia
 	    'end_accuracy'          => $end_accuracy,
 	    'is_momentary'          => $is_momentary,
 	    'url'                   => $url,
+	    'is_person'             => $is_person,
 	    'wikipedia_sourced'     => 1,
 	    ];
   }
