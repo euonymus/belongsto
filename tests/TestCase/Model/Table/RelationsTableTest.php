@@ -2,10 +2,12 @@
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\RelationsTable;
+use App\Model\Table\SubjectsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 use App\Utils\U;
+
 /**
  * App\Model\Table\RelationsTable Test Case
  */
@@ -158,6 +160,8 @@ class RelationsTableTest extends TestCase
 	$options = ['checkRules' => false];
 	$Subjects = TableRegistry::get('Subjects');
 	$subject = $Subjects->findByName($testTarget1)->first();
+
+	SubjectsTable::$escapeForTest = true;
 	$res = $this->Relations->saveGluonsFromWikipedia($subject, $options);
 	$savedSubject = $Subjects->findByName('いしだ壱成')->first();
 	$this->assertTrue(!!$savedSubject);
