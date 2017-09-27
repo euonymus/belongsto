@@ -197,6 +197,7 @@ class RelationsTable extends AppTable
 	  $saving->last_modified_user = 1;
 
 	  $saved = $this->save($saving, $options);
+debug($val);
 	}
 	$ret = true;
       }
