@@ -171,5 +171,12 @@ class WikipediaTest extends TestCase
       $res = Wikipedia::parseRelative($str);
       $this->assertSame($res['main'], 'あああ・いいい・ううう');
       $this->assertSame($res['relative_type'], '父');
+
+      // このケースは識別不能：子と長女どちらを採用するかわからないのと、長女をrelative_typeとした場合も子とあああのどちらが名前か判別できない
+      //$str = '子（長女）：あああ'; // 野村萬斎
+      //$res = Wikipedia::parseRelative($str);
+      //$this->assertSame($res['main'], 'あああ');
+      //$this->assertSame($res['relative_type'], '長女');
     }
+
 }
