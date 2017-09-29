@@ -484,13 +484,12 @@ class Wikipedia
   public static function parseRelative($str)
   {
     $main = preg_replace('/（(.*)）/', "", $str);
-    $sub = preg_replace('/\A.*?（(.*)）.*?\z/', "$1", $str);
-    if (strcmp($main, $sub) === 0) $sub = NULL;
+    $main = preg_replace('/\[(.*)\]/', "", $main);
 
     $relative_type = false;
 
     // try exploding
-    $tmp = explode('・', $main);
+    $tmp = explode('：', $main);
     if (count($tmp) > 1) {
       foreach($tmp as $val) {
 	if (GlobalDataSet::isRelativeType($val)) {
@@ -501,10 +500,43 @@ class Wikipedia
       }
     }
 
+    if (!$relative_type) {
+      $tmp = explode('・', $main);
+      if (count($tmp) > 1) {
+	foreach($tmp as $val) {
+	  if (GlobalDataSet::isRelativeType($val)) {
+	    $relative_type = $val;
+	  } else {
+	    $rest = $val;
+	  }
+	}
+      }
+    }
     if ($relative_type) {
       $main = $rest;
-    } else {
-      $relative_type = $sub;
+    }
+
+
+    if (!$relative_type) {
+      $res = preg_match_all('/（(.*?)）/', $str, $matches);
+      if ($res && is_array($matches) and count($matches) >= 2) {
+	foreach($matches[1] as $val) {
+	  if (GlobalDataSet::isRelativeType($val)) {
+	    $relative_type = $val;
+	  }
+	}
+      }
+    }
+
+    if (!$relative_type) {
+      $res = preg_match('/\A.*?\[(.*?)\].*?\z/', $str, $matches);
+      if ($res && is_array($matches) and count($matches) >= 2) {
+	foreach($matches[1] as $val) {
+	  if (GlobalDataSet::isRelativeType($val)) {
+	    $relative_type = $val;
+	  }
+	}
+      }
     }
     if (!$relative_type) return false;
 

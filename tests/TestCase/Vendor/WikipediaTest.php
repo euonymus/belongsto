@@ -130,4 +130,46 @@ class WikipediaTest extends TestCase
 	debug($res);
       }
     }
+
+    public function testParseRelative()
+    {
+      //$query = '中川昭一';
+      //$res = Wikipedia::readPageForGluons($query);
+      //debug($res);
+
+      $str = 'あああ（父）'; // 石田純一
+      $res = Wikipedia::parseRelative($str);
+      $this->assertSame($res['main'], 'あああ');
+      $this->assertSame($res['relative_type'], '父');
+
+      $str = 'あああ（父）[要出典]'; // 武井証
+      $res = Wikipedia::parseRelative($str);
+      $this->assertSame($res['main'], 'あああ');
+      $this->assertSame($res['relative_type'], '父');
+
+      $str = '父・あああ'; // 田中角栄
+      $res = Wikipedia::parseRelative($str);
+      $this->assertSame($res['main'], 'あああ');
+      $this->assertSame($res['relative_type'], '父');
+
+      $str = '父・あああ（参議院議員）'; // 中川昭一
+      $res = Wikipedia::parseRelative($str);
+      $this->assertSame($res['main'], 'あああ');
+      $this->assertSame($res['relative_type'], '父');
+
+      $str = 'あああ・いいい（父）';
+      $res = Wikipedia::parseRelative($str);
+      $this->assertSame($res['main'], 'あああ・いいい');
+      $this->assertSame($res['relative_type'], '父');
+
+      $str = '父：あああ（俳優）'; // 佐久間良子
+      $res = Wikipedia::parseRelative($str);
+      $this->assertSame($res['main'], 'あああ');
+      $this->assertSame($res['relative_type'], '父');
+
+      $str = 'あああ・いいい・ううう（英語版）（父）'; // デイヴィッド・ロックフェラー
+      $res = Wikipedia::parseRelative($str);
+      $this->assertSame($res['main'], 'あああ・いいい・ううう');
+      $this->assertSame($res['relative_type'], '父');
+    }
 }
