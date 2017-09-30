@@ -107,6 +107,11 @@ class RelationsTableTest extends TestCase
 			'relative_type' => '祖父',
 			'source' => 'wikipedia'
 		],
+		[
+			'main' => 'D男さん',
+			'relative_type' => '子供',
+			'source' => 'wikipedia'
+		],
     ];
 
     public function testConstRelativeGluon()
@@ -149,6 +154,19 @@ class RelationsTableTest extends TestCase
 	'source' => 'wikipedia',
       ];
       $res = RelationsTable::constRelativeGluon($subject1, $subject2, $relatives[2]);
+      $this->assertSame($res, $expected);
+
+      // Case 3
+      $expected = [
+	'active_id'  => '5',
+	'passive_id' => '6',
+	'relation' => 'の子供',
+	'start' => '1998-01-01 00:00:00',
+	'start_accuracy' => 'year',
+	'is_momentary' => true,
+	'source' => 'wikipedia',
+      ];
+      $res = RelationsTable::constRelativeGluon($subject1, $subject2, $relatives[3]);
       $this->assertSame($res, $expected);
     }
 

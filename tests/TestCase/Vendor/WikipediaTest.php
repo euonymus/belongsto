@@ -68,6 +68,16 @@ class WikipediaTest extends TestCase
 	$this->assertSame($res['relatives'][1]['relative_type'], '娘婿');
 	$this->assertSame($res['relatives'][1]['source'], 'wikipedia');
 
+
+	$query = 'アルベルト・アインシュタイン';
+	$res = Wikipedia::readPageForGluons($query);
+	$this->assertSame($res['relatives'][0]['main'], 'リーゼル');
+	$this->assertSame($res['relatives'][0]['relative_type'], '子供');
+	$this->assertSame($res['relatives'][1]['main'], 'ハンス・アルベルト');
+	$this->assertSame($res['relatives'][1]['relative_type'], '子供');
+	$this->assertSame($res['relatives'][2]['main'], 'エドゥアルト');
+	$this->assertSame($res['relatives'][2]['relative_type'], '子供');
+
 	// test movie
 	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_MOVIE;
 

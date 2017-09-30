@@ -347,7 +347,6 @@ class Wikipedia
       foreach($element as $val) {
 	$res = self::findRelatives($val);
 	if ($res) {
-// TODO: なぜか falseなのにここを通過する場合があるように見える
 	  $relatives = array_merge($relatives, $res);
 	}
       }
@@ -462,15 +461,28 @@ class Wikipedia
   {
     if (!property_exists($element, 'th')) return false;
     if (!property_exists($element, 'td')) return false;
-    if (!self::isRelativesItem((string)$element->th)) return false;
+    $str = (string)$element->th;
+    if (!self::isRelativesItem($str)) return false;
 
     $list = self::getPlainList($element->td);
     if (!$list) return false;
 
+    if (self::isFarther($str)) {
+      $type = '父';
+    } elseif (self::isMother($str)) {
+      $type = '母';
+    } elseif (self::isChildren($str)) {
+      $type = '子供';
+    } else $type = false;
+
     $arr = [];
     foreach($list as $val) {
-      $arr[] = self::parseRelative($val);
+      $res = self::parseRelative($val, $type);
+      if (!$res) continue;
+      $arr[] = $res;
     }
+
+    if (empty($arr)) return false;
     return $arr;
   }
 
@@ -481,10 +493,12 @@ class Wikipedia
     return empty($ret) ? false : $ret;
   }
 
-  public static function parseRelative($str)
+  public static function parseRelative($str, $type = false)
   {
     $main = preg_replace('/（(.*)）/', "", $str);
+    $main = preg_replace('/\((.*)\)/', "", $main);
     $main = preg_replace('/\[(.*)\]/', "", $main);
+    $main = U::trimSpace($main);
 
     $relative_type = false;
 
@@ -538,7 +552,10 @@ class Wikipedia
 	}
       }
     }
-    if (!$relative_type) return false;
+    if (!$relative_type) {
+      if (!$type) return false;
+      $relative_type = $type;
+    }
 
     return ['main' => $main, 'relative_type' => $relative_type, 'source' => 'wikipedia'];
   }
@@ -583,12 +600,25 @@ class Wikipedia
   {
     return ((strcmp($str, '著名な家族') === 0) ||
 	    (strcmp($str, '親族') === 0) ||
-	    (strcmp($str, '父親') === 0) ||
-	    (strcmp($str, '母親') === 0) ||
-	    (strcmp($str, '子女') === 0) ||
-	    (strcmp($str, '子供') === 0)
+	    self::isFarther($str) ||
+	    self::isMother($str) ||
+	    self::isChildren($str)
 	    );
   }
+  public static function isFarther($str)
+  {
+    return (strcmp($str, '父親') === 0);
+  }
+  public static function isMother($str)
+  {
+    return (strcmp($str, '母親') === 0);
+  }
+  public static function isChildren($str)
+  {
+    return ((strcmp($str, '子女') === 0) ||
+	    (strcmp($str, '子供') === 0));
+  }
+
   public static function isBirthdayItem($str)
   {
     return ((strcmp($str, '生年月日') === 0) ||
