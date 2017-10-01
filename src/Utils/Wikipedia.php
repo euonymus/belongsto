@@ -529,7 +529,7 @@ class Wikipedia
     if ($relative_type) {
       $main = $rest;
     }
-
+    if (!$main) return false;
 
     if (!$relative_type) {
       $res = preg_match_all('/（(.*?)）/', $str, $matches);

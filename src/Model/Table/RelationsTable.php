@@ -188,6 +188,8 @@ debug("-----------------------\n" . $subject->name . "\n-----------------------"
 	foreach($relations['relatives'] as $val) {
 	  if (!is_array($val) || !array_key_exists('main', $val)) continue;
 	  $subject2 = $Subjects->forceGetQuark($val['main']);
+	  if (!$subject2) continue;
+
 	  $gluon = self::constRelativeGluon($subject, $subject2, $val);
 	  if (!$gluon) continue;
 
