@@ -121,7 +121,7 @@ class SubjectsTableTest extends TestCase
 
       // Test 3:
       $res = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
-      $this->assertFalse($res);
+      $this->assertTrue(is_array($res));
     }
 
 

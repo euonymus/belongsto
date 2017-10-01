@@ -428,6 +428,7 @@ class SubjectsTable extends AppTable
     public function forceGetQuark($str)
     {
       $data = $this->getOneWithSearch($str);
+      if (is_array($data)) return false; // If there are many records matches, system can't detect which, so returns false.
       if ($data) return $data;
 
       $res = $this->insertInfoFromWikipedia($str);
@@ -587,8 +588,12 @@ debug($res);
 	  $candidates[] = $existing;
 	}
       }
-      // If there are many records matches, system can't detect which, so returns false.
-      if (count($candidates) == 1) return $candidates[0];
+      //if (count($candidates) == 1) return $candidates[0];
+      if (count($candidates) == 1) {
+	return $candidates[0];
+      } elseif (count($candidates) > 1) {
+	return $candidates;
+      }
       return false;
     }
 
