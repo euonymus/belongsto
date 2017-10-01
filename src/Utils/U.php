@@ -541,15 +541,15 @@ class U
     $arr = explode('-', $dateTxt);
     if (count($arr) == 1) {
       if (!is_numeric($arr[0])) return false;
-      $date = $arr[0] . '-1-1 00:00:00';
+      $date = $arr[0] . '-01-01 00:00:00';
       $accuracy = 'year';
     } elseif (count($arr) == 2) {
       if (!is_numeric($arr[0]) || !is_numeric($arr[1])) return false;
-      $date = $arr[0] . '-' .$arr[1] .'-1 00:00:00';
+      $date = $arr[0] . '-' .sprintf('%02d', $arr[1]) .'-01 00:00:00';
       $accuracy = 'month';
     } elseif (count($arr) == 3) {
       if (!is_numeric($arr[0]) || !is_numeric($arr[1]) || !is_numeric($arr[2])) return false;
-      $date = $arr[0] . '-' .$arr[1] . '-' . $arr[2] .' 00:00:00';
+      $date = $arr[0] . '-' .sprintf('%02d', $arr[1]) . '-' . sprintf('%02d', $arr[2]) .' 00:00:00';
       $accuracy = NULL;
     } else {
       return false;

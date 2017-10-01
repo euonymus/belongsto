@@ -200,11 +200,11 @@ class UTest extends TestCase
     {
       $dateTxt = '1999';
       $res = U::normalizeDateArrayFormat($dateTxt);
-      $this->assertSame($res, ['date' => '1999-1-1 00:00:00', 'date_accuracy' => 'year']);
+      $this->assertSame($res, ['date' => '1999-01-01 00:00:00', 'date_accuracy' => 'year']);
 
       $dateTxt = '2018-2';
       $res = U::normalizeDateArrayFormat($dateTxt);
-      $this->assertSame($res, ['date' => '2018-2-1 00:00:00', 'date_accuracy' => 'month']);
+      $this->assertSame($res, ['date' => '2018-02-01 00:00:00', 'date_accuracy' => 'month']);
 
       $dateTxt = '593-10-16';
       $res = U::normalizeDateArrayFormat($dateTxt);
