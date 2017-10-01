@@ -150,7 +150,7 @@ class Wikipedia
   {
     $txt = self::retrieveFirstP($xml);
     if (!$txt || !is_string($txt)) return false;
-    return U::abbreviateStr($txt, 255);
+    return U::abbreviateStr($txt, 254);
   }
   public static function retrieveStart($xml)
   {
