@@ -503,6 +503,7 @@ class Wikipedia
     $relative_type = false;
 
     // try exploding
+    $rest = false;
     $tmp = explode('：', $main);
     if (count($tmp) > 1) {
       foreach($tmp as $val) {
