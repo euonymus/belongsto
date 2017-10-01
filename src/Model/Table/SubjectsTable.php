@@ -662,7 +662,11 @@ debug($res);
       if (!$query) return false;
 
       $res = Wikipedia::readPageForQuark($query);
-      if (!$res) return false;
+      if (!$res || !is_array($res) || !array_key_exists('name', $res)) return false;
+
+      // check is it's already there.
+      $data = $this->getOneWithSearch($res['name']);
+      if (!$data || is_array($data)) return false;
 
       return $this->saveBotArray($res);
     }
