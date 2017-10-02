@@ -447,6 +447,7 @@ class SubjectsTable extends AppTable
       $filling_name = self::removeAllSpaces($arr['name']);
 
       $existing = self::getOneWithSearch($filling_name);
+      if (is_array($data)) return false; // If there are many records matches, system can't detect which, so returns false.
       if ($existing) {
 	return $this->saveToFillEmptyField($existing, $arr);
       } else {
@@ -664,9 +665,9 @@ debug($res);
       $res = Wikipedia::readPageForQuark($query);
       if (!$res || !is_array($res) || !array_key_exists('name', $res)) return false;
 
-      // check is it's already there.
+      // check if it's already there.
       $data = $this->getOneWithSearch($res['name']);
-      if (!$data || is_array($data)) return false;
+      if ($data) return false;
 
       return $this->saveBotArray($res);
     }
@@ -683,6 +684,7 @@ debug($res);
     {
       Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_MOVIE;
       $data = $this->insertInfoFromWikipedia($query);
+      if (!$data) return false;
 
       // checkRules = falseとしないとrelationsの保存に失敗するのでしかたなく。
       $options = ['checkRules' => false];
