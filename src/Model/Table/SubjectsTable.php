@@ -447,7 +447,7 @@ class SubjectsTable extends AppTable
       $filling_name = self::removeAllSpaces($arr['name']);
 
       $existing = self::getOneWithSearch($filling_name);
-      if (is_array($data)) return false; // If there are many records matches, system can't detect which, so returns false.
+      if (is_array($existing)) return false; // If there are many records matches, system can't detect which, so returns false.
       if ($existing) {
 	return $this->saveToFillEmptyField($existing, $arr);
       } else {
