@@ -595,12 +595,16 @@ class RetrieveShell extends Shell
     //$data = $this->Subjects->forceGetQuark($politician);
     //debug($data->name);
 
+    $i = 0;
     foreach($politicians as $politician) {
-      debug($politician);
+      //debug($politician);
       /* $res = $this->Subjects->forceGetQuark($politician); */
-      /* debug($res->name); */
+      /* if ($res) { */
+      /* 	$i++; */
+      /* 	debug($res->name); */
+      /* } */
     }
-    //debug(count($politicians));
+    debug($i);
   }
 
   /********************************************/
