@@ -286,6 +286,24 @@ debug($val);
       return $ret;
     }
 
+    // TODO
+/*
+    public function saveGluons($subject1, $subject2, $options =[])
+    {
+      $gluon = self::constGluonSub2OnSub1($subject1, $subject2);
+      if (!$gluon) continue;
+
+      // if the relation already exists, skip it.
+      if ($this->checkRelationExists($gluon['active_id'], $gluon['passive_id'])) continue;
+
+      $saving = $this->formToEntity($gluon);
+      $saving->user_id = 1;
+      $saving->last_modified_user = 1;
+
+      return $this->save($saving, $options);
+    }
+*/
+
     /*******************************************************/
     /* Tools                                               */
     /*******************************************************/
