@@ -208,7 +208,6 @@ class RetrieveShell extends Shell
 '橋本英教',
 '橋本岳',
 '玉城デニー',
-*/
 '玉木雄一郎',
 '近藤昭一',
 '近藤洋介',
@@ -309,7 +308,7 @@ class RetrieveShell extends Shell
 '秋元司',
 '秋本真利',
 '秋葉賢也',
-/*
+*/
 '重徳和彦',
 '初鹿明博',
 '緒方林太郎',
@@ -410,6 +409,7 @@ class RetrieveShell extends Shell
 '村上誠一郎',
 '太田昭宏',
 '太田和美',
+/*
 '大岡敏孝',
 '大串正樹',
 '大串博志',
