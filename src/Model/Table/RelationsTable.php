@@ -287,14 +287,24 @@ debug($val);
     }
 
     // TODO
-/*
-    public function saveGluons($subject1, $subject2, $options =[])
+    public function saveGluonByRelation($relation, $options =[])
     {
-      $gluon = self::constGluonSub2OnSub1($subject1, $subject2);
-      if (!$gluon) continue;
+      if (!is_array($relation) || count($relation) < 3) return false;
+
+      $Subjects = TableRegistry::get('Subjects');
+      $subject1 = $Subjects->getOneWithSearch($relation[0]);
+      $subject2 = $Subjects->getOneWithSearch($relation[1]);
+
+      return $this->saveGluon($subject1, $subject2, $relation[2], $options);
+    }
+
+    public function saveGluon($subject1, $subject2, $relation, $options =[])
+    {
+      $gluon = self::constGluonSub2OnSub1($subject2, $subject1, $relation);
+      if (!$gluon) return false;
 
       // if the relation already exists, skip it.
-      if ($this->checkRelationExists($gluon['active_id'], $gluon['passive_id'])) continue;
+      if ($this->checkRelationExists($gluon['active_id'], $gluon['passive_id'])) return false;
 
       $saving = $this->formToEntity($gluon);
       $saving->user_id = 1;
@@ -302,7 +312,6 @@ debug($val);
 
       return $this->save($saving, $options);
     }
-*/
 
     /*******************************************************/
     /* Tools                                               */

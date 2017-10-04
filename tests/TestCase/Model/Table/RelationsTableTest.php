@@ -47,6 +47,7 @@ class RelationsTableTest extends TestCase
         parent::setUp();
         $config = TableRegistry::exists('Relations') ? [] : ['className' => 'App\Model\Table\RelationsTable'];
         $this->Relations = TableRegistry::get('Relations', $config);
+	SubjectsTable::$escapeForTest = true; // in order not to use FULL TEXT SEARCH
     }
 
     /**
@@ -200,4 +201,28 @@ class RelationsTableTest extends TestCase
       $res = $this->Relations->checkRelationExists(9,7);
       $this->assertTrue($res);
     }
+
+    public function testSaveGluons()
+    {
+      $options = ['checkRules' => false];
+
+      // error case: only two fields
+      $relation = ['吉川貴盛', '第47回衆議院議員総選挙'];
+      $res = $this->Relations->saveGluonByRelation($relation, $options);
+      $this->assertFalse($res);
+
+      // error case: existing gluon
+      $relation = ['高村正彦', '第47回衆議院議員総選挙', 'にて北海道2区に自民党から出馬して当選した'];
+      $res = $this->Relations->saveGluonByRelation($relation, $options);
+      $this->assertFalse($res);
+
+      // normal case
+      $relation = ['吉川貴盛', '第47回衆議院議員総選挙', 'にて北海道2区に自民党から出馬して当選した'];
+      $res = $this->Relations->saveGluonByRelation($relation, $options);
+      $this->assertSame((int)$res->active_id, 11);
+      $this->assertSame((int)$res->passive_id, 10);
+      $this->assertSame($res->relation, $relation[2]);
+
+    }
+
 }
