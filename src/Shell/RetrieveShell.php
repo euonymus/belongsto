@@ -107,6 +107,7 @@ class RetrieveShell extends Shell
   public function politicianCollector()
   {
     $politicians = [
+/*
 '阿部俊子',
 '阿部知子',
 '逢坂誠二',
@@ -207,7 +208,7 @@ class RetrieveShell extends Shell
 '橋本英教',
 '橋本岳',
 '玉城デニー',
-/*
+*/
 '玉木雄一郎',
 '近藤昭一',
 '近藤洋介',
@@ -308,6 +309,7 @@ class RetrieveShell extends Shell
 '秋元司',
 '秋本真利',
 '秋葉賢也',
+/*
 '重徳和彦',
 '初鹿明博',
 '緒方林太郎',
@@ -590,19 +592,14 @@ class RetrieveShell extends Shell
 */
   ];
 
-    // 1822ac0f-f7b8-4938-9bcd-b179ac92d798
-    //$politician = '武井咲';
-    //$data = $this->Subjects->forceGetQuark($politician);
-    //debug($data->name);
-
     $i = 0;
     foreach($politicians as $politician) {
       //debug($politician);
-      /* $res = $this->Subjects->forceGetQuark($politician); */
-      /* if ($res) { */
-      /* 	$i++; */
-      /* 	debug($res->name); */
-      /* } */
+      $res = $this->Subjects->forceGetQuark($politician);
+      if ($res) {
+	$i++;
+	debug($res->name);
+      }
     }
     debug($i);
   }
