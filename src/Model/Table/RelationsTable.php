@@ -286,6 +286,9 @@ debug($val);
       return $ret;
     }
 
+    /*******************************************************/
+    /* Tools                                               */
+    /*******************************************************/
     public function checkRelationExists($active_id, $passive_id)
     {
       $where = self::whereActivePassivePair($active_id, $passive_id);
@@ -293,9 +296,6 @@ debug($val);
       return !!$data;
     }
 
-    /*******************************************************/
-    /* Tools                                               */
-    /*******************************************************/
     public static function constRelativeGluon($subject1, $subject2, $relative)
     {
       if (!self::checkRelativeInfoFormat($relative)) return false;
