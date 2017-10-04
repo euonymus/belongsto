@@ -217,12 +217,14 @@ class RelationsTableTest extends TestCase
       $this->assertFalse($res);
 
       // normal case
-      $relation = ['吉川貴盛', '第47回衆議院議員総選挙', 'にて北海道2区に自民党から出馬して当選した'];
+      $relation = ['吉川貴盛', '第47回衆議院議員総選挙', 'にて北海道2区に自民党から出馬して当選した', '2014-12-14', '2015-12-14', true];
       $res = $this->Relations->saveGluonByRelation($relation, $options);
       $this->assertSame((int)$res->active_id, 11);
       $this->assertSame((int)$res->passive_id, 10);
       $this->assertSame($res->relation, $relation[2]);
-
+      $this->assertSame($res->start, $relation[3]);
+      $this->assertSame($res->end, $relation[4]);
+      $this->assertSame($res->is_momentary, $relation[5]);
     }
 
 }

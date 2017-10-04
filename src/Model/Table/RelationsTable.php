@@ -286,21 +286,36 @@ debug($val);
       return $ret;
     }
 
-    // TODO
+    // $relation = [active_name, passive_name, relation, start, end, is_momentary]
+    // sample:   ['foo', 'bar', 'の父親', '2017-10-16', NULL, true]
     public function saveGluonByRelation($relation, $options =[])
     {
       if (!is_array($relation) || count($relation) < 3) return false;
 
       $Subjects = TableRegistry::get('Subjects');
       $subject1 = $Subjects->getOneWithSearch($relation[0]);
+      if (!$subject1 || is_array($subject1)) return false;
       $subject2 = $Subjects->getOneWithSearch($relation[1]);
+      if (!$subject2 || is_array($subject2)) return false;
 
-      return $this->saveGluon($subject1, $subject2, $relation[2], $options);
+      $rel3 = NULL;
+      $rel4 = NULL;
+      $rel5 = false;
+      if (array_key_exists(3, $relation)) {
+	$rel3 = $relation[3];
+      }
+      if (array_key_exists(4, $relation)) {
+	$rel4 = $relation[4];
+      }
+      if (array_key_exists(5, $relation)) {
+	$rel5 = $relation[5];
+      }
+      return $this->saveGluon($subject1, $subject2, $relation[2], $rel3, $rel4, $rel5, $options);
     }
 
-    public function saveGluon($subject1, $subject2, $relation, $options =[])
+    public function saveGluon($subject1, $subject2, $relation, $start, $end, $is_momentary, $options =[])
     {
-      $gluon = self::constGluonSub2OnSub1($subject2, $subject1, $relation);
+      $gluon = self::constGluon($subject1->id, $subject2->id, $relation, $start, $end, $is_momentary);
       if (!$gluon) return false;
 
       // if the relation already exists, skip it.
@@ -311,6 +326,17 @@ debug($val);
       $saving->last_modified_user = 1;
 
       return $this->save($saving, $options);
+    }
+    public static function constGluon($active_id, $passive_id, $relation, $start, $end, $is_momentary)
+    {
+      return [
+	      'active_id'      => $active_id,
+	      'passive_id'     => $passive_id,
+	      'relation'       => $relation,
+	      'start'          => $start,
+	      'end'            => $end,
+	      'is_momentary'   => $is_momentary,
+      ];
     }
 
     /*******************************************************/
