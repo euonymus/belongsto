@@ -83,7 +83,8 @@ class SubjectsTable extends AppTable
         $options = [
             'through' => 'Relations',
             'foreignKey' => 'active_id',
-            'sort' => ['Relations.order_level' => 'ASC', 'Relations.start' => 'DESC', 'Relations.end' => 'DESC'],
+            'sort' => ['Relations.order_level' => 'ASC', 'Relations.start' => 'DESC', 'Relations.end' => 'DESC',
+		       'Passives.start' => 'DESC'],
         ];
 
 	$Passives = TableRegistry::get('Passives');
@@ -97,7 +98,8 @@ class SubjectsTable extends AppTable
         $options = [
             'through' => 'Relations',
             'foreignKey' => 'passive_id',
-            'sort' => ['Relations.order_level' => 'ASC', 'Relations.start' => 'DESC', 'Relations.end' => 'DESC'],
+            'sort' => ['Relations.order_level' => 'ASC', 'Relations.start' => 'DESC', 'Relations.end' => 'DESC',
+		       'Actives.start' => 'DESC'],
         ];
 
 	$Actives = TableRegistry::get('Actives');
