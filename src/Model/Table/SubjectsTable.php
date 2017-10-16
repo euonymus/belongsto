@@ -17,6 +17,7 @@ use App\Utils\U;
 use App\Utils\NgramConverter;
 use App\Utils\Wikipedia;
 use App\Utils\TalentDictionary;
+use App\Utils\GoogleSearch;
 
 /**
  * Subjects Model
@@ -123,7 +124,9 @@ class SubjectsTable extends AppTable
       if (!empty($data->image_path)) return $data;
       if (empty($data->name)) return $data;
 
-      $image_path = self::simpleGetImageUrl($data->name);
+      $res = GoogleSearch::getFirstImageFromImageSearch($data->name);
+      $image_path = ($res && (strlen($res) <= 255)) ? $res : NULL;
+      //$image_path = self::simpleGetImageUrl($data->name);
       if (!$image_path) return $data;
       $data->image_path = $image_path;
       return $data;
@@ -604,6 +607,7 @@ debug($res);
     /* API call                                                                 */
     /****************************************************************************/
     /** MS Image API **/
+    /*
     public static $retrieveCacheConfig = 'default';
     public static function buildCacheKey($keywords)
     {
@@ -655,6 +659,7 @@ debug($res);
 	if (!$response->isOk()) return false;
 	return $response;
     }
+    */
 
     /****************************************************************************/
     /* Wikipedia                                                                */
