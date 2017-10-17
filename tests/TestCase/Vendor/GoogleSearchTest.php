@@ -51,7 +51,7 @@ class GoogleSearchTest extends TestCase
 	//$query = 'タモリ';
 	$query = 'とくだね';
 	$res = GoogleSearch::getFirstImageFromImageSearch($query);
-	debug($res);
+	$this->assertSame($res, 'https://contents.oricon.co.jp/upimg/news/20170104/2084082_201701040487895001483516789c.jpg');
       }
     }
 }
