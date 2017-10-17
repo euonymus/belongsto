@@ -45,7 +45,7 @@ class GoogleSearchTest extends TestCase
         parent::tearDown();
     }
 
-    public function testHoge()
+    public function testGetFirstImageFromImageSearch()
     {
       if (self::$apitest) {
 	//$query = 'タモリ';
