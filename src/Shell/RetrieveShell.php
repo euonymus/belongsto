@@ -195,7 +195,7 @@ class RetrieveShell extends Shell
   {
 // TODO
     debug($query);
-    /* $this->Subjects->retrieveAndSaveMovie($query); */
+    $this->Subjects->retrieveAndSaveMovie($query);
   }
 
 }
