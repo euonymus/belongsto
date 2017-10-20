@@ -689,6 +689,8 @@ debug($res);
 
     public function retrieveAndSaveMovie($query)
     {
+      // avoiding movie
+      if (strcmp($query, '青いパパイヤの香り') == 0) return false;
       Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_MOVIE;
       $data = $this->insertInfoFromWikipedia($query);
       if (!$data) return false;
