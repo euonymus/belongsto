@@ -171,7 +171,8 @@ class RelationsTable extends AppTable
     {
       $Subjects = TableRegistry::get('Subjects');
 
-      $query = U::removeAllSpaces($subject->name);
+      //$query = U::removeAllSpaces($subject->name);
+      $query = str_replace(' ', '_', $subject->name);
       $relations = Wikipedia::readPageForGluons($query);
       if (!$relations) return false;
 

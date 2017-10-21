@@ -449,7 +449,7 @@ class SubjectsTable extends AppTable
     public function saveNewArray($arr)
     {
       if (!is_array($arr) || !array_key_exists('name', $arr)) return false;
-      $filling_name = self::removeAllSpaces($arr['name']);
+      //$filling_name = self::removeAllSpaces($arr['name']);
 
       $existing = self::getOneWithSearch($filling_name);
       if (is_array($existing)) return false; // If there are many records matches, system can't detect which, so returns false.
@@ -666,7 +666,8 @@ debug($res);
     /****************************************************************************/
     public function insertInfoFromWikipedia($txt)
     {
-      $query = self::removeAllSpaces($txt);
+      //$query = self::removeAllSpaces($txt);
+      $query = str_replace(' ', '_', $txt);
       if (!$query) return false;
 
       $res = Wikipedia::readPageForQuark($query);
@@ -680,7 +681,8 @@ debug($res);
     }
     public function updateInfoFromWikipedia($data)
     {
-      $query = self::removeAllSpaces($data->name);
+      //$query = self::removeAllSpaces($data->name);
+      $query = str_replace(' ', '_', $data->name);
       if (!$query) return false;
 
       $res = Wikipedia::readPageForQuark($query);
