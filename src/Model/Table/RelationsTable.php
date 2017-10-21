@@ -212,6 +212,8 @@ debug($val);
 	foreach($relations['scenario_writers'] as $val) {
 	  if (!is_string($val)) continue;
 	  $subject2 = $Subjects->forceGetQuark($val);
+	  if (!$subject2) continue;
+
 	  $gluon = self::constGluonSub2OnSub1($subject, $subject2, 'の脚本を手がけた');
 	  if (!$gluon) continue;
 
@@ -231,6 +233,8 @@ debug($val);
 	foreach($relations['original_authors'] as $val) {
 	  if (!is_string($val)) continue;
 	  $subject2 = $Subjects->forceGetQuark($val);
+	  if (!$subject2) continue;
+
 	  $gluon = self::constGluonSub2OnSub1($subject, $subject2, 'の原作者');
 	  if (!$gluon) continue;
 
@@ -250,6 +254,8 @@ debug($val);
 	foreach($relations['actors'] as $val) {
 	  if (!is_string($val)) continue;
 	  $subject2 = $Subjects->forceGetQuark($val);
+	  if (!$subject2) continue;
+
 	  $gluon = self::constGluonSub2OnSub1($subject, $subject2, 'に出演した');
 	  if (!$gluon) continue;
 
@@ -269,6 +275,8 @@ debug($val);
 	foreach($relations['directors'] as $val) {
 	  if (!is_string($val)) continue;
 	  $subject2 = $Subjects->forceGetQuark($val);
+	  if (!$subject2) continue;
+
 	  $gluon = self::constGluonSub2OnSub1($subject, $subject2, 'の監督');
 	  if (!$gluon) continue;
 

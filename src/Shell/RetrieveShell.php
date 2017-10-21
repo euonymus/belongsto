@@ -203,7 +203,7 @@ class RetrieveShell extends Shell
   public function tryTest()
   {
 // TODO
-    $query = '男はつらいよ 寅次郎心の旅路';
+    $query = '牙狼-GARO-_〜RED_REQUIEM〜';
     debug($query);
     $this->Subjects->retrieveAndSaveMovie($query);
   }
