@@ -693,6 +693,7 @@ debug($res);
       if (strcmp($query, '青いパパイヤの香り') == 0) return false;
       if (strcmp($query, 'グッド・ウィル・ハンティング/旅立ち') == 0) return false;
       if (strcmp($query, 'プレッジ') == 0) return false;
+      if (strcmp($query, 'リダクテッド_真実の価値') == 0) return false;
       Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_MOVIE;
       $data = $this->insertInfoFromWikipedia($query);
       if (!$data) return false;
