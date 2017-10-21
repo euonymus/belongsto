@@ -145,9 +145,9 @@ class RetrieveShell extends Shell
   public function movieCollector()
   {
     // 範囲
-    //$range = [1989, 1999];
-    // グッド・ウィル・ハンティング/旅立ち まで完了
-    $range = [2000, 2009];
+    //$range = [1989, 2006];
+    // クローズZERO まで完了
+    $range = [2007, 2009];
 
     $url = '年度別日本公開映画';
     $xml = Wikipedia::readPage($url);
@@ -196,6 +196,14 @@ class RetrieveShell extends Shell
   public function movieCollectorByTitle($query)
   {
 // TODO
+    debug($query);
+    $this->Subjects->retrieveAndSaveMovie($query);
+  }
+
+  public function tryTest()
+  {
+// TODO
+    $query = 'クローズZERO';
     debug($query);
     $this->Subjects->retrieveAndSaveMovie($query);
   }
