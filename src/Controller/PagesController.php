@@ -45,14 +45,15 @@ class PagesController extends AppController
 		     ];
 
       $ja_pickup_ids = [
+		     'be01bc00-ad55-426a-8e5c-35b8c7358710' => 'active',  // 第48回衆議院議員総選挙
 		     'c8055e49-a5bf-488e-afeb-6c5249fbb16e' => 'active',  // 第3次安倍内閣 (第3次改造)
 		     '3e1520f8-211a-46df-a3e2-bfc3cf51bba4' => 'active',  // 八島洋子
 		     'd5465d59-18b3-40ba-8522-3eb95d1e8e40' => 'active',  // 野田数
 		     '7faa51c3-623f-4821-937a-b9511139491f' => 'passive', // 「テロ等準備罪で逮捕すべし！」投稿
-		     '0db33165-dac4-4398-81e0-cb9aeb1e05f3' => 'active',  // 平慶翔
 		     '3bd11ac9-b39e-4400-b25e-e177299719e6' => 'active',  // 豊田真由子
 		     'df1cd605-00b9-4db5-9a31-9330cc41aaf8' => 'active',  // 豊田三郎
 		     '6257e52a-f888-4d4c-a4c2-18e4cccfa94c' => 'active',  // 共謀罪
+		     //'0db33165-dac4-4398-81e0-cb9aeb1e05f3' => 'active',  // 平慶翔
 		     //'48e5c92d-d6dd-41fb-88f9-8245b578181f' => 'active',  // 山口敬之
 		     //'a54ab8db-4d79-43fe-8e01-3ea37503a2ae' => 'active',  // タカタ株式会社
 		     //'9e8ab1fe-dba9-43f7-a302-fb4838978060' => 'active',  // 山﨑夕貴
