@@ -5,6 +5,7 @@ use App\Controller\AppController;
 
 use Cake\ORM\TableRegistry;
 
+use Cake\Cache\Cache;
 use App\Utils\U;
 
 /**
@@ -180,7 +181,8 @@ class SubjectsController extends AppController
             $subject->last_modified_user = $this->Auth->user('id');
 
             if ($savedSubject = $this->Subjects->save($subject)) {
-                $this->_setFlash(__('The quark has been saved.')); 
+                $this->_setFlash(__('The quark has been saved.'));
+		Cache::clear(false); 
                 return $this->redirect(['action' => 'relations', $savedSubject->id]);
             } else {
                 $this->_setFlash(__('The quark could not be saved. Please, try again.'), true); 
@@ -205,6 +207,7 @@ class SubjectsController extends AppController
 
         if ($this->Subjects->delete($subject)) {
 	    $this->_setFlash(__('The quark has been deleted.'));
+	    Cache::clear(false); 
         } else {
 	    $this->_setFlash(__('The quark could not be deleted. Please, try again.'), true);
         }

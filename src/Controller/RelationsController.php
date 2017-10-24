@@ -5,6 +5,8 @@ use App\Controller\AppController;
 
 use Cake\ORM\TableRegistry;
 
+use Cake\Cache\Cache;
+
 /**
  * Relations Controller
  *
@@ -131,6 +133,7 @@ class RelationsController extends AppController
             if ($this->Relations->save($relation)) {
                 $this->_setFlash(__('The gluon has been saved.')); 
 
+		Cache::clear(false); 
 		if (is_null($relation->baryon_id)) {
 		  return $this->redirect(['controller' => 'subjects', 'action' => 'relations', $active_id]);
 		} else {
@@ -184,6 +187,7 @@ class RelationsController extends AppController
             if ($this->Relations->save($relation)) {
                 $this->_setFlash(__('The gluon has been saved.')); 
 
+		Cache::clear(false); 
                 return $this->redirect(['controller' => 'subjects', 'action' => 'relations', $relation->active_id]);
             } else {
                 $this->_setFlash(__('The gluon could not be saved. Please, try again.'), true); 
@@ -211,6 +215,7 @@ class RelationsController extends AppController
         $relation = $this->Relations->get($id);
         if ($this->Relations->delete($relation)) {
             $this->_setFlash(__('The gluon has been deleted.'));
+	    Cache::clear(false); 
         } else {
             $this->_setFlash(__('The gluon could not be deleted. Please, try again.'), true);
         }
