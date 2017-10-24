@@ -39,6 +39,7 @@ class SubjectsTable extends AppTable
     public static $relative_collected_non  = 0;
     public static $relative_collected_done = 1;
     public static $relative_collected_fail = 2;
+    public static $cachedRead = false;
 
     /**
      * Initialize method
@@ -330,7 +331,9 @@ class SubjectsTable extends AppTable
 
       //$subject = $this->get($id, $options);
       $query = $this->find()->contain($contain);
-
+      if (self::$cachedRead) {
+	$query = $query->cache($id);
+      }
 
       $where = $this->wherePrivacyId($id);
 
@@ -366,10 +369,12 @@ class SubjectsTable extends AppTable
 	  }
 
 	  $Relations = TableRegistry::get('Relations');
+	  $query2 = $Relations->find('all', ['contain' => $secondModel]);
+	  if (self::$cachedRead) {
+	    $query2 = $query2->cache($subject->actives[$i]->id);
+	  }
 	  $subject->actives[$i]->relation
-	    = $Relations->find('all', ['contain' => $secondModel])
-	                ->where($where2)
-	                ->order(['Relations.start' =>'DESC']);
+	    = $query2->where($where2)->order(['Relations.start' =>'DESC']);
 	}
 	for($i = 0; count($subject->passives) > $i; $i++) {
 	  $where2 = [$relationKey => $subject->passives[$i]->id];
@@ -382,10 +387,12 @@ class SubjectsTable extends AppTable
 	  }
 
 	  $Relations = TableRegistry::get('Relations');
+	  $query3 = $Relations->find('all', ['contain' => $secondModel]);
+	  if (self::$cachedRead) {
+	    $query3 = $query3->cache($subject->passives[$i]->id);
+	  }
 	  $subject->passives[$i]->relation
-	    = $Relations->find('all', ['contain' => $secondModel])
-                        ->where($where2)
-                        ->order(['Relations.start' =>'DESC']);
+	    = $query3->where($where2)->order(['Relations.start' =>'DESC']);
 	}
       }
       return $subject;
@@ -402,8 +409,12 @@ class SubjectsTable extends AppTable
 
       $whereSearch = "MATCH(SubjectSearches.search_words) AGAINST(:search)";
       $where = [$this->wherePrivacy(), $whereSearch];
-      $query = $this
-	->find('all')
+      $query = $this->find('all');
+
+      if (self::$cachedRead) {
+	$query = $query->cache($search_words);
+      }
+      $query = $query
 	->contain(['SubjectSearches', 'Actives'])
 	->matching('SubjectSearches')
         ->where($where)

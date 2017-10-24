@@ -54,6 +54,7 @@ class SubjectsController extends AppController
     {
       if (!array_key_exists('keywords', $this->request->query)) $this->redirect('/');
 
+      \App\Model\Table\SubjectsTable::$cachedRead = true;
       $subjects = $this->Subjects->search($this->request->query['keywords']);
 
       $title = $this->LangMngr->txt('Search results of ' . $this->request->query['keywords'],
@@ -84,6 +85,7 @@ class SubjectsController extends AppController
 	  return $q->where(['Relations.baryon_id is NULL']);
 	};
 
+	\App\Model\Table\SubjectsTable::$cachedRead = true;
         $subject = $this->Subjects->getRelations($id, $contain, 2, $second_type);
 	if (!$subject) $this->redirect('/');
 
