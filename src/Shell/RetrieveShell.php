@@ -146,8 +146,7 @@ class RetrieveShell extends Shell
   {
     // 範囲
     //$range = [1989, 2017];
-    // 100,000年後の安全 まで完了
-    $range = [1980, 1988];
+    $range = [1988, 1988];
 
     $url = '年度別日本公開映画';
     $xml = Wikipedia::readPage($url);
