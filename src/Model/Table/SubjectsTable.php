@@ -332,7 +332,7 @@ class SubjectsTable extends AppTable
       //$subject = $this->get($id, $options);
       $query = $this->find()->contain($contain);
       if (self::$cachedRead) {
-	$query = $query->cache('Subject_' . $id);
+	$query = $query->cache('Subject_' . $level . '_' . $id);
       }
 
       $where = $this->wherePrivacyId($id);
@@ -371,7 +371,7 @@ class SubjectsTable extends AppTable
 	  $Relations = TableRegistry::get('Relations');
 	  $query2 = $Relations->find('all', ['contain' => $secondModel]);
 	  if (self::$cachedRead) {
-	    $query2 = $query2->cache('Relations_' . $subject->actives[$i]->id);
+	    $query2 = $query2->cache('actives_' . $second_type . '_' . $subject->actives[$i]->id);
 	  }
 	  $subject->actives[$i]->relation
 	    = $query2->where($where2)->order(['Relations.start' =>'DESC']);
@@ -389,7 +389,7 @@ class SubjectsTable extends AppTable
 	  $Relations = TableRegistry::get('Relations');
 	  $query3 = $Relations->find('all', ['contain' => $secondModel]);
 	  if (self::$cachedRead) {
-	    $query3 = $query3->cache('Relations_' . $subject->passives[$i]->id);
+	    $query3 = $query3->cache('passives_' . $second_type . '_' . $subject->passives[$i]->id);
 	  }
 	  $subject->passives[$i]->relation
 	    = $query3->where($where2)->order(['Relations.start' =>'DESC']);
