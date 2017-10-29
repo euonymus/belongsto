@@ -145,10 +145,9 @@ class RetrieveShell extends Shell
   public function movieCollector()
   {
     // 範囲
-    //$range = [1924, 2051];
-    //$range = [1958, 2017];
-    // 処女オリヴィア まで
-    $range = [1952, 1955];
+    //$range = [1924, 2017];
+    // done all
+    $range = [1924, 2017];
 
     $url = '年度別日本公開映画';
     $xml = Wikipedia::readPage($url);

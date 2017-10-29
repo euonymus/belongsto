@@ -709,6 +709,7 @@ debug($res);
       if (strcmp($query, 'リダクテッド_真実の価値') == 0) return false;
       if (strcmp($query, 'ニューヨーク、アイラブユー') == 0) return false;
       if (strcmp($query, '100,000年後の安全') == 0) return false;
+      if (strcmp($query, '黒騎士_(1952年の映画)') == 0) return false;
       Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_MOVIE;
       $data = $this->insertInfoFromWikipedia($query);
       if (!$data) return false;
