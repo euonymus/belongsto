@@ -34,14 +34,19 @@ class SslizeShell extends Shell
     $file = new File('/Users/euonymus/Sites/belongsto/work/src/cakephp/src/Shell/https.csv');
     $file_html = new File('/Users/euonymus/Sites/belongsto/work/src/cakephp/src/Shell/html.html');
 
-    foreach($ids as $id) {
+    $i = 0;
+    foreach($ids as $key => $id) {
       $data = $this->Subjects->get($id);
+      if (!$data) continue;
+
       $res = GoogleSearch::getFirstImageFromImageSearch($data->name);
-      if ($res) {
-	$arr = [$id, $data->name, $data->image_path, $res];
-	$file->append(implode(',', $arr) . "\n");
-	$file_html->append(sprintf($template, $id, $data->name, $data->image_path, $res) . "\n");
-      }
+      if (!$res) continue;
+
+      $arr = [$id, $data->name, $data->image_path, $res];
+      $file->append(implode(',', $arr) . "\n");
+      $file_html->append(sprintf($template, $id, $data->name, $data->image_path, $res) . "\n");
+      $i++;
+      debug($i . '/' . ($key + 1));
     }
 
   }
