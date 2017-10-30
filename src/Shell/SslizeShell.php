@@ -36,6 +36,7 @@ class SslizeShell extends Shell
 
     $i = 0;
     foreach($ids as $key => $id) {
+      debug($id);
       $data = $this->Subjects->get($id);
       if (!$data) continue;
 
