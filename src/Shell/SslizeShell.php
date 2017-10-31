@@ -58,8 +58,8 @@ class SslizeShell extends Shell
       $data = $this->Subjects->get($val[0]);
       if (preg_match("/\Ahttps\:\/\//", $data->image_path, $matches)) continue;
 
-      $data->image_path = $val[3];
-      debug($data);
+      /* $data->image_path = $val[3]; */
+      /* debug($data); */
     }
   }
 
