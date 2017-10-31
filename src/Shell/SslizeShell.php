@@ -59,7 +59,8 @@ class SslizeShell extends Shell
       if (preg_match("/\Ahttps\:\/\//", $data->image_path, $matches)) continue;
 
       /* $data->image_path = $val[3]; */
-      /* debug($data); */
+      /* $this->Subjects->save($data); */
+      debug($data);
     }
   }
 
