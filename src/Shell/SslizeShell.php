@@ -54,6 +54,13 @@ class SslizeShell extends Shell
   public function replace()
   {
     require_once("ssl_data.php");
-    debug($arr);
+    foreach($arr as $val) {
+      $data = $this->Subjects->get($val[0]);
+      if (preg_match("/\Ahttps\:\/\//", $data->image_path, $matches)) continue;
+
+      $data->image_path = $val[3];
+      debug($data);
+    }
   }
+
 }

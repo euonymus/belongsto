@@ -5247,7 +5247,6 @@ $arr = [
 ["60d5209f-05c8-421b-ada1-9b99faccbcb5", "小野金次郎", "http://dl.ndl.go.jp/titleThumb/info:ndljp/pid/1718063", "https://images-fe.ssl-images-amazon.com/images/I/51QctS0GvFL._AC_US160_.jpg"],
 ["60db34a8-934a-4e28-aa08-b90a24ae0644", "菊田あや子", "http://rosewood2001.com/wp-content/uploads/2016/06/7921_1-225x300.jpg", "https://parts.news-postseven.com/picture/2016/07/1626_kikuta_ayako.jpg"],
 ["60dd0465-597b-459d-9223-4afebde487cf", "ニコラ・テスラ", "http://www-tc.pbs.org/prod-media/newshour/photos/2013/07/10/Tesla_circa_1890_slideshow.jpeg", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Tesla_Sarony.jpg/225px-Tesla_Sarony.jpg"],
-["60de80cc-757c-40af-8698-398e0582e61c", "リン・チーリン", "http://avex.jp/artist/lin-chiling/img/amg_imagebig.jpg", "https://cdn-ak.f.st-hatena.com/images/fotolife/s/socat/20160311/20160311171943.jpg"],
 ["60e01eea-6be8-48e4-af63-fc5a2cbe1171", "中村仁美", "http://static.pinky-media.jp/matome/file/parts/I0014812/d8f605fc9e43dfed7e39ef00b19d3143.jpg", "https://img.taishu.jp/images/contents/75/29075/1502871940071945.jpg"],
 ["60eab6c8-693e-4e9e-a3a2-4a6ce38b657d", "中宅間敏彰", "http://www.westatic.com/img/dict/tltdb/images/2000055/2000055985.jpg", "https://stat.profile.ameba.jp/profile_images/20170411/16/29/WF/j/o074807501491896367793.jpg"],
 ["60ed3a39-d071-48c2-b108-9031e85a43c7", "寺田一義", "http://www.showapro.com/wp/wp-content/uploads/2011/08/kazuyoshi_terada.jpg", "https://www.eventscramble.jp/uploads/d23727170a2230a54816dc82705581da.jpg"],
