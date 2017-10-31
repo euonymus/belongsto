@@ -25,43 +25,44 @@ class SslizeShell extends Shell
     $this->Relations = TableRegistry::get('Relations');
   }
 
-  public function retrieve()
-  {
-    $template = '%s: %s: <img src="%s" style="width:150px;height:150px;"> <img src="%s" style="width:150px;height:150px;"><br>';
+  // This class is not going to be needed anymore
+  /* public function retrieve() */
+  /* { */
+  /*   $template = '%s: %s: <img src="%s" style="width:150px;height:150px;"> <img src="%s" style="width:150px;height:150px;"><br>'; */
 
-    require_once("ssl_candidates.php");
+  /*   require_once("ssl_candidates.php"); */
 
-    $file = new File('/Users/euonymus/Sites/belongsto/work/src/cakephp/src/Shell/https.csv');
-    $file_html = new File('/Users/euonymus/Sites/belongsto/work/src/cakephp/src/Shell/html.html');
+  /*   $file = new File('/Users/euonymus/Sites/belongsto/work/src/cakephp/src/Shell/https.csv'); */
+  /*   $file_html = new File('/Users/euonymus/Sites/belongsto/work/src/cakephp/src/Shell/html.html'); */
 
-    $i = 0;
-    foreach($ids as $key => $id) {
-      debug($id);
-      $data = $this->Subjects->get($id);
-      if (!$data) continue;
+  /*   $i = 0; */
+  /*   foreach($ids as $key => $id) { */
+  /*     debug($id); */
+  /*     $data = $this->Subjects->get($id); */
+  /*     if (!$data) continue; */
 
-      $res = GoogleSearch::getFirstImageFromImageSearch($data->name);
-      if (!$res) continue;
+  /*     $res = GoogleSearch::getFirstImageFromImageSearch($data->name); */
+  /*     if (!$res) continue; */
 
-      $arr = [$id, $data->name, $data->image_path, $res];
-      $file->append(implode(',', $arr) . "\n");
-      $file_html->append(sprintf($template, $id, $data->name, $data->image_path, $res) . "\n");
-      $i++;
-      debug($i . '/' . ($key + 1));
-    }
-  }
+  /*     $arr = [$id, $data->name, $data->image_path, $res]; */
+  /*     $file->append(implode(',', $arr) . "\n"); */
+  /*     $file_html->append(sprintf($template, $id, $data->name, $data->image_path, $res) . "\n"); */
+  /*     $i++; */
+  /*     debug($i . '/' . ($key + 1)); */
+  /*   } */
+  /* } */
 
-  public function replace()
-  {
-    require_once("ssl_data.php");
-    foreach($arr as $val) {
-      $data = $this->Subjects->get($val[0]);
-      if (preg_match("/\Ahttps\:\/\//", $data->image_path, $matches)) continue;
+  /* public function replace() */
+  /* { */
+  /*   require_once("ssl_data.php"); */
+  /*   foreach($arr as $val) { */
+  /*     $data = $this->Subjects->get($val[0]); */
+  /*     if (preg_match("/\Ahttps\:\/\//", $data->image_path, $matches)) continue; */
 
-      /* $data->image_path = $val[3]; */
-      /* $this->Subjects->save($data); */
-      debug($data);
-    }
-  }
+  /*     /\* $data->image_path = $val[3]; *\/ */
+  /*     /\* $this->Subjects->save($data); *\/ */
+  /*     debug($data); */
+  /*   } */
+  /* } */
 
 }
