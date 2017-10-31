@@ -25,7 +25,7 @@ class SslizeShell extends Shell
     $this->Relations = TableRegistry::get('Relations');
   }
 
-  public function main()
+  public function retrieve()
   {
     $template = '%s: %s: <img src="%s" style="width:150px;height:150px;"> <img src="%s" style="width:150px;height:150px;"><br>';
 
@@ -49,6 +49,11 @@ class SslizeShell extends Shell
       $i++;
       debug($i . '/' . ($key + 1));
     }
+  }
 
+  public function replace()
+  {
+    require_once("ssl_data.php");
+    debug($arr);
   }
 }
