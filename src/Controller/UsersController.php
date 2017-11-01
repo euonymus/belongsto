@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 use Cake\Event\Event;
+use Cake\Cache\Cache;
 /**
  * Users Controller
  *
@@ -46,6 +47,7 @@ class UsersController extends AppController
       if (($this->Auth->user('role') != 'admin') && ($mode == \App\Controller\AppController::PRIVACY_ADMIN)) {
 	$mode = \App\Controller\AppController::PRIVACY_ALL;
       }
+      Cache::clear(false); 
 
       $this->Session->write('PrivacyMode', $mode);
       $url = $this->referer(null, true);
@@ -61,6 +63,7 @@ class UsersController extends AppController
 		$referer = unserialize($this->Session->read('LoginReferer'));
 		$this->Session->delete('LoginReferer');
 		$this->Session->delete('PrivacyMode');
+		Cache::clear(false); 
                 return $this->redirect($referer);
             }
             $this->_setFlash(__('Invalid username or password, try again'), true);
@@ -73,6 +76,7 @@ class UsersController extends AppController
 
     public function logout()
     {
+	Cache::clear(false); 
         $this->Session->write('PrivacyMode', \App\Controller\AppController::PRIVACY_ALL);
         //return $this->redirect($this->Auth->logout());
 	$this->Auth->logout();
