@@ -208,4 +208,22 @@ class RetrieveShell extends Shell
     $this->Subjects->retrieveAndSaveMovie($query);
   }
 
+  /********************************************/
+  /* Books                                    */
+  /********************************************/
+  public function bookCollector()
+  {
+    require_once("writer_candidates.php");
+    foreach ($writers as $writer) {
+
+      
+      $xml = Wikipedia::readPage($writer);
+
+      $xpath = '//div[contains(@class,"mw-parser-output")]/ul';
+      $element = @$xml->xpath($xpath);
+      debug($element);
+
+      break;
+    }
+  }
 }
