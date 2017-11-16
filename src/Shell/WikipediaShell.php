@@ -94,6 +94,20 @@ debug('Depth: ' . self::$category_depth . ' done.');
   /*****************************************************/
   /* Tools                                             */
   /*****************************************************/
+  public function saveQuarkFromList()
+  {
+    require_once("quark_candidates.php");
+
+    foreach ($candidates as $candidate) {
+      $this->saveQuarkByType($candidate['name'], $candidate['type']);
+    }
+  }
+
+  public function saveQuarkByType($name, $type = NULL)
+  {
+    $this->Subjects->retrieveAndSaveByType($name, $type);
+  }
+
   public static function readUls($uls)
   {
     foreach ($uls as $ul) {

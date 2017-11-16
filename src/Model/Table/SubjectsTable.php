@@ -10,6 +10,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Network\Http\Client;
 use Cake\Cache\Cache;
 
+use App\Model\Entity\Subject;
 use App\Model\Table\SubjectSearchesTable;
 use Cake\Network\Exception\NotFoundException;
 
@@ -720,4 +721,10 @@ debug($res);
     }
 
 
+    public function retrieveAndSaveByType($name, $type = NULL)
+    {
+      debug($name);
+      debug($type);
+      /* debug(Subject::$typeListHuman); */
+    }
 }
