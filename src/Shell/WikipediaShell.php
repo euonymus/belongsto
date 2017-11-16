@@ -100,6 +100,8 @@ debug('Depth: ' . self::$category_depth . ' done.');
 
     foreach ($candidates as $candidate) {
       $this->saveQuarkByType($candidate['name'], $candidate['type']);
+// TODO: remove below later
+break;
     }
   }
 

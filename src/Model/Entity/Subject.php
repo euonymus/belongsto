@@ -120,6 +120,16 @@ class Subject extends Entity
 				    self::TYPE_CHARACTER,
 				    ];
 
+    public static $typeListMomentaries = [
+				    self::TYPE_BOOK_ORIGINAL,
+				    self::TYPE_BOOK_DERIVATIVE,
+				    self::TYPE_MOVIE_ORIGINAL,
+				    self::TYPE_MOVIE_DERIVATIVE,
+				    self::TYPE_ANIME_MV_ORIGINAL,
+				    self::TYPE_ANIME_MV_DERIVATIVE,
+				    self::TYPE_CHARACTER,
+				    ];
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -134,5 +144,8 @@ class Subject extends Entity
         'id' => false
     ];
 
-
+    public static function momentaryByType($type)
+    {
+      return in_array($type, self::$typeListHuman);
+    }
 }

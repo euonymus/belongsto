@@ -723,8 +723,15 @@ debug($res);
 
     public function retrieveAndSaveByType($name, $type = NULL)
     {
-      debug($name);
-      debug($type);
-      /* debug(Subject::$typeListHuman); */
+      // get data from Wikipedia
+      // should we use insertInfoFromWikipedia or something else?
+
+      $newSubject = $this->newEntity();
+      $newSubject->set(['momentary' => Subject::momentaryByType($type)]);
+      debug($newSubject->toArray());
+      /* Subject::buildByType($type); */
+      /* debug($name); */
+      /* debug($type); */
+
     }
 }
