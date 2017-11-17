@@ -708,6 +708,7 @@ debug($res);
 	$res['end']          = NULL;
 	$res['end_accuracy'] = NULL;
       }
+// TODO
 debug($res);
       /* return $this->saveBotArray($res); */
     }
