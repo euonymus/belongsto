@@ -666,7 +666,8 @@ class Wikipedia
   }
   public static function isPeriod($str)
   {
-    return ((strcmp($str, '発表期間') === 0)
+    return ((strcmp($str, '発表期間') === 0) ||
+	    (strcmp($str, '放送期間') === 0)
 	    );
   }
 
