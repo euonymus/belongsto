@@ -98,15 +98,15 @@ debug('Depth: ' . self::$category_depth . ' done.');
   {
     require_once("quark_candidates.php");
 
-// TODO: delete ===
-$i = 0;
-//=================
+/* // TODO: delete === */
+/* $i = 0; */
+/* //================= */
     foreach ($candidates as $candidate) {
       $this->saveQuarkByType($candidate['name'], $candidate['type']);
-// TODO: delete ===
-if ($i > 0) break;
-$i++;
-//=================
+/* // TODO: delete === */
+/* if ($i > 0) break; */
+/* $i++; */
+/* //================= */
     }
   }
 
