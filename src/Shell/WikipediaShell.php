@@ -98,22 +98,27 @@ debug('Depth: ' . self::$category_depth . ' done.');
   {
     require_once("quark_candidates.php");
 
-/* // TODO: delete === */
-/* $i = 0; */
-/* //================= */
+// TODO: delete ===
+$i = 0;
+$j = 0;
+//=================
     foreach ($candidates as $candidate) {
-      $this->saveQuarkByType($candidate['name'], $candidate['type']);
-/* // TODO: delete === */
-/* if ($i > 0) break; */
-/* $i++; */
-/* //================= */
+      $saved = $this->saveQuarkByType($candidate['name'], $candidate['type']);
+// TODO: delete ===
+if ($saved) $j++;
+if ($i > 100) break;
+$i++;
+//=================
     }
+// TODO: delete ===
+debug($j);
+//=================
   }
 
   public function saveQuarkByType($name, $type = NULL)
   {
     Wikipedia::$internal = true; // in order not to access google search
-    $this->Subjects->insertInfoFromWikipedia($name, $type);
+    return $this->Subjects->insertInfoFromWikipedia($name, $type);
   }
 
   public static function readUls($uls)

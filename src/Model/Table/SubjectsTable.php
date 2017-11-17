@@ -679,7 +679,6 @@ debug($res);
     public function insertInfoFromWikipedia($txt, $type = NULL)
     {
       $existing = $this->getOneWithSearch($txt);
-if ($existing) debug($existing->name);
       if ($existing) return false;
 
       //$query = self::removeAllSpaces($txt);
@@ -710,7 +709,7 @@ if ($existing) debug($existing->name);
 	$res['end_accuracy'] = NULL;
       }
 // TODO
-/* debug($res); */
+debug($res);
       /* return $this->saveBotArray($res); */
     }
     public function updateInfoFromWikipedia($data)
