@@ -129,6 +129,15 @@ class Subject extends Entity
 				    self::TYPE_ANIME_MV_DERIVATIVE,
 				    self::TYPE_CHARACTER,
 				    ];
+    public static $typeListBooks = [
+				    self::TYPE_BOOK_ORIGINAL,
+				    self::TYPE_BOOK_DERIVATIVE,
+				    ];
+    public static $typeListMangas = [
+				    self::TYPE_MANGA_ORIGINAL,
+				    self::TYPE_MANGA_DERIVATIVE,
+				    ];
+
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -145,6 +154,11 @@ class Subject extends Entity
     ];
 
     public static function momentaryByType($type)
+    {
+      return in_array($type, self::$typeListMomentaries);
+    }
+
+    public static function isPersonByType($type)
     {
       return in_array($type, self::$typeListHuman);
     }

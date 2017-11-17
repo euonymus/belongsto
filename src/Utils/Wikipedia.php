@@ -20,8 +20,15 @@ class Wikipedia
   {
   }
 
-  const CONTENT_TYPE_PERSON = 'person';
-  const CONTENT_TYPE_MOVIE = 'movie';
+  const CONTENT_TYPE_NONE         = 'none';
+  const CONTENT_TYPE_PERSON       = 'person';
+  const CONTENT_TYPE_MOVIE        = 'movie';
+  const CONTENT_TYPE_ORGANIZATION = 'organization';
+  const CONTENT_TYPE_MUSIC        = 'music';
+  const CONTENT_TYPE_CHARACTER    = 'character';
+  const CONTENT_TYPE_BOOK         = 'book';
+  const CONTENT_TYPE_MANGA        = 'manga';
+
   public static $contentType = self::CONTENT_TYPE_PERSON;
 
   public static $xpath_main = '//div[contains(@class, "mw-parser-output")]';
@@ -192,6 +199,14 @@ class Wikipedia
 	if (!self::isBirthdayItem((string)$val->th)) continue;
       } elseif (self::$contentType == self::CONTENT_TYPE_MOVIE) {
 	if (!self::isReleasedayItem((string)$val->th)) continue;
+      } elseif (self::$contentType == self::CONTENT_TYPE_BOOK ||
+		self::$contentType == self::CONTENT_TYPE_MANGA) {
+	if (self::isPeriod((string)$val->th)) {
+	  $txt = self::getPlainText($val->td);
+	  if (!$txt) return false;
+	  return U::getStartDateFromText($txt);
+	}
+	if (!self::isReleasedayItem((string)$val->th)) continue;
       } else continue;
 
       $txt = self::getPlainText($val->td);
@@ -210,7 +225,16 @@ class Wikipedia
       if (!property_exists($val, 'td')) continue;
 
       // TODO: This covers only when the element is a person. Add logic for some other types of elements
-      if (!self::isDeathdayItem((string)$val->th)) continue;
+      if (self::$contentType == self::CONTENT_TYPE_PERSON) {
+	if (!self::isDeathdayItem((string)$val->th)) continue;
+      } elseif (self::$contentType == self::CONTENT_TYPE_MANGA) {
+	if (self::isPeriod((string)$val->th)) {
+	  $txt = self::getPlainText($val->td);
+	  if (!$txt) return false;
+	  return U::getEndDateFromText($txt);
+	}
+	if (!self::isReleasedayItem((string)$val->th)) continue;
+      } else continue;
 
       $txt = self::getPlainText($val->td);
       if (!$txt) return false;
@@ -640,6 +664,12 @@ class Wikipedia
 	    (strcmp($str, '崩御') === 0)
 	    );
   }
+  public static function isPeriod($str)
+  {
+    return ((strcmp($str, '発表期間') === 0)
+	    );
+  }
+
   public static function isUrlItem($str)
   {
     return ((strcmp($str, '公式サイト') === 0) ||

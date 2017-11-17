@@ -676,11 +676,23 @@ debug($res);
     /****************************************************************************/
     /* Wikipedia                                                                */
     /****************************************************************************/
-    public function insertInfoFromWikipedia($txt)
+    public function insertInfoFromWikipedia($txt, $type = NULL)
     {
+      $existing = $this->getOneWithSearch($txt);
+      if ($existing) return false;
+
       //$query = self::removeAllSpaces($txt);
       $query = str_replace(' ', '_', $txt);
       if (!$query) return false;
+
+      // check if there is $type
+      if (in_array($type, Subject::$typeListHuman)) {
+	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_PERSON;
+      } elseif (in_array($type, Subject::$typeListBooks)) {
+	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_BOOK;
+      } elseif (in_array($type, Subject::$typeListMangas)) {
+	Wikipedia::$contentType = Wikipedia::CONTENT_TYPE_MANGA;
+      }
 
       $res = Wikipedia::readPageForQuark($query);
       if (!$res || !is_array($res) || !array_key_exists('name', $res)) return false;
@@ -689,7 +701,15 @@ debug($res);
       $data = $this->getOneWithSearch($res['name']);
       if ($data) return false;
 
-      return $this->saveBotArray($res);
+      // check if there is $type. I know it's redundant
+      $res['is_person'] = Subject::isPersonByType($type);
+      if (Subject::momentaryByType($type)) {
+	$res['is_momentary'] = true;
+	$res['end']          = NULL;
+	$res['end_accuracy'] = NULL;
+      }
+debug($res);
+      /* return $this->saveBotArray($res); */
     }
     public function updateInfoFromWikipedia($data)
     {
@@ -718,20 +738,5 @@ debug($res);
       // checkRules = falseとしないとrelationsの保存に失敗するのでしかたなく。
       $options = ['checkRules' => false];
       return $this->Relations->saveGluonsFromWikipedia($data, $options);
-    }
-
-
-    public function retrieveAndSaveByType($name, $type = NULL)
-    {
-      // get data from Wikipedia
-      // should we use insertInfoFromWikipedia or something else?
-
-      $newSubject = $this->newEntity();
-      $newSubject->set(['momentary' => Subject::momentaryByType($type)]);
-      debug($newSubject->toArray());
-      /* Subject::buildByType($type); */
-      /* debug($name); */
-      /* debug($type); */
-
     }
 }
