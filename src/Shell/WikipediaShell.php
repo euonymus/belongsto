@@ -106,7 +106,7 @@ $j = 0;
       $saved = $this->saveQuarkByType($candidate['name'], $candidate['type']);
 // TODO: delete ===
 if ($saved) $j++;
-if ($i > 100) break;
+if ($i > 600) break;
 $i++;
 //=================
     }
@@ -118,6 +118,7 @@ debug($j);
   public function saveQuarkByType($name, $type = NULL)
   {
     Wikipedia::$internal = true; // in order not to access google search
+    SubjectsTable::$internal = true; // in order not to access google search
     return $this->Subjects->insertInfoFromWikipedia($name, $type);
   }
 

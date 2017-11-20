@@ -42,6 +42,8 @@ class SubjectsTable extends AppTable
     public static $relative_collected_fail = 2;
     public static $cachedRead = false;
 
+    public static $internal = false;
+
     /**
      * Initialize method
      *
@@ -125,6 +127,7 @@ class SubjectsTable extends AppTable
     {
       if (!empty($data->image_path)) return $data;
       if (empty($data->name)) return $data;
+      if (self::$internal) return $data;
 
       $res = GoogleSearch::getFirstImageFromImageSearch($data->name);
       $image_path = ($res && (strlen($res) <= 255)) ? $res : NULL;
@@ -710,7 +713,7 @@ debug($res);
       }
 // TODO
 debug($res);
-      /* return $this->saveBotArray($res); */
+      return $this->saveBotArray($res);
     }
     public function updateInfoFromWikipedia($data)
     {
