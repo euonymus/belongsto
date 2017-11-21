@@ -122,14 +122,16 @@ class RetrieveShell extends Shell
     debug($i);
   }
 
+  //$candidates = [
+  //  ['吉川貴盛', '第47回衆議院議員総選挙', 'にて北海道2区に自民党から出馬して当選した', '2014/12/14', NULL, TRUE],
+  //];
   public function gluonBuilder()
   {
+    require_once("gluon_candidates.php");
     $options = ['checkRules' => false];
-    $list = [
-	     // ['吉川貴盛', '第47回衆議院議員総選挙', 'にて北海道2区に自民党から出馬して当選した', '2014/12/14', NULL, TRUE],
-	     ];
+
     $i = 0;
-    foreach($list as $relation) {
+    foreach($candidates as $relation) {
       $res = $this->Relations->saveGluonByRelation($relation, $options);
       if ($res) {
 	$i++;
