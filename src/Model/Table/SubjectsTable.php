@@ -439,7 +439,7 @@ class SubjectsTable extends AppTable
       if (self::$escapeForTest) {
 	$existings = $this->findByName($str);
       } else {
-	$existings = $this->search($str);
+	$existings = $this->search($str, 100);
       }
       return $this->findTargetFromSearchedData($str, $existings);
     }
