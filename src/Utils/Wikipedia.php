@@ -38,20 +38,31 @@ class Wikipedia
   public static function readPage($query, $infobox = false)
   {
     if (!is_string($query) || empty($query)) return false;
-    $template = 'https://ja.wikipedia.org/wiki/%s';
+    $template = '/wiki/%s';
     $path = sprintf($template, urlencode($query));
-
+    return self::readPageByPath($path, $infobox);
+  }
+  public static function readPageByPath($path, $infobox = false)
+  {
+    if (!is_string($path) || empty($path)) return false;
+    $template = 'https://ja.wikipedia.org%s';
+    $url = sprintf($template, $path);
+    return self::readPageByUrl($url, $infobox);
+  }
+  public static function readPageByUrl($url, $infobox = false)
+  {
     if ($infobox) {
       $element = self::$xpath_infobox;
     } else {
       $element = self::$xpath_main;
     }
     U::$retrieveCacheConfig = self::$retrieveCacheConfig;
-    $res = U::getXpathFromUrl($path, $element);
+    $res = U::getXpathFromUrl($url, $element);
     if (!$res) return false;
 
     return $res[0];
   }
+
 
   public static function parseInfoBox($xml)
   {
@@ -65,6 +76,7 @@ class Wikipedia
   /* quark                                                                         */
   /*********************************************************************************/
   public static $internal = false;
+/*
   public static function readPageForQuark($query)
   {
     $xml = self::readPage($query);
@@ -93,9 +105,45 @@ class Wikipedia
 
     return $ret;
   }
+*/
+
+  public static function readPageForQuark($query)
+  {
+    $xml = self::readPage($query);
+    if (!$xml) return false;
+    return self::readPageByXmlForQuark($xml);
+  }
+  public static function readPageByXmlForQuark($xml)
+  {
+    $ret = self::constructData($xml);
+    if (!$ret || !is_array($ret)) return false;
+
+    if (!array_key_exists('name', $ret)) {
+      $ret['name'] = $query;
+    }
+
+    // get google image
+    if (!self::$internal &&
+	(!array_key_exists('image_path', $ret) || empty($ret['image_path']))
+    ) {
+      $res =  GoogleSearch::getFirstImageFromImageSearch($query);
+      if ($res && (strlen($res) <= 255)) {
+	$ret['image_path'] =  $res;
+      }
+    }
+    return $ret;
+  }
 
   public static function constructData($xml)
   {
+    // get name
+    $xpath = '//h1[contains(@id,"firstHeading")]';
+    $element = @$xml->xpath($xpath);
+    $name = false;
+    if ($element && is_array($element)) {
+      $name = (string)$element[0];
+    }
+
     // get description
     $description = ($res = self::retrieveDescription($xml)) ? $res : '';
 
@@ -138,7 +186,7 @@ class Wikipedia
       $is_person = false;
     }
 
-    return [
+    $ret = [
 	    'image_path'            => $image_path,
 	    'description'           => $description,
 	    'start'                 => $start,
@@ -150,6 +198,8 @@ class Wikipedia
 	    'is_person'             => $is_person,
 	    'wikipedia_sourced'     => 1,
 	    ];
+    if ($name) $ret['name'] = $name;
+    return $ret;
   }
 
 

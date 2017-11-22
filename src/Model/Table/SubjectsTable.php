@@ -465,6 +465,7 @@ class SubjectsTable extends AppTable
     {
       if (!is_array($arr) || !array_key_exists('name', $arr)) return false;
       //$filling_name = self::removeAllSpaces($arr['name']);
+      $filling_name = $arr['name'];
 
       $existing = self::getOneWithSearch($filling_name);
       if (is_array($existing)) return false; // If there are many records matches, system can't detect which, so returns false.

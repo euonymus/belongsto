@@ -126,8 +126,19 @@ debug($j);
   {
     foreach ($uls as $ul) {
       foreach ($ul->li as $li) {
-	debug($li->a);
+	if (!is_object($li) || !property_exists($li, 'a') ||
+	!$li->a->attributes()) return false;
+
+	//debug((string)$li->a->attributes()->title);
+	$xml = Wikipedia::readPageByPath((string)$li->a->attributes()->href);
+	$ret = Wikipedia::constructData($xml);
+	debug($ret);
+
+// TODO remove
+break;
       }
+// TODO remove
+break;
     }
   }
 
