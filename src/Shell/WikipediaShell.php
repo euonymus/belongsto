@@ -63,6 +63,7 @@ debug('Depth: ' . self::$category_depth . ' done.');
     //$query = '日本の老舗一覧';
     //$query = 'ベーシストの一覧';
     //$query = 'ドラマーの一覧';
+    //$query = '日本の大学一覧';
     $xml = Wikipedia::readPage($query);
     self::readUls($xml->ul);
   }
