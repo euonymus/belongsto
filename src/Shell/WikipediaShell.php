@@ -144,7 +144,7 @@ debug($j);
 	if (!is_object($li) || !property_exists($li, 'a') ||
 	!$li->a->attributes()) continue;
 
-	debug((string)$li->a->attributes()->title);
+	//debug((string)$li->a->attributes()->title);
 	$xml = Wikipedia::readPageByPath((string)$li->a->attributes()->href);
 	if (!$xml) continue;
 	$ret = Wikipedia::constructData($xml);
