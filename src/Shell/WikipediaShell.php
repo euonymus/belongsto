@@ -123,7 +123,7 @@ debug($j);
     return $this->Subjects->insertInfoFromWikipedia($name, $type);
   }
 
-  public static function readUls($uls)
+  public function readUls($uls)
   {
     foreach ($uls as $ul) {
       foreach ($ul->li as $li) {
@@ -133,7 +133,10 @@ debug($j);
 	//debug((string)$li->a->attributes()->title);
 	$xml = Wikipedia::readPageByPath((string)$li->a->attributes()->href);
 	$ret = Wikipedia::constructData($xml);
-	debug($ret);
+
+	SubjectsTable::$internal = true;
+	$this->Subjects->saveNewArray($ret);
+debug($ret);
 
 // TODO remove
 break;
