@@ -79,7 +79,6 @@ debug('Depth: ' . self::$category_depth . ' done.');
       self::readUls($td->ul);
     }
   }
-
   public function guitarist()
   {
     $query = 'ギタリストの一覧';
@@ -88,7 +87,11 @@ debug('Depth: ' . self::$category_depth . ' done.');
     $element = @$xml->xpath($xpath);
 
     foreach ($element as $table) {
-      self::readUls($table->tr->td->ul);
+      foreach ($table->tr as $tr) {
+	foreach ($tr->td as $td) {
+	  self::readUls($td->ul);
+	}
+      }
     }
   }
 
@@ -123,15 +126,27 @@ debug($j);
     return $this->Subjects->insertInfoFromWikipedia($name, $type);
   }
 
+  public static $i = 0;
   public function readUls($uls)
   {
+    //$start = 218;
+    //$end = $start + 225;
+    $start = 473;
+    $end = $start + 100000;
+
     foreach ($uls as $ul) {
       foreach ($ul->li as $li) {
+
+	self::$i++;
+	if ((self::$i < $start) || (self::$i >= $end)) continue;
+	//debug(self::$i);
+
 	if (!is_object($li) || !property_exists($li, 'a') ||
-	!$li->a->attributes()) return false;
+	!$li->a->attributes()) continue;
 
 	//debug((string)$li->a->attributes()->title);
 	$xml = Wikipedia::readPageByPath((string)$li->a->attributes()->href);
+	if (!$xml) continue;
 	$ret = Wikipedia::constructData($xml);
 
 	SubjectsTable::$internal = true;
@@ -141,10 +156,10 @@ debug($j);
 	}
 
 // TODO remove
-break;
+//break;
       }
 // TODO remove
-break;
+//break;
     }
   }
 
