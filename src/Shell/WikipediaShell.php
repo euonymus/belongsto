@@ -68,32 +68,34 @@ debug('Depth: ' . self::$category_depth . ' done.');
     self::readUls($xml->ul);
   }
 
-  public function metal()
-  {
-    $query = 'ヘヴィメタル・アーティストの一覧';
-    $xml = Wikipedia::readPage($query);
-    $xpath = '//table[contains(@style,"text-align:left")]';
-    $element = @$xml->xpath($xpath);
-
-    foreach ($element[0]->tr->td as $td) {
-      self::readUls($td->ul);
-    }
-  }
-  public function guitarist()
-  {
-    $query = 'ギタリストの一覧';
-    $xml = Wikipedia::readPage($query);
-    $xpath = '//table[contains(@class,"multicol")]';
-    $element = @$xml->xpath($xpath);
-
-    foreach ($element as $table) {
-      foreach ($table->tr as $tr) {
-	foreach ($tr->td as $td) {
-	  self::readUls($td->ul);
-	}
-      }
-    }
-  }
+  // DONE
+  //public function metal()
+  //{
+  //  $query = 'ヘヴィメタル・アーティストの一覧';
+  //  $xml = Wikipedia::readPage($query);
+  //  $xpath = '//table[contains(@style,"text-align:left")]';
+  //  $element = @$xml->xpath($xpath);
+  //
+  //  foreach ($element[0]->tr->td as $td) {
+  //    self::readUls($td->ul);
+  //  }
+  //}
+  // DONE
+  //public function guitarist()
+  //{
+  //  $query = 'ギタリストの一覧';
+  //  $xml = Wikipedia::readPage($query);
+  //  $xpath = '//table[contains(@class,"multicol")]';
+  //  $element = @$xml->xpath($xpath);
+  //
+  //  foreach ($element as $table) {
+  //    foreach ($table->tr as $tr) {
+  //	foreach ($tr->td as $td) {
+  //	  self::readUls($td->ul);
+  //	}
+  //    }
+  //  }
+  //}
 
   /*****************************************************/
   /* Tools                                             */
@@ -129,9 +131,7 @@ debug($j);
   public static $i = 0;
   public function readUls($uls)
   {
-    //$start = 218;
-    //$end = $start + 225;
-    $start = 473;
+    $start = 0;
     $end = $start + 100000;
 
     foreach ($uls as $ul) {
@@ -144,7 +144,7 @@ debug($j);
 	if (!is_object($li) || !property_exists($li, 'a') ||
 	!$li->a->attributes()) continue;
 
-	//debug((string)$li->a->attributes()->title);
+	debug((string)$li->a->attributes()->title);
 	$xml = Wikipedia::readPageByPath((string)$li->a->attributes()->href);
 	if (!$xml) continue;
 	$ret = Wikipedia::constructData($xml);
@@ -154,6 +154,8 @@ debug($j);
 	if ($saved) {
 	  debug($ret);
 	}
+/*
+*/
 
 // TODO remove
 //break;
