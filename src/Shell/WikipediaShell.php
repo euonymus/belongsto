@@ -58,9 +58,9 @@ debug('Depth: ' . self::$category_depth . ' done.');
 
   public function simplelist()
   {
-    $query = 'ミュージシャン一覧_(グループ)';
+    //$query = 'ミュージシャン一覧_(グループ)';
     //$query = '日本のバンド一覧';
-    //$query = '日本の老舗一覧';
+    //$query = '日本の老舗一覧'; // failed
     //$query = 'ベーシストの一覧';
     //$query = 'ドラマーの一覧';
     //$query = '日本の大学一覧';
