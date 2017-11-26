@@ -135,8 +135,10 @@ debug($j);
 	$ret = Wikipedia::constructData($xml);
 
 	SubjectsTable::$internal = true;
-	$this->Subjects->saveNewArray($ret);
-debug($ret);
+	$saved = $this->Subjects->saveNewArray($ret);
+	if ($saved) {
+	  debug($ret);
+	}
 
 // TODO remove
 break;
