@@ -18,6 +18,9 @@ class AppTable extends Table
     static $subject_searches;
     static $relations;
 
+    public $lang;
+    public $lang_eng;
+
     public $privacyMode = \App\Controller\AppController::PRIVACY_PUBLIC;
 
     /**
@@ -31,10 +34,10 @@ class AppTable extends Table
         parent::initialize($config);
 	$prefix = '';
 
-        $lang = Configure::read('Belongsto.lang');
-        $lang_eng = Configure::read('Belongsto.lang_eng');
-	if ($lang != $lang_eng) {
-	  $prefix = $lang . '_';
+	$this->lang = Configure::read('Belongsto.lang');
+	$this->lang_eng = Configure::read('Belongsto.lang_eng');
+	if ($this->lang != $this->lang_eng) {
+	  $prefix = $this->lang . '_';
 	}
 
 	self::$subjects         = $prefix . self::TABLE_SUBJECT;
