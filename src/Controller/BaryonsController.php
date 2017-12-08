@@ -5,6 +5,7 @@ use App\Controller\AppController;
 
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * Baryons Controller
@@ -71,9 +72,9 @@ class BaryonsController extends AppController
 	  try {
 	    $forRedirect = $Subjects->get($name);
 	  } catch(\Exception $e) {
-	    return $this->redirect('/');
+	    throw new NotFoundException('Record not found in table "subjects"');
 	  }
-	  return $this->redirect('/baryons/quark/' . urlencode($forRedirect->name));
+	  return $this->redirect('/baryons/quark/' . urlencode($forRedirect->name), 301);
 	}
 
 	// just in case;
@@ -156,10 +157,10 @@ class BaryonsController extends AppController
 	  try {
 	    $forRedirect = $Subjects->get($name);
 	  } catch(\Exception $e) {
-	    return $this->redirect('/');
+	    throw new NotFoundException('Record not found in table "subjects"');
 	  }
 	  $suffix = ($second_type == 'active') ? '' : '/' . $second_type;
-	  return $this->redirect('/baryons/relations/' . $id . '/' . urlencode($forRedirect->name) . $suffix);
+	  return $this->redirect('/baryons/relations/' . $id . '/' . urlencode($forRedirect->name) . $suffix, 301);
 	}
 
 	// just in case;

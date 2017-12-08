@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 use Cake\ORM\TableRegistry;
+use Cake\Network\Exception\NotFoundException;
 
 use Cake\Cache\Cache;
 use App\Utils\U;
@@ -93,10 +94,10 @@ class SubjectsController extends AppController
 	  try {
 	    $forRedirect = $this->Subjects->get($name);
 	  } catch(\Exception $e) {
-	    return $this->redirect('/');
+	    throw new NotFoundException('Record not found in table "subjects"');
 	  }
 	  $suffix = ($second_type == 'active') ? '' : '/' . $second_type;
-	  return $this->redirect('/subjects/relations/' . urlencode($forRedirect->name) . $suffix);
+	  return $this->redirect('/subjects/relations/' . urlencode($forRedirect->name) . $suffix, 301);
 	}
 
 	// just in case;
@@ -155,7 +156,7 @@ class SubjectsController extends AppController
 
             if ($savedSubject = $this->Subjects->save($subject)) {
                 $this->_setFlash(__('The quark has been saved.')); 
-                return $this->redirect(['action' => 'relations', $savedSubject->id]);
+                return $this->redirect(['action' => 'relations', $savedSubject->name]);
             } else {
                 $this->_setFlash(__('The quark could not be saved. Please, try again.'), true); 
             }
@@ -195,7 +196,7 @@ class SubjectsController extends AppController
             if ($savedSubject = $this->Subjects->save($subject)) {
                 $this->_setFlash(__('The quark has been saved.'));
 		Cache::clear(false); 
-                return $this->redirect(['action' => 'relations', $savedSubject->id]);
+                return $this->redirect(['action' => 'relations', $savedSubject->name]);
             } else {
                 $this->_setFlash(__('The quark could not be saved. Please, try again.'), true); 
             }
