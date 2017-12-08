@@ -73,7 +73,7 @@ class SubjectsController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function relations($id = null, $second_type = null)
+    public function relations($name = null, $second_type = null)
     {
         if ( ($second_type != 'none') && ($second_type != 'passive') ) {
 	  $second_type = 'active';
@@ -86,9 +86,21 @@ class SubjectsController extends AppController
 	  return $q->where(['Relations.baryon_id is NULL']);
 	};
 
-	\App\Model\Table\SubjectsTable::$cachedRead = true;
-        $subject = $this->Subjects->getRelations($id, $contain, 2, $second_type);
-	if (!$subject) $this->redirect('/');
+	try {
+	  \App\Model\Table\SubjectsTable::$cachedRead = true;
+	  $subject = $this->Subjects->getRelationsByName($name, $contain, 2, $second_type);
+	} catch(\Exception $e) {
+	  try {
+	    $forRedirect = $this->Subjects->get($name);
+	  } catch(\Exception $e) {
+	    return $this->redirect('/');
+	  }
+	  $suffix = ($second_type == 'active') ? '' : '/' . $second_type;
+	  return $this->redirect('/subjects/relations/' . urlencode($forRedirect->name) . $suffix);
+	}
+
+	// just in case;
+	if (!$subject) return $this->redirect('/');
 
 	$title_second_level = '';
 	if ($second_type == 'passive') {

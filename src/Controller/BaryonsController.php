@@ -53,7 +53,7 @@ class BaryonsController extends AppController
         $this->set('_serialize', ['baryons']);
     }
 
-    public function quark($subject_id = null)
+    public function quark($name = null)
     {
         $this->paginate = [
 			   'contain' => ['Users'],
@@ -63,8 +63,22 @@ class BaryonsController extends AppController
 
 
         $Subjects = TableRegistry::get('Subjects');
-        $subject = $Subjects->getRelations($subject_id);
-	if (!$subject) $this->redirect('/');
+        //$subject = $Subjects->getRelations($subject_id);
+	//if (!$subject) $this->redirect('/');
+	try {
+	  $subject = $Subjects->getRelationsByName($name);
+	} catch(\Exception $e) {
+	  try {
+	    $forRedirect = $Subjects->get($name);
+	  } catch(\Exception $e) {
+	    return $this->redirect('/');
+	  }
+	  return $this->redirect('/baryons/quark/' . urlencode($forRedirect->name));
+	}
+
+	// just in case;
+	if (!$subject) return $this->redirect('/');
+
 
 	$title = $this->LangMngr->txt('Choose a baryon', 'Choose a baryon');
         $this->set(compact('baryons', 'subject', 'title'));
@@ -100,7 +114,7 @@ class BaryonsController extends AppController
         $this->set('_serialize', ['baryon']);
     }
 
-    public function relations($id = null, $subject_id = null, $second_type = null)
+    public function relations($id = null, $name = null, $second_type = null)
     {
         if ( ($second_type != 'none') && ($second_type != 'passive') ) {
 	  $second_type = 'active';
@@ -134,8 +148,22 @@ class BaryonsController extends AppController
 	  $baryon_id = $id;
 	}
         $Subjects = TableRegistry::get('Subjects');
-        $subject = $Subjects->getRelations($subject_id, $contain, 2, $second_type, $baryon_id);
-	if (!$subject) $this->redirect('/');
+        //$subject = $Subjects->getRelations($subject_id, $contain, 2, $second_type, $baryon_id);
+	//if (!$subject) $this->redirect('/');
+	try {
+	  $subject = $Subjects->getRelationsByName($name, $contain, 2, $second_type, $baryon_id);
+	} catch(\Exception $e) {
+	  try {
+	    $forRedirect = $Subjects->get($name);
+	  } catch(\Exception $e) {
+	    return $this->redirect('/');
+	  }
+	  $suffix = ($second_type == 'active') ? '' : '/' . $second_type;
+	  return $this->redirect('/baryons/relations/' . $id . '/' . urlencode($forRedirect->name) . $suffix);
+	}
+
+	// just in case;
+	if (!$subject) return $this->redirect('/');
 
 	$title = $subject->name . '[Baryon: ' . $baryon->name . ']';
 

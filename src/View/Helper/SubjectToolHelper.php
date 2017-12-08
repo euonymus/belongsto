@@ -16,21 +16,21 @@ class SubjectToolHelper extends Helper
     if (empty($str)) return self::PATH_NO_IMAGE;
     return $str;
   }
-  public static function buildViewArray($id)
+  public static function buildViewArray($name)
   {
     $ret = self::$arr_view_path;
-    $ret[] = $id;
+    $ret[] = $name;
     return $ret;
   }
   public function imageLink($relation, $options = ['width' => '100px', 'height' => '100px'])
   {
     return $this->Html->link($this->Html->image($this->imagePath($relation->image_path), $options),
-			     self::buildViewArray($relation->id),
+			     self::buildViewArray($relation->name),
 			     ['escape' => false]);
   }
-  public function link($text, $id)
+  public function link($text, $name)
   {
-    return $this->Html->link($text, self::buildViewArray($id));
+    return $this->Html->link($text, self::buildViewArray($name));
   }
 
   public function buynow()
@@ -48,17 +48,17 @@ class SubjectToolHelper extends Helper
     $lang_eng = Configure::read('Belongsto.lang_eng');
     if ($lang == $lang_eng) {
       if ($type == 1) {
-	$res = $name . ' ' . $relation_text . ' ' . $this->link($relation_object->name, $relation_object->id);
+	$res = $name . ' ' . $relation_text . ' ' . $this->link($relation_object->name, $relation_object->name);
       } elseif($type == 2) {
-	$res = $this->link($relation_object->name, $relation_object->id) . ' ' . $relation_text . ' ' . $name;
+	$res = $this->link($relation_object->name, $relation_object->name) . ' ' . $relation_text . ' ' . $name;
       }
       $res .= ' ' . $suffix;
     } else {
       if ($type == 1) {
-	//$res = $this->link($relation_object->name, $relation_object->id);
-	$res = $name . 'は ' . $this->link($relation_object->name, $relation_object->id);
+	//$res = $this->link($relation_object->name, $relation_object->name);
+	$res = $name . 'は ' . $this->link($relation_object->name, $relation_object->name);
       } elseif ($type == 2) {
-	$res = $this->link($relation_object->name, $relation_object->id) . ' は' . $name;
+	$res = $this->link($relation_object->name, $relation_object->name) . ' は' . $name;
       }
       $res .= $relation_text . $suffix;
     }
@@ -70,11 +70,11 @@ class SubjectToolHelper extends Helper
     $lang_eng = Configure::read('Belongsto.lang_eng');
     if ($lang == $lang_eng) {
       // Stop shortening English text
-      //$res = '..' . $relation_text . ' ' . $this->link($relation_object->name, $relation_object->id);
-      $res = $name . ' ' . $relation_text . ' ' . $this->link($relation_object->name, $relation_object->id);
+      //$res = '..' . $relation_text . ' ' . $this->link($relation_object->name, $relation_object->name);
+      $res = $name . ' ' . $relation_text . ' ' . $this->link($relation_object->name, $relation_object->name);
       $res .= ' ' . $suffix;
     } else {
-      $res = $this->link($relation_object->name, $relation_object->id);
+      $res = $this->link($relation_object->name, $relation_object->name);
       $res .= $relation_text . $suffix;
     }
     return $res;

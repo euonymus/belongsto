@@ -320,7 +320,7 @@ class SubjectsTable extends AppTable
     /****************************************************************************/
     /* Get Data                                                                 */
     /****************************************************************************/
-    public function getRelations($id, $contain = NULL, $level = 1, $second_type = null, $baryon_id = NULL)
+    public function getRelationsByName($name, $contain = NULL, $level = 1, $second_type = null, $baryon_id = NULL)
     {
       if (!is_numeric($level) || ($level > 2)) return false;
 
@@ -336,10 +336,11 @@ class SubjectsTable extends AppTable
       //$subject = $this->get($id, $options);
       $query = $this->find()->contain($contain);
       if (self::$cachedRead) {
-	$query = $query->cache('Subject_' . $this->lang . '_' . $level . '_' . $id);
+	$query = $query->cache('Subject_' . $this->lang . '_' . $level . '_' . $name);
       }
 
-      $where = $this->wherePrivacyId($id);
+      //$where = $this->wherePrivacyId($id);
+      $where = $this->wherePrivacyName($name);
 
       $query = $query->where($where);
       $subject = $query->first();
@@ -501,6 +502,10 @@ class SubjectsTable extends AppTable
     {
       return [self::whereId($id), self::wherePrivacy()];
     }
+    public function wherePrivacyName($name)
+    {
+      return [self::whereName($name), self::wherePrivacy()];
+    }
     public function wherePrivacy()
     {
       if ($this->privacyMode == \App\Controller\AppController::PRIVACY_PUBLIC) {
@@ -518,6 +523,10 @@ class SubjectsTable extends AppTable
     public static function whereId($id)
     {
       return ['Subjects.id' => $id];
+    }
+    public static function whereName($name)
+    {
+      return ['Subjects.name' => $name];
     }
 
     public static function wherePublic()

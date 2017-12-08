@@ -20,7 +20,7 @@
             <?= $this->SubjectTool->imageLink($subject) ?>
           </div>
           <div class="media-body">
-            <h4 class="media-heading"><?= $this->SubjectTool->link($subject->name, $subject->id) ?></h4>
+            <h4 class="media-heading"><?= $this->SubjectTool->link($subject->name, $subject->name) ?></h4>
             <?= $subject->description ?>
           </div>
         </div>
