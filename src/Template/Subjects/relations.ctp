@@ -45,13 +45,13 @@
 
     <ul class="nav nav-pills">
       <li role="presentation"<? if ($second_type == 'active') { echo ' class="active"'; } ?>>
-          <?= $this->Html->link('Active', ['controller' => 'subjects', 'action' => 'relations', $subject->id, 'active']); ?>
+          <?= $this->Html->link('Active', ['controller' => 'subjects', 'action' => 'relations', $subject->name, 'active']); ?>
       </li>
       <li role="presentation"<? if ($second_type == 'passive') { echo ' class="active"'; } ?>>
-          <?= $this->Html->link('Passive', ['controller' => 'subjects', 'action' => 'relations', $subject->id, 'passive']); ?>
+          <?= $this->Html->link('Passive', ['controller' => 'subjects', 'action' => 'relations', $subject->name, 'passive']); ?>
       </li>
       <li role="presentation"<? if ($second_type == 'none') { echo ' class="active"'; } ?>>
-          <?= $this->Html->link('None', ['controller' => 'subjects', 'action' => 'relations', $subject->id, 'none']); ?>
+          <?= $this->Html->link('None', ['controller' => 'subjects', 'action' => 'relations', $subject->name, 'none']); ?>
       </li>
     </ul>
 
