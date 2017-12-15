@@ -728,5 +728,44 @@ class Wikipedia
 	    );
   }
 
+  /*********************************************************************************/
+  /* API                                                                           */
+  /*********************************************************************************/
+  // $option = [
+  //	       'action' => 'query',
+  //	       'titles' => 'エマ・ワトソン',
+  //	       'prop' => 'revisions',
+  //	       'rvprop' => 'content',
+  //	       ];
+  public static $is_markdown = true;
+  public static function callByTitle($title)
+  {
+    $option = ['titles' => $title];
+    $option['action'] = 'query';
+    $option['prop'] = 'revisions';
+    $option['rvprop'] = 'content';
+    if (!self::$is_markdown) $option['rvparse'] = '';
+    $data = self::call($option);
 
+    $pageid = (int)$data->query->pages->page->attributes()->pageid;
+    $title = (string)$data->query->pages->page->attributes()->title;
+    $content_md = (string)$data->query->pages->page->revisions->rev;
+
+    if (self::$is_markdown) {
+      $content = $content_md;
+    } else {
+      $obj = U::simplexml_from_html('<html><title></title>'.$content_md.'</html>');
+      $content = $obj->body->div;
+    }
+    return compact('pageid', 'title', 'content');
+  }
+
+  public static function call($option = [])
+  {
+    $endpoint = 'https://ja.wikipedia.org/w/api.php';
+    $option['format'] = 'xml';
+    $query = http_build_query($option);
+    U::$retrieveCacheConfig = self::$retrieveCacheConfig;
+    return U::retrieveXmlFromUrl($endpoint . '?' . $query);
+  }
 }

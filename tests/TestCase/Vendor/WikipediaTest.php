@@ -189,4 +189,39 @@ class WikipediaTest extends TestCase
       //$this->assertSame($res['relative_type'], '長女');
     }
 
+    public function testCall()
+    {
+      if (self::$apitest) {
+	$option = [
+		   'action' => 'query',
+		   'titles' => 'エマ・ワトソン',
+		   'prop' => 'revisions',
+		   'rvprop' => 'content',
+		   ];
+
+	$res = Wikipedia::call($option);
+	//debug((string)$res->query->pages->page->revisions->rev);
+	$this->assertSame((int)$res->query->pages->page->attributes()->pageid, 128948);
+	$this->assertSame((string)$res->query->pages->page->attributes()->title, $option['titles']);
+      }
+    }
+    public function testCallByTitle()
+    {
+      if (self::$apitest) {
+	// case: as markdown
+	$title = 'エマ・ワトソン';
+	$res = Wikipedia::callByTitle($title);
+	$this->assertSame($res['pageid'], 128948);
+	$this->assertSame($res['title'], $title);
+	$this->assertTrue(is_string($res['content']));
+
+	// case: as xml object
+	$title = 'ラリー・サンガー';
+	Wikipedia::$is_markdown = false;
+	$res = Wikipedia::callByTitle($title);
+	$this->assertSame($res['pageid'], 470070);
+	$this->assertSame($res['title'], $title);
+	$this->assertTrue($res['content'] instanceof \SimpleXMLElement);
+      }
+    }
 }
