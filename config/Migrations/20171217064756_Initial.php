@@ -342,7 +342,7 @@ class Initial extends AbstractMigration
             )
             ->create();
 
-        $this->table('page')
+        $this->table('pages')
             ->addColumn('page_id', 'integer', [
                 'autoIncrement' => true,
                 'default' => null,
@@ -792,7 +792,7 @@ class Initial extends AbstractMigration
         $this->dropTable('ja_relations');
         $this->dropTable('ja_subject_searches');
         $this->dropTable('ja_subjects');
-        $this->dropTable('page');
+        $this->dropTable('pages');
         $this->dropTable('relations');
         $this->dropTable('subject_searches');
         $this->dropTable('subjects');
