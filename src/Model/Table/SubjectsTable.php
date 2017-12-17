@@ -760,7 +760,8 @@ debug($res);
     public function saveFromPages()
     {
       $Pages = TableRegistry::get('Pages');
-      $page = $Pages->findByName('hoge')->first();
+      $where = $Pages->whereViableMigrationCandidates();
+      $page = $Pages->find()->where([$where])->first();
       debug($page);
     }
 }

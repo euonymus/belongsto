@@ -98,6 +98,16 @@ debug('Depth: ' . self::$category_depth . ' done.');
   //}
 
   /*****************************************************/
+  /* Table                                             */
+  /*****************************************************/
+  public function saveFromPage()
+  {
+    $this->Subjects->saveFromPages();
+
+  }
+
+
+  /*****************************************************/
   /* Tools                                             */
   /*****************************************************/
   public function saveQuarkFromList()

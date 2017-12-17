@@ -126,4 +126,27 @@ class PagesTable extends Table
 
         return $rules;
     }
+
+    /*******************************************************/
+    /* where                                               */
+    /*******************************************************/
+    public static function whereViableMigrationCandidates()
+    {
+      return [self::whereNotTreated(), self::whereViable()];
+    }
+    public static function whereNotTreated()
+    {
+      return ['Pages.is_treated' => false];
+    }
+    public static function whereViable()
+    {
+      return [['Pages.page_title not like' => '%アップロードログ%'],
+	      ['Pages.page_title not like' => '%削除記録%'],
+	      ['Pages.page_title not like' => '%削除済み%'],
+	      ['Pages.page_title not like' => '%Upload_log%'],
+	      ['Pages.page_title not like' => '%Protection_log%'],
+	      ['Pages.page_title not like' => '%-stub%'],
+	      ];
+    }
+
 }
