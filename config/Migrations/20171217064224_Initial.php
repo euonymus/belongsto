@@ -302,6 +302,12 @@ class Initial extends AbstractMigration
                 'null' => false,
                 'signed' => false,
             ])
+            ->addColumn('wid', 'integer', [
+                'default' => null,
+                'limit' => 8,
+                'null' => true,
+                'signed' => false,
+            ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
                 'limit' => null,
@@ -315,7 +321,14 @@ class Initial extends AbstractMigration
             ->addIndex(
                 [
                     'name',
-                ]
+                ],
+                ['unique' => true]
+            )
+            ->addIndex(
+                [
+                    'wid',
+                ],
+                ['unique' => true]
             )
             ->addIndex(
                 [
@@ -325,6 +338,110 @@ class Initial extends AbstractMigration
             ->addIndex(
                 [
                     'is_person',
+                ]
+            )
+            ->create();
+
+        $this->table('page')
+            ->addColumn('page_id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 8,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addPrimaryKey(['page_id'])
+            ->addColumn('page_namespace', 'integer', [
+                'default' => 0,
+                'limit' => 11,
+                'null' => false,
+            ])
+            ->addColumn('page_title', 'text', [
+                'default' => '',
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('page_restrictions', 'text', [
+                'default' => '',
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('page_counter', 'biginteger', [
+                'default' => 0,
+                'limit' => 20,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('page_is_redirect', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('page_is_new', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('page_random', 'float', [
+                'default' => 0,
+                'limit' => 0,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('page_touched', 'text', [
+                'default' => '',
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('page_links_updated', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('page_latest', 'integer', [
+                'default' => 0,
+                'limit' => 8,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('page_len', 'integer', [
+                'default' => 0,
+                'limit' => 8,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('page_content_model', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('page_lang', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addIndex(
+                [
+                    'page_namespace',
+                    'page_title',
+                ],
+                ['unique' => true]
+            )
+            ->addIndex(
+                [
+                    'page_random',
+                ]
+            )
+            ->addIndex(
+                [
+                    'page_len',
+                ]
+            )
+            ->addIndex(
+                [
+                    'page_is_redirect',
+                    'page_namespace',
+                    'page_len',
                 ]
             )
             ->create();
@@ -575,6 +692,12 @@ class Initial extends AbstractMigration
                 'null' => false,
                 'signed' => false,
             ])
+            ->addColumn('wid', 'integer', [
+                'default' => null,
+                'limit' => 8,
+                'null' => true,
+                'signed' => false,
+            ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
                 'limit' => null,
@@ -588,7 +711,14 @@ class Initial extends AbstractMigration
             ->addIndex(
                 [
                     'name',
-                ]
+                ],
+                ['unique' => true]
+            )
+            ->addIndex(
+                [
+                    'wid',
+                ],
+                ['unique' => true]
             )
             ->addIndex(
                 [
@@ -662,6 +792,7 @@ class Initial extends AbstractMigration
         $this->dropTable('ja_relations');
         $this->dropTable('ja_subject_searches');
         $this->dropTable('ja_subjects');
+        $this->dropTable('page');
         $this->dropTable('relations');
         $this->dropTable('subject_searches');
         $this->dropTable('subjects');
