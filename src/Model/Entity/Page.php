@@ -20,6 +20,7 @@ use Cake\ORM\Entity;
  * @property int $page_len
  * @property string $page_content_model
  * @property string $page_lang
+ * @property bool $is_treated
  *
  * @property \App\Model\Entity\Page $page
  */

@@ -29,7 +29,7 @@ class SubjectsTableTest extends TestCase
     public $fixtures = [
         'app.subjects',
         'app.subject_searches',
-        'app.relations'
+        'app.relations',
     ];
 
     //static $apitest = true;
@@ -112,16 +112,16 @@ class SubjectsTableTest extends TestCase
       $res = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
       $this->assertSame($testTarget, $res->name);
 
-
-      // Case 3: Multiple Targets make it failure.
-      // retreive the target array from Talent dictionary.
-      $testTarget = '芦田愛菜';
-      // You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
-      $existings = $this->Subjects->findByName($testTarget);
-
-      // Test 3:
-      $res = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
-      $this->assertTrue(is_array($res));
+      // There is no multiple Targets anymore. Because name now has an unique restrictions
+      //// Case 3: Multiple Targets make it failure.
+      //// retreive the target array from Talent dictionary.
+      //$testTarget = '芦田愛菜';
+      //// You can't test search function because PhpUnit doesn't accept fulltext index, so this part is compromising.
+      //$existings = $this->Subjects->findByName($testTarget);
+      //
+      //// Test 3:
+      //$res = $this->Subjects->findTargetFromSearchedData($testTarget, $existings);
+      //$this->assertTrue(is_array($res));
     }
 
 

@@ -753,4 +753,14 @@ debug($res);
       $options = ['checkRules' => false];
       return $this->Relations->saveGluonsFromWikipedia($data, $options);
     }
+
+    /****************************************************************************/
+    /* Wikipedia Oriented Tables                                                */
+    /****************************************************************************/
+    public function saveFromPages()
+    {
+      $Pages = TableRegistry::get('Pages');
+      $page = $Pages->findByName('hoge')->first();
+      debug($page);
+    }
 }

@@ -85,7 +85,7 @@ class SubjectsFixture extends TestFixture
         ],
         [
             'id'                 => '4',
-            'name'               => '芦田愛菜',
+            'name'               => '芦田愛菜2',
             'image_path'         => '',
             'description'        => '',
             'start'              => NULL,

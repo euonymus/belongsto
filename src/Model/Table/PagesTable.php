@@ -105,6 +105,11 @@ class PagesTable extends Table
         $validator
             ->allowEmpty('page_lang');
 
+        $validator
+            ->boolean('is_treated')
+            ->requirePresence('is_treated', 'create')
+            ->notEmpty('is_treated');
+
         return $validator;
     }
 
