@@ -111,9 +111,9 @@ class Wikipedia
   {
     $xml = self::readPage($query);
     if (!$xml) return false;
-    return self::readPageByXmlForQuark($xml);
+    return self::readPageByXmlForQuark($query, $xml, $wid);
   }
-  public static function readPageByXmlForQuark($xml)
+  public static function readPageByXmlForQuark($query, $xml, $wid = null)
   {
     $ret = self::constructData($xml);
     if (!$ret || !is_array($ret)) return false;
@@ -121,6 +121,7 @@ class Wikipedia
     if (!array_key_exists('name', $ret)) {
       $ret['name'] = $query;
     }
+    $ret['wid'] = $wid;
 
     // get google image
     if (!self::$internal &&
@@ -207,6 +208,11 @@ class Wikipedia
   {
     $txt = self::retrieveFirstP($xml);
     if (!$txt || !is_string($txt)) return false;
+
+    $txt = preg_replace('/\[\d+\]/', '', $txt);
+    $txt = preg_replace('/\A.*（.*）.*は、/', '', $txt);
+    $txt = preg_replace('/である。?$/', '', $txt);
+    
     return U::abbreviateStr($txt, 254);
   }
   public static function retrieveStart($xml)
@@ -746,6 +752,10 @@ class Wikipedia
     $option['rvprop'] = 'content';
     if (!self::$is_markdown) $option['rvparse'] = '';
     $data = self::call($option);
+    if (!$data) return false;
+
+    if (!is_object($data) || !property_exists($data, 'query') || !property_exists($data->query, 'pages') ||
+	!property_exists($data->query->pages, 'page') || !$data->query->pages->page->attributes()) return false;
 
     $pageid = (int)$data->query->pages->page->attributes()->pageid;
     $title = (string)$data->query->pages->page->attributes()->title;
@@ -765,7 +775,20 @@ class Wikipedia
     $endpoint = 'https://ja.wikipedia.org/w/api.php';
     $option['format'] = 'xml';
     $query = http_build_query($option);
+    if (!$query) return false;
     U::$retrieveCacheConfig = self::$retrieveCacheConfig;
     return U::retrieveXmlFromUrl($endpoint . '?' . $query);
+  }
+
+
+  public static function readApiForQuark($query)
+  {
+    self::$is_markdown = false;
+    $dataset = self::callByTitle($query);
+    if (!$dataset) return false;
+
+    self::$internal = true;
+    self::$contentType = self::CONTENT_TYPE_NONE;
+    return self::readPageByXmlForQuark($dataset['title'], $dataset['content'], $dataset['pageid']);
   }
 }

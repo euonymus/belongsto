@@ -224,4 +224,27 @@ class WikipediaTest extends TestCase
 	$this->assertTrue($res['content'] instanceof \SimpleXMLElement);
       }
     }
+
+    public function testReadApiForQuark()
+    {
+      if (self::$apitest) {
+	$title = 'ラリー・サンガー';
+	$res = Wikipedia::readApiForQuark($title);
+	$this->assertSame($res['name'], $title);
+	$this->assertSame($res['wid'], 470070);
+	$this->assertSame($res['image_path'], 'https://upload.wikimedia.org/wikipedia/commons/a/a5/L_Sanger.jpg');
+	$this->assertSame($res['start'], '1968-07-16 00:00:00');
+      }
+    }
+
+    public function testRetrieveDescription()
+    {
+      if (self::$apitest) {
+	$title = 'ラリー・サンガー';
+	Wikipedia::$is_markdown = false;
+	$dataset = Wikipedia::callByTitle($title);
+	$res = Wikipedia::retrieveDescription($dataset['content']);
+	$this->assertSame($res, 'アメリカ合衆国の哲学者、大学教授。専門家が参加するフリー百科事典プロジェクトCitizendium（シチズンジアム）の創始者');
+      }
+    }
 }
