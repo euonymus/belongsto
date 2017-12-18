@@ -279,8 +279,6 @@ class SubjectsTable extends AppTable
 	  $ret['end_accuracy'] = $datePair['accuracy'];
 	}
       }
-      if (empty($ret)) return false;
-
 
       if (array_key_exists('is_momentary', $filling) && !is_null($filling['is_momentary'])) {
 	$ret['is_momentary'] = $filling['is_momentary'];
@@ -296,7 +294,18 @@ class SubjectsTable extends AppTable
       if (array_key_exists('t_dictionary_sourced', $filling) && !empty($filling['t_dictionary_sourced'])) {
 	$ret['t_dictionary_sourced'] = $filling['t_dictionary_sourced'];
       }
+      if (array_key_exists('wid', $filling) && !empty($filling['wid'])) {
+	$ret['wid'] = $filling['wid'];
+      }
 
+      if (array_key_exists('created', $filling) && !empty($filling['created'])) {
+	$ret['created'] = $filling['created'];
+      }
+      if (array_key_exists('modified', $filling) && !empty($filling['modified'])) {
+	$ret['modified'] = $filling['modified'];
+      }
+
+      if (empty($ret)) return false;
       return $ret;
     }
 
@@ -762,6 +771,25 @@ debug($res);
       $Pages = TableRegistry::get('Pages');
       $where = $Pages->whereViableMigrationCandidates();
       $page = $Pages->find()->where([$where])->first();
-      debug($page);
+
+      $arr = [
+	      'name'         => $page->page_title,
+	      'wid'          => $page->page_id,
+	      'is_momentary' => false,
+	      'created'      => '2016-11-01 00:00:00',
+	      'modified'     => '2016-11-01 00:00:00',
+	      ];
+
+      // google 画像は取得しない
+      self::$internal = true;
+      $saved = $this->saveNewArray($arr);
+      if (!$saved) return false;
+
+      $page->is_treated = true;
+      $savedPage = $Pages->save($page);
+      if (!$savedPage) return false;
+
+      debug($saved);
+      return $saved;
     }
 }

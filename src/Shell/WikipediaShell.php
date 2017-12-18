@@ -102,8 +102,11 @@ debug('Depth: ' . self::$category_depth . ' done.');
   /*****************************************************/
   public function saveFromPage()
   {
-    $this->Subjects->saveFromPages();
-
+    // TODO: change executing number below.
+    $repeating = 2;
+    for ($page = 0; $page < $repeating; $page++) {
+      $this->Subjects->saveFromPages();
+    }
   }
 
 
