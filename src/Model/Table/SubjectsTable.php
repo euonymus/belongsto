@@ -242,7 +242,7 @@ class SubjectsTable extends AppTable
       // sanitization
       $filling_name = self::removeAllSpaces($filling['name']);
       $existing_name = self::removeAllSpaces($existing->name);
-      if (strcmp($filling_name, $existing_name) !== 0) return false;
+      if (strcasecmp($filling_name, $existing_name) !== 0) return false;
       // never update private record automatically
       if ($existing->is_private) return false;
 
@@ -445,13 +445,14 @@ class SubjectsTable extends AppTable
     // findByNameだとスペース区切りの違いで取得できない場合があるのでわざわざsearch()から取得する
     public function getOneWithSearch($str)
     {
-      // MEMO: 本当は search() だけど、phpunit testできないためfindByNameでテスト中。
-      if (self::$escapeForTest) {
-	$existings = $this->findByName($str);
-      } else {
-	$existings = $this->search($str, 100);
-      }
-      return $this->findTargetFromSearchedData($str, $existings);
+      //// MEMO: 本当は search() だけど、phpunit testできないためfindByNameでテスト中。
+      //if (self::$escapeForTest) {
+      //	$existings = $this->findByName($str);
+      //} else {
+      //	$existings = $this->search($str, 100);
+      //}
+      //return $this->findTargetFromSearchedData($str, $existings);
+      return $this->findByName($str)->first();
     }
 
     // 文字列の名前のデータがあれば取得、なければWikipediaから取得、Wikipediaにもなければ名前だけでsaveして取得
@@ -772,17 +773,21 @@ debug($res);
       $where = $Pages->whereViableMigrationCandidates();
       $page = $Pages->find()->where([$where])->first();
 
-      $arr = [
-	      'name'         => $page->page_title,
-	      'wid'          => $page->page_id,
-	      'is_momentary' => false,
-	      'created'      => '2016-11-01 00:00:00',
-	      'modified'     => '2016-11-01 00:00:00',
-	      ];
+      // call api
+      $arr = Wikipedia::readApiForQuark($page->page_title);
+      if (!$arr) {
+	$page->is_treated = true;
+	$savedPage = $Pages->save($page);
+	return false;
+      }
+
+      $arr['created'] = '2016-11-01 00:00:00';
+      $arr['modified'] = '2016-11-01 00:00:00';
 
       // google 画像は取得しない
       self::$internal = true;
       $saved = $this->saveNewArray($arr);
+
       if (!$saved) return false;
 
       $page->is_treated = true;

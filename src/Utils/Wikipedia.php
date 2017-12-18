@@ -212,6 +212,7 @@ class Wikipedia
     $txt = preg_replace('/\[\d+\]/', '', $txt);
     $txt = preg_replace('/\A.*（.*）.*は、/', '', $txt);
     $txt = preg_replace('/である。?$/', '', $txt);
+    $txt = preg_replace('/\A転送先:/', '', $txt);
     
     return U::abbreviateStr($txt, 254);
   }
@@ -263,7 +264,15 @@ class Wikipedia
 	  return U::getStartDateFromText($txt);
 	}
 	if (!self::isReleasedayItem((string)$val->th)) continue;
-      } else continue;
+      } else {
+	if (self::isPeriod((string)$val->th)) {
+	  $txt = self::getPlainText($val->td);
+	  if (!$txt) return false;
+	  return U::getStartDateFromText($txt);
+	}
+	if (!self::isBirthdayItem((string)$val->th) &&
+	    !self::isReleasedayItem((string)$val->th)) continue;
+      }
 
       $txt = self::getPlainText($val->td);
       if (!$txt) return false;
@@ -290,7 +299,15 @@ class Wikipedia
 	  return U::getEndDateFromText($txt);
 	}
 	if (!self::isReleasedayItem((string)$val->th)) continue;
-      } else continue;
+      } else {
+	if (self::isPeriod((string)$val->th)) {
+	  $txt = self::getPlainText($val->td);
+	  if (!$txt) return false;
+	  return U::getEndDateFromText($txt);
+	}
+	if (!self::isDeathdayItem((string)$val->th) &&
+	    !self::isReleasedayItem((string)$val->th)) continue;
+      }
 
       $txt = self::getPlainText($val->td);
       if (!$txt) return false;
@@ -755,7 +772,9 @@ class Wikipedia
     if (!$data) return false;
 
     if (!is_object($data) || !property_exists($data, 'query') || !property_exists($data->query, 'pages') ||
-	!property_exists($data->query->pages, 'page') || !$data->query->pages->page->attributes()) return false;
+	!property_exists($data->query->pages, 'page') || !$data->query->pages->page->attributes() ||
+	!property_exists($data->query->pages->page, 'revisions') ||
+	!property_exists($data->query->pages->page->revisions, 'rev')) return false;
 
     $pageid = (int)$data->query->pages->page->attributes()->pageid;
     $title = (string)$data->query->pages->page->attributes()->title;
