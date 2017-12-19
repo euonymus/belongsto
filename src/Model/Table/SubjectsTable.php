@@ -12,6 +12,8 @@ use Cake\Cache\Cache;
 
 use App\Model\Entity\Subject;
 use App\Model\Table\SubjectSearchesTable;
+use App\Model\Table\CategorylinksTable;
+
 use Cake\Network\Exception\NotFoundException;
 
 use App\Utils\U;
@@ -37,6 +39,25 @@ use App\Utils\GoogleSearch;
  */
 class SubjectsTable extends AppTable
 {
+    const IMG_PATH_PERSON     = '/img/person.png';
+    const IMG_PATH_COMPANY    = '/img/company.png';
+    const IMG_PATH_MOVIE      = '/img/movie.png';
+    const IMG_PATH_MUSIC      = '/img/music.png';
+    const IMG_PATH_MUSIC_BAND = '/img/music_band.png';
+    const IMG_PATH_SCHOOL     = '/img/school.png';
+    const IMG_PATH_UNIVERSITY = '/img/university.png';
+
+    // relation btw subjects and categorylinks
+    public static $img_path_list = [
+				    CategorylinksTable::CATEGORY_TYPE_PERSON      => self::IMG_PATH_PERSON,
+				    CategorylinksTable::CATEGORY_TYPE_MOVIE       => self::IMG_PATH_MOVIE,
+				    CategorylinksTable::CATEGORY_TYPE_ALBUM       => self::IMG_PATH_MUSIC,
+				    CategorylinksTable::CATEGORY_TYPE_ELEMENTARY  => self::IMG_PATH_SCHOOL,
+				    CategorylinksTable::CATEGORY_TYPE_JUNIOR_HIGH => self::IMG_PATH_SCHOOL,
+				    CategorylinksTable::CATEGORY_TYPE_HIGH_SCHOOL => self::IMG_PATH_SCHOOL,
+				    CategorylinksTable::CATEGORY_TYPE_UNIVERSITY  => self::IMG_PATH_UNIVERSITY,
+				    ];
+
     public static $relative_collected_non  = 0;
     public static $relative_collected_done = 1;
     public static $relative_collected_fail = 2;
@@ -599,6 +620,21 @@ debug($res);
       return true;
     }
 
+    public function buildGluonWithCategorylink($type)
+    {
+      $Categorylinks = TableRegistry::get('Categorylinks');
+      $data = self::getCategorylistQuarkTreated($type);
+      if (!$data) return false;
+
+
+// TODO: still working
+      $passiveName = preg_replace('/の(?!.*の).+$/', '', $data->cl_to);
+      debug($passiveName);
+
+      $activeWid = $data->cl_from;
+      debug($activeWid);
+    }
+
     /****************************************************************************/
     /* Tools                                                                    */
     /****************************************************************************/
@@ -724,7 +760,7 @@ debug($res);
       $data = $this->getOneWithSearch($res['name']);
       if ($data) return false;
 
-      // check if there is $type. I know it's redundant
+      // check if there is $type. I know it is redundant
       $res['is_person'] = Subject::isPersonByType($type);
       if (Subject::momentaryByType($type)) {
 	$res['is_momentary'] = true;
@@ -787,7 +823,6 @@ debug($res);
       // google 画像は取得しない
       self::$internal = true;
       $saved = $this->saveNewArray($arr);
-
       if (!$saved) return false;
 
       $page->is_treated = true;
@@ -797,4 +832,60 @@ debug($res);
       debug($saved);
       return $saved;
     }
+
+    public function updateWithCategorylink($type)
+    {
+      $Categorylinks = TableRegistry::get('Categorylinks');
+      $data = self::getNonTreated($type);
+      if (!$data) return false;
+
+      $arr = ['id' => $data->id];
+      $arr['name'] = $data->name;
+      $arr['image_path'] = self::$img_path_list[$type];
+      if ($type == CategorylinksTable::CATEGORY_TYPE_PERSON) {
+	$arr['is_person'] = true;
+      }
+
+      // google 画像は取得しない
+      self::$internal = true;
+      $saved = $this->saveToFillEmptyField($data, $arr);
+      if (!$saved) return false;
+
+      debug($saved);
+      return $saved;
+    }
+
+    public function getNonTreated($type)
+    {
+      $Categorylinks = TableRegistry::get('Categorylinks');
+      $cl_query = $Categorylinks->getNonTreated($type);
+      // $cl_query はでかすぎて foreach できない。
+      if (!$cl_query || !($categorylink = $cl_query->first())) return false;
+
+      // 処理しきったかどうか判断できないので、この時点ですぐquark_treatedにしてしまう。
+      $res = $Categorylinks->saveAsQuarkTreated($categorylink);
+      if (!$res) return false;
+
+      $data = $this->findByWid($categorylink->cl_from);
+      if (!$data->first()) return false;
+
+      return $data->first();
+    }
+
+    public function getCategorylistQuarkTreated($type)
+    {
+      $Categorylinks = TableRegistry::get('Categorylinks');
+      $cl_query = $Categorylinks->getQuarkTreated($type);
+      // $cl_query はでかすぎて foreach できない。
+      if (!$cl_query || !($categorylink = $cl_query->first())) return false;
+
+
+/*       // 処理しきったかどうか判断できないので、この時点ですぐquark_treatedにしてしまう。 */
+/*       $res = $Categorylinks->saveAsQuarkTreated($categorylink); */
+/* debug(__LINE__); */
+/*       if (!$res) return false; */
+
+      return $categorylink;
+    }
+
 }

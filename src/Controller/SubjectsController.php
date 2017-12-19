@@ -7,6 +7,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Network\Exception\NotFoundException;
 
 use Cake\Cache\Cache;
+use Cake\Routing\Router;
 use App\Utils\U;
 
 /**
@@ -76,6 +77,11 @@ class SubjectsController extends AppController
      */
     public function relations($name = null, $second_type = null)
     {
+        // sanitize
+        if ($second_type == 'active') {
+	  $this->redirect('/subjects/relations/' . $name);
+	}
+
         if ( ($second_type != 'none') && ($second_type != 'passive') ) {
 	  $second_type = 'active';
         }
@@ -113,7 +119,12 @@ class SubjectsController extends AppController
 	}
 	$title = $subject->name . $title_second_level;
 
-        $this->set(compact('subject', 'second_type', 'title'));
+	// build canonical
+	$second_type_path = ($second_type == 'active') ? '' : '/' . $second_type;
+	$domain = Router::url('/', true);
+	$canonical = $domain . 'subjects/relations/' . $name . $second_type_path;
+
+        $this->set(compact('subject', 'second_type', 'title', 'canonical'));
         $this->set('_serialize', ['subject']);
     }
 

@@ -1,3 +1,4 @@
+<?= $this->Html->meta('canonical', $canonical, ['rel' => 'canonical', 'type' => null, 'title' => null, 'block' => true]) ?>
 <div class="row">
   <div class="col-md-3 card subject-main">
 

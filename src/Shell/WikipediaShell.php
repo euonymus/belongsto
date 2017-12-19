@@ -7,6 +7,7 @@ use Cake\Core\Configure;
 use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
 use App\Model\Table\SubjectsTable;
+use App\Model\Table\CategorylinksTable;
 
 use App\Utils\U;
 use App\Utils\Wikipedia;
@@ -109,6 +110,29 @@ debug('Depth: ' . self::$category_depth . ' done.');
     }
   }
 
+  public function updateWithCategorylink()
+  {
+    $type = CategorylinksTable::CATEGORY_TYPE_PERSON;
+    //$type = CategorylinksTable::CATEGORY_TYPE_ALBUM;
+    //$type = CategorylinksTable::CATEGORY_TYPE_ELEMENTARY;
+    //$type = CategorylinksTable::CATEGORY_TYPE_JUNIOR_HIGH;
+    //$type = CategorylinksTable::CATEGORY_TYPE_HIGH_SCHOOL;
+    //$type = CategorylinksTable::CATEGORY_TYPE_UNIVERSITY;
+
+    $this->Subjects->updateWithCategorylink($type);
+  }
+
+
+  public function buildGluonWithCategorylink()
+  {
+    $type = CategorylinksTable::CATEGORY_TYPE_ALBUM;
+    //$type = CategorylinksTable::CATEGORY_TYPE_ELEMENTARY;
+    //$type = CategorylinksTable::CATEGORY_TYPE_JUNIOR_HIGH;
+    //$type = CategorylinksTable::CATEGORY_TYPE_HIGH_SCHOOL;
+    //$type = CategorylinksTable::CATEGORY_TYPE_UNIVERSITY;
+
+    $this->Subjects->buildGluonWithCategorylink($type);
+  }
 
   /*****************************************************/
   /* Tools                                             */
