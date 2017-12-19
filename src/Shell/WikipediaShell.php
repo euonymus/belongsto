@@ -122,6 +122,18 @@ debug('Depth: ' . self::$category_depth . ' done.');
     $this->Subjects->updateWithCategorylink($type);
   }
 
+
+  public function buildGluonWithCategorylink()
+  {
+    $type = CategorylinksTable::CATEGORY_TYPE_ALBUM;
+    //$type = CategorylinksTable::CATEGORY_TYPE_ELEMENTARY;
+    //$type = CategorylinksTable::CATEGORY_TYPE_JUNIOR_HIGH;
+    //$type = CategorylinksTable::CATEGORY_TYPE_HIGH_SCHOOL;
+    //$type = CategorylinksTable::CATEGORY_TYPE_UNIVERSITY;
+
+    $this->Subjects->buildGluonWithCategorylink($type);
+  }
+
   /*****************************************************/
   /* Tools                                             */
   /*****************************************************/

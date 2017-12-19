@@ -620,6 +620,22 @@ debug($res);
       return true;
     }
 
+    public function buildGluonWithCategorylink($type)
+    {
+      $Categorylinks = TableRegistry::get('Categorylinks');
+      $data = self::getCategorylistQuarkTreated($type);
+      if (!$data) return false;
+
+
+// TODO: still working
+      /* $passiveName = preg_replace('/の.*?$/', '', $data->cl_to); */
+
+
+      /* $hoge = 'あああああのほげほげのぺぺぺ'; */
+      /* $passiveName = preg_replace('/の(^の)*$/', '', $hoge); */
+      /* debug($passiveName); */
+    }
+
     /****************************************************************************/
     /* Tools                                                                    */
     /****************************************************************************/
@@ -855,6 +871,22 @@ debug($res);
       if (!$data->first()) return false;
 
       return $data->first();
+    }
+
+    public function getCategorylistQuarkTreated($type)
+    {
+      $Categorylinks = TableRegistry::get('Categorylinks');
+      $cl_query = $Categorylinks->getQuarkTreated($type);
+      // $cl_query はでかすぎて foreach できない。
+      if (!$cl_query || !($categorylink = $cl_query->first())) return false;
+
+
+/*       // 処理しきったかどうか判断できないので、この時点ですぐquark_treatedにしてしまう。 */
+/*       $res = $Categorylinks->saveAsQuarkTreated($categorylink); */
+/* debug(__LINE__); */
+/*       if (!$res) return false; */
+
+      return $categorylink;
     }
 
 }

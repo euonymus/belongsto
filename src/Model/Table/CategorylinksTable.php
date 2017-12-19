@@ -127,6 +127,18 @@ class CategorylinksTable extends Table
       return $this->find()->where([$where]);
     }
 
+    public function getQuarkTreated($type)
+    {
+      if ($type == self::CATEGORY_TYPE_ALBUM) {
+        $where2 = self::whereAlbumByArtist();
+      //} elseif ($type == self::CATEGORY_TYPE_UNIVERSITY) {
+      //   $where2 = self::whereUniversity();
+      } else return false;
+
+      $where = [self::whereQuarkTreated(), $where2];
+      return $this->find()->where([$where]);
+    }
+
     /*******************************************************/
     /* where                                               */
     /*******************************************************/
@@ -149,6 +161,10 @@ class CategorylinksTable extends Table
     public static function whereAlbum()
     {
       return ['Categorylinks.cl_to like' => '%アルバム'];
+    }
+    public static function whereAlbumByArtist()
+    {
+      return [self::whereAlbum(), ['Categorylinks.cl_to not like' => '%年%']];
     }
     public static function whereElementarySchool()
     {
