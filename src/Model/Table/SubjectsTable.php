@@ -628,12 +628,11 @@ debug($res);
 
 
 // TODO: still working
-      /* $passiveName = preg_replace('/の.*?$/', '', $data->cl_to); */
+      $passiveName = preg_replace('/の(?!.*の).+$/', '', $data->cl_to);
+      debug($passiveName);
 
-
-      /* $hoge = 'あああああのほげほげのぺぺぺ'; */
-      /* $passiveName = preg_replace('/の(^の)*$/', '', $hoge); */
-      /* debug($passiveName); */
+      $activeWid = $data->cl_from;
+      debug($activeWid);
     }
 
     /****************************************************************************/
