@@ -814,7 +814,7 @@ debug($res);
       if (!$arr) {
 	$page->is_treated = true;
 	$savedPage = $Pages->save($page);
-	return false;
+	return true;
       }
 
       $arr['created'] = '2016-11-01 00:00:00';
@@ -823,7 +823,11 @@ debug($res);
       // google 画像は取得しない
       self::$internal = true;
       $saved = $this->saveNewArray($arr);
-      if (!$saved) return false;
+      if (!$saved) {
+	$page->is_treated = true;
+	$savedPage = $Pages->save($page);
+	return true;
+      }
 
       $page->is_treated = true;
       $savedPage = $Pages->save($page);

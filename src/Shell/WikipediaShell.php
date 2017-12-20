@@ -106,7 +106,11 @@ debug('Depth: ' . self::$category_depth . ' done.');
     // TODO: change executing number below.
     $repeating = 300000;
     for ($page = 0; $page < $repeating; $page++) {
-      $this->Subjects->saveFromPages();
+      $res = $this->Subjects->saveFromPages();
+      if (!$res) {
+	echo 'something wrong happened';
+	break;
+      }
     }
   }
 
