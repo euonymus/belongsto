@@ -437,5 +437,21 @@ class QpropertyTypesFixture extends TestFixture
             'created' => NULL,
             'modified' => NULL
         ],
+
+	// MEMO: Original properties below ==========================
+        [
+            'id' => 61,
+            'quark_property_id' => 48,
+            'quark_type_id' => 22,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 62,
+            'quark_property_id' => 49,
+            'quark_type_id' => 2,
+            'created' => NULL,
+            'modified' => NULL
+        ],
     ];
 }

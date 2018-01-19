@@ -3121,10 +3121,172 @@ class QtypePropertiesFixture extends TestFixture
             'created' => NULL,
             'modified' => NULL
         ],
+
+	// MEMO: Original properties below ==========================
         [
             'id' => 389,
             'quark_type_id' => 52,
             'quark_property_id' => 47,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 390,
+            'quark_type_id' => 2,
+            'quark_property_id' => 48,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 391,
+            'quark_type_id' => 22,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 392,
+            'quark_type_id' => 23,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 393,
+            'quark_type_id' => 24,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 394,
+            'quark_type_id' => 25,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 395,
+            'quark_type_id' => 26,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 396,
+            'quark_type_id' => 27,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 397,
+            'quark_type_id' => 28,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 398,
+            'quark_type_id' => 29,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 399,
+            'quark_type_id' => 30,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 400,
+            'quark_type_id' => 31,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 401,
+            'quark_type_id' => 32,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 402,
+            'quark_type_id' => 33,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 403,
+            'quark_type_id' => 34,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 404,
+            'quark_type_id' => 35,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 405,
+            'quark_type_id' => 36,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 406,
+            'quark_type_id' => 37,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 407,
+            'quark_type_id' => 38,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 408,
+            'quark_type_id' => 39,
+            'quark_property_id' => 49,
+            'is_required' => 0,
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 409,
+            'quark_type_id' => 40,
+            'quark_property_id' => 49,
             'is_required' => 0,
             'created' => NULL,
             'modified' => NULL

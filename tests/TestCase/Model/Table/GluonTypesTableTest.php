@@ -64,7 +64,11 @@ class GluonTypesTableTest extends TestCase
       $res = $this->GluonTypes->find()->where(['id' => 2])->contain(['QuarkProperties'])->first();
       $flg = false;
       foreach($res->quark_properties as $quark_property) {
-      	if (strcmp($quark_property->name, 'spouse') === 0) $flg = true;
+        if (strcmp($quark_property->name, 'children') === 0) $flg = true;
+      }
+      $this->assertTrue($flg);
+      foreach($res->quark_properties as $quark_property) {
+        if (strcmp($quark_property->name, 'parent') === 0) $flg = true;
       }
       $this->assertTrue($flg);
     }

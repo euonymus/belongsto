@@ -394,5 +394,23 @@ class QuarkPropertiesFixture extends TestFixture
             'modified' => NULL
         ],
 
+	// MEMO: Original properties below ==========================
+        [
+            'id' => 48,
+            'name' => 'job',
+            'caption' => 'job',
+            'caption_ja' => '仕事',
+            'created' => NULL,
+            'modified' => NULL
+        ],
+        [
+            'id' => 49,
+            'name' => 'boardMember',
+            'caption' => 'boardMember',
+            'caption_ja' => '役員',
+            'created' => NULL,
+            'modified' => NULL
+        ],
+
     ];
 }
