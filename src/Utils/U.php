@@ -433,6 +433,14 @@ class U
     return ($time1 == $time2) ? 'same' : (($time1 > $time2) ? self::FLAG_FORMER_HALF : self::FLAG_LATTER_HALF);
   }
 
+  public static function sameStr($str1, $str2)
+  {
+    $str1 = self::trimSpace($str1);
+    $str2 = self::trimSpace($str2);
+    $res = strcmp($str1, $str2);
+    return ($res === 0);
+  }
+
   /*******************************************************/
   /* Date Times                                          */
   /*******************************************************/

@@ -163,6 +163,10 @@ class RelationsTable extends AppTable
       return ['Relations.active_id' => $active_id, 
 	      'Relations.passive_id' => $passive_id];
     }
+    public static function whereNoGluonTypeId()
+    {
+      return ['Relations.gluon_type_id is NULL'];
+    }
     
     /*******************************************************/
     /* batch                                               */

@@ -210,4 +210,19 @@ class UTest extends TestCase
       $res = U::normalizeDateArrayFormat($dateTxt);
       $this->assertSame($res, ['date' => '593-10-16 00:00:00', 'date_accuracy' => NULL]);
     }
+
+    public function testSameStr()
+    {
+      $str1 = '';
+      $str2 = '';
+      $this->assertTrue(U::sameStr($str1, $str2));
+
+      $str1 = ' a a';
+      $str2 = 'aa';
+      $this->assertFalse(U::sameStr($str1, $str2));
+
+      $str1 = ' 　 a a　 　 ';
+      $str2 = 'a a';
+      $this->assertTrue(U::sameStr($str1, $str2));
+    }
 }
