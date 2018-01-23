@@ -56,6 +56,42 @@ class Initial extends AbstractMigration
             ])
             ->create();
 
+        $this->table('gluon_types')
+            ->addColumn('id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addPrimaryKey(['id'])
+            ->addColumn('name', 'string', [
+                'default' => '',
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('caption', 'string', [
+                'default' => '',
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('caption_ja', 'string', [
+                'default' => '',
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->create();
+
         $this->table('ja_relations')
             ->addColumn('id', 'string', [
                 'default' => '',
@@ -111,9 +147,9 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('order_level', 'integer', [
+            ->addColumn('order_level', 'tinyinteger', [
                 'comment' => '1 to 5',
-                'default' => 1,
+                'default' => '1',
                 'limit' => 3,
                 'null' => false,
             ])
@@ -135,6 +171,12 @@ class Initial extends AbstractMigration
                 'signed' => false,
             ])
             ->addColumn('baryon_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+                'signed' => false,
+            ])
+            ->addColumn('gluon_type_id', 'integer', [
                 'default' => null,
                 'limit' => 11,
                 'null' => true,
@@ -296,8 +338,8 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('relative_collected', 'integer', [
-                'default' => 0,
+            ->addColumn('relative_collected', 'tinyinteger', [
+                'default' => '0',
                 'limit' => 3,
                 'null' => false,
                 'signed' => false,
@@ -305,6 +347,12 @@ class Initial extends AbstractMigration
             ->addColumn('wid', 'integer', [
                 'default' => null,
                 'limit' => 8,
+                'null' => true,
+                'signed' => false,
+            ])
+            ->addColumn('quark_type_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
                 'null' => true,
                 'signed' => false,
             ])
@@ -352,22 +400,22 @@ class Initial extends AbstractMigration
             ])
             ->addPrimaryKey(['page_id'])
             ->addColumn('page_namespace', 'integer', [
-                'default' => 0,
+                'default' => '0',
                 'limit' => 11,
                 'null' => false,
             ])
-            ->addColumn('page_title', 'text', [
+            ->addColumn('page_title', 'string', [
                 'default' => '',
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('page_restrictions', 'text', [
+            ->addColumn('page_restrictions', 'string', [
                 'default' => '',
                 'limit' => null,
                 'null' => false,
             ])
             ->addColumn('page_counter', 'biginteger', [
-                'default' => 0,
+                'default' => '0',
                 'limit' => 20,
                 'null' => false,
                 'signed' => false,
@@ -383,42 +431,47 @@ class Initial extends AbstractMigration
                 'null' => false,
             ])
             ->addColumn('page_random', 'float', [
-                'default' => 0,
+                'default' => '0',
                 'limit' => 0,
                 'null' => false,
                 'signed' => false,
             ])
-            ->addColumn('page_touched', 'text', [
+            ->addColumn('page_touched', 'string', [
                 'default' => '',
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('page_links_updated', 'text', [
+            ->addColumn('page_links_updated', 'string', [
                 'default' => null,
                 'limit' => null,
                 'null' => true,
             ])
             ->addColumn('page_latest', 'integer', [
-                'default' => 0,
+                'default' => '0',
                 'limit' => 8,
                 'null' => false,
                 'signed' => false,
             ])
             ->addColumn('page_len', 'integer', [
-                'default' => 0,
+                'default' => '0',
                 'limit' => 8,
                 'null' => false,
                 'signed' => false,
             ])
-            ->addColumn('page_content_model', 'text', [
+            ->addColumn('page_content_model', 'string', [
                 'default' => null,
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('page_lang', 'text', [
+            ->addColumn('page_lang', 'string', [
                 'default' => null,
                 'limit' => null,
                 'null' => true,
+            ])
+            ->addColumn('is_treated', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
             ])
             ->addIndex(
                 [
@@ -444,6 +497,204 @@ class Initial extends AbstractMigration
                     'page_len',
                 ]
             )
+            ->create();
+
+        $this->table('qproperty_gtypes')
+            ->addColumn('id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addPrimaryKey(['id'])
+            ->addColumn('quark_property_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('gluon_type_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('sides', 'boolean', [
+                'comment' => '0: both, 1: A ->, 2: B -> A',
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->create();
+
+        $this->table('qproperty_types')
+            ->addColumn('id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addPrimaryKey(['id'])
+            ->addColumn('quark_property_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('quark_type_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->create();
+
+        $this->table('qtype_properties')
+            ->addColumn('id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addPrimaryKey(['id'])
+            ->addColumn('quark_type_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('quark_property_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('is_required', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->create();
+
+        $this->table('quark_properties')
+            ->addColumn('id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addPrimaryKey(['id'])
+            ->addColumn('name', 'string', [
+                'default' => '',
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('caption', 'string', [
+                'default' => '',
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('caption_ja', 'string', [
+                'default' => '',
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->create();
+
+        $this->table('quark_types')
+            ->addColumn('id', 'integer', [
+                'autoIncrement' => true,
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addPrimaryKey(['id'])
+            ->addColumn('name', 'string', [
+                'default' => '',
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('image_path', 'string', [
+                'default' => '',
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('name_prop', 'string', [
+                'default' => '',
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('start_prop', 'string', [
+                'default' => '',
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('end_prop', 'string', [
+                'default' => '',
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('has_gender', 'integer', [
+                'default' => '0',
+                'limit' => 3,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
             ->create();
 
         $this->table('relations')
@@ -501,9 +752,9 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('order_level', 'integer', [
+            ->addColumn('order_level', 'tinyinteger', [
                 'comment' => '1 to 5',
-                'default' => 1,
+                'default' => '1',
                 'limit' => 3,
                 'null' => false,
             ])
@@ -525,6 +776,12 @@ class Initial extends AbstractMigration
                 'signed' => false,
             ])
             ->addColumn('baryon_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+                'signed' => false,
+            ])
+            ->addColumn('gluon_type_id', 'integer', [
                 'default' => null,
                 'limit' => 11,
                 'null' => true,
@@ -686,8 +943,8 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('relative_collected', 'integer', [
-                'default' => 0,
+            ->addColumn('relative_collected', 'tinyinteger', [
+                'default' => '0',
                 'limit' => 3,
                 'null' => false,
                 'signed' => false,
@@ -695,6 +952,12 @@ class Initial extends AbstractMigration
             ->addColumn('wid', 'integer', [
                 'default' => null,
                 'limit' => 8,
+                'null' => true,
+                'signed' => false,
+            ])
+            ->addColumn('quark_type_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
                 'null' => true,
                 'signed' => false,
             ])
@@ -761,8 +1024,8 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('default_showing_privacy', 'integer', [
-                'default' => 3,
+            ->addColumn('default_showing_privacy', 'tinyinteger', [
+                'default' => '3',
                 'limit' => 3,
                 'null' => false,
                 'signed' => false,
@@ -789,10 +1052,16 @@ class Initial extends AbstractMigration
     public function down()
     {
         $this->dropTable('baryons');
+        $this->dropTable('gluon_types');
         $this->dropTable('ja_relations');
         $this->dropTable('ja_subject_searches');
         $this->dropTable('ja_subjects');
         $this->dropTable('pages');
+        $this->dropTable('qproperty_gtypes');
+        $this->dropTable('qproperty_types');
+        $this->dropTable('qtype_properties');
+        $this->dropTable('quark_properties');
+        $this->dropTable('quark_types');
         $this->dropTable('relations');
         $this->dropTable('subject_searches');
         $this->dropTable('subjects');
