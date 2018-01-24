@@ -338,7 +338,7 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('relative_collected', 'tinyinteger', [
+            ->addColumn('relative_collected', 'integer', [
                 'default' => '0',
                 'limit' => 3,
                 'null' => false,
@@ -752,7 +752,7 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('order_level', 'tinyinteger', [
+            ->addColumn('order_level', 'integer', [
                 'comment' => '1 to 5',
                 'default' => '1',
                 'limit' => 3,
@@ -943,7 +943,7 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('relative_collected', 'tinyinteger', [
+            ->addColumn('relative_collected', 'integer', [
                 'default' => '0',
                 'limit' => 3,
                 'null' => false,
@@ -1024,7 +1024,7 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('default_showing_privacy', 'tinyinteger', [
+            ->addColumn('default_showing_privacy', 'integer', [
                 'default' => '3',
                 'limit' => 3,
                 'null' => false,
