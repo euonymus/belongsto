@@ -147,7 +147,7 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
-            ->addColumn('order_level', 'tinyinteger', [
+            ->addColumn('order_level', 'integer', [
                 'comment' => '1 to 5',
                 'default' => '1',
                 'limit' => 3,
