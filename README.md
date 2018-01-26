@@ -35,7 +35,7 @@ http://ja.gluons.link (日本語)
 
 # Prepare Table Datas
 
-    $ mysql -utwinavitopics -p{password} belongsto < /{source_dir_path}
+    $ mysql -ubelongsto -p{password} belongsto < /{source_dir_path}
 
 
 # Run local server
