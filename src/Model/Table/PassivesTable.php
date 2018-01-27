@@ -43,6 +43,9 @@ class PassivesTable extends AppTable
         $this->hasMany('Relations', [
             'foreignKey' => 'passive_id'
         ]);
+	$this->belongsTo('QuarkTypes', [
+            'foreignKey' => 'quark_type_id',
+        ]);
 
     }
 

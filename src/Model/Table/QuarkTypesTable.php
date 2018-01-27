@@ -24,6 +24,16 @@ use Cake\Validation\Validator;
  */
 class QuarkTypesTable extends Table
 {
+    const TYPE_THING       = 1;
+    const TYPE_PERSON      = 2;
+    const TYPE_MOVIE       = 10;
+    const TYPE_CORPORATION = 23;
+    const TYPE_UNIVERSITY  = 25;
+    const TYPE_ELEM_SCHOOL = 26;
+    const TYPE_HIGH_SCHOOL = 27;
+    const TYPE_MID_SCHOOL  = 28;
+    const TYPE_PRE_SCHOOL  = 29;
+    const TYPE_SCHOOL      = 30;
 
     /**
      * Initialize method
@@ -86,5 +96,25 @@ class QuarkTypesTable extends Table
             ->notEmpty('has_gender');
 
         return $validator;
+    }
+    /*******************************************************/
+    /* where                                               */
+    /*******************************************************/
+    public static function whereIsPerson()
+    {
+      return ['QuarkTypes.id' => self::TYPE_PERSON];
+    }
+    public static function whereIsMovie()
+    {
+      return ['QuarkTypes.id' => self::TYPE_MOVIE];
+    }
+
+    public static function whereAllRecord()
+    {
+      return ['1' => '1'];
+    }
+    public static function whereNoRecord()
+    {
+      return ['QuarkTypes.id' => false];
     }
 }

@@ -6,6 +6,7 @@
         <?
             echo $this->Form->input('name', ['class' => 'form-control']);
             echo $this->Form->input('image_path', ['class' => 'form-control']);
+            echo $this->Form->control('auto_fill', ['type' => 'checkbox', 'checked' => true]);
         ?>
         </div>
         <div class="form-group">
@@ -33,7 +34,9 @@
             echo $this->Form->input('is_momentary');
             echo $this->Form->input('url', ['class' => 'form-control']);
             echo $this->Form->input('affiliate', ['class' => 'form-control']);
-            echo $this->Form->input('is_person');
+            echo '<br>';
+            //echo $this->Form->input('is_person');
+            echo $this->Form->control('quark_type_id', ['options' => $quark_types]);
             $checked = $auth->user('default_saving_privacy')?  true : false;
             echo $this->Form->input('is_private', ['type' => 'checkbox', 'checked' => $checked]);
 

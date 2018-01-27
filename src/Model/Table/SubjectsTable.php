@@ -99,6 +99,9 @@ class SubjectsTable extends AppTable
             'foreignKey' => 'last_modified_user',
             'joinType' => 'INNER'
         ]);
+	$this->belongsTo('QuarkTypes', [
+            'foreignKey' => 'quark_type_id',
+        ]);
 
 	$this->belongsToManyPassives();
 	$this->belongsToManyActives();
@@ -148,6 +151,12 @@ class SubjectsTable extends AppTable
     {
       if (!empty($data->image_path)) return $data;
       if (empty($data->name)) return $data;
+      if (!$data->auto_fill) {
+	$QuarkTypes = TableRegistry::get('QuarkTypes');
+	$quark_type = $QuarkTypes->get($data->quark_type_id);
+	$data->image_path = $quark_type->image_path;
+	return $data;
+      }
       if (self::$internal) return $data;
 
       $res = GoogleSearch::getFirstImageFromImageSearch($data->name);
@@ -572,8 +581,16 @@ class SubjectsTable extends AppTable
     {
       return ['or' => [self::wherePrivate($user_id), self::wherePublic()]];
     }
+    public static function whereIsPerson($bool = true)
+    {
+      return ['Subjects.is_person' => $bool];
+    }
 
 
+    public static function whereNoQuarkTypeId()
+    {
+      return ['Subjects.quark_type_id is NULL'];
+    }
     public static function whereAllRecord()
     {
       return ['1' => '1'];

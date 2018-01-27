@@ -174,7 +174,8 @@ class SubjectsController extends AppController
         }
 
 	$title = 'Adding new quark';
-        $this->set(compact('subject', 'title'));
+	$this->set('quark_types', $this->Subjects->QuarkTypes->find('list'));
+	$this->set(compact('subject', 'title'));
         $this->set('_serialize', ['subject']);
     }
 
@@ -213,6 +214,7 @@ class SubjectsController extends AppController
             }
         }
 	$title = 'Editing quark';
+	$this->set('quark_types', $this->Subjects->QuarkTypes->find('list'));
         $this->set(compact('subject', 'title'));
         $this->set('_serialize', ['subject']);
     }
