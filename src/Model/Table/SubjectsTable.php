@@ -153,6 +153,7 @@ class SubjectsTable extends AppTable
       if (empty($data->name)) return $data;
       if (!$data->auto_fill) {
 	$QuarkTypes = TableRegistry::get('QuarkTypes');
+	if (empty($data->quark_type_id)) $data->quark_type_id = 1;
 	$quark_type = $QuarkTypes->get($data->quark_type_id);
 	$data->image_path = $quark_type->image_path;
 	return $data;
