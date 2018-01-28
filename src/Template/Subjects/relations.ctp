@@ -50,7 +50,8 @@
 */?>
 <? /*********** start **********/ ?>
   <div class="col-md-9 subject-relation-list">
-<? foreach ($subject->quark_properties as $quark_property): ?>
+  <? foreach ($subject->quark_properties as $quark_property): ?>
+
    <?
      $candidates = [];
      foreach ($qproperty_gtypes as $qproperty_gtype) {
@@ -58,20 +59,39 @@
          $candidates[$qproperty_gtype->gluon_type_id] = $qproperty_gtype->sides;
        }
      }
-     debug($candidates);
    ?>
+       <? $relation_candidates = []; ?>
+       <? foreach ($subject->passives as $relation): ?>
+         <? foreach ($candidates as $key => $candidate): ?>
+          <? if (($relation->_joinData->gluon_type_id == $key) && in_array($candidate, [0,1])): ?>
+             <? $relation_candidates[] = $relation; ?>
+           <? endif; ?>
+         <? endforeach; ?>
+       <? endforeach; ?>
 
+       <? foreach ($subject->actives as $relation): ?>
+         <? foreach ($candidates as $key => $candidate): ?>
+          <? if (($relation->_joinData->gluon_type_id == $key) && in_array($candidate, [0,2])): ?>
+             <? $relation_candidates[] = $relation; ?>
+           <? endif; ?>
+         <? endforeach; ?>
+       <? endforeach; ?>
 
+   <? if (!empty($relation_candidates)): ?>
    <h3><?= $this->LangMngr->txt($quark_property->caption, $quark_property->caption_ja); ?></h3>
-    <div class="related">
-<div class="well subject-relation">
-<?= $quark_property->name ?>
-   <? foreach ($subject->passives as $relation): ?>
-   <? //debug($relation->_joinData->gluon_type_id); ?>
-   <? endforeach; ?>
-</div>
+   <div class="related">
+       <div class="well subject-relation">
+
+         <? foreach ($relation_candidates as $relation): ?>
+             <? $isPassive = true; ?>
+             <?= $this->element('subject_box', compact(['subject', 'relation', 'isPassive'])) ?>
+         <? endforeach; ?>
+
+       </div>
     </div>
-<? endforeach; ?>
+    <? endif; ?>
+
+  <? endforeach; ?>
   </div>
 <? /*********** end **********/ ?>
 
