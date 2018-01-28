@@ -10,12 +10,18 @@
    <? if ($lang_now == $lang_eng): ?>
         <h3>Relation between "<?= $relation->active->name ?>" and "<?= $relation->passive->name ?>" ...</h3>
         <hr>
+   <?
+            echo $this->Form->control('gluon_type_id', ['options' => $gluon_types, 'empty'=>'Select One']);
+   ?>
         <?= $relation->active->name ?>
         <?= $this->Form->input('relation', ['class' => 'form-control', 'label' => false]) ?>
         <?= $relation->passive->name ?>
    <? else: ?>
         <h3>"<?= $relation->active->name ?>" と "<?= $relation->passive->name ?>" の関係</h3>
         <hr>
+   <?
+            echo $this->Form->control('gluon_type_id', ['options' => $gluon_types, 'empty'=>'選択してください']);
+   ?>
         <?= $relation->active->name . ' は ' . $relation->passive->name . ' ...' ?>
         <?= $this->Form->input('relation', ['class' => 'form-control', 'label' => false]) ?>
    <? endif; ?>

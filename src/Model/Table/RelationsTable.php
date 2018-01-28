@@ -49,6 +49,10 @@ class RelationsTable extends AppTable
 
         $this->addBehavior('Timestamp');
 
+	$this->belongsTo('GluonTypes', [
+            'foreignKey' => 'gluon_type_id',
+        ]);
+
         $this->privacyMode = Configure::read('Belongsto.privacyMode');
 	$this->belongsToActives();
 	$this->belongsToPassives();

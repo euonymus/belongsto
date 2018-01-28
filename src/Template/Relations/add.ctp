@@ -7,6 +7,8 @@
         <legend><?= __('Add New Gluon') ?></legend>
         <div class="form-group">
         <?
+            echo $this->Form->control('gluon_type_id', ['options' => $gluon_types, 'empty'=>'選択してください']);
+            echo '<br>';
             echo $this->Form->input('passive', ['type' => 'text', 'class' => 'form-control']);
             echo $this->Form->input('relation', ['class' => 'form-control']);
             echo $this->Form->input('suffix', ['class' => 'form-control']);

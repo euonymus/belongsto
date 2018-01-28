@@ -148,6 +148,7 @@ class RelationsController extends AppController
 
 
 	$title = 'Add new gluon';
+	$this->set('gluon_types', $this->Relations->GluonTypes->find('list'));
         $this->set(compact('relation', 'active', 'passives', 'title'));
         $this->set('_serialize', ['relation']);
     }
@@ -198,6 +199,7 @@ class RelationsController extends AppController
 
 	$title = 'Edit gluon';
 
+	$this->set('gluon_types', $this->Relations->GluonTypes->find('list')->order('sort'));
         $this->set(compact('relation', 'actives', 'passives', 'title'));
         $this->set('_serialize', ['relation']);
     }
