@@ -9,6 +9,12 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class QuarkTypesFixture extends TestFixture
 {
+
+    /**
+     * Import
+     *
+     * @var array
+     */
     public $import = ['table' => 'quark_types'];
 
     /**
@@ -25,8 +31,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 1,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 2,
@@ -36,8 +43,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'birthDate',
             'end_prop' => 'deathDate',
             'has_gender' => 1,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 2,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 3,
@@ -47,8 +55,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'dateCreated',
             'end_prop' => 'expires',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 37,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 4,
@@ -58,8 +67,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'dateCreated',
             'end_prop' => 'expires',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 13,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 5,
@@ -69,8 +79,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'datePublished',
             'end_prop' => 'expires',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 7,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 6,
@@ -80,8 +91,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'datePublished',
             'end_prop' => 'expires',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 38,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 7,
@@ -91,8 +103,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'datePublished',
             'end_prop' => 'expires',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 39,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 8,
@@ -102,8 +115,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'datePublished',
             'end_prop' => 'expires',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 12,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 9,
@@ -113,8 +127,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'datePublished',
             'end_prop' => 'expires',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 11,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 10,
@@ -124,8 +139,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'datePublished',
             'end_prop' => 'expires',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 6,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 11,
@@ -135,8 +151,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'datePublished',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 41,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 12,
@@ -146,8 +163,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'datePublished',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 40,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 13,
@@ -157,8 +175,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'datePublished',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 42,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 14,
@@ -168,8 +187,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'datePublished',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 9,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 15,
@@ -179,8 +199,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'datePublished',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 10,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 16,
@@ -190,8 +211,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 14,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 17,
@@ -201,8 +223,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 17,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 18,
@@ -212,8 +235,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 18,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 19,
@@ -223,8 +247,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 35,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 20,
@@ -234,8 +259,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 27,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 21,
@@ -245,8 +271,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 28,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 22,
@@ -256,8 +283,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 19,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 23,
@@ -267,8 +295,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 3,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 24,
@@ -278,8 +307,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 29,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 25,
@@ -289,8 +319,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 4,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 26,
@@ -300,8 +331,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 25,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 27,
@@ -311,8 +343,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 23,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 28,
@@ -322,8 +355,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 24,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 29,
@@ -333,8 +367,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 26,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 30,
@@ -344,8 +379,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 22,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 31,
@@ -355,8 +391,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 5,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 32,
@@ -366,8 +403,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 30,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 33,
@@ -377,8 +415,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 31,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 34,
@@ -388,8 +427,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 21,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 35,
@@ -399,8 +439,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 15,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 36,
@@ -410,8 +451,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 20,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 37,
@@ -421,8 +463,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 34,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 38,
@@ -432,8 +475,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 8,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 39,
@@ -443,8 +487,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 32,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 40,
@@ -454,14 +499,10 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'foundingDate',
             'end_prop' => 'dissolutionDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 33,
+            'created' => null,
+            'modified' => null
         ],
-
-
-
-
-
         [
             'id' => 41,
             'name' => 'Place',
@@ -470,8 +511,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 43,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 42,
@@ -481,8 +523,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 44,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 43,
@@ -492,8 +535,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 45,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 44,
@@ -503,8 +547,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 46,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 45,
@@ -514,8 +559,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 47,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 46,
@@ -525,8 +571,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 48,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 47,
@@ -536,8 +583,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 49,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 48,
@@ -547,8 +595,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 50,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 49,
@@ -558,8 +607,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 16,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 50,
@@ -569,8 +619,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 51,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 51,
@@ -580,8 +631,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 52,
+            'created' => null,
+            'modified' => null
         ],
         [
             'id' => 52,
@@ -591,9 +643,9 @@ class QuarkTypesFixture extends TestFixture
             'start_prop' => 'startDate',
             'end_prop' => 'endDate',
             'has_gender' => 0,
-            'created' => NULL,
-            'modified' => NULL
+            'sort' => 36,
+            'created' => null,
+            'modified' => null
         ],
-
     ];
 }

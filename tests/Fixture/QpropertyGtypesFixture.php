@@ -21,7 +21,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 1,
             'quark_property_id' => 1,
             'gluon_type_id' => 1,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -29,7 +29,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 2,
             'quark_property_id' => 2,
             'gluon_type_id' => 15,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -37,7 +37,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 3,
             'quark_property_id' => 2,
             'gluon_type_id' => 16,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -45,7 +45,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 4,
             'quark_property_id' => 3,
             'gluon_type_id' => 2,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -53,7 +53,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 5,
             'quark_property_id' => 3,
             'gluon_type_id' => 3,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -61,7 +61,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 6,
             'quark_property_id' => 3,
             'gluon_type_id' => 4,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -69,7 +69,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 7,
             'quark_property_id' => 4,
             'gluon_type_id' => 5,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -77,7 +77,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 8,
             'quark_property_id' => 4,
             'gluon_type_id' => 6,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -85,7 +85,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 9,
             'quark_property_id' => 4,
             'gluon_type_id' => 7,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -93,7 +93,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 10,
             'quark_property_id' => 4,
             'gluon_type_id' => 8,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -101,7 +101,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 11,
             'quark_property_id' => 5,
             'gluon_type_id' => 2,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -109,7 +109,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 12,
             'quark_property_id' => 5,
             'gluon_type_id' => 3,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -117,7 +117,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 13,
             'quark_property_id' => 5,
             'gluon_type_id' => 4,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -125,7 +125,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 14,
             'quark_property_id' => 6,
             'gluon_type_id' => 14,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -133,7 +133,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 15,
             'quark_property_id' => 6,
             'gluon_type_id' => 9,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -141,7 +141,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 16,
             'quark_property_id' => 6,
             'gluon_type_id' => 10,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -149,7 +149,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 17,
             'quark_property_id' => 6,
             'gluon_type_id' => 11,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -157,7 +157,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 18,
             'quark_property_id' => 6,
             'gluon_type_id' => 12,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -165,7 +165,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 19,
             'quark_property_id' => 6,
             'gluon_type_id' => 13,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -173,7 +173,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 20,
             'quark_property_id' => 7,
             'gluon_type_id' => 27,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -181,7 +181,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 21,
             'quark_property_id' => 8,
             'gluon_type_id' => 23,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -189,7 +189,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 22,
             'quark_property_id' => 8,
             'gluon_type_id' => 24,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -197,7 +197,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 23,
             'quark_property_id' => 8,
             'gluon_type_id' => 25,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -205,7 +205,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 24,
             'quark_property_id' => 9,
             'gluon_type_id' => 28,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -213,7 +213,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 25,
             'quark_property_id' => 10,
             'gluon_type_id' => 29,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -221,7 +221,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 26,
             'quark_property_id' => 11,
             'gluon_type_id' => 26,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -229,7 +229,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 27,
             'quark_property_id' => 11,
             'gluon_type_id' => 30,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -237,7 +237,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 28,
             'quark_property_id' => 11,
             'gluon_type_id' => 31,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -245,7 +245,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 29,
             'quark_property_id' => 11,
             'gluon_type_id' => 32,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -253,7 +253,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 30,
             'quark_property_id' => 11,
             'gluon_type_id' => 33,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -261,7 +261,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 31,
             'quark_property_id' => 11,
             'gluon_type_id' => 34,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -269,7 +269,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 32,
             'quark_property_id' => 11,
             'gluon_type_id' => 35,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -277,7 +277,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 33,
             'quark_property_id' => 12,
             'gluon_type_id' => 63,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -285,7 +285,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 34,
             'quark_property_id' => 13,
             'gluon_type_id' => 46,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -293,7 +293,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 35,
             'quark_property_id' => 13,
             'gluon_type_id' => 48,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -301,7 +301,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 36,
             'quark_property_id' => 13,
             'gluon_type_id' => 47,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -309,7 +309,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 37,
             'quark_property_id' => 14,
             'gluon_type_id' => 22,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -317,7 +317,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 38,
             'quark_property_id' => 14,
             'gluon_type_id' => 17,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -325,7 +325,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 39,
             'quark_property_id' => 14,
             'gluon_type_id' => 18,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -333,7 +333,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 40,
             'quark_property_id' => 14,
             'gluon_type_id' => 19,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -341,7 +341,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 41,
             'quark_property_id' => 14,
             'gluon_type_id' => 20,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -349,7 +349,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 42,
             'quark_property_id' => 14,
             'gluon_type_id' => 21,
-            'is_passive' => 0,
+            'sides' => 0,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -357,7 +357,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 43,
             'quark_property_id' => 15,
             'gluon_type_id' => 54,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -365,7 +365,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 44,
             'quark_property_id' => 16,
             'gluon_type_id' => 55,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -373,7 +373,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 45,
             'quark_property_id' => 17,
             'gluon_type_id' => 61,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -381,7 +381,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 46,
             'quark_property_id' => 18,
             'gluon_type_id' => 59,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -389,7 +389,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 47,
             'quark_property_id' => 19,
             'gluon_type_id' => 57,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -397,7 +397,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 48,
             'quark_property_id' => 20,
             'gluon_type_id' => 65,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -405,7 +405,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 49,
             'quark_property_id' => 21,
             'gluon_type_id' => 66,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -413,7 +413,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 50,
             'quark_property_id' => 22,
             'gluon_type_id' => 58,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -421,7 +421,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 51,
             'quark_property_id' => 23,
             'gluon_type_id' => 62,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -429,7 +429,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 52,
             'quark_property_id' => 25,
             'gluon_type_id' => 60,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -437,7 +437,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 53,
             'quark_property_id' => 26,
             'gluon_type_id' => 67,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -445,7 +445,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 54,
             'quark_property_id' => 27,
             'gluon_type_id' => 56,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -453,7 +453,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 55,
             'quark_property_id' => 28,
             'gluon_type_id' => 67,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -461,7 +461,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 56,
             'quark_property_id' => 29,
             'gluon_type_id' => 71,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -469,7 +469,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 57,
             'quark_property_id' => 30,
             'gluon_type_id' => 70,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -477,7 +477,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 58,
             'quark_property_id' => 31,
             'gluon_type_id' => 53,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -485,7 +485,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 59,
             'quark_property_id' => 32,
             'gluon_type_id' => 63,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -493,7 +493,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 60,
             'quark_property_id' => 33,
             'gluon_type_id' => 23,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -501,7 +501,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 61,
             'quark_property_id' => 33,
             'gluon_type_id' => 24,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -509,7 +509,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 62,
             'quark_property_id' => 33,
             'gluon_type_id' => 25,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -517,7 +517,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 63,
             'quark_property_id' => 34,
             'gluon_type_id' => 52,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -525,7 +525,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 64,
             'quark_property_id' => 35,
             'gluon_type_id' => 51,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -533,7 +533,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 65,
             'quark_property_id' => 36,
             'gluon_type_id' => 28,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -541,7 +541,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 66,
             'quark_property_id' => 37,
             'gluon_type_id' => 70,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -549,7 +549,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 67,
             'quark_property_id' => 38,
             'gluon_type_id' => 36,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -557,7 +557,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 68,
             'quark_property_id' => 39,
             'gluon_type_id' => 42,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -565,7 +565,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 69,
             'quark_property_id' => 40,
             'gluon_type_id' => 26,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -573,7 +573,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 70,
             'quark_property_id' => 40,
             'gluon_type_id' => 30,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -581,7 +581,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 71,
             'quark_property_id' => 40,
             'gluon_type_id' => 31,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -589,7 +589,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 72,
             'quark_property_id' => 40,
             'gluon_type_id' => 32,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -597,7 +597,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 73,
             'quark_property_id' => 40,
             'gluon_type_id' => 33,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -605,7 +605,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 74,
             'quark_property_id' => 40,
             'gluon_type_id' => 34,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -613,7 +613,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 75,
             'quark_property_id' => 40,
             'gluon_type_id' => 35,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -621,7 +621,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 76,
             'quark_property_id' => 41,
             'gluon_type_id' => 44,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -629,7 +629,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 77,
             'quark_property_id' => 41,
             'gluon_type_id' => 45,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -637,7 +637,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 78,
             'quark_property_id' => 41,
             'gluon_type_id' => 50,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -645,7 +645,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 79,
             'quark_property_id' => 41,
             'gluon_type_id' => 43,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -653,7 +653,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 80,
             'quark_property_id' => 41,
             'gluon_type_id' => 49,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -661,7 +661,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 81,
             'quark_property_id' => 42,
             'gluon_type_id' => 44,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -669,7 +669,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 82,
             'quark_property_id' => 42,
             'gluon_type_id' => 45,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -677,7 +677,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 83,
             'quark_property_id' => 42,
             'gluon_type_id' => 50,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -685,7 +685,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 84,
             'quark_property_id' => 42,
             'gluon_type_id' => 43,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -693,7 +693,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 85,
             'quark_property_id' => 42,
             'gluon_type_id' => 49,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -701,7 +701,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 86,
             'quark_property_id' => 43,
             'gluon_type_id' => 56,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -709,7 +709,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 87,
             'quark_property_id' => 45,
             'gluon_type_id' => 64,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -717,7 +717,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 88,
             'quark_property_id' => 46,
             'gluon_type_id' => 41,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -725,7 +725,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 89,
             'quark_property_id' => 47,
             'gluon_type_id' => 68,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -733,7 +733,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 90,
             'quark_property_id' => 47,
             'gluon_type_id' => 69,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -741,7 +741,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 91,
             'quark_property_id' => 48,
             'gluon_type_id' => 37,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -749,7 +749,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 92,
             'quark_property_id' => 48,
             'gluon_type_id' => 38,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -757,7 +757,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 93,
             'quark_property_id' => 48,
             'gluon_type_id' => 40,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -765,7 +765,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 94,
             'quark_property_id' => 48,
             'gluon_type_id' => 39,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -773,7 +773,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 95,
             'quark_property_id' => 48,
             'gluon_type_id' => 76,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -781,7 +781,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 96,
             'quark_property_id' => 48,
             'gluon_type_id' => 77,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -789,7 +789,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 97,
             'quark_property_id' => 48,
             'gluon_type_id' => 79,
-            'is_passive' => 1,
+            'sides' => 1,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -797,7 +797,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 98,
             'quark_property_id' => 49,
             'gluon_type_id' => 37,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -805,7 +805,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 99,
             'quark_property_id' => 49,
             'gluon_type_id' => 38,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -813,7 +813,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 100,
             'quark_property_id' => 49,
             'gluon_type_id' => 40,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
@@ -821,7 +821,7 @@ class QpropertyGtypesFixture extends TestFixture
             'id' => 101,
             'quark_property_id' => 49,
             'gluon_type_id' => 39,
-            'is_passive' => 2,
+            'sides' => 2,
             'created' => NULL,
             'modified' => NULL
         ],
