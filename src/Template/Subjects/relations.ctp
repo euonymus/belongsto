@@ -1,4 +1,7 @@
 <?= $this->Html->meta('canonical', $canonical, ['rel' => 'canonical', 'type' => null, 'title' => null, 'block' => true]) ?>
+<?
+//debug($subject->quark_properties);
+?>
 <div class="row">
   <div class="col-md-3 card subject-main">
 

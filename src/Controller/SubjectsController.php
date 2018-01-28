@@ -92,6 +92,7 @@ class SubjectsController extends AppController
 	$contain['Passives'] = function ($q) {
 	  return $q->where(['Relations.baryon_id is NULL']);
 	};
+	$contain[] = 'QuarkProperties';
 
 	try {
 	  \App\Model\Table\SubjectsTable::$cachedRead = true;

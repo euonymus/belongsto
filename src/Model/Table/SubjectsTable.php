@@ -102,6 +102,13 @@ class SubjectsTable extends AppTable
 	$this->belongsTo('QuarkTypes', [
             'foreignKey' => 'quark_type_id',
         ]);
+	// These are the properties the quark type contains through gluon
+        $this->belongsToMany('QuarkProperties', [
+	    'through' => 'QtypeProperties',
+	    // somehow foreignKey, bindingKey both are needed to be quark_type_id
+            'foreignKey' => 'quark_type_id',
+            'bindingKey' => 'quark_type_id',
+        ]);
 
 	$this->belongsToManyPassives();
 	$this->belongsToManyActives();
