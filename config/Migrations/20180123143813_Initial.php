@@ -80,6 +80,12 @@ class Initial extends AbstractMigration
                 'limit' => 255,
                 'null' => false,
             ])
+            ->addColumn('sort', 'integer', [
+                'default' => '0',
+                'limit' => 11,
+                'null' => false,
+                'signed' => false,
+            ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
                 'limit' => null,
@@ -682,6 +688,12 @@ class Initial extends AbstractMigration
             ->addColumn('has_gender', 'integer', [
                 'default' => '0',
                 'limit' => 3,
+                'null' => false,
+                'signed' => false,
+            ])
+            ->addColumn('sort', 'integer', [
+                'default' => '0',
+                'limit' => 11,
                 'null' => false,
                 'signed' => false,
             ])
