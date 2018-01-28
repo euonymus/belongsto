@@ -526,11 +526,12 @@ class Initial extends AbstractMigration
                 'null' => false,
                 'signed' => false,
             ])
-            ->addColumn('sides', 'boolean', [
+            ->addColumn('sides', 'integer', [
                 'comment' => '0: both, 1: A ->, 2: B -> A',
-                'default' => false,
-                'limit' => null,
+                'default' => '0',
+                'limit' => 11,
                 'null' => false,
+                'signed' => false,
             ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
