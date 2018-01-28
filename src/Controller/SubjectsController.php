@@ -125,6 +125,8 @@ class SubjectsController extends AppController
 	$domain = Router::url('/', true);
 	$canonical = $domain . 'subjects/relations/' . $name . $second_type_path;
 
+        $QpropertyGtypes = TableRegistry::get('QpropertyGtypes');
+	$this->set('qproperty_gtypes', $QpropertyGtypes->find());
         $this->set(compact('subject', 'second_type', 'title', 'canonical'));
         $this->set('_serialize', ['subject']);
     }

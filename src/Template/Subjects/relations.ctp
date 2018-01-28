@@ -1,7 +1,4 @@
 <?= $this->Html->meta('canonical', $canonical, ['rel' => 'canonical', 'type' => null, 'title' => null, 'block' => true]) ?>
-<?
-//debug($subject->quark_properties);
-?>
 <div class="row">
   <div class="col-md-3 card subject-main">
 
@@ -45,6 +42,44 @@
     </div>
   </div>
 
+ <? /*
+ <? debug($qproperty_gtypes->toArray()); ?>
+ <? foreach ($qproperty_gtypes as $hoge): ?>
+ <? debug($hoge); ?>
+ <? endforeach; ?>
+*/?>
+<? /*********** start **********/ ?>
+  <div class="col-md-9 subject-relation-list">
+<? foreach ($subject->quark_properties as $quark_property): ?>
+   <?
+     $candidates = [];
+     foreach ($qproperty_gtypes as $qproperty_gtype) {
+       if ($quark_property->id == $qproperty_gtype->quark_property_id) {
+         $candidates[$qproperty_gtype->gluon_type_id] = $qproperty_gtype->sides;
+       }
+     }
+     debug($candidates);
+   ?>
+
+
+   <h3><?= $this->LangMngr->txt($quark_property->caption, $quark_property->caption_ja); ?></h3>
+    <div class="related">
+<div class="well subject-relation">
+<?= $quark_property->name ?>
+   <? foreach ($subject->passives as $relation): ?>
+   <? //debug($relation->_joinData->gluon_type_id); ?>
+   <? endforeach; ?>
+</div>
+    </div>
+<? endforeach; ?>
+  </div>
+<? /*********** end **********/ ?>
+
+
+
+
+
+
   <div class="col-md-9 subject-relation-list">
 
     <ul class="nav nav-pills">
@@ -58,6 +93,7 @@
           <?= $this->Html->link('None', ['controller' => 'subjects', 'action' => 'relations', $subject->name, 'none']); ?>
       </li>
     </ul>
+
 
 <? if ($subject->passives): ?>
     <h2><?
