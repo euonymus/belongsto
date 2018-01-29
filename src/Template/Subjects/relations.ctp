@@ -42,22 +42,15 @@
     </div>
   </div>
 
- <? /*
- <? debug($qproperty_gtypes->toArray()); ?>
- <? foreach ($qproperty_gtypes as $hoge): ?>
- <? debug($hoge); ?>
- <? endforeach; ?>
-*/?>
 <? /*********** start **********/ ?>
   <div class="col-md-9 subject-relation-list">
   <? foreach ($subject->quark_properties as $quark_property): ?>
 
    <?
+
      $candidates = [];
      foreach ($qproperty_gtypes as $qproperty_gtype) {
-       if ($quark_property->id == $qproperty_gtype->quark_property_id) {
-         $candidates[$qproperty_gtype->gluon_type_id] = $qproperty_gtype->sides;
-       }
+       $candidates += $qproperty_gtype->arrForProp($quark_property->id);
      }
    ?>
        <? $relation_candidates = []; ?>
@@ -78,7 +71,7 @@
        <? endforeach; ?>
 
    <? if (!empty($relation_candidates)): ?>
-   <h3><?= $this->LangMngr->txt($quark_property->caption, $quark_property->caption_ja); ?></h3>
+   <h2><?= $this->LangMngr->txt($quark_property->caption, $quark_property->caption_ja); ?></h2>
    <div class="related">
        <div class="well subject-relation">
 

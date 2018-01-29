@@ -32,4 +32,10 @@ class QpropertyGtype extends Entity
         '*' => true,
         'id' => false
     ];
+
+    public function arrForProp($quark_property_id)
+    {
+      if ($quark_property_id != $this->quark_property_id) return [];
+      return [$this->gluon_type_id => $this->sides];
+    }
 }
