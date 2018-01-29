@@ -168,11 +168,11 @@ class Subject extends Entity
     /***********************************/
     const SIDES_FORWARD  = 1;
     const SIDES_BACKWARD = 2;
-    public function filterForGluonType($gluonTypeArr, $sides)
+    public function filterForGluonType($gluonTypeArr, $targetSides)
     {
-      if (!in_array($sides, [self::SIDES_FORWARD, self::SIDES_BACKWARD])) return false;
+      if (!in_array($targetSides, [self::SIDES_FORWARD, self::SIDES_BACKWARD])) return false;
       foreach ($gluonTypeArr as $gluon_type_id => $sides) {
-	if (($this->_joinData->gluon_type_id == $gluon_type_id) && in_array($sides, [0,$sides])) {
+	if (($this->_joinData->gluon_type_id == $gluon_type_id) && in_array($sides, [0,$targetSides])) {
 	  return $this;
 	}
       }

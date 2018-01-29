@@ -1,6 +1,3 @@
-<?
-namespace App\Model\Entity;
-?>
 <?= $this->Html->meta('canonical', $canonical, ['rel' => 'canonical', 'type' => null, 'title' => null, 'block' => true]) ?>
 <div class="row">
   <div class="col-md-3 card subject-main">
@@ -45,51 +42,6 @@ namespace App\Model\Entity;
     </div>
   </div>
 
-<? /*********** start **********/ ?>
-  <div class="col-md-9 subject-relation-list">
-  <? foreach ($subject->quark_properties as $quark_property): ?>
-   <?
-     $candidates = [];
-     foreach ($qproperty_gtypes as $qproperty_gtype) {
-       $candidates += $qproperty_gtype->arrForProp($quark_property->id);
-     }
-     $relation_candidates = [];
-     foreach ($subject->passives as $relation) {
-       if ($relation->filterForGluonType($candidates, Subject::SIDES_FORWARD)) {
-	 $relation_candidates[] = ['relation' => $relation, 'sides' => Subject::SIDES_FORWARD];
-       }
-     }
-     foreach ($subject->actives as $relation) {
-       if ($relation->filterForGluonType($candidates, Subject::SIDES_BACKWARD)) {
-	 $relation_candidates[] = ['relation' => $relation, 'sides' => Subject::SIDES_BACKWARD];
-       }
-     }
-   ?>
-
-   <? if (!empty($relation_candidates)): ?>
-   <h2><?= $this->LangMngr->txt($quark_property->caption, $quark_property->caption_ja); ?></h2>
-   <div class="related">
-       <div class="well subject-relation">
-
-         <? foreach ($relation_candidates as $relation_candidate): ?>
-             <? $isPassive = ($relation_candidate['sides'] == Subject::SIDES_FORWARD) ? false : true;
-                $relation = $relation_candidate['relation']; ?>
-             <?= $this->element('subject_box', compact(['subject', 'relation', 'isPassive'])) ?>
-         <? endforeach; ?>
-
-       </div>
-    </div>
-    <? endif; ?>
-
-  <? endforeach; ?>
-  </div>
-<? /*********** end **********/ ?>
-
-
-
-
-
-
   <div class="col-md-9 subject-relation-list">
 
     <ul class="nav nav-pills">
@@ -105,25 +57,50 @@ namespace App\Model\Entity;
     </ul>
 
 
-<? if ($subject->passives): ?>
+<?
+$usedList = [];
+foreach ($subject->quark_properties as $quark_property) {
+  $targetGluons = $quark_property->targetGluons($subject, $qproperty_gtypes);
+  $usedList = array_merge($usedList, $targetGluons);
+  echo $this->element('quark_property_box', compact(['quark_property', 'targetGluons']));
+}
+$passives = [];
+foreach($subject->passives as $passive) {
+  $flg = true;
+  foreach($usedList as $used) {
+    if ($passive->id == $used['relation']->id) $flg = false;
+  }
+  if ($flg) $passives[] = $passive;
+}
+$actives = [];
+foreach($subject->actives as $active) {
+  $flg = true;
+  foreach($usedList as $used) {
+    if ($active->id == $used['relation']->id) $flg = false;
+  }
+  if ($flg) $actives[] = $active;
+}
+?>
+
+<? if ($passives): ?>
     <h2><?
    $en = 'What is ' . $subject->name . '?';
    $ja = $subject->name . 'とは';
    echo $this->LangMngr->txt($en, $ja);
 ?></h2>
     <div class="related">
-        <?= $this->element('subject_boxes', ['subject' => $subject, 'relations' => $subject->passives]) ?>
+        <?= $this->element('subject_boxes', ['subject' => $subject, 'relations' => $passives]) ?>
     </div>
 <? endif; ?>
 
-<? if ($subject->actives): ?>
+<? if ($actives): ?>
     <h2><?
    $en = 'Quarks Related to ' . $subject->name;
    $ja = $subject->name . 'に関する事項';
    echo $this->LangMngr->txt($en, $ja);
 ?></h2>
     <div class="related">
-        <?= $this->element('subject_boxes', ['subject' => $subject, 'relations' => $subject->actives, 'isPassive' => true]) ?>
+        <?= $this->element('subject_boxes', ['subject' => $subject, 'relations' => $actives, 'isPassive' => true]) ?>
     </div>
 <? endif; ?>
 
