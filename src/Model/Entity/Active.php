@@ -22,7 +22,8 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Relation[] $relations
  */
-class Active extends Entity
+//class Active extends Entity
+class Active extends Subject
 {
 
     /**

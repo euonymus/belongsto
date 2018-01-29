@@ -162,4 +162,20 @@ class Subject extends Entity
     {
       return in_array($type, self::$typeListHuman);
     }
+
+    /***********************************/
+    /* schema_org                      */
+    /***********************************/
+    const SIDES_FORWARD  = 1;
+    const SIDES_BACKWARD = 2;
+    public function filterForGluonType($gluonTypeArr, $sides)
+    {
+      if (!in_array($sides, [self::SIDES_FORWARD, self::SIDES_BACKWARD])) return false;
+      foreach ($gluonTypeArr as $gluon_type_id => $sides) {
+	if (($this->_joinData->gluon_type_id == $gluon_type_id) && in_array($sides, [0,$sides])) {
+	  return $this;
+	}
+      }
+      return false;
+    }
 }

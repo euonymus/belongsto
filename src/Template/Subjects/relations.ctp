@@ -1,3 +1,6 @@
+<?
+namespace App\Model\Entity;
+?>
 <?= $this->Html->meta('canonical', $canonical, ['rel' => 'canonical', 'type' => null, 'title' => null, 'block' => true]) ?>
 <div class="row">
   <div class="col-md-3 card subject-main">
@@ -45,38 +48,32 @@
 <? /*********** start **********/ ?>
   <div class="col-md-9 subject-relation-list">
   <? foreach ($subject->quark_properties as $quark_property): ?>
-
    <?
-
      $candidates = [];
      foreach ($qproperty_gtypes as $qproperty_gtype) {
        $candidates += $qproperty_gtype->arrForProp($quark_property->id);
      }
+     $relation_candidates = [];
+     foreach ($subject->passives as $relation) {
+       if ($relation->filterForGluonType($candidates, Subject::SIDES_FORWARD)) {
+	 $relation_candidates[] = ['relation' => $relation, 'sides' => Subject::SIDES_FORWARD];
+       }
+     }
+     foreach ($subject->actives as $relation) {
+       if ($relation->filterForGluonType($candidates, Subject::SIDES_BACKWARD)) {
+	 $relation_candidates[] = ['relation' => $relation, 'sides' => Subject::SIDES_BACKWARD];
+       }
+     }
    ?>
-       <? $relation_candidates = []; ?>
-       <? foreach ($subject->passives as $relation): ?>
-         <? foreach ($candidates as $key => $candidate): ?>
-          <? if (($relation->_joinData->gluon_type_id == $key) && in_array($candidate, [0,1])): ?>
-             <? $relation_candidates[] = $relation; ?>
-           <? endif; ?>
-         <? endforeach; ?>
-       <? endforeach; ?>
-
-       <? foreach ($subject->actives as $relation): ?>
-         <? foreach ($candidates as $key => $candidate): ?>
-          <? if (($relation->_joinData->gluon_type_id == $key) && in_array($candidate, [0,2])): ?>
-             <? $relation_candidates[] = $relation; ?>
-           <? endif; ?>
-         <? endforeach; ?>
-       <? endforeach; ?>
 
    <? if (!empty($relation_candidates)): ?>
    <h2><?= $this->LangMngr->txt($quark_property->caption, $quark_property->caption_ja); ?></h2>
    <div class="related">
        <div class="well subject-relation">
 
-         <? foreach ($relation_candidates as $relation): ?>
-             <? $isPassive = true; ?>
+         <? foreach ($relation_candidates as $relation_candidate): ?>
+             <? $isPassive = ($relation_candidate['sides'] == Subject::SIDES_FORWARD) ? false : true;
+                $relation = $relation_candidate['relation']; ?>
              <?= $this->element('subject_box', compact(['subject', 'relation', 'isPassive'])) ?>
          <? endforeach; ?>
 
