@@ -2,15 +2,17 @@
   if (!isset($isPassive)) $isPassive = false;
   if ($isPassive) {
     $type = 2;
+    if (!isset($colorType)) $colorType = 2;
   } else {
     $type = 1;
+    if (!isset($colorType)) $colorType = 1;
   }
   $name = $subject->name;
   $relation_object = $relation;
   $relation_text = $relation->_joinData->relation;
   $suffix = $relation->_joinData->suffix;
 ?>
-<div class="subject-relation <? if ($type == 1) echo 'white'; ?>">
+<div class="subject-relation <? if ($colorType == 1) echo 'white'; ?>">
     <div class="subject-relation-main">
         <div class="media">
           <div class="media-left subject-image">
@@ -87,7 +89,7 @@
 ?>
     <? if (!empty($secRelations)): ?>
     <div class="subject-relation-sub">
-      <div class="well <? if ($type == 2) echo 'white'; ?>">
+      <div class="well <? if ($colorType == 2) echo 'white'; ?>">
         <h4><?
     if ($second_type == 'active') {
       $en = 'What is ' . $relation_object->name . '?';
