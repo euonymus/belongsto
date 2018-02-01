@@ -68,7 +68,7 @@ $passives = [];
 foreach($subject->passives as $passive) {
   $flg = true;
   foreach($usedList as $used) {
-    if ($passive->id == $used['relation']->id) $flg = false;
+    if ($passive->_joinData->id == $used['relation']->_joinData->id) $flg = false;
   }
   if ($flg) $passives[] = $passive;
 }
@@ -76,7 +76,7 @@ $actives = [];
 foreach($subject->actives as $active) {
   $flg = true;
   foreach($usedList as $used) {
-    if ($active->id == $used['relation']->id) $flg = false;
+    if ($active->_joinData->id == $used['relation']->_joinData->id) $flg = false;
   }
   if ($flg) $actives[] = $active;
 }
