@@ -527,7 +527,7 @@ class Initial extends AbstractMigration
                 'signed' => false,
             ])
             ->addColumn('sides', 'integer', [
-                'comment' => '0: both, 1: A ->, 2: B -> A',
+                'comment' => '0: both, 1: A -> B, 2: B -> A',
                 'default' => '0',
                 'limit' => 11,
                 'null' => false,
