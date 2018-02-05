@@ -1,3 +1,6 @@
+このリポジトリは旧版であり、もう利用されていません。
+=======
+
 # gluons
 gluons is a database searvice to hold the all relations among everything in the universe.
 
